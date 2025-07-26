@@ -232,6 +232,13 @@ body {
     margin-bottom: 30px;
 }
 
+.empty-state {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
 /* Note Card Styles */
 .note-card {
     background: var(--bg-card);
@@ -485,13 +492,6 @@ body {
 
 .note-card.shake {
     animation: shake 0.5s ease-in-out;
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-secondary);
 }
 
 .empty-state i {

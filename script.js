@@ -149,6 +149,7 @@ class NotesApp {
         });
 
         this.renderNotes(filteredNotes);
+        this.updateEmptyState();
     }
 
     addNote() {
