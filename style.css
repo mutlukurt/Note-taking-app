@@ -155,10 +155,13 @@ body {
     line-height: 1.6;
 }
 
-.rich-editor:empty:before {
-    content: attr(placeholder);
+.rich-editor[contenteditable="true"]:empty:before {
+    content: attr(data-placeholder);
     color: var(--text-secondary);
     pointer-events: none;
+    position: absolute;
+    top: 15px;
+    left: 20px;
 }
 
 .rich-editor img {

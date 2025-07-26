@@ -649,17 +649,76 @@ class NotesApp {
 
     // Rich Text Editor Functions
     executeCommand(command) {
-        document.execCommand(command, false, null);
-        document.getElementById('noteContent').focus();
+        const editor = document.getElementById('noteContent');
+        editor.focus();
+        
+        // If no text is selected, select all text
+        const selection = window.getSelection();
+        if (selection.toString().length === 0) {
+            // If editor is empty, just insert a space and format it
+            if (editor.innerHTML === '' || editor.innerHTML === '<br>') {
+                editor.innerHTML = '&nbsp;';
+                const range = document.createRange();
+                range.selectNodeContents(editor);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+        
+        // Execute the command
+        let success = false;
+        try {
+            success = document.execCommand(command, false, null);
+        } catch (e) {
+            console.log('Command failed:', command, e);
+        }
+        
+        if (!success) {
+            // Fallback for some commands
+            switch (command) {
+                case 'bold':
+                    this.wrapSelection('<strong>', '</strong>');
+                    break;
+                case 'italic':
+                    this.wrapSelection('<em>', '</em>');
+                    break;
+                case 'underline':
+                    this.wrapSelection('<u>', '</u>');
+                    break;
+                case 'strikeThrough':
+                    this.wrapSelection('<strike>', '</strike>');
+                    break;
+            }
+        }
+        
+        this.updateToolbarState();
+    }
+
+    wrapSelection(startTag, endTag) {
+        const selection = window.getSelection();
+        if (selection.toString().length > 0) {
+            const range = selection.getRangeAt(0);
+            const selectedText = range.toString();
+            const newText = startTag + selectedText + endTag;
+            range.deleteContents();
+            range.insertNode(document.createTextNode(newText));
+        }
     }
 
     updateToolbarState() {
-        const editor = document.getElementById('noteContent');
         const buttons = document.querySelectorAll('.toolbar-btn[data-command]');
         
         buttons.forEach(btn => {
             const command = btn.dataset.command;
-            const isActive = document.queryCommandState(command);
+            let isActive = false;
+            
+            try {
+                isActive = document.queryCommandState(command);
+            } catch (e) {
+                // Fallback for unsupported commands
+                isActive = false;
+            }
+            
             btn.classList.toggle('active', isActive);
         });
     }
