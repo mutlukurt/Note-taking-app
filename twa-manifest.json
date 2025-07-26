@@ -1,0 +1,33 @@
+{
+  "packageId": "com.mutlukurt.notalma",
+  "host": "mutlukurt.github.io",
+  "name": "Not Alma Uygulaması",
+  "launcherName": "Not Alma",
+  "display": "standalone",
+  "themeColor": "#667eea",
+  "navigationColor": "#667eea",
+  "backgroundColor": "#ffffff",
+  "enableNotifications": true,
+  "startUrl": "/Note-taking-app/",
+  "iconUrl": "https://mutlukurt.github.io/Note-taking-app/icons/icon-512x512.png",
+  "maskableIconUrl": "https://mutlukurt.github.io/Note-taking-app/icons/icon-512x512.png",
+  "monochromeIconUrl": "https://mutlukurt.github.io/Note-taking-app/icons/icon-512x512.png",
+  "shortcuts": [
+    {
+      "name": "Yeni Not",
+      "shortName": "Yeni Not",
+      "url": "/Note-taking-app/?action=new",
+      "chosenIconUrl": "https://mutlukurt.github.io/Note-taking-app/icons/icon-96x96.png"
+    }
+  ],
+  "shareTarget": {
+    "action": "/Note-taking-app/?action=share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
