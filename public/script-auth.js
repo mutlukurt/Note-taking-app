@@ -1,63 +1,39 @@
 class NotesApp {
     constructor() {
-        this.notes = [];
-        this.currentUser = null;
+        this.notes = JSON.parse(localStorage.getItem('notes')) || [];
         this.currentTheme = localStorage.getItem('theme') || 'light';
-        this.token = localStorage.getItem('token');
         this.init();
     }
 
     init() {
         this.setupEventListeners();
         this.applyTheme();
-        this.checkAuthStatus();
+        this.renderNotes();
+        this.updateEmptyState();
     }
 
     setupEventListeners() {
-        // Authentication form listeners
-        document.getElementById('loginFormElement').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.login();
-        });
-
-        document.getElementById('registerFormElement').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.register();
-        });
-
-        // Form switching
-        document.getElementById('showRegister').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.showRegisterForm();
-        });
-
-        document.getElementById('showLogin').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.showLoginForm();
-        });
-
-        // App functionality
+        // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', () => {
             this.toggleTheme();
         });
 
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            this.logout();
-        });
-
+        // Add note
         document.getElementById('addNote').addEventListener('click', () => {
             this.addNote();
         });
 
+        // Clear form
         document.getElementById('clearForm').addEventListener('click', () => {
             this.clearForm();
         });
 
+        // Search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.searchNotes(e.target.value);
         });
 
-        // Keyboard shortcuts
+        // Enter key to add note
         document.getElementById('noteTitle').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.addNote();
@@ -71,134 +47,27 @@ class NotesApp {
         });
     }
 
-    async checkAuthStatus() {
-        if (this.token) {
-            try {
-                const response = await this.apiCall('/api/profile', 'GET');
-                if (response.user) {
-                    this.currentUser = response.user;
-                    this.showApp();
-                    this.loadNotes();
-                } else {
-                    this.logout();
-                }
-            } catch (error) {
-                this.logout();
-            }
+    toggleTheme() {
+        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', this.currentTheme);
+        this.applyTheme();
+    }
+
+    applyTheme() {
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+
+        if (this.currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            icon.className = 'fas fa-moon';
         } else {
-            this.showAuth();
+            body.classList.remove('dark-mode');
+            icon.className = 'fas fa-sun';
         }
     }
 
-    async login() {
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-
-        if (!email || !password) {
-            this.showNotification('Lütfen tüm alanları doldurun!', 'warning');
-            return;
-        }
-
-        try {
-            const response = await this.apiCall('/api/login', 'POST', { email, password });
-            
-            this.token = response.token;
-            this.currentUser = response.user;
-            
-            localStorage.setItem('token', this.token);
-            localStorage.setItem('user', JSON.stringify(this.currentUser));
-            
-            this.showApp();
-            this.loadNotes();
-            this.showNotification('Başarıyla giriş yapıldı!', 'success');
-            
-        } catch (error) {
-            this.showNotification(error.message || 'Giriş yapılamadı!', 'error');
-        }
-    }
-
-    async register() {
-        const name = document.getElementById('registerName').value;
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-
-        if (!name || !email || !password) {
-            this.showNotification('Lütfen tüm alanları doldurun!', 'warning');
-            return;
-        }
-
-        if (password.length < 6) {
-            this.showNotification('Şifre en az 6 karakter olmalıdır!', 'warning');
-            return;
-        }
-
-        try {
-            const response = await this.apiCall('/api/register', 'POST', { name, email, password });
-            
-            this.token = response.token;
-            this.currentUser = response.user;
-            
-            localStorage.setItem('token', this.token);
-            localStorage.setItem('user', JSON.stringify(this.currentUser));
-            
-            this.showApp();
-            this.loadNotes();
-            this.showNotification('Hesap başarıyla oluşturuldu!', 'success');
-            
-        } catch (error) {
-            this.showNotification(error.message || 'Kayıt yapılamadı!', 'error');
-        }
-    }
-
-    logout() {
-        this.token = null;
-        this.currentUser = null;
-        this.notes = [];
-        
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        
-        this.showAuth();
-        this.showNotification('Çıkış yapıldı!', 'info');
-    }
-
-    showAuth() {
-        document.getElementById('authContainer').classList.remove('hidden');
-        document.getElementById('appContainer').classList.add('hidden');
-        this.showLoginForm();
-    }
-
-    showApp() {
-        document.getElementById('authContainer').classList.add('hidden');
-        document.getElementById('appContainer').classList.remove('hidden');
-        
-        if (this.currentUser) {
-            document.getElementById('userName').textContent = this.currentUser.name;
-        }
-    }
-
-    showLoginForm() {
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('registerForm').classList.add('hidden');
-    }
-
-    showRegisterForm() {
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('registerForm').classList.remove('hidden');
-    }
-
-    async loadNotes() {
-        try {
-            const response = await this.apiCall('/api/notes', 'GET');
-            this.notes = response;
-            this.renderNotes();
-            this.updateEmptyState();
-        } catch (error) {
-            this.showNotification('Notlar yüklenemedi!', 'error');
-        }
-    }
-
-    async addNote() {
+    addNote() {
         const titleInput = document.getElementById('noteTitle');
         const contentInput = document.getElementById('noteContent');
         
@@ -210,38 +79,34 @@ class NotesApp {
             return;
         }
 
-        try {
-            const response = await this.apiCall('/api/notes', 'POST', {
-                title: title || 'Başlıksız Not',
-                content: content || 'İçerik yok'
-            });
+        const note = {
+            id: Date.now(),
+            title: title || 'Başlıksız Not',
+            content: content || 'İçerik yok',
+            date: new Date().toLocaleString('tr-TR'),
+            timestamp: Date.now()
+        };
 
-            this.notes.unshift(response.note);
-            this.renderNotes();
-            this.clearForm();
-            this.updateEmptyState();
-            this.showNotification('Not başarıyla eklendi!', 'success');
-        } catch (error) {
-            this.showNotification('Not eklenemedi!', 'error');
-        }
+        this.notes.unshift(note);
+        this.saveNotes();
+        this.renderNotes();
+        this.clearForm();
+        this.updateEmptyState();
+        this.showNotification('Not başarıyla eklendi!', 'success');
     }
 
-    async deleteNote(id) {
+    deleteNote(id) {
         if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
-            try {
-                await this.apiCall(`/api/notes/${id}`, 'DELETE');
-                this.notes = this.notes.filter(note => note._id !== id);
-                this.renderNotes();
-                this.updateEmptyState();
-                this.showNotification('Not silindi!', 'success');
-            } catch (error) {
-                this.showNotification('Not silinemedi!', 'error');
-            }
+            this.notes = this.notes.filter(note => note.id !== id);
+            this.saveNotes();
+            this.renderNotes();
+            this.updateEmptyState();
+            this.showNotification('Not silindi!', 'success');
         }
     }
 
-    async editNote(id) {
-        const note = this.notes.find(note => note._id === id);
+    editNote(id) {
+        const note = this.notes.find(note => note.id === id);
         if (!note) return;
 
         const titleInput = document.getElementById('noteTitle');
@@ -251,7 +116,8 @@ class NotesApp {
         contentInput.value = note.content;
 
         // Remove the old note
-        this.notes = this.notes.filter(note => note._id !== id);
+        this.notes = this.notes.filter(note => note.id !== id);
+        this.saveNotes();
         this.renderNotes();
         this.updateEmptyState();
 
@@ -298,22 +164,19 @@ class NotesApp {
     createNoteCard(note) {
         const card = document.createElement('div');
         card.className = 'note-card';
-        
-        const date = new Date(note.createdAt).toLocaleString('tr-TR');
-        
         card.innerHTML = `
             <div class="note-header">
                 <div>
                     <h3 class="note-title">${this.escapeHtml(note.title)}</h3>
-                    <div class="note-date">${date}</div>
+                    <div class="note-date">${note.date}</div>
                 </div>
             </div>
             <div class="note-content">${this.escapeHtml(note.content)}</div>
             <div class="note-actions">
-                <button class="action-btn edit" onclick="notesApp.editNote('${note._id}')" title="Düzenle">
+                <button class="action-btn edit" onclick="notesApp.editNote(${note.id})" title="Düzenle">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="action-btn delete" onclick="notesApp.deleteNote('${note._id}')" title="Sil">
+                <button class="action-btn delete" onclick="notesApp.deleteNote(${note.id})" title="Sil">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -334,52 +197,8 @@ class NotesApp {
         }
     }
 
-    toggleTheme() {
-        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        localStorage.setItem('theme', this.currentTheme);
-        this.applyTheme();
-    }
-
-    applyTheme() {
-        const body = document.body;
-        const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
-
-        if (this.currentTheme === 'dark') {
-            body.classList.add('dark-mode');
-            icon.className = 'fas fa-moon';
-        } else {
-            body.classList.remove('dark-mode');
-            icon.className = 'fas fa-sun';
-        }
-    }
-
-    async apiCall(endpoint, method = 'GET', data = null) {
-        const url = endpoint.startsWith('http') ? endpoint : `http://localhost:3000${endpoint}`;
-        
-        const options = {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        };
-
-        if (this.token) {
-            options.headers['Authorization'] = `Bearer ${this.token}`;
-        }
-
-        if (data) {
-            options.body = JSON.stringify(data);
-        }
-
-        const response = await fetch(url, options);
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.message || 'Bir hata oluştu');
-        }
-
-        return result;
+    saveNotes() {
+        localStorage.setItem('notes', JSON.stringify(this.notes));
     }
 
     escapeHtml(text) {
