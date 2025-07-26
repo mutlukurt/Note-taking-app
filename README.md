@@ -12,19 +12,40 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
 - ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
-- 🗑️ **Silme**: Notları güvenli şekilde silme
+- 🗑️ **Silme**: Notları güvenli şekilde silme (swipe ile)
+- 📌 **Sabitleme**: Önemli notları sabitleyebilme
+- 🔄 **Sıralama**: Tarih, başlık ve sabitleme durumuna göre sıralama
+- 🔍 **Filtreleme**: Tüm, sabitlenen ve normal notları filtreleme
 - 💾 **Yerel Depolama**: Notlarınız tarayıcıda güvenli şekilde saklanır
 - 🔔 **Bildirimler**: İşlem sonuçları için güzel bildirimler
 - ⌨️ **Klavye Kısayolları**: Enter ile not ekleme, Ctrl+Enter ile içerik ekleme
+- ✨ **Zengin Metin Editörü**: Kalın, italik, altı çizili, üstü çizili formatlama
+- 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
+- 📐 **Hizalama**: Sola, orta ve sağa hizalama
+- 🖼️ **Fotoğraf Ekleme**: Notlarınıza resim ekleyebilme (5MB'a kadar)
 
 ## 🚀 Kullanım
 
+### 📝 **Temel İşlemler:**
 1. **Not Ekleme**: Başlık ve içerik alanlarını doldurun, "Not Ekle" butonuna tıklayın
 2. **Arama**: Üst kısımdaki arama kutusunu kullanarak notlarınızda arama yapın
 3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
-4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
+4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın veya sola kaydırın
 5. **Tema Değiştirme**: Sağ üst köşedeki güneş/ay ikonuna tıklayın
 6. **Temizleme**: "Temizle" butonu ile formu temizleyin
+
+### ✨ **Zengin Metin Editörü:**
+1. **Metin Formatlama**: Metni seçin ve toolbar'daki butonları kullanın
+   - **B** (Kalın), *I* (İtalik), U (Altı Çizili), ~~S~~ (Üstü Çizili)
+2. **Liste Oluşturma**: • (Madde işaretli) veya 1. (Numaralı) butonları
+3. **Hizalama**: ← (Sola), ↔ (Ortala), → (Sağa) butonları
+4. **Fotoğraf Ekleme**: 🖼️ butonuna tıklayıp resim seçin (5MB'a kadar)
+
+### 📌 **Gelişmiş Özellikler:**
+1. **Sabitleme**: 📌 ikonuna tıklayarak notu sabitleyin
+2. **Sıralama**: "En Yeni", "En Eski", "Başlık" seçenekleri
+3. **Filtreleme**: "Tümü", "Sabitlenenler", "Normal" seçenekleri
+4. **Swipe Silme**: Notu sola kaydırarak silin (4 saniye geri alma)
 
 ## 🎯 Teknolojiler
 
@@ -88,12 +109,17 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Gölgeler**: Derinlik hissi veren gölgeler
 - **Animasyonlar**: Yumuşak geçişler ve hover efektleri
 - **Tipografi**: Modern ve okunabilir fontlar
+- **Zengin Editör**: Profesyonel toolbar tasarımı
+- **Swipe Animasyonları**: Mobil dostu kaydırma efektleri
+- **Pin Göstergeleri**: Özel gradient arka planlar
 
 ## 🔒 Veri Güvenliği
 
 - Notlarınız sadece tarayıcınızda saklanır
 - Hiçbir veri sunucuya gönderilmez
 - LocalStorage kullanılarak güvenli depolama
+- Resimler Base64 formatında şifrelenir
+- Tüm veriler yerel olarak korunur
 
 ## 🚀 Gelecek Özellikler
 
@@ -104,6 +130,10 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - [ ] Not etiketleri
 - [ ] Gelişmiş arama filtreleri
 - [ ] Kullanıcı sistemi (backend ile)
+- [ ] Çoklu dosya yükleme
+- [ ] PDF export
+- [ ] Not şablonları
+- [ ] Otomatik yedekleme
 
 ## 🤝 Katkıda Bulunma
 
