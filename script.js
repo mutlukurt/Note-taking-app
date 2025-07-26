@@ -2,12 +2,17 @@ class NotesApp {
     constructor() {
         this.notes = JSON.parse(localStorage.getItem('notes')) || [];
         this.currentTheme = localStorage.getItem('theme') || 'light';
+        this.currentSort = localStorage.getItem('sort') || 'date-desc';
+        this.currentFilter = localStorage.getItem('filter') || 'all';
+        this.swipeThreshold = 100;
+        this.deleteTimeout = null;
         this.init();
     }
 
     init() {
         this.setupEventListeners();
         this.applyTheme();
+        this.applySortAndFilter();
         this.renderNotes();
         this.updateEmptyState();
     }
@@ -31,6 +36,20 @@ class NotesApp {
         // Search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.searchNotes(e.target.value);
+        });
+
+        // Sort buttons
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.setSort(e.target.dataset.sort);
+            });
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.pin-filter').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.setFilter(e.target.dataset.filter);
+            });
         });
 
         // Enter key to add note
@@ -67,6 +86,71 @@ class NotesApp {
         }
     }
 
+    setSort(sortType) {
+        this.currentSort = sortType;
+        localStorage.setItem('sort', sortType);
+        
+        // Update active button
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-sort="${sortType}"]`).classList.add('active');
+        
+        this.applySortAndFilter();
+    }
+
+    setFilter(filterType) {
+        this.currentFilter = filterType;
+        localStorage.setItem('filter', filterType);
+        
+        // Update active button
+        document.querySelectorAll('.pin-filter').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-filter="${filterType}"]`).classList.add('active');
+        
+        this.applySortAndFilter();
+    }
+
+    applySortAndFilter() {
+        let filteredNotes = [...this.notes];
+
+        // Apply filter
+        switch (this.currentFilter) {
+            case 'pinned':
+                filteredNotes = filteredNotes.filter(note => note.pinned);
+                break;
+            case 'unpinned':
+                filteredNotes = filteredNotes.filter(note => !note.pinned);
+                break;
+            case 'all':
+            default:
+                break;
+        }
+
+        // Apply sort
+        switch (this.currentSort) {
+            case 'date-asc':
+                filteredNotes.sort((a, b) => a.timestamp - b.timestamp);
+                break;
+            case 'date-desc':
+                filteredNotes.sort((a, b) => b.timestamp - a.timestamp);
+                break;
+            case 'title':
+                filteredNotes.sort((a, b) => a.title.localeCompare(b.title));
+                break;
+        }
+
+        // Pin pinned notes to top
+        filteredNotes.sort((a, b) => {
+            if (a.pinned && !b.pinned) return -1;
+            if (!a.pinned && b.pinned) return 1;
+            return 0;
+        });
+
+        this.renderNotes(filteredNotes);
+    }
+
     addNote() {
         const titleInput = document.getElementById('noteTitle');
         const contentInput = document.getElementById('noteContent');
@@ -84,12 +168,13 @@ class NotesApp {
             title: title || 'Başlıksız Not',
             content: content || 'İçerik yok',
             date: new Date().toLocaleString('tr-TR'),
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            pinned: false
         };
 
         this.notes.unshift(note);
         this.saveNotes();
-        this.renderNotes();
+        this.applySortAndFilter();
         this.clearForm();
         this.updateEmptyState();
         this.showNotification('Not başarıyla eklendi!', 'success');
@@ -99,14 +184,84 @@ class NotesApp {
         if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
             this.notes = this.notes.filter(note => note.id !== id);
             this.saveNotes();
-            this.renderNotes();
+            this.applySortAndFilter();
             this.updateEmptyState();
-            this.showNotification('Not silindi!', 'success');
+            this.showNotification('Not başarıyla silindi!', 'success');
+        }
+    }
+
+    swipeDeleteNote(id) {
+        const noteElement = document.querySelector(`[data-note-id="${id}"]`);
+        if (!noteElement) return;
+
+        // Show delete confirmation
+        const confirmation = document.createElement('div');
+        confirmation.className = 'swipe-delete-confirmation';
+        confirmation.innerHTML = `
+            <i class="fas fa-trash"></i>
+            <span>4 saniye içinde geri al</span>
+        `;
+        noteElement.appendChild(confirmation);
+
+        // Start countdown
+        let countdown = 4;
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            confirmation.querySelector('span').textContent = `${countdown} saniye içinde geri al`;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                this.confirmSwipeDelete(id);
+            }
+        }, 1000);
+
+        // Store reference for cancellation
+        this.deleteTimeout = {
+            id: id,
+            element: noteElement,
+            confirmation: confirmation,
+            interval: countdownInterval
+        };
+
+        // Add click to cancel
+        confirmation.addEventListener('click', () => {
+            this.cancelSwipeDelete();
+        });
+    }
+
+    cancelSwipeDelete() {
+        if (this.deleteTimeout) {
+            clearInterval(this.deleteTimeout.interval);
+            this.deleteTimeout.confirmation.remove();
+            this.deleteTimeout.element.classList.remove('swipe-left');
+            this.deleteTimeout = null;
+            this.showNotification('Silme işlemi iptal edildi!', 'info');
+        }
+    }
+
+    confirmSwipeDelete(id) {
+        this.notes = this.notes.filter(note => note.id !== id);
+        this.saveNotes();
+        this.applySortAndFilter();
+        this.updateEmptyState();
+        this.showNotification('Not başarıyla silindi!', 'success');
+    }
+
+    togglePin(id) {
+        const note = this.notes.find(n => n.id === id);
+        if (note) {
+            note.pinned = !note.pinned;
+            this.saveNotes();
+            this.applySortAndFilter();
+            this.showNotification(
+                note.pinned ? 'Not sabitlendi!' : 'Not sabitlemesi kaldırıldı!', 
+                'success'
+            );
         }
     }
 
     editNote(id) {
-        const note = this.notes.find(note => note.id === id);
+        const note = this.notes.find(n => n.id === id);
         if (!note) return;
 
         const titleInput = document.getElementById('noteTitle');
@@ -115,34 +270,65 @@ class NotesApp {
         titleInput.value = note.title;
         contentInput.value = note.content;
 
-        // Remove the old note
-        this.notes = this.notes.filter(note => note.id !== id);
-        this.saveNotes();
-        this.renderNotes();
-        this.updateEmptyState();
+        // Change button text
+        const addButton = document.getElementById('addNote');
+        addButton.innerHTML = '<i class="fas fa-save"></i> Notu Güncelle';
+        addButton.onclick = () => this.updateNote(id);
 
-        // Focus on title input
+        // Scroll to form
+        titleInput.scrollIntoView({ behavior: 'smooth' });
         titleInput.focus();
-        titleInput.select();
+    }
 
-        this.showNotification('Not düzenleme moduna geçildi!', 'info');
+    updateNote(id) {
+        const titleInput = document.getElementById('noteTitle');
+        const contentInput = document.getElementById('noteContent');
+        
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+
+        if (!title && !content) {
+            this.showNotification('Lütfen en az bir başlık veya içerik girin!', 'warning');
+            return;
+        }
+
+        const note = this.notes.find(n => n.id === id);
+        if (note) {
+            note.title = title || 'Başlıksız Not';
+            note.content = content || 'İçerik yok';
+            note.date = new Date().toLocaleString('tr-TR');
+            note.timestamp = Date.now();
+        }
+
+        this.saveNotes();
+        this.applySortAndFilter();
+        this.clearForm();
+        this.showNotification('Not başarıyla güncellendi!', 'success');
+
+        // Reset button
+        const addButton = document.getElementById('addNote');
+        addButton.innerHTML = '<i class="fas fa-plus"></i> Not Ekle';
+        addButton.onclick = () => this.addNote();
     }
 
     clearForm() {
         document.getElementById('noteTitle').value = '';
         document.getElementById('noteContent').value = '';
-        document.getElementById('noteTitle').focus();
+        
+        // Reset button
+        const addButton = document.getElementById('addNote');
+        addButton.innerHTML = '<i class="fas fa-plus"></i> Not Ekle';
+        addButton.onclick = () => this.addNote();
     }
 
     searchNotes(query) {
-        const notesContainer = document.getElementById('notesContainer');
-        const noteCards = notesContainer.querySelectorAll('.note-card');
-
+        const searchTerm = query.toLowerCase();
+        const noteCards = document.querySelectorAll('.note-card');
+        
         noteCards.forEach(card => {
             const title = card.querySelector('.note-title').textContent.toLowerCase();
             const content = card.querySelector('.note-content').textContent.toLowerCase();
-            const searchTerm = query.toLowerCase();
-
+            
             if (title.includes(searchTerm) || content.includes(searchTerm)) {
                 card.style.display = 'block';
             } else {
@@ -151,11 +337,13 @@ class NotesApp {
         });
     }
 
-    renderNotes() {
+    renderNotes(notesToRender = null) {
         const notesContainer = document.getElementById('notesContainer');
         notesContainer.innerHTML = '';
 
-        this.notes.forEach(note => {
+        const notes = notesToRender || this.notes;
+        
+        notes.forEach(note => {
             const noteCard = this.createNoteCard(note);
             notesContainer.appendChild(noteCard);
         });
@@ -163,7 +351,8 @@ class NotesApp {
 
     createNoteCard(note) {
         const card = document.createElement('div');
-        card.className = 'note-card';
+        card.className = `note-card ${note.pinned ? 'pinned' : ''}`;
+        card.setAttribute('data-note-id', note.id);
         card.innerHTML = `
             <div class="note-header">
                 <div>
@@ -173,6 +362,9 @@ class NotesApp {
             </div>
             <div class="note-content">${this.escapeHtml(note.content)}</div>
             <div class="note-actions">
+                <button class="action-btn pin ${note.pinned ? 'pinned' : ''}" onclick="notesApp.togglePin(${note.id})" title="${note.pinned ? 'Sabitlemeyi Kaldır' : 'Sabitle'}">
+                    <i class="fas fa-thumbtack"></i>
+                </button>
                 <button class="action-btn edit" onclick="notesApp.editNote(${note.id})" title="Düzenle">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -181,7 +373,107 @@ class NotesApp {
                 </button>
             </div>
         `;
+
+        // Add swipe functionality
+        this.addSwipeFunctionality(card, note.id);
+
         return card;
+    }
+
+    addSwipeFunctionality(card, noteId) {
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        card.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            card.classList.add('swiping');
+        });
+
+        card.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            
+            if (diffX < 0) { // Swipe left (delete)
+                const translateX = Math.max(diffX, -this.swipeThreshold);
+                card.style.transform = `translateX(${translateX}px)`;
+                
+                if (Math.abs(diffX) >= this.swipeThreshold) {
+                    card.classList.add('swipe-left');
+                } else {
+                    card.classList.remove('swipe-left');
+                }
+            }
+        });
+
+        card.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            card.classList.remove('swiping');
+            
+            const diffX = currentX - startX;
+            
+            if (diffX < -this.swipeThreshold) {
+                // Trigger swipe delete
+                this.swipeDeleteNote(noteId);
+            } else {
+                // Reset position
+                card.style.transform = '';
+                card.classList.remove('swipe-left');
+            }
+        });
+
+        // Mouse events for desktop
+        card.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            card.classList.add('swiping');
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            currentX = e.clientX;
+            const diffX = currentX - startX;
+            
+            if (diffX < 0) { // Swipe left (delete)
+                const translateX = Math.max(diffX, -this.swipeThreshold);
+                card.style.transform = `translateX(${translateX}px)`;
+                
+                if (Math.abs(diffX) >= this.swipeThreshold) {
+                    card.classList.add('swipe-left');
+                } else {
+                    card.classList.remove('swipe-left');
+                }
+            }
+        });
+
+        card.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            card.classList.remove('swiping');
+            
+            const diffX = currentX - startX;
+            
+            if (diffX < -this.swipeThreshold) {
+                // Trigger swipe delete
+                this.swipeDeleteNote(noteId);
+            } else {
+                // Reset position
+                card.style.transform = '';
+                card.classList.remove('swipe-left');
+            }
+        });
+
+        // Prevent text selection during swipe
+        card.addEventListener('selectstart', (e) => {
+            if (isDragging) e.preventDefault();
+        });
     }
 
     updateEmptyState() {
@@ -250,24 +542,12 @@ class NotesApp {
             const style = document.createElement('style');
             style.id = 'notification-styles';
             style.textContent = `
-                @keyframes slideInRight {
-                    from {
-                        opacity: 0;
-                        transform: translateX(100%);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-                
                 .notification-content {
                     display: flex;
                     align-items: center;
                     gap: 10px;
                     flex: 1;
                 }
-                
                 .notification-close {
                     background: none;
                     border: none;
@@ -277,48 +557,49 @@ class NotesApp {
                     border-radius: 5px;
                     transition: all 0.3s ease;
                 }
-                
                 .notification-close:hover {
                     background: var(--bg-secondary);
                     color: var(--text-primary);
                 }
-                
-                .notification-success i {
-                    color: var(--success-color);
+                .notification-success {
+                    border-left: 4px solid var(--success-color);
                 }
-                
-                .notification-warning i {
-                    color: var(--warning-color);
+                .notification-warning {
+                    border-left: 4px solid var(--warning-color);
                 }
-                
-                .notification-info i {
-                    color: #667eea;
+                .notification-danger {
+                    border-left: 4px solid var(--danger-color);
+                }
+                .notification-info {
+                    border-left: 4px solid var(--gradient-primary);
                 }
             `;
             document.head.appendChild(style);
         }
 
-        // Add to page
+        // Add to body
         document.body.appendChild(notification);
 
-        // Close button functionality
-        notification.querySelector('.notification-close').addEventListener('click', () => {
+        // Add close functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
             notification.remove();
         });
 
-        // Auto remove after 3 seconds
+        // Auto remove after 4 seconds
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
             }
-        }, 3000);
+        }, 4000);
     }
 
     getNotificationIcon(type) {
         switch (type) {
             case 'success': return 'fa-check-circle';
             case 'warning': return 'fa-exclamation-triangle';
-            case 'error': return 'fa-times-circle';
+            case 'danger': return 'fa-times-circle';
+            case 'info':
             default: return 'fa-info-circle';
         }
     }

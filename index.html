@@ -43,6 +43,20 @@
             </div>
         </div>
 
+        <div class="notes-controls">
+            <div class="sort-controls">
+                <span style="color: var(--text-secondary); font-size: 0.9rem; margin-right: 10px;">Sırala:</span>
+                <button class="sort-btn active" data-sort="date-desc">En Yeni</button>
+                <button class="sort-btn" data-sort="date-asc">En Eski</button>
+                <button class="sort-btn" data-sort="title">Başlık</button>
+            </div>
+            <div class="pin-controls">
+                <button class="pin-filter active" data-filter="all">Tümü</button>
+                <button class="pin-filter" data-filter="pinned">Sabitlenenler</button>
+                <button class="pin-filter" data-filter="unpinned">Normal</button>
+            </div>
+        </div>
+
         <div class="notes-container" id="notesContainer">
             <!-- Notlar buraya dinamik olarak eklenecek -->
         </div>
