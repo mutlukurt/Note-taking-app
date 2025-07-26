@@ -1,24 +1,15 @@
 {
-  "name": "Not Alma Uygulaması",
+  "name": "Not Alma",
   "short_name": "Not Alma",
-  "description": "Modern, kullanıcı dostu not alma uygulaması",
   "start_url": "/Note-taking-app/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#667eea",
-  "orientation": "portrait-primary",
-  "scope": "/Note-taking-app/",
-  "lang": "tr",
-      "icons": [
-        {
-            "src": "https://via.placeholder.com/512x512/667eea/ffffff?text=📝",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
-        }
-    ],
-  "categories": [
-    "productivity",
-    "utilities"
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/512x512/667eea/ffffff?text=📝",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
