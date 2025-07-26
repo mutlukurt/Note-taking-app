@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Alma Uygulaması</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <div class="container">
+        <header class="header">
+            <h1 class="app-title">
+                <i class="fas fa-sticky-note"></i>
+                Not Alma Uygulaması
+            </h1>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </header>
+
+        <div class="note-form">
+            <div class="input-group">
+                <input type="text" id="noteTitle" placeholder="Not başlığı..." class="note-input">
+                <textarea id="noteContent" placeholder="Notunuzu buraya yazın..." class="note-textarea"></textarea>
+            </div>
+            <div class="button-group">
+                <button id="addNote" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Not Ekle
+                </button>
+                <button id="clearForm" class="btn btn-secondary">
+                    <i class="fas fa-eraser"></i>
+                    Temizle
+                </button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
+            </div>
+        </div>
+
+        <div class="notes-container" id="notesContainer">
+            <!-- Notlar buraya dinamik olarak eklenecek -->
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <i class="fas fa-notes-medical"></i>
+            <h3>Henüz not eklenmemiş</h3>
+            <p>İlk notunuzu ekleyerek başlayın!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

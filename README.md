@@ -1,1 +1,100 @@
-# Note-taking-app
+# 📝 Not Alma Uygulaması
+
+Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval köşeli tasarım, gradient renkler ve karanlık mod desteği ile birlikte gelir.
+
+## ✨ Özellikler
+
+- 🎨 **Modern Tasarım**: Oval köşeli, gradient renkli modern UI
+- 🌙 **Karanlık Mod**: Sağ üst köşedeki gece/gündüz ikonu ile tema değiştirme
+- 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
+- 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
+- ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
+- 🗑️ **Silme**: Notları güvenli şekilde silme
+- 💾 **Yerel Depolama**: Notlarınız tarayıcıda güvenli şekilde saklanır
+- 🔔 **Bildirimler**: İşlem sonuçları için güzel bildirimler
+- ⌨️ **Klavye Kısayolları**: Enter ile not ekleme, Ctrl+Enter ile içerik ekleme
+
+## 🚀 Kullanım
+
+1. **Not Ekleme**: Başlık ve içerik alanlarını doldurun, "Not Ekle" butonuna tıklayın
+2. **Arama**: Üst kısımdaki arama kutusunu kullanarak notlarınızda arama yapın
+3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
+4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
+5. **Tema Değiştirme**: Sağ üst köşedeki güneş/ay ikonuna tıklayın
+
+## 🎯 Teknolojiler
+
+- **HTML5**: Semantik yapı
+- **CSS3**: Modern stiller, CSS Grid, Flexbox, CSS Variables
+- **JavaScript (ES6+)**: Modern JavaScript sınıfları ve metodları
+- **Font Awesome**: Güzel ikonlar
+- **LocalStorage**: Veri saklama
+
+## 📁 Dosya Yapısı
+
+```
+not-alma-uygulamasi/
+├── index.html          # Ana HTML dosyası
+├── style.css           # CSS stilleri
+├── script.js           # JavaScript fonksiyonları
+└── README.md           # Bu dosya
+```
+
+## 🌈 Renk Paleti
+
+### Açık Mod
+- Ana Arka Plan: #ffffff (Beyaz)
+- İkincil Arka Plan: #f8f9fa (Açık Gri)
+- Ana Metin: #2c3e50 (Koyu Mavi-Gri)
+- İkincil Metin: #6c757d (Gri)
+
+### Karanlık Mod
+- Ana Arka Plan: #1a1a1a (Koyu Gri)
+- İkincil Arka Plan: #2d2d2d (Orta Gri)
+- Ana Metin: #ffffff (Beyaz)
+- İkincil Metin: #b0b0b0 (Açık Gri)
+
+### Gradientler
+- Birincil: #667eea → #764ba2 (Mavi-Mor)
+- İkincil: #f093fb → #f5576c (Pembe-Kırmızı)
+- Vurgu: #4facfe → #00f2fe (Mavi-Cyan)
+
+## 🔧 Kurulum
+
+1. Dosyaları bilgisayarınıza indirin
+2. `index.html` dosyasını tarayıcınızda açın
+3. Hemen kullanmaya başlayın!
+
+## 📱 Responsive Tasarım
+
+Uygulama tüm cihazlarda mükemmel çalışır:
+- **Desktop**: Tam özellikli deneyim
+- **Tablet**: Optimize edilmiş düzen
+- **Mobil**: Dokunmatik dostu arayüz
+
+## 🎨 Tasarım Özellikleri
+
+- **Oval Köşeler**: Tüm elementlerde yumuşak, modern köşeler
+- **Gradient Renkler**: Güzel geçişli renkler
+- **Gölgeler**: Derinlik hissi veren gölgeler
+- **Animasyonlar**: Yumuşak geçişler ve hover efektleri
+- **Tipografi**: Modern ve okunabilir fontlar
+
+## 🔒 Veri Güvenliği
+
+- Notlarınız sadece tarayıcınızda saklanır
+- Hiçbir veri sunucuya gönderilmez
+- LocalStorage kullanılarak güvenli depolama
+
+## 🚀 Gelecek Özellikler
+
+- [ ] Not kategorileri
+- [ ] Not paylaşımı
+- [ ] Bulut senkronizasyonu
+- [ ] Markdown desteği
+- [ ] Not etiketleri
+- [ ] Gelişmiş arama filtreleri
+
+---
+
+**Not**: Bu uygulama tamamen tarayıcı tabanlıdır ve internet bağlantısı gerektirmez (Font Awesome ikonları hariç).
