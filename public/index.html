@@ -8,91 +8,52 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="light-mode">
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1 class="app-title">
-                    <i class="fas fa-sticky-note"></i>
-                    Notlarım
-                </h1>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-sun"></i>
-                </button>
-            </div>
+    <div class="container">
+        <header class="header">
+            <h1 class="app-title">
+                <i class="fas fa-sticky-note"></i>
+                Not Alma Uygulaması
+            </h1>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </header>
 
-            <div class="sidebar-search">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
-                </div>
+        <div class="note-form">
+            <div class="input-group">
+                <input type="text" id="noteTitle" placeholder="Not başlığı..." class="note-input">
+                <textarea id="noteContent" placeholder="Notunuzu buraya yazın..." class="note-textarea"></textarea>
             </div>
-
-            <div class="sidebar-actions">
-                <button id="newNoteBtn" class="btn btn-primary btn-full">
+            <div class="button-group">
+                <button id="addNote" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
-                    Yeni Not
+                    Not Ekle
                 </button>
-            </div>
-
-            <div class="notes-list" id="notesList">
-                <!-- Notlar buraya dinamik olarak eklenecek -->
-            </div>
-
-            <div class="empty-state" id="emptyState">
-                <i class="fas fa-notes-medical"></i>
-                <h3>Henüz not eklenmemiş</h3>
-                <p>İlk notunuzu ekleyerek başlayın!</p>
+                <button id="clearForm" class="btn btn-secondary">
+                    <i class="fas fa-eraser"></i>
+                    Temizle
+                </button>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content" id="mainContent">
-            <div class="content-header">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="content-title" id="contentTitle">
-                    <h2>Hoş Geldiniz</h2>
-                    <p>Not almaya başlamak için sol taraftan bir not seçin veya yeni not oluşturun.</p>
-                </div>
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
             </div>
+        </div>
 
-            <div class="content-body" id="contentBody">
-                <div class="welcome-screen" id="welcomeScreen">
-                    <div class="welcome-content">
-                        <i class="fas fa-sticky-note"></i>
-                        <h2>Not Alma Uygulamasına Hoş Geldiniz</h2>
-                        <p>Notlarınızı organize etmek ve yönetmek için sol taraftan bir not seçin veya yeni not oluşturun.</p>
-                        <button id="welcomeNewNoteBtn" class="btn btn-primary">
-                            <i class="fas fa-plus"></i>
-                            İlk Notunuzu Oluşturun
-                        </button>
-                    </div>
-                </div>
+        <div class="notes-container" id="notesContainer">
+            <!-- Notlar buraya dinamik olarak eklenecek -->
+        </div>
 
-                <div class="note-editor hidden" id="noteEditor">
-                    <div class="editor-header">
-                        <input type="text" id="noteTitle" placeholder="Not başlığı..." class="editor-title">
-                        <div class="editor-actions">
-                            <button id="saveNote" class="btn btn-primary">
-                                <i class="fas fa-save"></i>
-                                Kaydet
-                            </button>
-                            <button id="deleteNote" class="btn btn-danger">
-                                <i class="fas fa-trash"></i>
-                                Sil
-                            </button>
-                        </div>
-                    </div>
-                    <div class="editor-body">
-                        <textarea id="noteContent" placeholder="Notunuzu buraya yazın..." class="editor-content"></textarea>
-                    </div>
-                </div>
-            </div>
+        <div class="empty-state" id="emptyState">
+            <i class="fas fa-notes-medical"></i>
+            <h3>Henüz not eklenmemiş</h3>
+            <p>İlk notunuzu ekleyerek başlayın!</p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script-simple.js"></script>
 </body>
 </html>
