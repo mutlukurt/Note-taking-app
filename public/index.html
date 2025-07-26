@@ -1,4 +1,3 @@
-<!-- Updated: 2024-01-15 -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -14,98 +13,138 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #ffffff;
-            color: #2c3e50;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow: hidden;
-        }
-
-        .app-container {
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            width: 300px;
-            background: #f8f9fa;
-            border-right: 1px solid #e9ecef;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .sidebar-header {
             padding: 20px;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .app-title {
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .theme-toggle {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border: none;
-            border-radius: 50px;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        .note-form {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        .input-group {
+            margin-bottom: 20px;
         }
 
-        .sidebar-search {
+        .note-input {
+            width: 100%;
             padding: 15px 20px;
-            border-bottom: 1px solid #e9ecef;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .note-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .note-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .note-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3);
+        }
+
+        .search-section {
+            margin-bottom: 30px;
         }
 
         .search-box {
             position: relative;
-        }
-
-        .search-box::before {
-            content: '🔍';
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
-            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .search-input {
             width: 100%;
-            padding: 12px 15px 12px 40px;
+            padding: 15px 20px 15px 50px;
             border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            background: #ffffff;
-            color: #2c3e50;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
             transition: all 0.3s ease;
         }
 
@@ -115,411 +154,176 @@
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .sidebar-actions {
-            padding: 15px 20px;
-            border-bottom: 1px solid #e9ecef;
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: #6c757d;
         }
 
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
+        .notes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .notes-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 0;
-        }
-
-        .note-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #e9ecef;
-            cursor: pointer;
+        .note-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
             transition: all 0.3s ease;
             position: relative;
-        }
-
-        .note-item:hover {
-            background: #e9ecef;
-        }
-
-        .note-item.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .note-item.active .note-item-title,
-        .note-item.active .note-item-preview,
-        .note-item.active .note-item-date {
-            color: white;
-        }
-
-        .note-item-title {
-            font-weight: 600;
-            font-size: 1rem;
-            color: #2c3e50;
-            margin-bottom: 5px;
-            line-height: 1.3;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
-        .note-item-preview {
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .note-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .note-date {
             font-size: 0.85rem;
             color: #6c757d;
-            margin-bottom: 8px;
-            line-height: 1.4;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            margin-bottom: 15px;
         }
 
-        .note-item-date {
-            font-size: 0.75rem;
+        .note-content {
             color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            word-wrap: break-word;
         }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
+        .note-actions {
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            gap: 10px;
+            justify-content: flex-end;
         }
 
-        .content-header {
-            padding: 20px;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .sidebar-toggle {
+        .action-btn {
             background: none;
             border: none;
-            font-size: 1.2rem;
-            color: #6c757d;
-            cursor: pointer;
             padding: 8px;
-            border-radius: 8px;
+            border-radius: 10px;
+            cursor: pointer;
             transition: all 0.3s ease;
-            display: none;
+            color: #6c757d;
+            font-size: 1rem;
         }
 
-        .sidebar-toggle:hover {
+        .action-btn:hover {
             background: #f8f9fa;
             color: #2c3e50;
         }
 
-        .content-title h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 5px;
+        .action-btn.edit:hover {
+            color: #ffc107;
         }
 
-        .content-title p {
-            color: #6c757d;
-            font-size: 0.9rem;
+        .action-btn.delete:hover {
+            color: #dc3545;
         }
 
-        .content-body {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Welcome Screen */
-        .welcome-screen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 40px;
-        }
-
-        .welcome-content {
-            text-align: center;
-            max-width: 500px;
-        }
-
-        .welcome-content h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .welcome-content p {
-            font-size: 1.1rem;
-            color: #6c757d;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        /* Note Editor */
-        .note-editor {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .editor-header {
-            padding: 20px;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .editor-title {
-            flex: 1;
-            font-size: 1.5rem;
-            font-weight: 600;
-            border: none;
-            background: none;
-            color: #2c3e50;
-            padding: 0;
-            outline: none;
-        }
-
-        .editor-title::placeholder {
-            color: #6c757d;
-        }
-
-        .editor-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
-        }
-
-        .editor-body {
-            flex: 1;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        .editor-content {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: none;
-            color: #2c3e50;
-            font-size: 1rem;
-            line-height: 1.6;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-        }
-
-        .editor-content::placeholder {
-            color: #6c757d;
-        }
-
-        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: #6c757d;
         }
 
         .empty-state h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
             color: #2c3e50;
         }
 
         .empty-state p {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
-        /* Utility Classes */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: 0;
-                top: 0;
-                height: 100vh;
-                z-index: 1000;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
+            .container {
+                padding: 20px;
             }
-
-            .sidebar.open {
-                transform: translateX(0);
+            
+            .app-title {
+                font-size: 2rem;
             }
-
-            .sidebar-toggle {
-                display: block;
+            
+            .note-form {
+                padding: 20px;
             }
-
-            .main-content {
-                width: 100%;
-            }
-
-            .editor-header {
+            
+            .button-group {
                 flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
             }
-
-            .editor-actions {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
+            
+            .btn {
                 width: 100%;
             }
-
-            .welcome-content h2 {
-                font-size: 1.5rem;
+            
+            .notes-container {
+                grid-template-columns: 1fr;
             }
-
-            .welcome-content p {
-                font-size: 1rem;
-            }
-
-            .editor-title {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Animations */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .note-item {
-            animation: slideIn 0.3s ease-out;
-        }
-
-        /* Smooth transitions for theme switching */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1 class="app-title">
-                    📝 Notlarım
-                </h1>
-                <button class="theme-toggle" id="themeToggle">
-                    ☀️
+    <div class="container">
+        <div class="header">
+            <h1 class="app-title">📝 Not Alma Uygulaması</h1>
+        </div>
+
+        <div class="note-form">
+            <div class="input-group">
+                <input type="text" id="noteTitle" placeholder="Not başlığı..." class="note-input">
+                <textarea id="noteContent" placeholder="Notunuzu buraya yazın..." class="note-textarea"></textarea>
+            </div>
+            <div class="button-group">
+                <button id="addNote" class="btn btn-primary">
+                    ➕ Not Ekle
                 </button>
-            </div>
-
-            <div class="sidebar-search">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
-                </div>
-            </div>
-
-            <div class="sidebar-actions">
-                <button id="newNoteBtn" class="btn btn-primary">
-                    ➕ Yeni Not
+                <button id="clearForm" class="btn btn-secondary">
+                    🧹 Temizle
                 </button>
-            </div>
-
-            <div class="notes-list" id="notesList">
-                <!-- Notlar buraya dinamik olarak eklenecek -->
-            </div>
-
-            <div class="empty-state" id="emptyState">
-                <h3>📝 Henüz not eklenmemiş</h3>
-                <p>İlk notunuzu ekleyerek başlayın!</p>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content" id="mainContent">
-            <div class="content-header">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    ☰
-                </button>
-                <div class="content-title" id="contentTitle">
-                    <h2>Hoş Geldiniz</h2>
-                    <p>Not almaya başlamak için sol taraftan bir not seçin veya yeni not oluşturun.</p>
-                </div>
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
             </div>
+        </div>
 
-            <div class="content-body" id="contentBody">
-                <div class="welcome-screen" id="welcomeScreen">
-                    <div class="welcome-content">
-                        <h2>Not Alma Uygulamasına Hoş Geldiniz</h2>
-                        <p>Notlarınızı organize etmek ve yönetmek için sol taraftan bir not seçin veya yeni not oluşturun.</p>
-                        <button id="welcomeNewNoteBtn" class="btn btn-primary">
-                            ➕ İlk Notunuzu Oluşturun
-                        </button>
-                    </div>
-                </div>
+        <div class="notes-container" id="notesContainer">
+            <!-- Notlar buraya dinamik olarak eklenecek -->
+        </div>
 
-                <div class="note-editor hidden" id="noteEditor">
-                    <div class="editor-header">
-                        <input type="text" id="noteTitle" placeholder="Not başlığı..." class="editor-title">
-                        <div class="editor-actions">
-                            <button id="saveNote" class="btn btn-primary">
-                                💾 Kaydet
-                            </button>
-                            <button id="deleteNote" class="btn btn-danger">
-                                🗑️ Sil
-                            </button>
-                        </div>
-                    </div>
-                    <div class="editor-body">
-                        <textarea id="noteContent" placeholder="Notunuzu buraya yazın..." class="editor-content"></textarea>
-                    </div>
-                </div>
-            </div>
+        <div class="empty-state" id="emptyState">
+            <h3>📝 Henüz not eklenmemiş</h3>
+            <p>İlk notunuzu ekleyerek başlayın!</p>
         </div>
     </div>
 
@@ -527,353 +331,174 @@
         class NotesApp {
             constructor() {
                 this.notes = JSON.parse(localStorage.getItem('notes')) || [];
-                this.currentNote = null;
-                this.isDarkMode = localStorage.getItem('darkMode') === 'true';
-                
-                this.initializeElements();
-                this.bindEvents();
-                this.loadNotes();
-                this.applyTheme();
-                this.updateUI();
+                this.init();
             }
 
-            initializeElements() {
-                // Sidebar elements
-                this.sidebar = document.getElementById('sidebar');
-                this.notesList = document.getElementById('notesList');
-                this.emptyState = document.getElementById('emptyState');
-                this.searchInput = document.getElementById('searchInput');
-                this.newNoteBtn = document.getElementById('newNoteBtn');
-                this.themeToggle = document.getElementById('themeToggle');
-                this.sidebarToggle = document.getElementById('sidebarToggle');
-
-                // Main content elements
-                this.mainContent = document.getElementById('mainContent');
-                this.welcomeScreen = document.getElementById('welcomeScreen');
-                this.welcomeNewNoteBtn = document.getElementById('welcomeNewNoteBtn');
-                this.noteEditor = document.getElementById('noteEditor');
-                this.noteTitle = document.getElementById('noteTitle');
-                this.noteContent = document.getElementById('noteContent');
-                this.saveNote = document.getElementById('saveNote');
-                this.deleteNote = document.getElementById('deleteNote');
-                this.contentTitle = document.getElementById('contentTitle');
+            init() {
+                this.setupEventListeners();
+                this.renderNotes();
+                this.updateEmptyState();
             }
 
-            bindEvents() {
-                // Theme toggle
-                this.themeToggle.addEventListener('click', () => this.toggleTheme());
-                
-                // Sidebar toggle (mobile)
-                this.sidebarToggle.addEventListener('click', () => this.toggleSidebar());
-                
-                // Search
-                this.searchInput.addEventListener('input', (e) => this.searchNotes(e.target.value));
-                
-                // New note buttons
-                this.newNoteBtn.addEventListener('click', () => this.createNewNote());
-                this.welcomeNewNoteBtn.addEventListener('click', () => this.createNewNote());
-                
-                // Note editor
-                this.noteTitle.addEventListener('input', () => this.autoSave());
-                this.noteContent.addEventListener('input', () => this.autoSave());
-                this.saveNote.addEventListener('click', () => this.saveCurrentNote());
-                this.deleteNote.addEventListener('click', () => this.deleteCurrentNote());
-                
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => this.handleKeyboardShortcuts(e));
+            setupEventListeners() {
+                document.getElementById('addNote').addEventListener('click', () => {
+                    this.addNote();
+                });
+
+                document.getElementById('clearForm').addEventListener('click', () => {
+                    this.clearForm();
+                });
+
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    this.searchNotes(e.target.value);
+                });
+
+                document.getElementById('noteTitle').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.addNote();
+                    }
+                });
+
+                document.getElementById('noteContent').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && e.ctrlKey) {
+                        this.addNote();
+                    }
+                });
             }
 
-            toggleTheme() {
-                this.isDarkMode = !this.isDarkMode;
-                localStorage.setItem('darkMode', this.isDarkMode);
-                this.applyTheme();
-            }
-
-            applyTheme() {
-                const body = document.body;
-                const icon = this.themeToggle;
+            addNote() {
+                const titleInput = document.getElementById('noteTitle');
+                const contentInput = document.getElementById('noteContent');
                 
-                if (this.isDarkMode) {
-                    body.style.background = '#1a1a1a';
-                    body.style.color = '#ffffff';
-                    icon.textContent = '🌙';
-                } else {
-                    body.style.background = '#ffffff';
-                    body.style.color = '#2c3e50';
-                    icon.textContent = '☀️';
+                const title = titleInput.value.trim();
+                const content = contentInput.value.trim();
+
+                if (!title && !content) {
+                    alert('Lütfen en az bir başlık veya içerik girin!');
+                    return;
                 }
-            }
 
-            toggleSidebar() {
-                this.sidebar.classList.toggle('open');
-            }
-
-            createNewNote() {
-                const newNote = {
+                const note = {
                     id: Date.now(),
-                    title: 'Yeni Not',
-                    content: '',
+                    title: title || 'Başlıksız Not',
+                    content: content || 'İçerik yok',
                     date: new Date().toLocaleString('tr-TR')
                 };
-                
-                this.notes.unshift(newNote);
-                this.saveToStorage();
-                this.loadNotes();
-                this.selectNote(newNote.id);
-                this.showNotification('Yeni not oluşturuldu!', 'success');
+
+                this.notes.unshift(note);
+                this.saveNotes();
+                this.renderNotes();
+                this.clearForm();
+                this.updateEmptyState();
             }
 
-            selectNote(noteId) {
-                this.currentNote = this.notes.find(note => note.id === noteId);
-                
-                if (this.currentNote) {
-                    // Update active state in sidebar
-                    document.querySelectorAll('.note-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    const activeItem = document.querySelector(`[data-note-id="${noteId}"]`);
-                    if (activeItem) {
-                        activeItem.classList.add('active');
-                    }
-                    
-                    // Update editor
-                    this.noteTitle.value = this.currentNote.title;
-                    this.noteContent.value = this.currentNote.content;
-                    
-                    // Show editor, hide welcome screen
-                    this.welcomeScreen.classList.add('hidden');
-                    this.noteEditor.classList.remove('hidden');
-                    
-                    // Update content title
-                    this.contentTitle.innerHTML = `
-                        <h2>${this.currentNote.title}</h2>
-                        <p>Son düzenleme: ${this.currentNote.date}</p>
-                    `;
-                    
-                    // Focus on title
-                    this.noteTitle.focus();
+            deleteNote(id) {
+                if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
+                    this.notes = this.notes.filter(note => note.id !== id);
+                    this.saveNotes();
+                    this.renderNotes();
+                    this.updateEmptyState();
                 }
             }
 
-            autoSave() {
-                if (this.currentNote) {
-                    this.currentNote.title = this.noteTitle.value;
-                    this.currentNote.content = this.noteContent.value;
-                    this.currentNote.date = new Date().toLocaleString('tr-TR');
-                    
-                    // Update in notes array
-                    const index = this.notes.findIndex(note => note.id === this.currentNote.id);
-                    if (index !== -1) {
-                        this.notes[index] = this.currentNote;
-                    }
-                    
-                    this.saveToStorage();
-                    this.loadNotes(); // Refresh sidebar
-                    this.updateContentTitle();
-                }
+            editNote(id) {
+                const note = this.notes.find(note => note.id === id);
+                if (!note) return;
+
+                const titleInput = document.getElementById('noteTitle');
+                const contentInput = document.getElementById('noteContent');
+
+                titleInput.value = note.title;
+                contentInput.value = note.content;
+
+                this.notes = this.notes.filter(note => note.id !== id);
+                this.saveNotes();
+                this.renderNotes();
+                this.updateEmptyState();
+
+                titleInput.focus();
+                titleInput.select();
             }
 
-            saveCurrentNote() {
-                if (this.currentNote) {
-                    this.autoSave();
-                    this.showNotification('Not kaydedildi!', 'success');
-                }
-            }
-
-            deleteCurrentNote() {
-                if (this.currentNote) {
-                    if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
-                        this.notes = this.notes.filter(note => note.id !== this.currentNote.id);
-                        this.saveToStorage();
-                        this.loadNotes();
-                        this.showWelcomeScreen();
-                        this.showNotification('Not silindi!', 'success');
-                    }
-                }
-            }
-
-            updateContentTitle() {
-                if (this.currentNote) {
-                    this.contentTitle.innerHTML = `
-                        <h2>${this.currentNote.title}</h2>
-                        <p>Son düzenleme: ${this.currentNote.date}</p>
-                    `;
-                }
-            }
-
-            showWelcomeScreen() {
-                this.currentNote = null;
-                this.welcomeScreen.classList.remove('hidden');
-                this.noteEditor.classList.add('hidden');
-                this.contentTitle.innerHTML = `
-                    <h2>Hoş Geldiniz</h2>
-                    <p>Not almaya başlamak için sol taraftan bir not seçin veya yeni not oluşturun.</p>
-                `;
+            clearForm() {
+                document.getElementById('noteTitle').value = '';
+                document.getElementById('noteContent').value = '';
+                document.getElementById('noteTitle').focus();
             }
 
             searchNotes(query) {
-                const noteItems = document.querySelectorAll('.note-item');
-                const filteredNotes = this.notes.filter(note => 
-                    note.title.toLowerCase().includes(query.toLowerCase()) ||
-                    note.content.toLowerCase().includes(query.toLowerCase())
-                );
-                
-                noteItems.forEach(item => {
-                    const noteId = parseInt(item.dataset.noteId);
-                    const isVisible = filteredNotes.some(note => note.id === noteId);
-                    item.style.display = isVisible ? 'block' : 'none';
+                const notesContainer = document.getElementById('notesContainer');
+                const noteCards = notesContainer.querySelectorAll('.note-card');
+
+                noteCards.forEach(card => {
+                    const title = card.querySelector('.note-title').textContent.toLowerCase();
+                    const content = card.querySelector('.note-content').textContent.toLowerCase();
+                    const searchTerm = query.toLowerCase();
+
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
-                
-                // Show/hide empty state
-                this.emptyState.style.display = 
-                    query && filteredNotes.length === 0 ? 'block' : 'none';
             }
 
-            loadNotes() {
-                this.notesList.innerHTML = '';
+            renderNotes() {
+                const notesContainer = document.getElementById('notesContainer');
+                notesContainer.innerHTML = '';
+
+                this.notes.forEach(note => {
+                    const noteCard = this.createNoteCard(note);
+                    notesContainer.appendChild(noteCard);
+                });
+            }
+
+            createNoteCard(note) {
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.innerHTML = `
+                    <div>
+                        <h3 class="note-title">${this.escapeHtml(note.title)}</h3>
+                        <div class="note-date">${note.date}</div>
+                    </div>
+                    <div class="note-content">${this.escapeHtml(note.content)}</div>
+                    <div class="note-actions">
+                        <button class="action-btn edit" onclick="notesApp.editNote(${note.id})" title="Düzenle">
+                            ✏️
+                        </button>
+                        <button class="action-btn delete" onclick="notesApp.deleteNote(${note.id})" title="Sil">
+                            🗑️
+                        </button>
+                    </div>
+                `;
+                return card;
+            }
+
+            updateEmptyState() {
+                const emptyState = document.getElementById('emptyState');
+                const notesContainer = document.getElementById('notesContainer');
                 
                 if (this.notes.length === 0) {
-                    this.emptyState.style.display = 'block';
-                    this.showWelcomeScreen();
-                    return;
+                    emptyState.style.display = 'block';
+                    notesContainer.style.display = 'none';
+                } else {
+                    emptyState.style.display = 'none';
+                    notesContainer.style.display = 'grid';
                 }
-                
-                this.emptyState.style.display = 'none';
-                
-                this.notes.forEach(note => {
-                    const noteItem = this.createNoteItem(note);
-                    this.notesList.appendChild(noteItem);
-                });
             }
 
-            createNoteItem(note) {
-                const noteItem = document.createElement('div');
-                noteItem.className = 'note-item';
-                noteItem.dataset.noteId = note.id;
-                
-                const preview = note.content.length > 100 
-                    ? note.content.substring(0, 100) + '...' 
-                    : note.content;
-                
-                noteItem.innerHTML = `
-                    <div class="note-item-title">${note.title}</div>
-                    <div class="note-item-preview">${preview || 'Boş not'}</div>
-                    <div class="note-item-date">${note.date}</div>
-                `;
-                
-                noteItem.addEventListener('click', () => this.selectNote(note.id));
-                
-                return noteItem;
-            }
-
-            saveToStorage() {
+            saveNotes() {
                 localStorage.setItem('notes', JSON.stringify(this.notes));
             }
 
-            updateUI() {
-                if (this.notes.length === 0) {
-                    this.showWelcomeScreen();
-                }
-            }
-
-            handleKeyboardShortcuts(e) {
-                // Ctrl/Cmd + N: New note
-                if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
-                    e.preventDefault();
-                    this.createNewNote();
-                }
-                
-                // Ctrl/Cmd + S: Save note
-                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-                    e.preventDefault();
-                    this.saveCurrentNote();
-                }
-                
-                // Ctrl/Cmd + F: Focus search
-                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-                    e.preventDefault();
-                    this.searchInput.focus();
-                }
-                
-                // Escape: Clear search or go back
-                if (e.key === 'Escape') {
-                    if (this.searchInput.value) {
-                        this.searchInput.value = '';
-                        this.searchNotes('');
-                    } else if (this.currentNote) {
-                        this.showWelcomeScreen();
-                    }
-                }
-            }
-
-            showNotification(message, type = 'info') {
-                // Remove existing notifications
-                const existingNotifications = document.querySelectorAll('.notification');
-                existingNotifications.forEach(notification => notification.remove());
-                
-                const notification = document.createElement('div');
-                notification.className = `notification notification-${type}`;
-                notification.innerHTML = `
-                    <span>${message}</span>
-                `;
-                
-                // Add styles
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: ${type === 'success' ? '#28a745' : '#ffc107'};
-                    color: white;
-                    padding: 15px 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-                    z-index: 10000;
-                    font-weight: 600;
-                    animation: slideInRight 0.3s ease-out;
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Auto remove after 3 seconds
-                setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.3s ease-out';
-                    setTimeout(() => notification.remove(), 300);
-                }, 3000);
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
             }
         }
 
-        // Add animation keyframes
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    opacity: 0;
-                    transform: translateX(100%);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-            
-            @keyframes slideOutRight {
-                from {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateX(100%);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Initialize app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new NotesApp();
-        });
+        const notesApp = new NotesApp();
     </script>
 </body>
 </html>
