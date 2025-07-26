@@ -1,64 +1,73 @@
 class NotesApp {
     constructor() {
         this.notes = JSON.parse(localStorage.getItem('notes')) || [];
-        this.currentTheme = localStorage.getItem('theme') || 'light';
-        this.init();
-    }
-
-    init() {
-        this.setupEventListeners();
+        this.currentNote = null;
+        this.isDarkMode = localStorage.getItem('darkMode') === 'true';
+        
+        this.initializeElements();
+        this.bindEvents();
+        this.loadNotes();
         this.applyTheme();
-        this.renderNotes();
-        this.updateEmptyState();
+        this.updateUI();
     }
 
-    setupEventListeners() {
+    initializeElements() {
+        // Sidebar elements
+        this.sidebar = document.getElementById('sidebar');
+        this.notesList = document.getElementById('notesList');
+        this.emptyState = document.getElementById('emptyState');
+        this.searchInput = document.getElementById('searchInput');
+        this.newNoteBtn = document.getElementById('newNoteBtn');
+        this.themeToggle = document.getElementById('themeToggle');
+        this.sidebarToggle = document.getElementById('sidebarToggle');
+
+        // Main content elements
+        this.mainContent = document.getElementById('mainContent');
+        this.welcomeScreen = document.getElementById('welcomeScreen');
+        this.welcomeNewNoteBtn = document.getElementById('welcomeNewNoteBtn');
+        this.noteEditor = document.getElementById('noteEditor');
+        this.noteTitle = document.getElementById('noteTitle');
+        this.noteContent = document.getElementById('noteContent');
+        this.saveNote = document.getElementById('saveNote');
+        this.deleteNote = document.getElementById('deleteNote');
+        this.contentTitle = document.getElementById('contentTitle');
+    }
+
+    bindEvents() {
         // Theme toggle
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            this.toggleTheme();
-        });
-
-        // Add note
-        document.getElementById('addNote').addEventListener('click', () => {
-            this.addNote();
-        });
-
-        // Clear form
-        document.getElementById('clearForm').addEventListener('click', () => {
-            this.clearForm();
-        });
-
+        this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        
+        // Sidebar toggle (mobile)
+        this.sidebarToggle.addEventListener('click', () => this.toggleSidebar());
+        
         // Search
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            this.searchNotes(e.target.value);
-        });
-
-        // Enter key to add note
-        document.getElementById('noteTitle').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.addNote();
-            }
-        });
-
-        document.getElementById('noteContent').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && e.ctrlKey) {
-                this.addNote();
-            }
-        });
+        this.searchInput.addEventListener('input', (e) => this.searchNotes(e.target.value));
+        
+        // New note buttons
+        this.newNoteBtn.addEventListener('click', () => this.createNewNote());
+        this.welcomeNewNoteBtn.addEventListener('click', () => this.createNewNote());
+        
+        // Note editor
+        this.noteTitle.addEventListener('input', () => this.autoSave());
+        this.noteContent.addEventListener('input', () => this.autoSave());
+        this.saveNote.addEventListener('click', () => this.saveCurrentNote());
+        this.deleteNote.addEventListener('click', () => this.deleteCurrentNote());
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => this.handleKeyboardShortcuts(e));
     }
 
     toggleTheme() {
-        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        localStorage.setItem('theme', this.currentTheme);
+        this.isDarkMode = !this.isDarkMode;
+        localStorage.setItem('darkMode', this.isDarkMode);
         this.applyTheme();
     }
 
     applyTheme() {
         const body = document.body;
-        const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
-
-        if (this.currentTheme === 'dark') {
+        const icon = this.themeToggle.querySelector('i');
+        
+        if (this.isDarkMode) {
             body.classList.add('dark-mode');
             icon.className = 'fas fa-moon';
         } else {
@@ -67,266 +76,277 @@ class NotesApp {
         }
     }
 
-    addNote() {
-        const titleInput = document.getElementById('noteTitle');
-        const contentInput = document.getElementById('noteContent');
-        
-        const title = titleInput.value.trim();
-        const content = contentInput.value.trim();
+    toggleSidebar() {
+        this.sidebar.classList.toggle('open');
+    }
 
-        if (!title && !content) {
-            this.showNotification('Lütfen en az bir başlık veya içerik girin!', 'warning');
-            return;
-        }
-
-        const note = {
+    createNewNote() {
+        const newNote = {
             id: Date.now(),
-            title: title || 'Başlıksız Not',
-            content: content || 'İçerik yok',
-            date: new Date().toLocaleString('tr-TR'),
-            timestamp: Date.now()
+            title: 'Yeni Not',
+            content: '',
+            date: new Date().toLocaleString('tr-TR')
         };
-
-        this.notes.unshift(note);
-        this.saveNotes();
-        this.renderNotes();
-        this.clearForm();
-        this.updateEmptyState();
-        this.showNotification('Not başarıyla eklendi!', 'success');
+        
+        this.notes.unshift(newNote);
+        this.saveToStorage();
+        this.loadNotes();
+        this.selectNote(newNote.id);
+        this.showNotification('Yeni not oluşturuldu!', 'success');
     }
 
-    deleteNote(id) {
-        if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
-            this.notes = this.notes.filter(note => note.id !== id);
-            this.saveNotes();
-            this.renderNotes();
-            this.updateEmptyState();
-            this.showNotification('Not silindi!', 'success');
+    selectNote(noteId) {
+        this.currentNote = this.notes.find(note => note.id === noteId);
+        
+        if (this.currentNote) {
+            // Update active state in sidebar
+            document.querySelectorAll('.note-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const activeItem = document.querySelector(`[data-note-id="${noteId}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+            
+            // Update editor
+            this.noteTitle.value = this.currentNote.title;
+            this.noteContent.value = this.currentNote.content;
+            
+            // Show editor, hide welcome screen
+            this.welcomeScreen.classList.add('hidden');
+            this.noteEditor.classList.remove('hidden');
+            
+            // Update content title
+            this.contentTitle.innerHTML = `
+                <h2>${this.currentNote.title}</h2>
+                <p>Son düzenleme: ${this.currentNote.date}</p>
+            `;
+            
+            // Focus on title
+            this.noteTitle.focus();
         }
     }
 
-    editNote(id) {
-        const note = this.notes.find(note => note.id === id);
-        if (!note) return;
-
-        const titleInput = document.getElementById('noteTitle');
-        const contentInput = document.getElementById('noteContent');
-
-        titleInput.value = note.title;
-        contentInput.value = note.content;
-
-        // Remove the old note
-        this.notes = this.notes.filter(note => note.id !== id);
-        this.saveNotes();
-        this.renderNotes();
-        this.updateEmptyState();
-
-        // Focus on title input
-        titleInput.focus();
-        titleInput.select();
-
-        this.showNotification('Not düzenleme moduna geçildi!', 'info');
+    autoSave() {
+        if (this.currentNote) {
+            this.currentNote.title = this.noteTitle.value;
+            this.currentNote.content = this.noteContent.value;
+            this.currentNote.date = new Date().toLocaleString('tr-TR');
+            
+            // Update in notes array
+            const index = this.notes.findIndex(note => note.id === this.currentNote.id);
+            if (index !== -1) {
+                this.notes[index] = this.currentNote;
+            }
+            
+            this.saveToStorage();
+            this.loadNotes(); // Refresh sidebar
+            this.updateContentTitle();
+        }
     }
 
-    clearForm() {
-        document.getElementById('noteTitle').value = '';
-        document.getElementById('noteContent').value = '';
-        document.getElementById('noteTitle').focus();
+    saveCurrentNote() {
+        if (this.currentNote) {
+            this.autoSave();
+            this.showNotification('Not kaydedildi!', 'success');
+        }
+    }
+
+    deleteCurrentNote() {
+        if (this.currentNote) {
+            if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
+                this.notes = this.notes.filter(note => note.id !== this.currentNote.id);
+                this.saveToStorage();
+                this.loadNotes();
+                this.showWelcomeScreen();
+                this.showNotification('Not silindi!', 'success');
+            }
+        }
+    }
+
+    updateContentTitle() {
+        if (this.currentNote) {
+            this.contentTitle.innerHTML = `
+                <h2>${this.currentNote.title}</h2>
+                <p>Son düzenleme: ${this.currentNote.date}</p>
+            `;
+        }
+    }
+
+    showWelcomeScreen() {
+        this.currentNote = null;
+        this.welcomeScreen.classList.remove('hidden');
+        this.noteEditor.classList.add('hidden');
+        this.contentTitle.innerHTML = `
+            <h2>Hoş Geldiniz</h2>
+            <p>Not almaya başlamak için sol taraftan bir not seçin veya yeni not oluşturun.</p>
+        `;
     }
 
     searchNotes(query) {
-        const notesContainer = document.getElementById('notesContainer');
-        const noteCards = notesContainer.querySelectorAll('.note-card');
-
-        noteCards.forEach(card => {
-            const title = card.querySelector('.note-title').textContent.toLowerCase();
-            const content = card.querySelector('.note-content').textContent.toLowerCase();
-            const searchTerm = query.toLowerCase();
-
-            if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+        const noteItems = document.querySelectorAll('.note-item');
+        const filteredNotes = this.notes.filter(note => 
+            note.title.toLowerCase().includes(query.toLowerCase()) ||
+            note.content.toLowerCase().includes(query.toLowerCase())
+        );
+        
+        noteItems.forEach(item => {
+            const noteId = parseInt(item.dataset.noteId);
+            const isVisible = filteredNotes.some(note => note.id === noteId);
+            item.style.display = isVisible ? 'block' : 'none';
         });
+        
+        // Show/hide empty state
+        this.emptyState.style.display = 
+            query && filteredNotes.length === 0 ? 'block' : 'none';
     }
 
-    renderNotes() {
-        const notesContainer = document.getElementById('notesContainer');
-        notesContainer.innerHTML = '';
-
-        this.notes.forEach(note => {
-            const noteCard = this.createNoteCard(note);
-            notesContainer.appendChild(noteCard);
-        });
-    }
-
-    createNoteCard(note) {
-        const card = document.createElement('div');
-        card.className = 'note-card';
-        card.innerHTML = `
-            <div class="note-header">
-                <div>
-                    <h3 class="note-title">${this.escapeHtml(note.title)}</h3>
-                    <div class="note-date">${note.date}</div>
-                </div>
-            </div>
-            <div class="note-content">${this.escapeHtml(note.content)}</div>
-            <div class="note-actions">
-                <button class="action-btn edit" onclick="notesApp.editNote(${note.id})" title="Düzenle">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="action-btn delete" onclick="notesApp.deleteNote(${note.id})" title="Sil">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-        return card;
-    }
-
-    updateEmptyState() {
-        const emptyState = document.getElementById('emptyState');
-        const notesContainer = document.getElementById('notesContainer');
+    loadNotes() {
+        this.notesList.innerHTML = '';
         
         if (this.notes.length === 0) {
-            emptyState.style.display = 'block';
-            notesContainer.style.display = 'none';
-        } else {
-            emptyState.style.display = 'none';
-            notesContainer.style.display = 'grid';
+            this.emptyState.style.display = 'block';
+            this.showWelcomeScreen();
+            return;
         }
+        
+        this.emptyState.style.display = 'none';
+        
+        this.notes.forEach(note => {
+            const noteItem = this.createNoteItem(note);
+            this.notesList.appendChild(noteItem);
+        });
     }
 
-    saveNotes() {
+    createNoteItem(note) {
+        const noteItem = document.createElement('div');
+        noteItem.className = 'note-item';
+        noteItem.dataset.noteId = note.id;
+        
+        const preview = note.content.length > 100 
+            ? note.content.substring(0, 100) + '...' 
+            : note.content;
+        
+        noteItem.innerHTML = `
+            <div class="note-item-title">${note.title}</div>
+            <div class="note-item-preview">${preview || 'Boş not'}</div>
+            <div class="note-item-date">${note.date}</div>
+        `;
+        
+        noteItem.addEventListener('click', () => this.selectNote(note.id));
+        
+        return noteItem;
+    }
+
+    saveToStorage() {
         localStorage.setItem('notes', JSON.stringify(this.notes));
     }
 
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+    updateUI() {
+        if (this.notes.length === 0) {
+            this.showWelcomeScreen();
+        }
+    }
+
+    handleKeyboardShortcuts(e) {
+        // Ctrl/Cmd + N: New note
+        if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+            e.preventDefault();
+            this.createNewNote();
+        }
+        
+        // Ctrl/Cmd + S: Save note
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            this.saveCurrentNote();
+        }
+        
+        // Ctrl/Cmd + F: Focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            this.searchInput.focus();
+        }
+        
+        // Escape: Clear search or go back
+        if (e.key === 'Escape') {
+            if (this.searchInput.value) {
+                this.searchInput.value = '';
+                this.searchNotes('');
+            } else if (this.currentNote) {
+                this.showWelcomeScreen();
+            }
+        }
     }
 
     showNotification(message, type = 'info') {
-        // Remove existing notification
-        const existingNotification = document.querySelector('.notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
-
-        // Create notification element
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(notification => notification.remove());
+        
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
-            <div class="notification-content">
-                <i class="fas ${this.getNotificationIcon(type)}"></i>
-                <span>${message}</span>
-            </div>
-            <button class="notification-close">
-                <i class="fas fa-times"></i>
-            </button>
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
         `;
-
+        
         // Add styles
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
+            background: ${type === 'success' ? 'var(--success-color)' : 'var(--warning-color)'};
+            color: white;
             padding: 15px 20px;
+            border-radius: 10px;
             box-shadow: var(--shadow);
-            z-index: 1000;
+            z-index: 10000;
             display: flex;
             align-items: center;
-            gap: 15px;
-            min-width: 300px;
+            gap: 10px;
+            font-weight: 600;
             animation: slideInRight 0.3s ease-out;
         `;
-
-        // Add notification styles to head
-        if (!document.querySelector('#notification-styles')) {
-            const style = document.createElement('style');
-            style.id = 'notification-styles';
-            style.textContent = `
-                @keyframes slideInRight {
-                    from {
-                        opacity: 0;
-                        transform: translateX(100%);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-                
-                .notification-content {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    flex: 1;
-                }
-                
-                .notification-close {
-                    background: none;
-                    border: none;
-                    color: var(--text-secondary);
-                    cursor: pointer;
-                    padding: 5px;
-                    border-radius: 5px;
-                    transition: all 0.3s ease;
-                }
-                
-                .notification-close:hover {
-                    background: var(--bg-secondary);
-                    color: var(--text-primary);
-                }
-                
-                .notification-success i {
-                    color: var(--success-color);
-                }
-                
-                .notification-warning i {
-                    color: var(--warning-color);
-                }
-                
-                .notification-error i {
-                    color: var(--danger-color);
-                }
-                
-                .notification-info i {
-                    color: #667eea;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        // Add to page
+        
         document.body.appendChild(notification);
-
-        // Close button functionality
-        notification.querySelector('.notification-close').addEventListener('click', () => {
-            notification.remove();
-        });
-
+        
         // Auto remove after 3 seconds
         setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
+            notification.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
         }, 3000);
-    }
-
-    getNotificationIcon(type) {
-        switch (type) {
-            case 'success': return 'fa-check-circle';
-            case 'warning': return 'fa-exclamation-triangle';
-            case 'error': return 'fa-times-circle';
-            default: return 'fa-info-circle';
-        }
     }
 }
 
-// Initialize the app
-const notesApp = new NotesApp();
+// Add animation keyframes
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new NotesApp();
+});
