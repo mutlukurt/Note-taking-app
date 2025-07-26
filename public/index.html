@@ -4,20 +4,297 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not Alma Uygulaması</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .app-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .note-form {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .note-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .note-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .note-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .note-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3);
+        }
+
+        .search-section {
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+
+        .notes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .note-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .note-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .note-date {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .note-content {
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .action-btn:hover {
+            background: #f8f9fa;
+            color: #2c3e50;
+        }
+
+        .action-btn.edit:hover {
+            color: #ffc107;
+        }
+
+        .action-btn.delete:hover {
+            color: #dc3545;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .app-title {
+                font-size: 2rem;
+            }
+            
+            .note-form {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .notes-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="light-mode">
+<body>
     <div class="container">
-        <header class="header">
-            <h1 class="app-title">
-                <i class="fas fa-sticky-note"></i>
-                Not Alma Uygulaması
-            </h1>
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-sun"></i>
-            </button>
-        </header>
+        <div class="header">
+            <h1 class="app-title">📝 Not Alma Uygulaması</h1>
+        </div>
 
         <div class="note-form">
             <div class="input-group">
@@ -26,19 +303,16 @@
             </div>
             <div class="button-group">
                 <button id="addNote" class="btn btn-primary">
-                    <i class="fas fa-plus"></i>
-                    Not Ekle
+                    ➕ Not Ekle
                 </button>
                 <button id="clearForm" class="btn btn-secondary">
-                    <i class="fas fa-eraser"></i>
-                    Temizle
+                    🧹 Temizle
                 </button>
             </div>
         </div>
 
         <div class="search-section">
             <div class="search-box">
-                <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
             </div>
         </div>
@@ -48,12 +322,183 @@
         </div>
 
         <div class="empty-state" id="emptyState">
-            <i class="fas fa-notes-medical"></i>
-            <h3>Henüz not eklenmemiş</h3>
+            <h3>📝 Henüz not eklenmemiş</h3>
             <p>İlk notunuzu ekleyerek başlayın!</p>
         </div>
     </div>
 
-    <script src="script-simple.js"></script>
+    <script>
+        class NotesApp {
+            constructor() {
+                this.notes = JSON.parse(localStorage.getItem('notes')) || [];
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.renderNotes();
+                this.updateEmptyState();
+            }
+
+            setupEventListeners() {
+                document.getElementById('addNote').addEventListener('click', () => {
+                    this.addNote();
+                });
+
+                document.getElementById('clearForm').addEventListener('click', () => {
+                    this.clearForm();
+                });
+
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    this.searchNotes(e.target.value);
+                });
+
+                document.getElementById('noteTitle').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.addNote();
+                    }
+                });
+
+                document.getElementById('noteContent').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && e.ctrlKey) {
+                        this.addNote();
+                    }
+                });
+            }
+
+            addNote() {
+                const titleInput = document.getElementById('noteTitle');
+                const contentInput = document.getElementById('noteContent');
+                
+                const title = titleInput.value.trim();
+                const content = contentInput.value.trim();
+
+                if (!title && !content) {
+                    alert('Lütfen en az bir başlık veya içerik girin!');
+                    return;
+                }
+
+                const note = {
+                    id: Date.now(),
+                    title: title || 'Başlıksız Not',
+                    content: content || 'İçerik yok',
+                    date: new Date().toLocaleString('tr-TR')
+                };
+
+                this.notes.unshift(note);
+                this.saveNotes();
+                this.renderNotes();
+                this.clearForm();
+                this.updateEmptyState();
+            }
+
+            deleteNote(id) {
+                if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
+                    this.notes = this.notes.filter(note => note.id !== id);
+                    this.saveNotes();
+                    this.renderNotes();
+                    this.updateEmptyState();
+                }
+            }
+
+            editNote(id) {
+                const note = this.notes.find(note => note.id === id);
+                if (!note) return;
+
+                const titleInput = document.getElementById('noteTitle');
+                const contentInput = document.getElementById('noteContent');
+
+                titleInput.value = note.title;
+                contentInput.value = note.content;
+
+                this.notes = this.notes.filter(note => note.id !== id);
+                this.saveNotes();
+                this.renderNotes();
+                this.updateEmptyState();
+
+                titleInput.focus();
+                titleInput.select();
+            }
+
+            clearForm() {
+                document.getElementById('noteTitle').value = '';
+                document.getElementById('noteContent').value = '';
+                document.getElementById('noteTitle').focus();
+            }
+
+            searchNotes(query) {
+                const notesContainer = document.getElementById('notesContainer');
+                const noteCards = notesContainer.querySelectorAll('.note-card');
+
+                noteCards.forEach(card => {
+                    const title = card.querySelector('.note-title').textContent.toLowerCase();
+                    const content = card.querySelector('.note-content').textContent.toLowerCase();
+                    const searchTerm = query.toLowerCase();
+
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            renderNotes() {
+                const notesContainer = document.getElementById('notesContainer');
+                notesContainer.innerHTML = '';
+
+                this.notes.forEach(note => {
+                    const noteCard = this.createNoteCard(note);
+                    notesContainer.appendChild(noteCard);
+                });
+            }
+
+            createNoteCard(note) {
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.innerHTML = `
+                    <div>
+                        <h3 class="note-title">${this.escapeHtml(note.title)}</h3>
+                        <div class="note-date">${note.date}</div>
+                    </div>
+                    <div class="note-content">${this.escapeHtml(note.content)}</div>
+                    <div class="note-actions">
+                        <button class="action-btn edit" onclick="notesApp.editNote(${note.id})" title="Düzenle">
+                            ✏️
+                        </button>
+                        <button class="action-btn delete" onclick="notesApp.deleteNote(${note.id})" title="Sil">
+                            🗑️
+                        </button>
+                    </div>
+                `;
+                return card;
+            }
+
+            updateEmptyState() {
+                const emptyState = document.getElementById('emptyState');
+                const notesContainer = document.getElementById('notesContainer');
+                
+                if (this.notes.length === 0) {
+                    emptyState.style.display = 'block';
+                    notesContainer.style.display = 'none';
+                } else {
+                    emptyState.style.display = 'none';
+                    notesContainer.style.display = 'grid';
+                }
+            }
+
+            saveNotes() {
+                localStorage.setItem('notes', JSON.stringify(this.notes));
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        const notesApp = new NotesApp();
+    </script>
 </body>
 </html>
