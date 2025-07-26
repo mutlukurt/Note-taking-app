@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basit PNG İkon Oluşturucu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .icon-container {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .download-all {
+            background: #28a745;
+            font-size: 16px;
+            padding: 15px 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📱 Basit PNG İkon Oluşturucu</h1>
+    <p>Bu sayfa PWA Builder için basit PNG ikonları oluşturur.</p>
+    
+    <div id="icons"></div>
+    
+    <br>
+    <button class="download-all" onclick="downloadAll()">📥 Tüm PNG'leri İndir</button>
+
+    <script>
+        const sizes = [16, 32, 72, 96, 128, 144, 152, 192, 384, 512];
+        
+        function createIcon(size) {
+            const div = document.createElement('div');
+            div.className = 'icon-container';
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            canvas.id = 'canvas-' + size;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Mavi gradient arka plan
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            
+            // Arka plan
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Beyaz daire (not kağıdı)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.arc(size * 0.5, size * 0.5, size * 0.35, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Not çizgileri
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = size * 0.01;
+            ctx.globalAlpha = 0.3;
+            
+            const startY = size * 0.3;
+            const lineHeight = size * 0.05;
+            
+            for (let i = 0; i < 4; i++) {
+                const y = startY + (i * lineHeight);
+                ctx.beginPath();
+                ctx.moveTo(size * 0.25, y);
+                ctx.lineTo(size * 0.75, y);
+                ctx.stroke();
+            }
+            
+            // Kısa çizgi
+            ctx.beginPath();
+            ctx.moveTo(size * 0.25, startY + (4 * lineHeight));
+            ctx.lineTo(size * 0.6, startY + (4 * lineHeight));
+            ctx.stroke();
+            
+            // Pin (kırmızı)
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = '#dc3545';
+            ctx.beginPath();
+            ctx.arc(size * 0.5, size * 0.25, size * 0.03, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Pin gövdesi
+            ctx.fillRect(size * 0.48, size * 0.25, size * 0.04, size * 0.06);
+            
+            // Kalem (sarı)
+            ctx.fillStyle = '#ffc107';
+            ctx.save();
+            ctx.translate(size * 0.7, size * 0.6);
+            ctx.rotate(-Math.PI / 4);
+            ctx.fillRect(-size * 0.04, -size * 0.006, size * 0.08, size * 0.012);
+            ctx.restore();
+            
+            const label = document.createElement('div');
+            label.textContent = size + 'x' + size;
+            label.style.marginTop = '10px';
+            label.style.fontWeight = 'bold';
+            
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = 'İndir';
+            downloadBtn.onclick = () => downloadIcon(size);
+            
+            div.appendChild(canvas);
+            div.appendChild(label);
+            div.appendChild(downloadBtn);
+            
+            document.getElementById('icons').appendChild(div);
+        }
+        
+        function downloadIcon(size) {
+            const canvas = document.getElementById('canvas-' + size);
+            const link = document.createElement('a');
+            link.download = 'icon-' + size + 'x' + size + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        function downloadAll() {
+            sizes.forEach((size, index) => {
+                setTimeout(() => downloadIcon(size), index * 100);
+            });
+        }
+        
+        // Tüm ikonları oluştur
+        sizes.forEach(size => createIcon(size));
+    </script>
+</body>
+</html>

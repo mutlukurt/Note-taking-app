@@ -9,68 +9,14 @@
   "orientation": "portrait-primary",
   "scope": "/Note-taking-app/",
   "lang": "tr",
-  "icons": [
-    {
-      "src": "https://via.placeholder.com/16x16/667eea/ffffff?text=📝",
-      "sizes": "16x16",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/32x32/667eea/ffffff?text=📝",
-      "sizes": "32x32",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/72x72/667eea/ffffff?text=📝",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/96x96/667eea/ffffff?text=📝",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/128x128/667eea/ffffff?text=📝",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/144x144/667eea/ffffff?text=📝",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/152x152/667eea/ffffff?text=📝",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/192x192/667eea/ffffff?text=📝",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/384x384/667eea/ffffff?text=📝",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/512x512/667eea/ffffff?text=📝",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ],
+      "icons": [
+        {
+            "src": "https://via.placeholder.com/512x512/667eea/ffffff?text=📝",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
   "categories": [
     "productivity",
     "utilities"
