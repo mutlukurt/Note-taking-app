@@ -22,7 +22,46 @@
         <div class="note-form">
             <div class="input-group">
                 <input type="text" id="noteTitle" placeholder="Not başlığı..." class="note-input">
-                <textarea id="noteContent" placeholder="Notunuzu buraya yazın..." class="note-textarea"></textarea>
+                
+                <!-- Rich Text Editor Toolbar -->
+                <div class="editor-toolbar">
+                    <button type="button" class="toolbar-btn" data-command="bold" title="Kalın">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="italic" title="İtalik">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="underline" title="Altı Çizili">
+                        <i class="fas fa-underline"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="strikeThrough" title="Üstü Çizili">
+                        <i class="fas fa-strikethrough"></i>
+                    </button>
+                    <div class="toolbar-separator"></div>
+                    <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numaralı Liste">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
+                    <div class="toolbar-separator"></div>
+                    <button type="button" class="toolbar-btn" data-command="justifyLeft" title="Sola Hizala">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="justifyCenter" title="Ortala">
+                        <i class="fas fa-align-center"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="justifyRight" title="Sağa Hizala">
+                        <i class="fas fa-align-right"></i>
+                    </button>
+                    <div class="toolbar-separator"></div>
+                    <button type="button" class="toolbar-btn" id="addImageBtn" title="Fotoğraf Ekle">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div id="noteContent" class="note-textarea rich-editor" contenteditable="true" placeholder="Notunuzu buraya yazın..."></div>
             </div>
             <div class="button-group">
                 <button id="addNote" class="btn btn-primary">

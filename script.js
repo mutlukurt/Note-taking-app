@@ -60,6 +60,25 @@ class NotesApp {
             });
         });
 
+        // Rich text editor toolbar
+        document.querySelectorAll('.toolbar-btn[data-command]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const command = btn.dataset.command;
+                this.executeCommand(command);
+                this.updateToolbarState();
+            });
+        });
+
+        // Image upload
+        document.getElementById('addImageBtn').addEventListener('click', () => {
+            document.getElementById('imageInput').click();
+        });
+
+        document.getElementById('imageInput').addEventListener('change', (e) => {
+            this.handleImageUpload(e);
+        });
+
         // Enter key to add note
         document.getElementById('noteTitle').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -71,6 +90,15 @@ class NotesApp {
             if (e.key === 'Enter' && e.ctrlKey) {
                 this.addNote();
             }
+        });
+
+        // Rich editor events
+        document.getElementById('noteContent').addEventListener('input', () => {
+            this.updateToolbarState();
+        });
+
+        document.getElementById('noteContent').addEventListener('keyup', () => {
+            this.updateToolbarState();
         });
     }
 
@@ -162,10 +190,9 @@ class NotesApp {
 
     addNote() {
         const titleInput = document.getElementById('noteTitle');
-        const contentInput = document.getElementById('noteContent');
         
         const title = titleInput.value.trim();
-        const content = contentInput.value.trim();
+        const content = this.getNoteContent().trim();
 
         if (!title && !content) {
             this.showNotification('Lütfen en az bir başlık veya içerik girin!', 'warning');
@@ -257,12 +284,9 @@ class NotesApp {
     }
 
     togglePin(id) {
-        console.log('Toggle pin called for id:', id);
         const note = this.notes.find(n => n.id === id);
-        console.log('Found note:', note);
         if (note) {
             note.pinned = !note.pinned;
-            console.log('Pin status changed to:', note.pinned);
             this.saveNotes();
             this.applySortAndFilter();
             this.showNotification(
@@ -277,10 +301,9 @@ class NotesApp {
         if (!note) return;
 
         const titleInput = document.getElementById('noteTitle');
-        const contentInput = document.getElementById('noteContent');
 
         titleInput.value = note.title;
-        contentInput.value = note.content;
+        this.setNoteContent(note.content);
 
         // Change button text
         const addButton = document.getElementById('addNote');
@@ -294,10 +317,9 @@ class NotesApp {
 
     updateNote(id) {
         const titleInput = document.getElementById('noteTitle');
-        const contentInput = document.getElementById('noteContent');
         
         const title = titleInput.value.trim();
-        const content = contentInput.value.trim();
+        const content = this.getNoteContent().trim();
 
         if (!title && !content) {
             this.showNotification('Lütfen en az bir başlık veya içerik girin!', 'warning');
@@ -325,7 +347,7 @@ class NotesApp {
 
     clearForm() {
         document.getElementById('noteTitle').value = '';
-        document.getElementById('noteContent').value = '';
+        this.setNoteContent('');
         
         // Reset button
         const addButton = document.getElementById('addNote');
@@ -398,7 +420,6 @@ class NotesApp {
         let isDragging = false;
 
         card.addEventListener('touchstart', (e) => {
-            console.log('Touch start');
             startX = e.touches[0].clientX;
             isDragging = true;
             card.classList.add('swiping');
@@ -442,7 +463,6 @@ class NotesApp {
 
         // Mouse events for desktop
         card.addEventListener('mousedown', (e) => {
-            console.log('Mouse down');
             startX = e.clientX;
             isDragging = true;
             card.classList.add('swiping');
@@ -625,6 +645,69 @@ class NotesApp {
             case 'info':
             default: return 'fa-info-circle';
         }
+    }
+
+    // Rich Text Editor Functions
+    executeCommand(command) {
+        document.execCommand(command, false, null);
+        document.getElementById('noteContent').focus();
+    }
+
+    updateToolbarState() {
+        const editor = document.getElementById('noteContent');
+        const buttons = document.querySelectorAll('.toolbar-btn[data-command]');
+        
+        buttons.forEach(btn => {
+            const command = btn.dataset.command;
+            const isActive = document.queryCommandState(command);
+            btn.classList.toggle('active', isActive);
+        });
+    }
+
+    handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            this.showNotification('Lütfen sadece resim dosyası seçin!', 'warning');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) { // 5MB limit
+            this.showNotification('Resim dosyası 5MB\'dan küçük olmalıdır!', 'warning');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+            
+            const editor = document.getElementById('noteContent');
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            
+            range.insertNode(img);
+            range.collapse(false);
+            
+            editor.focus();
+            this.showNotification('Resim başarıyla eklendi!', 'success');
+        };
+        
+        reader.readAsDataURL(file);
+        event.target.value = ''; // Reset input
+    }
+
+    getNoteContent() {
+        const editor = document.getElementById('noteContent');
+        return editor.innerHTML;
+    }
+
+    setNoteContent(content) {
+        const editor = document.getElementById('noteContent');
+        editor.innerHTML = content;
     }
 }
 
