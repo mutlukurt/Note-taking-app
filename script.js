@@ -6,6 +6,14 @@ class NotesApp {
         this.currentFilter = localStorage.getItem('filter') || 'all';
         this.swipeThreshold = 100;
         this.deleteTimeout = null;
+        
+        // Update existing notes to include pinned property
+        this.notes.forEach(note => {
+            if (note.pinned === undefined) {
+                note.pinned = false;
+            }
+        });
+        
         this.init();
     }
 
@@ -249,9 +257,12 @@ class NotesApp {
     }
 
     togglePin(id) {
+        console.log('Toggle pin called for id:', id);
         const note = this.notes.find(n => n.id === id);
+        console.log('Found note:', note);
         if (note) {
             note.pinned = !note.pinned;
+            console.log('Pin status changed to:', note.pinned);
             this.saveNotes();
             this.applySortAndFilter();
             this.showNotification(
@@ -387,6 +398,7 @@ class NotesApp {
         let isDragging = false;
 
         card.addEventListener('touchstart', (e) => {
+            console.log('Touch start');
             startX = e.touches[0].clientX;
             isDragging = true;
             card.classList.add('swiping');
@@ -430,6 +442,7 @@ class NotesApp {
 
         // Mouse events for desktop
         card.addEventListener('mousedown', (e) => {
+            console.log('Mouse down');
             startX = e.clientX;
             isDragging = true;
             card.classList.add('swiping');
@@ -466,6 +479,15 @@ class NotesApp {
                 this.swipeDeleteNote(noteId);
             } else {
                 // Reset position
+                card.style.transform = '';
+                card.classList.remove('swipe-left');
+            }
+        });
+
+        card.addEventListener('mouseleave', (e) => {
+            if (isDragging) {
+                isDragging = false;
+                card.classList.remove('swiping');
                 card.style.transform = '';
                 card.classList.remove('swipe-left');
             }

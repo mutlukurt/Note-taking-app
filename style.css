@@ -287,7 +287,7 @@ body {
 }
 
 .note-card.swiping {
-    transition: transform 0.2s ease;
+    transition: none;
 }
 
 .note-card.swipe-left {
