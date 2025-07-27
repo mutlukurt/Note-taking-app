@@ -32,6 +32,29 @@ class NotesApp {
             this.toggleTheme();
         });
 
+        // Theme menu button
+        document.getElementById('themeMenuBtn').addEventListener('click', () => {
+            this.toggleThemeMenu();
+        });
+
+        // Theme options
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const theme = e.currentTarget.dataset.theme;
+                this.changeTheme(theme);
+            });
+        });
+
+        // Close theme menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const themeSelector = document.querySelector('.theme-selector');
+            const themeMenuBtn = document.getElementById('themeMenuBtn');
+            
+            if (!themeSelector.contains(e.target)) {
+                this.closeThemeMenu();
+            }
+        });
+
         // Add note
         document.getElementById('addNote').addEventListener('click', () => {
             this.addNote();
@@ -118,18 +141,67 @@ class NotesApp {
         this.applyTheme();
     }
 
+    toggleThemeMenu() {
+        const dropdown = document.getElementById('themeDropdown');
+        dropdown.classList.toggle('show');
+    }
+
+    closeThemeMenu() {
+        const dropdown = document.getElementById('themeDropdown');
+        dropdown.classList.remove('show');
+    }
+
+    changeTheme(theme) {
+        this.currentTheme = theme;
+        localStorage.setItem('theme', theme);
+        this.applyTheme();
+        this.closeThemeMenu();
+        this.updateThemeMenu();
+        
+        const themeNames = {
+            'light': 'Açık',
+            'dark': 'Gece',
+            'purple': 'Açık Mor',
+            'blue': 'Açık Mavi',
+            'night-blue': 'Gece Mavisi',
+            'vintage': 'Vintage'
+        };
+        
+        this.showNotification(`Tema değiştirildi: ${themeNames[theme]}`, 'success');
+    }
+
+    updateThemeMenu() {
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.classList.remove('active');
+            if (option.dataset.theme === this.currentTheme) {
+                option.classList.add('active');
+            }
+        });
+    }
+
     applyTheme() {
-        const body = document.body;
+        // Remove all theme classes
+        document.body.classList.remove('dark-mode', 'purple-theme', 'blue-theme', 'night-blue-theme', 'vintage-theme');
+        
+        // Add current theme class
+        if (this.currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else if (this.currentTheme !== 'light') {
+            document.body.classList.add(`${this.currentTheme}-theme`);
+        }
+        
+        // Update theme toggle icon
         const themeToggle = document.getElementById('themeToggle');
         const icon = themeToggle.querySelector('i');
-
-        if (this.currentTheme === 'dark') {
-            body.classList.add('dark-mode');
+        
+        if (this.currentTheme === 'dark' || this.currentTheme === 'night-blue') {
             icon.className = 'fas fa-moon';
         } else {
-            body.classList.remove('dark-mode');
             icon.className = 'fas fa-sun';
         }
+        
+        // Update theme menu
+        this.updateThemeMenu();
     }
 
     setSort(sortType) {
