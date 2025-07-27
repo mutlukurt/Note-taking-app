@@ -69,7 +69,9 @@
                             <i class="fas fa-font"></i>
                             <span class="color-indicator"></span>
                         </button>
-                        <input type="color" id="colorPicker" value="#000000" style="display: none;">
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="colorPicker" value="#000000">
+                        </div>
                     </div>
                     <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
@@ -738,13 +740,24 @@
             
             // Text color picker
             if (textColorBtn && colorPicker) {
+                const colorPickerWrapper = textColorBtn.parentElement.querySelector('.color-picker-wrapper');
+                
                 textColorBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Text color button clicked');
                     
-                    // Trigger color picker
-                    colorPicker.click();
+                    // Toggle color picker wrapper visibility
+                    const isVisible = colorPickerWrapper.classList.contains('active');
+                    
+                    // Hide all other color pickers first
+                    document.querySelectorAll('.color-picker-wrapper').forEach(wrapper => {
+                        wrapper.classList.remove('active');
+                    });
+                    
+                    if (!isVisible) {
+                        colorPickerWrapper.classList.add('active');
+                    }
                 });
                 
                 // Color picker change event
@@ -765,9 +778,21 @@
                     
                     editor.setAttribute('data-text-color', color);
                     
+                    // Hide color picker
+                    colorPickerWrapper.classList.remove('active');
+                    
                     // Add visual feedback
                     textColorBtn.classList.add('active');
                     setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                });
+                
+                // Hide color picker when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.color-picker-container')) {
+                        document.querySelectorAll('.color-picker-wrapper').forEach(wrapper => {
+                            wrapper.classList.remove('active');
+                        });
+                    }
                 });
                 
                 // Initialize color indicator

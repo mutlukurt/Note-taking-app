@@ -428,13 +428,51 @@ body {
     z-index: 1;
 }
 
-/* Hide the native color picker input */
-#colorPicker {
+/* Color picker wrapper for better positioning */
+.color-picker-wrapper {
     position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 8px;
     opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
     pointer-events: none;
-    width: 0;
-    height: 0;
+}
+
+.color-picker-wrapper.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Style the color picker input */
+#colorPicker {
+    width: 50px;
+    height: 35px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    background: none;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.2s ease;
+}
+
+#colorPicker:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+#colorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: calc(var(--radius) - 2px);
+}
+
+#colorPicker::-webkit-color-swatch {
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
 }
 
 /* Custom highlight styling for rich editor */
