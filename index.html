@@ -841,19 +841,41 @@
                                 const selectedText = range.toString();
                                 
                                 if (selectedText.length > 0) {
-                                    // Create marker span
+                                    // Create wrapper for marker effect
+                                    const wrapper = document.createElement('span');
+                                    wrapper.style.position = 'relative';
+                                    wrapper.style.display = 'inline-block';
+                                    wrapper.className = 'marker-wrapper';
+                                    
+                                    // Create background marker span
                                     const markerSpan = document.createElement('span');
+                                    markerSpan.style.position = 'absolute';
+                                    markerSpan.style.top = '0';
+                                    markerSpan.style.left = '0';
+                                    markerSpan.style.right = '0';
+                                    markerSpan.style.bottom = '0';
                                     markerSpan.style.backgroundColor = color;
                                     markerSpan.style.borderRadius = '8px';
                                     markerSpan.style.padding = '2px 4px';
-                                    markerSpan.style.opacity = '0.7';
-                                    markerSpan.style.display = 'inline-block';
-                                    markerSpan.className = 'custom-marker';
-                                    markerSpan.textContent = selectedText;
+                                    markerSpan.style.zIndex = '1';
+                                    markerSpan.className = 'marker-background';
                                     
-                                    // Replace selected text with marker span
+                                    // Create text span (on top)
+                                    const textSpan = document.createElement('span');
+                                    textSpan.style.position = 'relative';
+                                    textSpan.style.zIndex = '2';
+                                    textSpan.style.backgroundColor = 'transparent';
+                                    textSpan.style.color = 'inherit';
+                                    textSpan.className = 'marker-text';
+                                    textSpan.textContent = selectedText;
+                                    
+                                    // Add marker and text to wrapper
+                                    wrapper.appendChild(markerSpan);
+                                    wrapper.appendChild(textSpan);
+                                    
+                                    // Replace selected text with wrapper
                                     range.deleteContents();
-                                    range.insertNode(markerSpan);
+                                    range.insertNode(wrapper);
                                     
                                     console.log('Marker applied successfully to:', selectedText);
                                 }
@@ -938,22 +960,44 @@
                             // Update text node to remove last character
                             textNode.textContent = beforeLastChar;
                             
-                            // Create marker span for the last character
+                            // Create wrapper for marker effect
+                            const wrapper = document.createElement('span');
+                            wrapper.style.position = 'relative';
+                            wrapper.style.display = 'inline-block';
+                            wrapper.className = 'marker-wrapper';
+                            
+                            // Create background marker span
                             const markerSpan = document.createElement('span');
+                            markerSpan.style.position = 'absolute';
+                            markerSpan.style.top = '0';
+                            markerSpan.style.left = '0';
+                            markerSpan.style.right = '0';
+                            markerSpan.style.bottom = '0';
                             markerSpan.style.backgroundColor = markerColor;
                             markerSpan.style.borderRadius = '8px';
                             markerSpan.style.padding = '2px 4px';
-                            markerSpan.style.opacity = '0.7';
-                            markerSpan.style.display = 'inline-block';
-                            markerSpan.className = 'custom-marker';
-                            markerSpan.textContent = lastChar;
+                            markerSpan.style.zIndex = '1';
+                            markerSpan.className = 'marker-background';
                             
-                            // Insert marker span after text node
-                            textNode.parentNode.insertBefore(markerSpan, textNode.nextSibling);
+                            // Create text span (on top)
+                            const textSpan = document.createElement('span');
+                            textSpan.style.position = 'relative';
+                            textSpan.style.zIndex = '2';
+                            textSpan.style.backgroundColor = 'transparent';
+                            textSpan.style.color = 'inherit';
+                            textSpan.className = 'marker-text';
+                            textSpan.textContent = lastChar;
                             
-                            // Move cursor after the marker
+                            // Add marker and text to wrapper
+                            wrapper.appendChild(markerSpan);
+                            wrapper.appendChild(textSpan);
+                            
+                            // Insert wrapper after text node
+                            textNode.parentNode.insertBefore(wrapper, textNode.nextSibling);
+                            
+                            // Move cursor after the wrapper
                             const newRange = document.createRange();
-                            newRange.setStartAfter(markerSpan);
+                            newRange.setStartAfter(wrapper);
                             newRange.collapse(true);
                             selection.removeAllRanges();
                             selection.addRange(newRange);
