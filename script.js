@@ -24,6 +24,7 @@ class NotesApp {
         this.applySortAndFilter();
         this.renderNotes();
         this.updateEmptyState();
+        this.setupThemeOptions();
     }
 
     setupEventListeners() {
@@ -37,20 +38,15 @@ class NotesApp {
             this.toggleThemeMenu();
         });
 
-        // Theme options
-        document.querySelectorAll('.theme-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const theme = e.currentTarget.dataset.theme;
-                this.changeTheme(theme);
-            });
-        });
+        // Theme options - will be added dynamically
+        this.setupThemeOptions();
 
         // Close theme menu when clicking outside
         document.addEventListener('click', (e) => {
             const themeSelector = document.querySelector('.theme-selector');
-            const themeMenuBtn = document.getElementById('themeMenuBtn');
+            const dropdown = document.getElementById('themeDropdown');
             
-            if (!themeSelector.contains(e.target)) {
+            if (dropdown.classList.contains('show') && !themeSelector.contains(e.target)) {
                 this.closeThemeMenu();
             }
         });
@@ -141,9 +137,27 @@ class NotesApp {
         this.applyTheme();
     }
 
+    setupThemeOptions() {
+        // Add event listeners to theme options
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const theme = e.currentTarget.dataset.theme;
+                this.changeTheme(theme);
+            });
+        });
+    }
+
     toggleThemeMenu() {
         const dropdown = document.getElementById('themeDropdown');
+        console.log('Toggle theme menu clicked');
         dropdown.classList.toggle('show');
+        
+        // Setup theme options when menu opens
+        if (dropdown.classList.contains('show')) {
+            console.log('Theme menu opened');
+            this.setupThemeOptions();
+        }
     }
 
     closeThemeMenu() {
