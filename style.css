@@ -511,7 +511,9 @@ body {
     position: relative !important;
     z-index: 2 !important;
     background-color: transparent !important;
-    color: inherit !important;
+    color: #000000 !important; /* Force black text */
+    opacity: 1 !important; /* Force full opacity */
+    font-weight: inherit !important;
 }
 
 /* Legacy marker styles for compatibility */

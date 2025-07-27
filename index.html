@@ -845,7 +845,7 @@
                         editor.focus();
                         
                         if (color === 'clear') {
-                            // Clear marker - remove marker from selected text
+                            // Clear marker - remove marker from selected text or clear marker mode
                             const selection = window.getSelection();
                             if (selection.rangeCount > 0 && !selection.isCollapsed) {
                                 // Remove marker from selected text
@@ -866,66 +866,62 @@
                                 console.log('Marker mode cleared');
                             }
                         } else {
-                            // Check if text is selected
+                            // Apply marker to selected text OR enable marker mode for typing
                             const selection = window.getSelection();
+                            
                             if (selection.rangeCount > 0 && !selection.isCollapsed) {
                                 // Text is selected - apply marker to selected text
-                                console.log('Text selected, applying marker');
+                                console.log('Text selected, applying marker to selection');
                                 
-                                try {
-                                    // Create a span element with background color
-                                    const range = selection.getRangeAt(0);
-                                    const selectedText = range.toString();
+                                const range = selection.getRangeAt(0);
+                                const selectedText = range.toString();
+                                
+                                if (selectedText.length > 0) {
+                                    // Create wrapper for marker effect
+                                    const wrapper = document.createElement('span');
+                                    wrapper.style.position = 'relative';
+                                    wrapper.style.display = 'inline-block';
+                                    wrapper.className = 'marker-wrapper';
                                     
-                                    if (selectedText.length > 0) {
-                                        // Create wrapper for marker effect
-                                        const wrapper = document.createElement('span');
-                                        wrapper.style.position = 'relative';
-                                        wrapper.style.display = 'inline-block';
-                                        wrapper.className = 'marker-wrapper';
-                                        
-                                        // Create background marker span
-                                        const markerSpan = document.createElement('span');
-                                        markerSpan.style.position = 'absolute';
-                                        markerSpan.style.top = '0';
-                                        markerSpan.style.left = '0';
-                                        markerSpan.style.right = '0';
-                                        markerSpan.style.bottom = '0';
-                                        markerSpan.style.backgroundColor = color;
-                                        markerSpan.style.borderRadius = '8px';
-                                        markerSpan.style.padding = '2px 4px';
-                                        markerSpan.style.zIndex = '1';
-                                        markerSpan.className = 'marker-background';
-                                        
-                                        // Create text span (on top)
-                                        const textSpan = document.createElement('span');
-                                        textSpan.style.position = 'relative';
-                                        textSpan.style.zIndex = '2';
-                                        textSpan.style.backgroundColor = 'transparent';
-                                        textSpan.style.color = 'inherit';
-                                        textSpan.className = 'marker-text';
-                                        textSpan.textContent = selectedText;
-                                        
-                                        // Add marker and text to wrapper
-                                        wrapper.appendChild(markerSpan);
-                                        wrapper.appendChild(textSpan);
-                                        
-                                        // Replace selected text with wrapper
-                                        range.deleteContents();
-                                        range.insertNode(wrapper);
-                                        
-                                        console.log('Marker applied successfully to:', selectedText);
-                                    }
-                                } catch (error) {
-                                    console.error('Error applying marker:', error);
-                                    // Fallback to execCommand
-                                    const success = document.execCommand('backColor', false, color);
-                                    console.log('Fallback marker applied:', success);
+                                    // Create background marker span (no opacity - full color)
+                                    const markerSpan = document.createElement('span');
+                                    markerSpan.style.position = 'absolute';
+                                    markerSpan.style.top = '0';
+                                    markerSpan.style.left = '0';
+                                    markerSpan.style.right = '0';
+                                    markerSpan.style.bottom = '0';
+                                    markerSpan.style.backgroundColor = color;
+                                    markerSpan.style.borderRadius = '8px';
+                                    markerSpan.style.padding = '2px 4px';
+                                    markerSpan.style.zIndex = '1';
+                                    markerSpan.className = 'marker-background';
+                                    
+                                    // Create text span (on top) - fully opaque
+                                    const textSpan = document.createElement('span');
+                                    textSpan.style.position = 'relative';
+                                    textSpan.style.zIndex = '2';
+                                    textSpan.style.backgroundColor = 'transparent';
+                                    textSpan.style.color = '#000000'; // Force black text
+                                    textSpan.style.opacity = '1'; // Force full opacity
+                                    textSpan.className = 'marker-text';
+                                    textSpan.textContent = selectedText;
+                                    
+                                    // Add marker and text to wrapper
+                                    wrapper.appendChild(markerSpan);
+                                    wrapper.appendChild(textSpan);
+                                    
+                                    // Replace selected text with wrapper
+                                    range.deleteContents();
+                                    range.insertNode(wrapper);
+                                    
+                                    // Clear selection after applying marker
+                                    selection.removeAllRanges();
+                                    
+                                    console.log('Marker applied successfully to selected text:', selectedText);
                                 }
-                                
                             } else {
                                 // No text selected - enable marker mode for typing
-                                console.log('No text selected, enabling marker mode');
+                                console.log('No text selected, enabling marker mode for typing');
                                 editor.setAttribute('data-marker-color', color);
                                 editor.style.caretColor = color;
                                 
@@ -935,7 +931,7 @@
                                     highlightBtn.classList.remove('marker-mode');
                                     editor.removeAttribute('data-marker-color');
                                     editor.style.caretColor = '';
-                                }, 2000);
+                                }, 5000); // Extended to 5 seconds
                             }
                         }
                         
@@ -981,7 +977,7 @@
             // Handle marker mode for typing
             editor.addEventListener('input', (e) => {
                 const markerColor = editor.getAttribute('data-marker-color');
-                if (markerColor) {
+                if (markerColor && markerColor !== 'clear') {
                     console.log('Marker mode active, applying to typed text');
                     
                     // Get the last typed character
@@ -1004,7 +1000,7 @@
                             wrapper.style.display = 'inline-block';
                             wrapper.className = 'marker-wrapper';
                             
-                            // Create background marker span
+                            // Create background marker span (no opacity - full color)
                             const markerSpan = document.createElement('span');
                             markerSpan.style.position = 'absolute';
                             markerSpan.style.top = '0';
@@ -1017,12 +1013,13 @@
                             markerSpan.style.zIndex = '1';
                             markerSpan.className = 'marker-background';
                             
-                            // Create text span (on top)
+                            // Create text span (on top) - fully opaque
                             const textSpan = document.createElement('span');
                             textSpan.style.position = 'relative';
                             textSpan.style.zIndex = '2';
                             textSpan.style.backgroundColor = 'transparent';
-                            textSpan.style.color = 'inherit';
+                            textSpan.style.color = '#000000'; // Force black text
+                            textSpan.style.opacity = '1'; // Force full opacity
                             textSpan.className = 'marker-text';
                             textSpan.textContent = lastChar;
                             
