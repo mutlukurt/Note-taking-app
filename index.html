@@ -831,8 +831,15 @@
                         currentColor = color;
                         console.log('=== APPLY COLOR START ===');
                         console.log('Color to apply:', color);
-                        console.log('Editor element:', editor);
-                        console.log('Editor focused:', document.activeElement === editor);
+                        
+                        // Save current cursor position
+                        const selection = window.getSelection();
+                        let savedRange = null;
+                        
+                        if (selection.rangeCount > 0) {
+                            savedRange = selection.getRangeAt(0).cloneRange();
+                            console.log('Cursor position saved');
+                        }
                         
                         // Ensure editor is focused
                         if (document.activeElement !== editor) {
@@ -840,9 +847,6 @@
                             console.log('Editor focused manually');
                         }
                         
-                        // More reliable color application
-                        const selection = window.getSelection();
-                        console.log('Selection:', selection);
                         console.log('Selection collapsed:', selection.isCollapsed);
                         console.log('Selection range count:', selection.rangeCount);
                         
@@ -862,8 +866,12 @@
                                 range.deleteContents();
                                 range.insertNode(span);
                                 
-                                // Clear selection
+                                // Position cursor after the span
+                                const newRange = document.createRange();
+                                newRange.setStartAfter(span);
+                                newRange.collapse(true);
                                 selection.removeAllRanges();
+                                selection.addRange(newRange);
                                 
                                 console.log('Color applied to selected text:', color);
                             }
@@ -872,13 +880,23 @@
                             console.log('No selection - setting color for typing');
                             console.log('Using execCommand with color:', color);
                             
-                            // Simple direct application
+                            // Apply color without losing cursor position
                             const styleResult = document.execCommand('styleWithCSS', false, true);
                             const colorResult = document.execCommand('foreColor', false, color);
                             
                             console.log('styleWithCSS result:', styleResult);
                             console.log('foreColor result:', colorResult);
-                            console.log('Current document.queryCommandValue("foreColor"):', document.queryCommandValue('foreColor'));
+                            
+                            // Restore cursor position if it was saved and still valid
+                            if (savedRange) {
+                                try {
+                                    selection.removeAllRanges();
+                                    selection.addRange(savedRange);
+                                    console.log('Cursor position restored');
+                                } catch (e) {
+                                    console.log('Could not restore cursor position:', e);
+                                }
+                            }
                         }
                         
                         // Update color indicator
