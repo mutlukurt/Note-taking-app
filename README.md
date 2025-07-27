@@ -104,7 +104,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 8. **Gizlilik Politikası**: Sayfa altında kapsamlı veri güvenliği bilgileri
 
 ### 🔒 **Çok Dilli Gizlilik Politikası & MIT Lisans:**
-1. **Otomatik Çeviri**: Dil değiştirdiğinizde footer otomatik çevriliyor
+1. **Tam Otomatik Çeviri**: Dil değiştirdiğinizde footer tamamen çevriliyor (MIT lisans dahil)
 2. **Kapsamlı Politika**: 6 ana bölümde detaylı gizlilik açıklaması
    - **Veri Toplama**: Hiçbir kişisel veri toplanmaz
    - **Veri Saklama**: Sadece LocalStorage kullanımı
@@ -112,9 +112,10 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
    - **Üçüncü Taraf**: CDN servisleri açıklaması
    - **Güvenlik**: Tarayıcı güvenliği bilgileri
    - **İletişim**: GitHub üzerinden destek
-3. **MIT Lisans**: Açık kaynak proje açıklaması ve GitHub repo linki
+3. **MIT Lisans Çevirisi**: Açık kaynak proje açıklaması ve GitHub repo linki (TR/EN)
 4. **Professional Tasarım**: Modern card layout, responsive design
-5. **Erişilebilirlik**: Proper link handling, semantic HTML
+5. **Real-time Çeviri**: Anında dil değişimi, kalıcı tercih saklama
+6. **Erişilebilirlik**: Proper link handling, semantic HTML
 
 ## 🎯 Teknolojiler
 
@@ -126,6 +127,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - **jsPDF & html2canvas**: PDF export özelliği (MIT License)
 - **System Fonts**: İşletim sistemi varsayılan fontları
 - **Modern UI Patterns**: Dropdown menüler, inline palettes, micro-interactions
+- **Real-time Translation**: Dinamik çeviri sistemi, localStorage persistence
 
 ## 📁 Dosya Yapısı
 
@@ -258,7 +260,7 @@ Bu uygulama kullanıcı gizliliğini en üst düzeyde korur:
 - **📋 MIT Lisans**: Özgür kullanım hakları
 
 ### **🌍 Çok Dilli Destek**
-Gizlilik politikası hem Türkçe hem İngilizce olarak mevcuttur ve dil değiştirme ile otomatik güncellenir.
+Gizlilik politikası hem Türkçe hem İngilizce olarak mevcuttur ve dil değiştirme ile otomatik güncellenir. MIT lisans açıklaması da dahil olmak üzere footer'daki tüm içerik real-time olarak çevriliyor.
 
 ## 🚀 Gelecek Özellikler
 
@@ -448,6 +450,7 @@ SOFTWARE.
 - 🎯 **Micro-interactions**: Hover effects, active states, transform animations
 - 📱 **Touch-friendly**: Responsive design improvements, better mobile experience
 - 🔒 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
+- 🔧 **Çeviri Düzeltmesi**: MIT lisans kısmı artık dil değiştirme ile tam çevriliyor
 
 ### 📅 **v2.0.0 (2025)**
 - ✨ Zengin metin editörü eklendi
