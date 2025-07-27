@@ -12,7 +12,8 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
 - ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
-- 🗑️ **Silme**: Notları güvenli şekilde silme (swipe ile)
+- 🗑️ **Silme**: Notları güvenli şekilde silme (buton ile veya swipe ile)
+- 📱 **Swipe-to-Delete**: Not kartını sola kaydırarak silme (4 saniye geri alma)
 - 📌 **Sabitleme**: Önemli notları sabitleyebilme
 - 🔄 **Sıralama**: Tarih, başlık ve sabitleme durumuna göre sıralama
 - 🔍 **Filtreleme**: Tüm, sabitlenen ve normal notları filtreleme
@@ -33,7 +34,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 1. **Not Ekleme**: Başlık ve içerik alanlarını doldurun, "Not Ekle" butonuna tıklayın
 2. **Arama**: Üst kısımdaki arama kutusunu kullanarak notlarınızda arama yapın
 3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
-4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın veya sola kaydırın
+4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
 5. **Tema Değiştirme**: Tema kontrol bölümündeki güneş/ay ikonuna tıklayın
 6. **Temizleme**: "Temizle" butonu ile formu temizleyin
 
@@ -45,13 +46,21 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 4. **Fotoğraf Ekleme**: 🖼️ butonuna tıklayıp resim seçin (5MB'a kadar)
 5. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
 
+### 📱 **Swipe-to-Delete (Mobil Özellik):**
+1. **Mobil Cihazda**: Not kartını sola kaydırın
+2. **Masaüstünde**: Not kartını mouse ile sola sürükleyin
+3. **Kırmızı Silme Butonu**: Kaydırma sonrası görünecek
+4. **Silme İşlemi**: Kırmızı butona tıklayarak notu silin
+5. **Geri Alma**: 4 saniye içinde alt kısımda "Geri Al" butonuna tıklayın
+6. **Otomatik Kapanma**: Dışarı tıklayarak kaydırma durumunu sıfırlayın
 
 ### 📌 **Gelişmiş Özellikler:**
 1. **Sabitleme**: 📌 ikonuna tıklayarak notu sabitleyin
 2. **Sıralama**: "En Yeni", "En Eski", "Başlık" seçenekleri
 3. **Filtreleme**: "Tümü", "Sabitlenenler", "Normal" seçenekleri
-4. **Swipe Silme**: Notu sola kaydırarak silin (4 saniye geri alma)
-5. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
+4. **Swipe-to-Delete**: Not kartını sola kaydırarak kırmızı silme butonunu gösterin
+5. **Geri Alma**: Silinen notlar için 4 saniye geri alma süresi
+6. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
 
 ## 🎯 Teknolojiler
 
@@ -119,6 +128,8 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Tipografi**: Modern ve okunabilir fontlar
 - **Zengin Editör**: Profesyonel toolbar tasarımı
 - **Swipe Animasyonları**: Mobil dostu kaydırma efektleri
+- **Swipe-to-Delete**: Kırmızı gradient silme butonu
+- **Undo Notification**: Alt kısımda güzel geri alma bildirimi
 - **Pin Göstergeleri**: Özel gradient arka planlar
 - **Tema Kontrol Bölümü**: Not alma kısmı ile aynı tasarım stili
 - **PDF Export**: Profesyonel PDF çıktısı
@@ -145,10 +156,16 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - [ ] Çoklu dosya yükleme
 - [ ] Not şablonları
 - [ ] Otomatik yedekleme
-- [ ] Gelişmiş tema seçenekleri
 - [ ] Not arşivleme
 - [ ] Gelişmiş PDF şablonları
 - [ ] Not istatistikleri
+- [ ] Ses notu ekleme
+- [ ] Çizim/doodle özelliği
+- [ ] Not şifreleme
+- [ ] Otomatik kaydetme
+- [ ] Not geçmişi
+- [ ] İçe/dışa aktarma (JSON, TXT)
+- [ ] Çoklu dil desteği
 
 ## 🤝 Katkıda Bulunma
 
