@@ -388,6 +388,80 @@ body {
     overflow: hidden;
     cursor: grab;
     user-select: none;
+    transform: translateX(0);
+}
+
+/* Swipe Delete Button */
+.swipe-delete {
+    position: absolute;
+    top: 0;
+    right: -80px;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0 20px 20px 0;
+}
+
+.swipe-delete i {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.swipe-delete span {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Undo Notification */
+.undo-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 15px 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+}
+
+.undo-notification button {
+    background: var(--gradient-accent);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.undo-notification button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 .note-card:active {

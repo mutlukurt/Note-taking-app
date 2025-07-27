@@ -250,6 +250,11 @@
             card.className = 'note-card';
             if (note.pinned) card.classList.add('pinned');
             
+            // Add swipe functionality
+            card.addEventListener('touchstart', handleTouchStart, false);
+            card.addEventListener('touchmove', handleTouchMove, false);
+            card.addEventListener('touchend', handleTouchEnd, false);
+            
             card.innerHTML = `
                 <div class="note-header">
                     <h3 class="note-title">${note.title}</h3>
@@ -266,6 +271,10 @@
                     <button class="action-btn delete" onclick="deleteNote(${note.id})" title="Sil">
                         <i class="fas fa-trash"></i>
                     </button>
+                </div>
+                <div class="swipe-delete" data-note-id="${note.id}" onclick="deleteNoteWithUndo(${note.id})">
+                    <i class="fas fa-trash"></i>
+                    <span>Sil</span>
                 </div>
             `;
             
@@ -376,6 +385,121 @@
                 const noteCard = createNoteCard(note);
                 container.appendChild(noteCard);
             });
+        }
+        
+        // Swipe functionality variables
+        let xDown = null;
+        let yDown = null;
+        let currentCard = null;
+        let undoTimeout = null;
+        
+        // Touch start handler
+        function handleTouchStart(evt) {
+            const firstTouch = evt.touches[0];
+            xDown = firstTouch.clientX;
+            yDown = firstTouch.clientY;
+            currentCard = evt.currentTarget;
+        }
+        
+        // Touch move handler
+        function handleTouchMove(evt) {
+            if (!xDown || !yDown) {
+                return;
+            }
+            
+            const xUp = evt.touches[0].clientX;
+            const yUp = evt.touches[0].clientY;
+            
+            const xDiff = xDown - xUp;
+            const yDiff = yDown - yUp;
+            
+            // Check if horizontal swipe is greater than vertical
+            if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                if (xDiff > 0) {
+                    // Swipe left - show delete
+                    evt.preventDefault();
+                    showSwipeDelete(currentCard);
+                } else {
+                    // Swipe right - hide delete
+                    evt.preventDefault();
+                    hideSwipeDelete(currentCard);
+                }
+            }
+        }
+        
+        // Touch end handler
+        function handleTouchEnd(evt) {
+            xDown = null;
+            yDown = null;
+        }
+        
+        // Show swipe delete
+        function showSwipeDelete(card) {
+            card.style.transform = 'translateX(-80px)';
+            card.style.transition = 'transform 0.3s ease';
+        }
+        
+        // Hide swipe delete
+        function hideSwipeDelete(card) {
+            card.style.transform = 'translateX(0)';
+            card.style.transition = 'transform 0.3s ease';
+        }
+        
+        // Delete note with undo
+        function deleteNoteWithUndo(id) {
+            const noteId = parseInt(id);
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const noteIndex = notes.findIndex(note => note.id === noteId);
+            
+            if (noteIndex === -1) return;
+            
+            const deletedNote = notes[noteIndex];
+            notes.splice(noteIndex, 1);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            
+            // Show undo notification
+            showUndoNotification(deletedNote, noteIndex);
+            
+            // Refresh display
+            renderNotes();
+        }
+        
+        // Show undo notification
+        function showUndoNotification(note, originalIndex) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'undo-notification';
+            notification.innerHTML = `
+                <span>Not silindi</span>
+                <button onclick="undoDelete(${note.id}, ${originalIndex})">Geri Al</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 4000);
+        }
+        
+        // Undo delete
+        function undoDelete(noteId, originalIndex) {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const deletedNote = notes.find(note => note.id === noteId);
+            
+            if (deletedNote) {
+                notes.splice(originalIndex, 0, deletedNote);
+                localStorage.setItem('notes', JSON.stringify(notes));
+                renderNotes();
+            }
+            
+            // Remove notification
+            const notification = document.querySelector('.undo-notification');
+            if (notification) {
+                notification.parentNode.removeChild(notification);
+            }
         }
     </script>
     <script src="script.js"></script>
