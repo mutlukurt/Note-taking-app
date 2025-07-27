@@ -444,6 +444,12 @@ body {
     transition: all 0.3s ease;
     z-index: 1000;
     pointer-events: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-lg);
+    min-width: 200px;
 }
 
 .color-picker-wrapper.active {
@@ -452,46 +458,81 @@ body {
     pointer-events: auto;
 }
 
-/* Style the color picker input */
-#colorPicker {
-    width: 50px;
-    height: 35px;
-    border: 2px solid var(--border-color);
-    border-radius: 20px; /* More oval/rounded */
+/* Spectrum gradient slider */
+.spectrum-picker {
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.spectrum-gradient {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, 
+        #ff0000 0%, 
+        #ff8000 12.5%, 
+        #ffff00 25%, 
+        #80ff00 37.5%, 
+        #00ff00 50%, 
+        #00ff80 62.5%, 
+        #00ffff 75%, 
+        #0080ff 87.5%, 
+        #0000ff 100%
+    );
     cursor: pointer;
-    background: none;
-    box-shadow: var(--shadow-lg);
+    position: relative;
+    border: 1px solid var(--border-color);
+}
+
+.spectrum-slider {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
-    overflow: hidden; /* Ensure content respects border-radius */
 }
 
-#colorPicker:hover {
+.spectrum-slider:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Color grid */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+}
+
+.color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.color-swatch:hover {
+    transform: scale(1.15);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     border-color: var(--primary-color);
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-#colorPicker::-webkit-color-swatch-wrapper {
-    padding: 2px;
-    border-radius: 18px; /* Match the outer border-radius */
+.color-swatch:active {
+    transform: scale(0.95);
 }
 
-#colorPicker::-webkit-color-swatch {
-    border: none;
-    border-radius: 16px; /* Inner content also rounded */
-}
-
-/* Firefox support */
-#colorPicker::-moz-color-swatch {
-    border: none;
-    border-radius: 16px;
-}
-
-/* Additional styling for better UI integration */
-#colorPicker:focus {
-    outline: none;
+.color-swatch.selected {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
 }
 
 /* Custom highlight styling for rich editor */

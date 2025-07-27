@@ -70,7 +70,24 @@
                             <span class="color-indicator"></span>
                         </button>
                         <div class="color-picker-wrapper">
-                            <input type="color" id="colorPicker" value="#000000">
+                            <div class="spectrum-picker">
+                                <div class="spectrum-gradient"></div>
+                                <div class="spectrum-slider" id="spectrumSlider"></div>
+                            </div>
+                            <div class="color-grid">
+                                <div class="color-swatch" data-color="#000000" style="background: #000000;"></div>
+                                <div class="color-swatch" data-color="#ffffff" style="background: #ffffff;"></div>
+                                <div class="color-swatch" data-color="#ff0000" style="background: #ff0000;"></div>
+                                <div class="color-swatch" data-color="#00ff00" style="background: #00ff00;"></div>
+                                <div class="color-swatch" data-color="#0000ff" style="background: #0000ff;"></div>
+                                <div class="color-swatch" data-color="#ffff00" style="background: #ffff00;"></div>
+                                <div class="color-swatch" data-color="#ff00ff" style="background: #ff00ff;"></div>
+                                <div class="color-swatch" data-color="#00ffff" style="background: #00ffff;"></div>
+                                <div class="color-swatch" data-color="#ff8000" style="background: #ff8000;"></div>
+                                <div class="color-swatch" data-color="#8000ff" style="background: #8000ff;"></div>
+                                <div class="color-swatch" data-color="#ff0080" style="background: #ff0080;"></div>
+                                <div class="color-swatch" data-color="#80ff00" style="background: #80ff00;"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="toolbar-separator"></div>
@@ -736,11 +753,15 @@
             
             // Color picker functionality
             const textColorBtn = document.getElementById('textColorBtn');
-            const colorPicker = document.getElementById('colorPicker');
             
             // Text color picker
-            if (textColorBtn && colorPicker) {
+            if (textColorBtn) {
                 const colorPickerWrapper = textColorBtn.parentElement.querySelector('.color-picker-wrapper');
+                const spectrumGradient = colorPickerWrapper.querySelector('.spectrum-gradient');
+                const spectrumSlider = colorPickerWrapper.querySelector('.spectrum-slider');
+                const colorSwatches = colorPickerWrapper.querySelectorAll('.color-swatch');
+                
+                let currentColor = '#000000';
                 
                 textColorBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -760,9 +781,43 @@
                     }
                 });
                 
-                // Color picker change event
-                colorPicker.addEventListener('change', (e) => {
-                    const color = e.target.value;
+                // Spectrum gradient click handler
+                spectrumGradient.addEventListener('click', (e) => {
+                    const rect = spectrumGradient.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const percentage = Math.max(0, Math.min(1, x / rect.width));
+                    
+                    // Calculate color from percentage
+                    const hue = percentage * 360;
+                    const color = `hsl(${hue}, 100%, 50%)`;
+                    
+                    // Convert HSL to HEX for consistency
+                    const hexColor = hslToHex(hue, 100, 50);
+                    
+                    // Update slider position
+                    spectrumSlider.style.left = `${percentage * 100}%`;
+                    
+                    applyColor(hexColor);
+                });
+                
+                // Color swatch click handlers
+                colorSwatches.forEach(swatch => {
+                    swatch.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const color = swatch.dataset.color;
+                        
+                        // Remove selected class from all swatches
+                        colorSwatches.forEach(s => s.classList.remove('selected'));
+                        // Add selected class to clicked swatch
+                        swatch.classList.add('selected');
+                        
+                        applyColor(color);
+                    });
+                });
+                
+                // Apply color function
+                function applyColor(color) {
+                    currentColor = color;
                     console.log('Text color selected:', color);
                     
                     editor.focus();
@@ -784,7 +839,19 @@
                     // Add visual feedback
                     textColorBtn.classList.add('active');
                     setTimeout(() => textColorBtn.classList.remove('active'), 200);
-                });
+                }
+                
+                // HSL to HEX conversion function
+                function hslToHex(h, s, l) {
+                    l /= 100;
+                    const a = s * Math.min(l, 1 - l) / 100;
+                    const f = n => {
+                        const k = (n + h / 30) % 12;
+                        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                        return Math.round(255 * color).toString(16).padStart(2, '0');
+                    };
+                    return `#${f(0)}${f(8)}${f(4)}`;
+                }
                 
                 // Hide color picker when clicking outside
                 document.addEventListener('click', (e) => {
