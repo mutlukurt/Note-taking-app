@@ -632,24 +632,44 @@
             const editor = document.getElementById('noteContent');
             const imageInput = document.getElementById('imageInput');
             
+            console.log('Setting up rich text editor...');
+            console.log('Toolbar found:', toolbar);
+            console.log('Editor found:', editor);
+            
             // Toolbar button clicks
-            toolbar.addEventListener('click', (e) => {
-                if (e.target.closest('.toolbar-btn')) {
+            if (toolbar) {
+                toolbar.addEventListener('click', (e) => {
                     const btn = e.target.closest('.toolbar-btn');
-                    const command = btn.dataset.command;
-                    
-                    if (command) {
-                        e.preventDefault();
-                        document.execCommand(command, false, null);
-                        editor.focus();
+                    if (btn) {
+                        const command = btn.dataset.command;
+                        console.log('Button clicked:', command);
+                        
+                        if (command) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Focus editor first
+                            editor.focus();
+                            
+                            // Execute command
+                            const success = document.execCommand(command, false, null);
+                            console.log('Command executed:', command, 'Success:', success);
+                            
+                            // Add visual feedback
+                            btn.classList.add('active');
+                            setTimeout(() => btn.classList.remove('active'), 200);
+                        }
                     }
-                }
-            });
+                });
+            }
             
             // Image upload
             const addImageBtn = document.getElementById('addImageBtn');
             if (addImageBtn) {
-                addImageBtn.addEventListener('click', () => {
+                addImageBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Image button clicked');
                     imageInput.click();
                 });
             }
@@ -657,6 +677,8 @@
             if (imageInput) {
                 imageInput.addEventListener('change', (e) => {
                     const file = e.target.files[0];
+                    console.log('File selected:', file);
+                    
                     if (file && file.type.startsWith('image/')) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
@@ -668,12 +690,40 @@
                             img.style.margin = '10px 0';
                             
                             editor.focus();
-                            document.execCommand('insertHTML', false, img.outerHTML);
+                            const success = document.execCommand('insertHTML', false, img.outerHTML);
+                            console.log('Image inserted:', success);
+                            
+                            // Clear the input
+                            imageInput.value = '';
                         };
                         reader.readAsDataURL(file);
+                    } else {
+                        alert('Lütfen geçerli bir resim dosyası seçin!');
                     }
                 });
             }
+            
+            // Add keyboard shortcuts
+            editor.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key.toLowerCase()) {
+                        case 'b':
+                            e.preventDefault();
+                            document.execCommand('bold', false, null);
+                            break;
+                        case 'i':
+                            e.preventDefault();
+                            document.execCommand('italic', false, null);
+                            break;
+                        case 'u':
+                            e.preventDefault();
+                            document.execCommand('underline', false, null);
+                            break;
+                    }
+                }
+            });
+            
+            console.log('Rich text editor setup complete!');
         }
     </script>
     <script src="script.js"></script>
