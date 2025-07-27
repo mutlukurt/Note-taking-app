@@ -22,18 +22,25 @@
             </h1>
         </header>
         
-        <!-- Tema kontrol bölümü -->
-        <div class="theme-control-section">
-            <div class="theme-control-content">
-                <span class="theme-label">Tema Seçimi</span>
-                <div class="control-buttons">
-                    <button class="language-toggle" id="languageToggle" title="Dil Değiştir">
-                        <i class="fas fa-globe"></i>
-                        <span class="lang-text">TR</span>
-                    </button>
-                    <button class="theme-toggle" id="themeToggle">
-                        <i class="fas fa-sun"></i>
-                    </button>
+        <!-- Ayarlar bölümü -->
+        <div class="settings-section">
+            <div class="settings-container">
+                <button class="settings-toggle" id="settingsToggle" title="Ayarlar">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <div class="settings-panel" id="settingsPanel">
+                    <div class="settings-content">
+                        <span class="settings-label">Ayarlar</span>
+                        <div class="settings-buttons">
+                            <button class="language-toggle" id="languageToggle" title="Dil Değiştir">
+                                <i class="fas fa-globe"></i>
+                                <span class="lang-text">TR</span>
+                            </button>
+                            <button class="theme-toggle" id="themeToggle" title="Tema Değiştir">
+                                <i class="fas fa-sun"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -237,6 +244,10 @@
             // Set up language toggle
             setupLanguageToggle();
             console.log('Language toggle set up');
+            
+            // Set up settings toggle
+            setupSettingsToggle();
+            console.log('Settings toggle set up');
             
             console.log('Test buttons set up successfully!');
             
@@ -736,6 +747,49 @@
             console.log('Rich text editor setup complete!');
         }
         
+        // Settings Toggle Setup
+        function setupSettingsToggle() {
+            const settingsBtn = document.getElementById('settingsToggle');
+            const settingsPanel = document.getElementById('settingsPanel');
+            let isSettingsOpen = false;
+            
+            console.log('Setting up settings toggle...');
+            console.log('Settings button found:', settingsBtn);
+            console.log('Settings panel found:', settingsPanel);
+            
+            if (settingsBtn && settingsPanel) {
+                settingsBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Settings button clicked!');
+                    isSettingsOpen = !isSettingsOpen;
+                    
+                    if (isSettingsOpen) {
+                        settingsBtn.classList.add('active');
+                        settingsPanel.classList.add('active');
+                        console.log('Settings panel opened');
+                    } else {
+                        settingsBtn.classList.remove('active');
+                        settingsPanel.classList.remove('active');
+                        console.log('Settings panel closed');
+                    }
+                });
+                
+                // Close settings panel when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!settingsBtn.contains(e.target) && !settingsPanel.contains(e.target)) {
+                        if (isSettingsOpen) {
+                            settingsBtn.classList.remove('active');
+                            settingsPanel.classList.remove('active');
+                            isSettingsOpen = false;
+                            console.log('Settings panel closed (outside click)');
+                        }
+                    }
+                });
+            }
+        }
+        
         // Language Toggle Setup
         function setupLanguageToggle() {
             const languageBtn = document.getElementById('languageToggle');
@@ -881,7 +935,7 @@
             
             // Update main elements
             document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
-            document.querySelector('.theme-label').textContent = t.themeLabel;
+            document.querySelector('.settings-label').textContent = t.themeLabel;
             document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
             document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
             document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
@@ -935,7 +989,7 @@
             
             // Update main elements
             document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
-            document.querySelector('.theme-label').textContent = t.themeLabel;
+            document.querySelector('.settings-label').textContent = t.themeLabel;
             document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
             document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
             document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;

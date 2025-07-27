@@ -88,32 +88,83 @@ body {
     background-clip: text;
 }
 
-/* Tema Kontrol Bölümü */
-.theme-control-section {
-    background: var(--bg-card);
-    border-radius: 25px;
-    padding: 20px 30px;
+/* Ayarlar Bölümü */
+.settings-section {
     margin-bottom: 20px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+    position: relative;
 }
 
-.theme-control-content {
+.settings-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.settings-toggle {
+    background: var(--gradient-primary) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    width: 50px !important;
+    height: 50px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    font-size: 1.2rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: var(--shadow) !important;
+    z-index: 10 !important;
+}
+
+.settings-toggle:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+}
+
+.settings-toggle.active {
+    transform: rotate(90deg) !important;
+}
+
+.settings-panel {
+    position: absolute !important;
+    left: 60px !important;
+    top: 0 !important;
+    background: var(--bg-card) !important;
+    border-radius: 25px !important;
+    padding: 20px 30px !important;
+    box-shadow: var(--shadow) !important;
+    border: 1px solid var(--border-color) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateX(-20px) !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+}
+
+.settings-panel.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(0) !important;
+}
+
+.settings-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
-.control-buttons {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.theme-label {
+.settings-label {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
+}
+
+.settings-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .theme-toggle {
