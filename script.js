@@ -76,6 +76,11 @@ class NotesApp {
             });
         });
 
+        // Font selector
+        document.getElementById('fontSelect').addEventListener('change', (e) => {
+            this.changeFont(e.target.value);
+        });
+
         // Image upload
         document.getElementById('addImageBtn').addEventListener('click', () => {
             document.getElementById('imageInput').click();
@@ -948,7 +953,37 @@ class NotesApp {
             toggleBtn.style.transform = 'scale(1)';
         });
 
-        document.body.appendChild(toggleBtn);
+                    document.body.appendChild(toggleBtn);
+        }
+    }
+
+    changeFont(fontFamily) {
+        const editor = document.getElementById('noteContent');
+        const selection = window.getSelection();
+        
+        if (selection.rangeCount > 0) {
+            // Seçili metin varsa, sadece seçili metne font uygula
+            const range = selection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.style.fontFamily = fontFamily;
+            
+            // Seçili içeriği span içine al
+            const contents = range.extractContents();
+            span.appendChild(contents);
+            range.insertNode(span);
+            
+            // Seçimi temizle
+            selection.removeAllRanges();
+            
+            this.showNotification(`Font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
+        } else {
+            // Seçili metin yoksa, tüm editöre font uygula
+            editor.style.fontFamily = fontFamily;
+            this.showNotification(`Tüm metin için font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
+        }
+        
+        // Editöre odaklan
+        editor.focus();
     }
 }
 

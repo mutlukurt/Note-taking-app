@@ -194,6 +194,34 @@ body {
     flex-wrap: wrap;
 }
 
+.font-selector {
+    display: flex;
+    align-items: center;
+}
+
+.font-select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    outline: none;
+}
+
+.font-select:hover {
+    border-color: var(--gradient-primary);
+    transform: translateY(-1px);
+}
+
+.font-select:focus {
+    border-color: var(--gradient-primary);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
 .toolbar-btn {
     background: none;
     border: none;
