@@ -12,6 +12,8 @@
     --text-primary: #1a202c;
     --text-secondary: #718096;
     --border-color: #e2e8f0;
+    --primary-color: #667eea;
+    --primary-color-rgb: 102, 126, 234;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -44,6 +46,8 @@ body {
     --text-primary: #f1f5f9 !important;
     --text-secondary: #94a3b8 !important;
     --border-color: #475569 !important;
+    --primary-color: #667eea !important;
+    --primary-color-rgb: 102, 126, 234 !important;
     --shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -453,26 +457,41 @@ body {
     width: 50px;
     height: 35px;
     border: 2px solid var(--border-color);
-    border-radius: var(--radius);
+    border-radius: 20px; /* More oval/rounded */
     cursor: pointer;
     background: none;
     box-shadow: var(--shadow-lg);
     transition: all 0.2s ease;
+    overflow: hidden; /* Ensure content respects border-radius */
 }
 
 #colorPicker:hover {
     border-color: var(--primary-color);
     transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 #colorPicker::-webkit-color-swatch-wrapper {
-    padding: 0;
-    border-radius: calc(var(--radius) - 2px);
+    padding: 2px;
+    border-radius: 18px; /* Match the outer border-radius */
 }
 
 #colorPicker::-webkit-color-swatch {
     border: none;
-    border-radius: calc(var(--radius) - 2px);
+    border-radius: 16px; /* Inner content also rounded */
+}
+
+/* Firefox support */
+#colorPicker::-moz-color-swatch {
+    border: none;
+    border-radius: 16px;
+}
+
+/* Additional styling for better UI integration */
+#colorPicker:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
 }
 
 /* Custom highlight styling for rich editor */
