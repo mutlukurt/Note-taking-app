@@ -1220,64 +1220,110 @@ body.force-desktop-mode .rich-editor {
     padding: 15px !important;
 }
 
-/* Gizlilik Politikası */
+/* Privacy Policy Footer */
 .privacy-policy {
-    background: var(--bg-card);
+    background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
-    margin-top: 40px;
-    padding: 25px 0;
+    margin-top: 60px;
+    padding: 40px 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .privacy-content {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .privacy-content h3 {
-    color: var(--text-primary);
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 20px;
+    margin-bottom: 20px;
     text-align: center;
+    font-weight: 600;
 }
 
 .privacy-text {
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .privacy-text p {
-    margin-bottom: 8px;
-    font-size: 0.75rem;
+    margin-bottom: 12px;
+    padding: 8px 0;
 }
 
 .privacy-text strong {
-    color: var(--text-primary);
+    color: var(--text-color);
     font-weight: 600;
 }
 
 .privacy-links {
     text-align: center;
-    padding-top: 15px;
     border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.privacy-links span {
+    display: block;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.license-info {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.license-info p {
+    margin: 0;
     color: var(--text-secondary);
-    font-size: 0.7rem;
+    font-size: 13px;
+}
+
+.license-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.license-info a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
 
 /* Responsive Privacy Policy */
 @media (max-width: 768px) {
     .privacy-policy {
-        padding: 20px 0;
-        margin-top: 30px;
+        padding: 30px 0;
+        margin-top: 40px;
+    }
+    
+    .privacy-content {
+        padding: 0 15px;
     }
     
     .privacy-content h3 {
-        font-size: 0.8rem;
+        font-size: 18px;
+        margin-bottom: 15px;
     }
     
-    .privacy-text p {
-        font-size: 0.7rem;
+    .privacy-text {
+        margin-bottom: 20px;
+    }
+    
+    .license-info {
+        padding: 12px;
+    }
+    
+    .license-info p {
+        font-size: 12px;
     }
 }
 

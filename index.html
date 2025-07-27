@@ -1103,7 +1103,57 @@
                 toolbarUnderline: 'Altı Çizili',
                 toolbarStrike: 'Üstü Çizili',
                 toolbarImage: 'Resim Ekle',
-                toolbarTextColor: 'Metin Rengi'
+                toolbarTextColor: 'Metin Rengi',
+                title: "Not Alma Uygulaması",
+                noteTitlePlaceholder: "Not Başlığı",
+                noteContentPlaceholder: "Not İçeriği",
+                addNote: "Not Ekle",
+                clearForm: "Temizle",
+                exportPDF: "PDF Aktar",
+                sortLabel: "Sırala:",
+                newest: "En Yeni",
+                oldest: "En Eski",
+                title: "Not Alma Uygulaması",
+                noteTitle: "Not Başlığı",
+                noteContent: "Not İçeriği",
+                addNote: "Not Ekle",
+                clear: "Temizle",
+                search: "Notlarda ara...",
+                allNotes: "Tüm Notlar",
+                pinnedNotes: "Sabitlenenler",
+                normalNotes: "Normal Notlar",
+                newest: "En Yeni",
+                oldest: "En Eski",
+                byTitle: "Başlık",
+                edit: "Düzenle",
+                delete: "Sil",
+                pin: "Sabitle",
+                unpin: "Sabitlemeyi Kaldır",
+                save: "Kaydet",
+                cancel: "İptal",
+                undo: "Geri Al",
+                emptyStateTitle: "Henüz not eklenmemiş",
+                emptyStateDesc: "İlk notunuzu ekleyerek başlayın!",
+                
+                // Privacy Policy Translations
+                privacyTitle: "🔒 Gizlilik Politikası",
+                dataCollection: "Veri Toplama",
+                dataCollectionText: "Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.",
+                dataStorage: "Veri Saklama",
+                dataStorageText: "Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.",
+                cookies: "Çerezler",
+                cookiesText: "Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.",
+                thirdParty: "Üçüncü Taraf",
+                thirdPartyText: "Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.",
+                security: "Güvenlik",
+                securityText: "Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.",
+                contact: "İletişim",
+                contactText: "Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.",
+                copyright: "© 2025 Not Alma Uygulaması | MIT License",
+                mitLicense: "MIT Lisansı:",
+                mitLicenseText: "Bu proje açık kaynak kodludur. Kaynak kodu serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz. Detaylar için",
+                githubRepo: "GitHub deposunu",
+                visitText: "ziyaret edin."
             },
             en: {
                 appTitle: 'Note Taking App',
@@ -1126,7 +1176,46 @@
                 toolbarUnderline: 'Underline',
                 toolbarStrike: 'Strikethrough',
                 toolbarImage: 'Add Image',
-                toolbarTextColor: 'Text Color'
+                toolbarTextColor: 'Text Color',
+                title: "Note Taking App",
+                noteTitlePlaceholder: "Note Title",
+                noteContentPlaceholder: "Note Content",
+                addNote: "Add Note",
+                clear: "Clear",
+                exportPDF: "Export PDF",
+                sortLabel: "Sort:",
+                newest: "Newest",
+                oldest: "Oldest",
+                byTitle: "Title",
+                edit: "Edit",
+                delete: "Delete",
+                pin: "Pin",
+                unpin: "Unpin",
+                save: "Save",
+                cancel: "Cancel",
+                undo: "Undo",
+                emptyStateTitle: "No notes yet",
+                emptyStateDesc: "Start by adding your first note!",
+                
+                // Privacy Policy Translations
+                privacyTitle: "🔒 Privacy Policy",
+                dataCollection: "Data Collection",
+                dataCollectionText: "This application does not collect any personal data. All your notes are stored only in your browser.",
+                dataStorage: "Data Storage",
+                dataStorageText: "Your notes are stored locally using LocalStorage. No data is sent to any server.",
+                cookies: "Cookies",
+                cookiesText: "The application only uses necessary cookies to store your theme and language preferences.",
+                thirdParty: "Third Party",
+                thirdPartyText: "CDN is used for Font Awesome icons and PDF libraries. These services are only required for application functionality.",
+                security: "Security",
+                securityText: "All your data is stored securely and encrypted in your browser.",
+                contact: "Contact",
+                contactText: "For questions, you can contact us via GitHub.",
+                copyright: "© 2025 Note Taking App | MIT License",
+                mitLicense: "MIT License:",
+                mitLicenseText: "This project is open source. You are free to use, modify, and distribute it. For details, visit",
+                githubRepo: "GitHub repository",
+                visitText: "."
             }
         };
         
@@ -1171,13 +1260,13 @@
             if (titleBtn) titleBtn.textContent = t.title;
             
             const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.all;
+            if (allFilter) allFilter.textContent = t.allNotes;
             
             const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinned;
+            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
             
             const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normal;
+            if (normalFilter) normalFilter.textContent = t.normalNotes;
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
@@ -1236,13 +1325,13 @@
             if (titleBtn) titleBtn.textContent = t.title;
             
             const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.all;
+            if (allFilter) allFilter.textContent = t.allNotes;
             
             const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinned;
+            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
             
             const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normal;
+            if (normalFilter) normalFilter.textContent = t.normalNotes;
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
@@ -1250,33 +1339,49 @@
             emptyState.querySelector('p').textContent = t.emptyStateDesc;
             
             // Update privacy policy
-            document.querySelector('.privacy-content h3').textContent = t.privacyTitle;
-            document.querySelector('.privacy-text p:nth-child(1)').innerHTML = `<strong>${t.dataCollection}:</strong> ${t.dataCollectionText}`;
-            document.querySelector('.privacy-text p:nth-child(2)').innerHTML = `<strong>${t.dataStorage}:</strong> ${t.dataStorageText}`;
-            document.querySelector('.privacy-text p:nth-child(3)').innerHTML = `<strong>${t.cookies}:</strong> ${t.cookiesText}`;
-            document.querySelector('.privacy-text p:nth-child(4)').innerHTML = `<strong>${t.thirdParty}:</strong> ${t.thirdPartyText}`;
-            document.querySelector('.privacy-text p:nth-child(5)').innerHTML = `<strong>${t.security}:</strong> ${t.securityText}`;
-            document.querySelector('.privacy-text p:nth-child(6)').innerHTML = `<strong>${t.contact}:</strong> ${t.contactText}`;
-            document.querySelector('.privacy-links span').textContent = t.copyright;
+            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
+            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
+            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
+            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
+            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
+            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
+            document.querySelector('#cookiesText').textContent = t.cookiesText;
+            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
+            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
+            document.querySelector('#securityLabel').textContent = t.security + ':';
+            document.querySelector('#securityText').textContent = t.securityText;
+            document.querySelector('#contactLabel').textContent = t.contact + ':';
+            document.querySelector('#contactText').textContent = t.contactText;
+            document.querySelector('#copyrightText').textContent = t.copyright;
+            
+            // Update MIT License
+            const mitLicenseElement = document.querySelector('#mitLicenseText');
+            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
         }
     </script>
     <script src="script.js"></script>
     
-    <!-- Gizlilik Politikası -->
+    <!-- Gizlilik Politikası ve Lisans -->
     <footer class="privacy-policy">
         <div class="container">
             <div class="privacy-content">
-                <h3>🔒 Gizlilik Politikası</h3>
+                <h3 id="privacyTitle">🔒 Gizlilik Politikası</h3>
                 <div class="privacy-text">
-                    <p><strong>Veri Toplama:</strong> Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.</p>
-                    <p><strong>Veri Saklama:</strong> Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.</p>
-                    <p><strong>Çerezler:</strong> Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.</p>
-                    <p><strong>Üçüncü Taraf:</strong> Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.</p>
-                    <p><strong>Güvenlik:</strong> Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.</p>
-                    <p><strong>İletişim:</strong> Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.</p>
+                    <p id="dataCollectionSection"><strong id="dataCollectionLabel">Veri Toplama:</strong> <span id="dataCollectionText">Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.</span></p>
+                    <p id="dataStorageSection"><strong id="dataStorageLabel">Veri Saklama:</strong> <span id="dataStorageText">Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.</span></p>
+                    <p id="cookiesSection"><strong id="cookiesLabel">Çerezler:</strong> <span id="cookiesText">Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.</span></p>
+                    <p id="thirdPartySection"><strong id="thirdPartyLabel">Üçüncü Taraf:</strong> <span id="thirdPartyText">Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.</span></p>
+                    <p id="securitySection"><strong id="securityLabel">Güvenlik:</strong> <span id="securityText">Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.</span></p>
+                    <p id="contactSection"><strong id="contactLabel">İletişim:</strong> <span id="contactText">Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.</span></p>
                 </div>
                 <div class="privacy-links">
-                    <span>© 2025 Not Alma Uygulaması | MIT License</span>
+                    <span id="copyrightText">© 2025 Not Alma Uygulaması | MIT License</span>
+                    <div class="license-info">
+                        <p id="mitLicenseText">
+                            <strong>MIT Lisansı:</strong> Bu proje açık kaynak kodludur. Kaynak kodu serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz. 
+                            Detaylar için <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">GitHub deposunu</a> ziyaret edin.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
