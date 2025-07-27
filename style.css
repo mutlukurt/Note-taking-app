@@ -460,6 +460,27 @@ body {
     transform: scale(0.95);
 }
 
+/* Clear color button styling */
+.color-option.clear-color {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff) !important;
+    border: 2px solid #ccc !important;
+    position: relative !important;
+}
+
+.color-option.clear-color:hover {
+    transform: scale(1.2) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.color-option.clear-color i {
+    color: white !important;
+    font-size: 10px !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
 /* Custom highlight styling for rich editor */
 .rich-editor span[style*="background-color"] {
     border-radius: 8px !important;
