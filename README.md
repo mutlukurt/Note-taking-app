@@ -21,9 +21,11 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - 🔔 **Bildirimler**: İşlem sonuçları için güzel bildirimler
 - ⌨️ **Klavye Kısayolları**: Enter ile not ekleme, Ctrl+Enter ile içerik ekleme
 - ✨ **Zengin Metin Editörü**: Kalın, italik, altı çizili, üstü çizili formatlama
+- ⌨️ **Klavye Kısayolları**: Ctrl+B (kalın), Ctrl+I (italik), Ctrl+U (altı çizili)
 - 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
 - 📐 **Hizalama**: Sola, orta ve sağa hizalama
 - 🖼️ **Fotoğraf Ekleme**: Notlarınıza resim ekleyebilme (5MB'a kadar)
+- 🎯 **Görsel Geri Bildirim**: Toolbar butonlarında aktif durum göstergesi
 - 📄 **PDF Export**: Notlarınızı PDF formatında dışa aktarma
 - 🖥️ **Masaüstü Modu**: Mobil tarayıcılarda masaüstü görünümü
 
@@ -41,10 +43,12 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 ### ✨ **Zengin Metin Editörü:**
 1. **Metin Formatlama**: Metni seçin ve toolbar'daki butonları kullanın
    - **B** (Kalın), *I* (İtalik), U (Altı Çizili), ~~S~~ (Üstü Çizili)
+   - **Klavye Kısayolları**: Ctrl+B, Ctrl+I, Ctrl+U
 2. **Liste Oluşturma**: • (Madde işaretli) veya 1. (Numaralı) butonları
 3. **Hizalama**: ← (Sola), ↔ (Ortala), → (Sağa) butonları
 4. **Fotoğraf Ekleme**: 🖼️ butonuna tıklayıp resim seçin (5MB'a kadar)
-5. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
+5. **Görsel Geri Bildirim**: Butonlara tıkladığınızda aktif durum göstergesi
+6. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
 
 ### 📱 **Swipe-to-Delete (Mobil Özellik):**
 1. **Mobil Cihazda**: Not kartını sola kaydırın
@@ -127,6 +131,7 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Animasyonlar**: Yumuşak geçişler ve hover efektleri
 - **Tipografi**: Modern ve okunabilir fontlar
 - **Zengin Editör**: Profesyonel toolbar tasarımı
+- **Toolbar Butonları**: Aktif durum göstergesi ve görsel geri bildirim
 - **Swipe Animasyonları**: Mobil dostu kaydırma efektleri
 - **Swipe-to-Delete**: Kırmızı gradient silme butonu
 - **Undo Notification**: Alt kısımda güzel geri alma bildirimi
@@ -166,6 +171,11 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - [ ] Not geçmişi
 - [ ] İçe/dışa aktarma (JSON, TXT)
 - [ ] Çoklu dil desteği
+- [ ] Gelişmiş toolbar seçenekleri
+- [ ] Tablo oluşturma
+- [ ] Kod bloğu desteği
+- [ ] Emoji picker
+- [ ] Otomatik tamamlama
 
 ## 🤝 Katkıda Bulunma
 
@@ -178,6 +188,25 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 ## 📄 Lisans
 
 Bu proje MIT lisansı altında lisanslanmıştır.
+
+## 🎯 Özellik Özeti
+
+### ✅ **Tam Çalışan Özellikler:**
+- **Not Yönetimi**: Ekleme, düzenleme, silme, arama
+- **Swipe-to-Delete**: Mobil dostu silme (4 saniye geri alma)
+- **Rich Text Editor**: Kalın, italik, listeler, hizalama, fotoğraf
+- **PDF Export**: Profesyonel PDF çıktısı
+- **Karanlık Mod**: Tema değiştirme
+- **Responsive Tasarım**: Tüm cihazlarda mükemmel görünüm
+- **LocalStorage**: Güvenli veri saklama
+- **Klavye Kısayolları**: Hızlı erişim
+
+### 🚀 **Teknik Özellikler:**
+- **Modern JavaScript**: ES6+ sınıflar ve metodlar
+- **CSS3**: Grid, Flexbox, Variables, Animations
+- **HTML5**: Semantik yapı ve contenteditable
+- **PWA Ready**: Progressive Web App uyumlu
+- **Cross-browser**: Tüm modern tarayıcılarda çalışır
 
 ---
 
