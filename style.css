@@ -456,29 +456,6 @@ body {
     transform: scale(0.95);
 }
 
-/* Clear color button styling */
-.color-option.clear-color {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1) !important;
-    border: 2px solid var(--border-color) !important;
-    position: relative !important;
-}
-
-.color-option.clear-color:hover {
-    transform: scale(1.15) !important;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
-    border-color: var(--primary-color) !important;
-}
-
-.color-option.clear-color i {
-    color: white !important;
-    font-size: 12px !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
-    font-weight: bold !important;
-}
-
 /* Custom highlight styling for rich editor */
 .rich-editor strong {
     font-weight: 600;

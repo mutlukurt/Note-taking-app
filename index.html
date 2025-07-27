@@ -68,6 +68,7 @@
                         <i class="fas fa-font"></i>
                     </button>
                     <div class="color-palette" id="textColorPalette">
+                        <div class="color-option" data-color="#000000" style="background-color: #000000;"></div>
                         <div class="color-option" data-color="#ff0000" style="background-color: #ff0000;"></div>
                         <div class="color-option" data-color="#ff8000" style="background-color: #ff8000;"></div>
                         <div class="color-option" data-color="#ffff00" style="background-color: #ffff00;"></div>
@@ -76,9 +77,6 @@
                         <div class="color-option" data-color="#00ff80" style="background-color: #00ff80;"></div>
                         <div class="color-option" data-color="#0080ff" style="background-color: #0080ff;"></div>
                         <div class="color-option" data-color="#8000ff" style="background-color: #8000ff;"></div>
-                        <div class="color-option clear-color" data-color="clear" style="background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border: 2px solid #ccc;">
-                            <i class="fas fa-times" style="color: white; font-size: 10px;"></i>
-                        </div>
                     </div>
                     <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
@@ -775,16 +773,9 @@
                         
                         editor.focus();
                         
-                        if (color === 'clear') {
-                            // Clear text color - reset to default
-                            document.execCommand('foreColor', false, '#000000');
-                            editor.removeAttribute('data-text-color');
-                            console.log('Text color cleared');
-                        } else {
-                            const success = document.execCommand('foreColor', false, color);
-                            editor.setAttribute('data-text-color', color);
-                            console.log('Text color applied:', success);
-                        }
+                        const success = document.execCommand('foreColor', false, color);
+                        editor.setAttribute('data-text-color', color);
+                        console.log('Text color applied:', success, color);
                         
                         // Hide palette
                         textColorPalette.classList.remove('active');
