@@ -1,6 +1,6 @@
 # 📝 Not Alma Uygulaması
 
-Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval köşeli tasarım, gradient renkler ve responsive tasarım ile birlikte gelir.
+Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulaması. Bu uygulama, günlük not alma ihtiyaçlarınızı karşılamak için tasarlanmıştır. Tüm verileriniz tarayıcınızda güvenli şekilde saklanır.
 
 ## 🌐 **Canlı Demo**
 **https://mutlukurt.github.io/Note-taking-app**
@@ -29,6 +29,8 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - 🎯 **Görsel Geri Bildirim**: Toolbar butonlarında aktif durum göstergesi
 - 📄 **PDF Export**: Notlarınızı PDF formatında dışa aktarma
 - 🖥️ **Masaüstü Modu**: Mobil tarayıcılarda masaüstü görünümü
+- 🔒 **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
+- ⚙️ **Modern Ayarlar**: Yuvarlak ayarlar butonu ve genişleyen panel
 
 
 ## 🚀 Kullanım
@@ -77,15 +79,17 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 5. **Geri Alma**: Silinen notlar için 4 saniye geri alma süresi
 6. **Dil Değiştirme**: TR/EN geçişi ile tam arayüz çevirisi
 7. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
+8. **Gizlilik Politikası**: Sayfa altında kapsamlı veri güvenliği bilgileri
 
 ## 🎯 Teknolojiler
 
-- **HTML5**: Semantik yapı
-- **CSS3**: Modern stiller, CSS Grid, Flexbox, CSS Variables
+- **HTML5**: Semantik yapı ve contenteditable
+- **CSS3**: Modern stiller, CSS Grid, Flexbox, CSS Variables, Animations
 - **JavaScript (ES6+)**: Modern JavaScript sınıfları ve metodları
-- **Font Awesome**: Güzel ikonlar
-- **LocalStorage**: Veri saklama
-- **jsPDF & html2canvas**: PDF export özelliği
+- **Font Awesome**: Ücretsiz ikon kütüphanesi
+- **LocalStorage**: Güvenli veri saklama
+- **jsPDF & html2canvas**: PDF export özelliği (MIT License)
+- **System Fonts**: İşletim sistemi varsayılan fontları
 
 
 ## 📁 Dosya Yapısı
@@ -137,58 +141,62 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 
 ## 🎨 Tasarım Özellikleri
 
+- **Modern UI**: Minimalist, kart tabanlı tasarım
 - **Oval Köşeler**: Tüm elementlerde yumuşak, modern köşeler
 - **Gradient Renkler**: Güzel geçişli renkler
-- **Gölgeler**: Derinlik hissi veren gölgeler
-- **Animasyonlar**: Yumuşak geçişler ve hover efektleri
-- **Tipografi**: Modern ve okunabilir fontlar
-- **Zengin Editör**: Profesyonel toolbar tasarımı
-- **Toolbar Butonları**: Aktif durum göstergesi ve görsel geri bildirim
-- **Swipe Animasyonları**: Mobil dostu kaydırma efektleri
+- **Subtle Shadows**: Hafif ve modern gölgeler
+- **Smooth Animations**: Yumuşak geçişler ve hover efektleri
+- **Typography**: Modern ve okunabilir system fonts
+- **Rich Text Editor**: Profesyonel toolbar tasarımı
+- **Toolbar Buttons**: Aktif durum göstergesi ve görsel geri bildirim
+- **Swipe Animations**: Mobil dostu kaydırma efektleri
 - **Swipe-to-Delete**: Kırmızı gradient silme butonu
 - **Undo Notification**: Alt kısımda güzel geri alma bildirimi
-- **Pin Göstergeleri**: Özel gradient arka planlar
-- **Ayarlar Bölümü**: Yuvarlak ayarlar butonu ve genişleyen panel sistemi
-- **Dil Değiştirme Butonu**: Yuvarlak dünya ikonu ile TR/EN geçişi
+- **Pin Indicators**: Özel gradient arka planlar
+- **Settings Section**: Yuvarlak ayarlar butonu ve genişleyen panel sistemi
+- **Language Toggle**: Yuvarlak dünya ikonu ile TR/EN geçişi
 - **PDF Export**: Profesyonel PDF çıktısı
-- **Masaüstü Modu**: Responsive tasarım ile uyumlu
+- **Desktop Mode**: Responsive tasarım ile uyumlu
+- **Privacy Policy**: Modern footer tasarımı
 
 
 ## 🔒 Veri Güvenliği
 
-- Notlarınız sadece tarayıcınızda saklanır
-- Hiçbir veri sunucuya gönderilmez
-- LocalStorage kullanılarak güvenli depolama
-- Resimler Base64 formatında şifrelenir
-- Tüm veriler yerel olarak korunur
+- **Yerel Depolama**: Notlarınız sadece tarayıcınızda saklanır
+- **Veri Gizliliği**: Hiçbir veri sunucuya gönderilmez
+- **LocalStorage**: Güvenli yerel depolama sistemi
+- **Base64 Encoding**: Resimler şifrelenmiş formatta saklanır
+- **Çerez Politikası**: Sadece tema ve dil tercihleri saklanır
+- **Üçüncü Taraf**: Sadece gerekli CDN servisleri kullanılır
+- **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
 
 ## 🚀 Gelecek Özellikler
 
-- [ ] Not kategorileri
-- [ ] Not paylaşımı
-- [ ] Bulut senkronizasyonu
-- [ ] Markdown desteği
-- [ ] Not etiketleri
-- [ ] Gelişmiş arama filtreleri
-- [ ] Kullanıcı sistemi (backend ile)
-- [ ] Çoklu dosya yükleme
-- [ ] Not şablonları
-- [ ] Otomatik yedekleme
-- [ ] Not arşivleme
-- [ ] Gelişmiş PDF şablonları
-- [ ] Not istatistikleri
-- [ ] Ses notu ekleme
-- [ ] Çizim/doodle özelliği
-- [ ] Not şifreleme
-- [ ] Otomatik kaydetme
-- [ ] Not geçmişi
-- [ ] İçe/dışa aktarma (JSON, TXT)
-- [ ] Gelişmiş toolbar seçenekleri
-- [ ] Tablo oluşturma
-- [ ] Kod bloğu desteği
-- [ ] Emoji picker
-- [ ] Otomatik tamamlama
-- [ ] Daha fazla dil desteği (Almanca, Fransızca, vb.)
+- [ ] **Not Kategorileri**: Kategorilere göre not organizasyonu
+- [ ] **Not Paylaşımı**: Notları paylaşabilme özelliği
+- [ ] **Bulut Senkronizasyonu**: Çoklu cihaz senkronizasyonu
+- [ ] **Markdown Desteği**: Markdown formatında not yazma
+- [ ] **Not Etiketleri**: Etiketleme sistemi
+- [ ] **Gelişmiş Arama**: Gelişmiş filtreleme ve arama
+- [ ] **Kullanıcı Sistemi**: Backend ile kullanıcı hesapları
+- [ ] **Çoklu Dosya**: Birden fazla dosya yükleme
+- [ ] **Not Şablonları**: Hazır şablonlar
+- [ ] **Otomatik Yedekleme**: Düzenli yedekleme sistemi
+- [ ] **Not Arşivleme**: Arşivleme özelliği
+- [ ] **Gelişmiş PDF**: Özelleştirilebilir PDF şablonları
+- [ ] **Not İstatistikleri**: Kullanım istatistikleri
+- [ ] **Ses Notu**: Ses kayıt özelliği
+- [ ] **Çizim/Doodle**: Çizim yapabilme
+- [ ] **Not Şifreleme**: Şifreli notlar
+- [ ] **Otomatik Kaydetme**: Gerçek zamanlı kaydetme
+- [ ] **Not Geçmişi**: Değişiklik geçmişi
+- [ ] **İçe/Dışa Aktarma**: JSON, TXT formatları
+- [ ] **Gelişmiş Toolbar**: Daha fazla formatlama seçeneği
+- [ ] **Tablo Oluşturma**: Tablo ekleme özelliği
+- [ ] **Kod Bloğu**: Kod yazma desteği
+- [ ] **Emoji Picker**: Emoji seçici
+- [ ] **Otomatik Tamamlama**: Akıllı tamamlama
+- [ ] **Çoklu Dil**: Almanca, Fransızca, vb. dil desteği
 
 ## 🤝 Katkıda Bulunma
 
@@ -242,6 +250,8 @@ Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
 - **Responsive Tasarım**: Tüm cihazlarda mükemmel görünüm
 - **LocalStorage**: Güvenli veri saklama
 - **Klavye Kısayolları**: Hızlı erişim
+- **Modern Ayarlar**: Yuvarlak buton ve genişleyen panel
+- **Gizlilik Politikası**: Kapsamlı veri güvenliği
 
 ### 🚀 **Teknik Özellikler:**
 - **Modern JavaScript**: ES6+ sınıflar ve metodlar
@@ -249,7 +259,10 @@ Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
 - **HTML5**: Semantik yapı ve contenteditable
 - **PWA Ready**: Progressive Web App uyumlu
 - **Cross-browser**: Tüm modern tarayıcılarda çalışır
+- **Free Resources**: Tüm kaynaklar ücretsiz ve açık kaynak
 
 ---
 
 **Not**: Bu uygulama tarayıcı tabanlıdır ve internet bağlantısı gerektirir. Font Awesome ikonları, PDF export kütüphaneleri (jsPDF, html2canvas) ve diğer CDN kaynakları için internet bağlantısı gereklidir. Tüm not verileriniz tarayıcınızda güvenli şekilde saklanır.
+
+**© 2025 Not Alma Uygulaması | MIT License**
