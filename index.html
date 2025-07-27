@@ -20,7 +20,7 @@
                 <i class="fas fa-sticky-note"></i>
                 Not Alma Uygulaması
             </h1>
-            <button class="theme-toggle" id="themeToggle">
+            <button class="theme-toggle" id="themeToggle" onclick="testTheme()">
                 <i class="fas fa-sun"></i>
             </button>
         </header>
@@ -118,5 +118,21 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        function testTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                icon.className = 'fas fa-sun';
+                console.log('Light mode activated');
+            } else {
+                body.classList.add('dark-mode');
+                icon.className = 'fas fa-moon';
+                console.log('Dark mode activated');
+            }
+        }
+    </script>
 </body>
 </html>
