@@ -64,6 +64,15 @@
                         <i class="fas fa-strikethrough"></i>
                     </button>
                     <div class="toolbar-separator"></div>
+                    <button type="button" class="toolbar-btn" id="textColorBtn" title="Metin Rengi">
+                        <i class="fas fa-palette"></i>
+                    </button>
+                    <input type="color" id="textColorPicker" style="display: none;">
+                    <button type="button" class="toolbar-btn" id="highlightBtn" title="Arka Plan Rengi">
+                        <i class="fas fa-highlighter"></i>
+                    </button>
+                    <input type="color" id="highlightPicker" style="display: none;">
+                    <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
                         <i class="fas fa-list-ul"></i>
                     </button>
@@ -724,6 +733,58 @@
                 });
             }
             
+            // Color picker functionality
+            const textColorBtn = document.getElementById('textColorBtn');
+            const textColorPicker = document.getElementById('textColorPicker');
+            const highlightBtn = document.getElementById('highlightBtn');
+            const highlightPicker = document.getElementById('highlightPicker');
+            
+            // Text color picker
+            if (textColorBtn && textColorPicker) {
+                textColorBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Text color button clicked');
+                    textColorPicker.click();
+                });
+                
+                textColorPicker.addEventListener('change', (e) => {
+                    const color = e.target.value;
+                    console.log('Text color selected:', color);
+                    
+                    editor.focus();
+                    const success = document.execCommand('foreColor', false, color);
+                    console.log('Text color applied:', success);
+                    
+                    // Add visual feedback
+                    textColorBtn.classList.add('active');
+                    setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                });
+            }
+            
+            // Highlight color picker
+            if (highlightBtn && highlightPicker) {
+                highlightBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Highlight button clicked');
+                    highlightPicker.click();
+                });
+                
+                highlightPicker.addEventListener('change', (e) => {
+                    const color = e.target.value;
+                    console.log('Highlight color selected:', color);
+                    
+                    editor.focus();
+                    const success = document.execCommand('backColor', false, color);
+                    console.log('Highlight color applied:', success);
+                    
+                    // Add visual feedback
+                    highlightBtn.classList.add('active');
+                    setTimeout(() => highlightBtn.classList.remove('active'), 200);
+                });
+            }
+            
             // Add keyboard shortcuts
             editor.addEventListener('keydown', (e) => {
                 if (e.ctrlKey || e.metaKey) {
@@ -861,6 +922,8 @@
                 toolbarItalic: 'İtalik',
                 toolbarUnderline: 'Altı Çizili',
                 toolbarStrike: 'Üstü Çizili',
+                toolbarTextColor: 'Metin Rengi',
+                toolbarHighlight: 'Arka Plan Rengi',
                 toolbarList: 'Liste',
                 toolbarOrderedList: 'Numaralı Liste',
                 toolbarLeft: 'Sola Hizala',
@@ -919,6 +982,8 @@
                 toolbarItalic: 'Italic',
                 toolbarUnderline: 'Underline',
                 toolbarStrike: 'Strikethrough',
+                toolbarTextColor: 'Text Color',
+                toolbarHighlight: 'Background Color',
                 toolbarList: 'List',
                 toolbarOrderedList: 'Ordered List',
                 toolbarLeft: 'Align Left',
@@ -982,6 +1047,10 @@
             document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
             document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
             document.getElementById('addImageBtn').title = t.toolbarImage;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
+            document.getElementById('highlightBtn').title = t.toolbarHighlight;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
+            document.getElementById('highlightBtn').title = t.toolbarHighlight;
             
             // Update controls
             const sortSpan = document.querySelector('.sort-controls span');
@@ -1046,6 +1115,8 @@
             document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
             document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
             document.getElementById('addImageBtn').title = t.toolbarImage;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
+            document.getElementById('highlightBtn').title = t.toolbarHighlight;
             
             // Update controls
             const sortSpan = document.querySelector('.sort-controls span');

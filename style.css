@@ -381,6 +381,47 @@ body {
     margin: 0 5px;
 }
 
+/* Color picker buttons */
+#textColorBtn, #highlightBtn {
+    position: relative;
+    overflow: hidden;
+}
+
+#textColorBtn::before, #highlightBtn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080);
+    background-size: 200% 200%;
+    animation: colorRainbow 3s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+#textColorBtn:hover::before, #highlightBtn:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+@keyframes colorRainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Color picker input styling */
+#textColorPicker, #highlightPicker {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+}
+
 /* Adjust textarea border radius when toolbar is present */
 .editor-toolbar + .note-textarea {
     border-radius: 0 0 15px 15px;
