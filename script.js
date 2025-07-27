@@ -111,6 +111,15 @@ class NotesApp {
         document.getElementById('noteContent').addEventListener('keyup', () => {
             this.updateToolbarState();
         });
+
+        // Font selector update on selection change
+        document.getElementById('noteContent').addEventListener('mouseup', () => {
+            this.updateFontSelector();
+        });
+
+        document.getElementById('noteContent').addEventListener('keyup', () => {
+            this.updateFontSelector();
+        });
     }
 
     toggleTheme() {
@@ -732,6 +741,9 @@ class NotesApp {
             
             btn.classList.toggle('active', isActive);
         });
+        
+        // Update font selector
+        this.updateFontSelector();
     }
 
     handleImageUpload(event) {
@@ -961,29 +973,72 @@ class NotesApp {
         const editor = document.getElementById('noteContent');
         const selection = window.getSelection();
         
-        if (selection.rangeCount > 0) {
-            // Seçili metin varsa, sadece seçili metne font uygula
-            const range = selection.getRangeAt(0);
-            const span = document.createElement('span');
-            span.style.fontFamily = fontFamily;
-            
-            // Seçili içeriği span içine al
-            const contents = range.extractContents();
-            span.appendChild(contents);
-            range.insertNode(span);
-            
-            // Seçimi temizle
-            selection.removeAllRanges();
-            
-            this.showNotification(`Font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
-        } else {
-            // Seçili metin yoksa, tüm editöre font uygula
-            editor.style.fontFamily = fontFamily;
-            this.showNotification(`Tüm metin için font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
-        }
-        
         // Editöre odaklan
         editor.focus();
+        
+        if (selection.rangeCount > 0 && !selection.isCollapsed) {
+            // Seçili metin varsa, sadece seçili metne font uygula
+            document.execCommand('fontName', false, fontFamily);
+            this.showNotification(`Seçili metin için font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
+        } else {
+            // Seçili metin yoksa, yeni yazılacak metin için font ayarla
+            // Önce editöre odaklan
+            editor.focus();
+            
+            // Cursor pozisyonunu al
+            const range = document.createRange();
+            const sel = window.getSelection();
+            
+            // Eğer cursor editör içindeyse
+            if (editor.contains(sel.anchorNode)) {
+                range.setStart(sel.anchorNode, sel.anchorOffset);
+                range.setEnd(sel.anchorNode, sel.anchorOffset);
+            } else {
+                // Cursor editör dışındaysa, editörün sonuna koy
+                range.selectNodeContents(editor);
+                range.collapse(false);
+            }
+            
+            sel.removeAllRanges();
+            sel.addRange(range);
+            
+            // Font komutunu çalıştır
+            document.execCommand('fontName', false, fontFamily);
+            
+            this.showNotification(`Yeni metin için font ayarlandı: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
+        }
+        
+        // Font seçiciyi güncelle
+        this.updateFontSelector();
+    }
+
+    updateFontSelector() {
+        const editor = document.getElementById('noteContent');
+        const selection = window.getSelection();
+        const fontSelect = document.getElementById('fontSelect');
+        
+        if (selection.rangeCount > 0 && !selection.isCollapsed) {
+            // Seçili metnin fontunu kontrol et
+            const range = selection.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            
+            // Seçili metnin fontunu bul
+            let fontFamily = '';
+            if (container.nodeType === Node.TEXT_NODE) {
+                const parent = container.parentElement;
+                fontFamily = window.getComputedStyle(parent).fontFamily;
+            } else {
+                fontFamily = window.getComputedStyle(container).fontFamily;
+            }
+            
+            // Font seçiciyi güncelle
+            for (let option of fontSelect.options) {
+                if (option.value === fontFamily) {
+                    fontSelect.value = fontFamily;
+                    break;
+                }
+            }
+        }
     }
 }
 
