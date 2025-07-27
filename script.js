@@ -41,6 +41,11 @@ class NotesApp {
             this.clearForm();
         });
 
+        // Export PDF
+        document.getElementById('exportPDF').addEventListener('click', () => {
+            this.exportToPDF();
+        });
+
         // Search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.searchNotes(e.target.value);
@@ -767,6 +772,92 @@ class NotesApp {
     setNoteContent(content) {
         const editor = document.getElementById('noteContent');
         editor.innerHTML = content;
+    }
+
+    exportToPDF() {
+        const title = document.getElementById('noteTitle').value.trim();
+        const content = document.getElementById('noteContent').innerHTML;
+
+        if (!title && !content) {
+            this.showNotification('PDF aktarmak için bir not yazın!', 'warning');
+            return;
+        }
+
+        // Create PDF content
+        const pdfContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>${title || 'Not'}</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 40px;
+                        line-height: 1.6;
+                        color: #333;
+                    }
+                    .header {
+                        text-align: center;
+                        margin-bottom: 30px;
+                        padding-bottom: 20px;
+                        border-bottom: 2px solid #667eea;
+                    }
+                    .title {
+                        font-size: 24px;
+                        color: #667eea;
+                        margin-bottom: 10px;
+                    }
+                    .date {
+                        color: #666;
+                        font-size: 14px;
+                    }
+                    .content {
+                        font-size: 16px;
+                    }
+                    .content img {
+                        max-width: 100%;
+                        height: auto;
+                        margin: 10px 0;
+                    }
+                    .content ul, .content ol {
+                        margin: 10px 0;
+                        padding-left: 20px;
+                    }
+                    .content li {
+                        margin: 5px 0;
+                    }
+                    @media print {
+                        body { margin: 20px; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <div class="title">${title || 'Not'}</div>
+                    <div class="date">Oluşturulma Tarihi: ${new Date().toLocaleDateString('tr-TR')}</div>
+                </div>
+                <div class="content">
+                    ${content || '<p>Not içeriği boş</p>'}
+                </div>
+            </body>
+            </html>
+        `;
+
+        // Create blob and download
+        const blob = new Blob([pdfContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${title || 'not'}_${new Date().toISOString().split('T')[0]}.html`;
+        
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        this.showNotification('Not başarıyla HTML olarak aktarıldı!', 'success');
     }
 }
 
