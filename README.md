@@ -164,4 +164,4 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 
 ---
 
-**Not**: Bu uygulama tamamen tarayıcı tabanlıdır ve internet bağlantısı gerektirmez (Font Awesome ikonları hariç). Tüm veriler tarayıcınızda güvenli şekilde saklanır.
+**Not**: Bu uygulama tarayıcı tabanlıdır ve internet bağlantısı gerektirir. Font Awesome ikonları, PDF export kütüphaneleri (jsPDF, html2canvas) ve diğer CDN kaynakları için internet bağlantısı gereklidir. Tüm not verileriniz tarayıcınızda güvenli şekilde saklanır.
