@@ -133,7 +133,7 @@ body {
 .settings-panel {
     position: absolute !important;
     right: 0 !important;
-    top: 0 !important;
+    top: -10px !important;
     background: var(--bg-card) !important;
     border-radius: var(--radius-lg) !important;
     padding: 16px !important;
