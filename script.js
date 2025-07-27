@@ -34,7 +34,10 @@ class NotesApp {
         });
 
         // Theme menu button
-        document.getElementById('themeMenuBtn').addEventListener('click', () => {
+        document.getElementById('themeMenuBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Theme menu button clicked!');
             this.toggleThemeMenu();
         });
 
@@ -46,7 +49,7 @@ class NotesApp {
             const themeSelector = document.querySelector('.theme-selector');
             const dropdown = document.getElementById('themeDropdown');
             
-            if (dropdown.classList.contains('show') && !themeSelector.contains(e.target)) {
+            if (dropdown.style.display === 'block' && !themeSelector.contains(e.target)) {
                 this.closeThemeMenu();
             }
         });
@@ -151,10 +154,13 @@ class NotesApp {
     toggleThemeMenu() {
         const dropdown = document.getElementById('themeDropdown');
         console.log('Toggle theme menu clicked');
-        dropdown.classList.toggle('show');
         
-        // Setup theme options when menu opens
-        if (dropdown.classList.contains('show')) {
+        if (dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+            dropdown.classList.remove('show');
+        } else {
+            dropdown.style.display = 'block';
+            dropdown.classList.add('show');
             console.log('Theme menu opened');
             this.setupThemeOptions();
         }
@@ -162,6 +168,7 @@ class NotesApp {
 
     closeThemeMenu() {
         const dropdown = document.getElementById('themeDropdown');
+        dropdown.style.display = 'none';
         dropdown.classList.remove('show');
     }
 

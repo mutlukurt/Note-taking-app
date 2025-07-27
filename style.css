@@ -198,12 +198,14 @@ body {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
+    display: none;
 }
 
 .theme-dropdown.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    display: block;
 }
 
 .theme-option {
