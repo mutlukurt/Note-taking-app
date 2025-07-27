@@ -217,6 +217,17 @@
                 console.log('Search input set up');
             }
             
+            // Set up PDF export button
+            const exportBtn = document.getElementById('exportPDF');
+            if (exportBtn) {
+                exportBtn.onclick = exportToPDF;
+                console.log('PDF export button set up');
+            }
+            
+            // Set up rich text editor toolbar
+            setupRichTextEditor();
+            console.log('Rich text editor set up');
+            
             console.log('Test buttons set up successfully!');
             
             // Load and display notes
@@ -250,11 +261,6 @@
             card.className = 'note-card';
             if (note.pinned) card.classList.add('pinned');
             
-            // Add swipe functionality
-            card.addEventListener('touchstart', handleTouchStart, false);
-            card.addEventListener('touchmove', handleTouchMove, false);
-            card.addEventListener('touchend', handleTouchEnd, false);
-            
             card.innerHTML = `
                 <div class="note-header">
                     <h3 class="note-title">${note.title}</h3>
@@ -277,6 +283,9 @@
                     <span>Sil</span>
                 </div>
             `;
+            
+            // Add swipe functionality after creating the card
+            addSwipeFunctionality(card, note.id);
             
             return card;
         }
@@ -387,62 +396,81 @@
             });
         }
         
-        // Swipe functionality variables
-        let xDown = null;
-        let yDown = null;
-        let currentCard = null;
-        let undoTimeout = null;
-        
-        // Touch start handler
-        function handleTouchStart(evt) {
-            const firstTouch = evt.touches[0];
-            xDown = firstTouch.clientX;
-            yDown = firstTouch.clientY;
-            currentCard = evt.currentTarget;
-        }
-        
-        // Touch move handler
-        function handleTouchMove(evt) {
-            if (!xDown || !yDown) {
-                return;
-            }
+        // Swipe functionality
+        function addSwipeFunctionality(card, noteId) {
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
             
-            const xUp = evt.touches[0].clientX;
-            const yUp = evt.touches[0].clientY;
+            // Mouse events for desktop testing
+            card.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+                card.style.cursor = 'grabbing';
+            });
             
-            const xDiff = xDown - xUp;
-            const yDiff = yDown - yUp;
-            
-            // Check if horizontal swipe is greater than vertical
-            if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                if (xDiff > 0) {
-                    // Swipe left - show delete
-                    evt.preventDefault();
-                    showSwipeDelete(currentCard);
-                } else {
-                    // Swipe right - hide delete
-                    evt.preventDefault();
-                    hideSwipeDelete(currentCard);
+            card.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                
+                currentX = e.clientX;
+                const diff = startX - currentX;
+                
+                if (diff > 50) {
+                    card.style.transform = `translateX(-${Math.min(diff, 80)}px)`;
                 }
-            }
-        }
-        
-        // Touch end handler
-        function handleTouchEnd(evt) {
-            xDown = null;
-            yDown = null;
-        }
-        
-        // Show swipe delete
-        function showSwipeDelete(card) {
-            card.style.transform = 'translateX(-80px)';
-            card.style.transition = 'transform 0.3s ease';
-        }
-        
-        // Hide swipe delete
-        function hideSwipeDelete(card) {
-            card.style.transform = 'translateX(0)';
-            card.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                
+                const diff = startX - currentX;
+                if (diff > 80) {
+                    card.style.transform = 'translateX(-80px)';
+                } else {
+                    card.style.transform = 'translateX(0)';
+                }
+                
+                isDragging = false;
+                card.style.cursor = 'grab';
+            });
+            
+            // Touch events for mobile
+            card.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+            
+            card.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                
+                currentX = e.touches[0].clientX;
+                const diff = startX - currentX;
+                
+                if (diff > 0) {
+                    e.preventDefault();
+                    card.style.transform = `translateX(-${Math.min(diff, 80)}px)`;
+                }
+            });
+            
+            card.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                
+                const diff = startX - currentX;
+                if (diff > 80) {
+                    card.style.transform = 'translateX(-80px)';
+                } else {
+                    card.style.transform = 'translateX(0)';
+                }
+                
+                isDragging = false;
+            });
+            
+            // Click outside to reset
+            document.addEventListener('click', (e) => {
+                if (!card.contains(e.target)) {
+                    card.style.transform = 'translateX(0)';
+                }
+            });
         }
         
         // Delete note with undo
@@ -499,6 +527,135 @@
             const notification = document.querySelector('.undo-notification');
             if (notification) {
                 notification.parentNode.removeChild(notification);
+            }
+        }
+        
+        // PDF Export Function
+        function exportToPDF() {
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').innerHTML;
+            
+            if (!title && !content) {
+                alert('PDF oluşturmak için en az bir başlık veya içerik girin!');
+                return;
+            }
+            
+            // Create a temporary container for PDF content
+            const pdfContainer = document.createElement('div');
+            pdfContainer.style.cssText = `
+                position: fixed;
+                top: -9999px;
+                left: -9999px;
+                width: 800px;
+                background: white;
+                padding: 40px;
+                font-family: Arial, sans-serif;
+                color: #333;
+                line-height: 1.6;
+            `;
+            
+            pdfContainer.innerHTML = `
+                <h1 style="color: #667eea; margin-bottom: 20px; font-size: 24px;">${title || 'Başlıksız Not'}</h1>
+                <div style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                    Oluşturulma Tarihi: ${new Date().toLocaleString('tr-TR')}
+                </div>
+                <div style="font-size: 16px;">${content || 'İçerik yok'}</div>
+            `;
+            
+            document.body.appendChild(pdfContainer);
+            
+            // Use html2canvas to capture the content
+            html2canvas(pdfContainer, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                // Remove the temporary container
+                document.body.removeChild(pdfContainer);
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = pdfWidth;
+                const pageHeight = pdfHeight;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download the PDF
+                const fileName = `${title || 'not'}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+                alert('PDF başarıyla indirildi!');
+            }).catch(error => {
+                console.error('PDF oluşturma hatası:', error);
+                alert('PDF oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
+                document.body.removeChild(pdfContainer);
+            });
+        }
+        
+        // Rich Text Editor Setup
+        function setupRichTextEditor() {
+            const toolbar = document.querySelector('.editor-toolbar');
+            const editor = document.getElementById('noteContent');
+            const imageInput = document.getElementById('imageInput');
+            
+            // Toolbar button clicks
+            toolbar.addEventListener('click', (e) => {
+                if (e.target.closest('.toolbar-btn')) {
+                    const btn = e.target.closest('.toolbar-btn');
+                    const command = btn.dataset.command;
+                    
+                    if (command) {
+                        e.preventDefault();
+                        document.execCommand(command, false, null);
+                        editor.focus();
+                    }
+                }
+            });
+            
+            // Image upload
+            const addImageBtn = document.getElementById('addImageBtn');
+            if (addImageBtn) {
+                addImageBtn.addEventListener('click', () => {
+                    imageInput.click();
+                });
+            }
+            
+            if (imageInput) {
+                imageInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.maxWidth = '100%';
+                            img.style.height = 'auto';
+                            img.style.borderRadius = '10px';
+                            img.style.margin = '10px 0';
+                            
+                            editor.focus();
+                            document.execCommand('insertHTML', false, img.outerHTML);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
         }
     </script>
