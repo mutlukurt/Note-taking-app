@@ -832,23 +832,10 @@
                         console.log('=== APPLY COLOR START ===');
                         console.log('Color to apply:', color);
                         
-                        // Save current cursor position
+                        editor.focus();
+                        
+                        // Get current selection
                         const selection = window.getSelection();
-                        let savedRange = null;
-                        
-                        if (selection.rangeCount > 0) {
-                            savedRange = selection.getRangeAt(0).cloneRange();
-                            console.log('Cursor position saved');
-                        }
-                        
-                        // Ensure editor is focused
-                        if (document.activeElement !== editor) {
-                            editor.focus();
-                            console.log('Editor focused manually');
-                        }
-                        
-                        console.log('Selection collapsed:', selection.isCollapsed);
-                        console.log('Selection range count:', selection.rangeCount);
                         
                         if (selection.rangeCount > 0 && !selection.isCollapsed) {
                             // Text is selected - apply color to selection
@@ -877,44 +864,21 @@
                             }
                         } else {
                             // No selection - set color for future typing
-                            console.log('No selection - setting color for typing');
-                            console.log('Using span insertion method for color:', color);
+                            console.log('Setting color for future typing:', color);
                             
-                            // Create a temporary span with the color at cursor position
-                            if (savedRange) {
-                                // Create a temporary span with the color
-                                const tempSpan = document.createElement('span');
-                                tempSpan.style.color = color;
-                                tempSpan.innerHTML = '&#8203;'; // Zero-width space
-                                tempSpan.className = 'temp-color-marker';
-                                
-                                // Insert the span at cursor position
-                                savedRange.insertNode(tempSpan);
-                                
-                                // Position cursor after the span
-                                const newRange = document.createRange();
-                                newRange.setStartAfter(tempSpan);
-                                newRange.collapse(true);
-                                
-                                // Update selection
-                                const selection = window.getSelection();
-                                selection.removeAllRanges();
-                                selection.addRange(newRange);
-                                
-                                console.log('Color span inserted at cursor position');
-                            } else {
-                                // Fallback to execCommand
-                                const styleResult = document.execCommand('styleWithCSS', false, true);
-                                const colorResult = document.execCommand('foreColor', false, color);
-                                console.log('Fallback execCommand used:', colorResult);
-                            }
+                            // Use setTimeout to ensure proper execution
+                            setTimeout(() => {
+                                document.execCommand('styleWithCSS', false, true);
+                                const result = document.execCommand('foreColor', false, color);
+                                console.log('execCommand foreColor result:', result);
+                                console.log('Current foreColor value:', document.queryCommandValue('foreColor'));
+                            }, 10);
                         }
                         
                         // Update color indicator
                         const colorIndicator = textColorBtn.querySelector('.color-indicator');
                         if (colorIndicator) {
                             colorIndicator.style.backgroundColor = color;
-                            console.log('Color indicator updated');
                         }
                         
                         editor.setAttribute('data-text-color', color);
@@ -946,30 +910,6 @@
                     if (colorIndicator) {
                         colorIndicator.style.backgroundColor = '#000000';
                     }
-                    
-                    // Handle typing with color markers
-                    editor.addEventListener('input', (e) => {
-                        // Check if we're typing after a temp color marker
-                        const selection = window.getSelection();
-                        if (selection.rangeCount > 0) {
-                            const range = selection.getRangeAt(0);
-                            const container = range.startContainer;
-                            
-                            // Check if we're in a span with color
-                            let colorSpan = null;
-                            if (container.nodeType === Node.TEXT_NODE) {
-                                colorSpan = container.parentElement;
-                            } else if (container.nodeType === Node.ELEMENT_NODE) {
-                                colorSpan = container;
-                            }
-                            
-                            // If we have a color span, ensure new text has the same color
-                            if (colorSpan && colorSpan.style && colorSpan.style.color) {
-                                console.log('Typing in colored span:', colorSpan.style.color);
-                                // The text should automatically inherit the color from the span
-                            }
-                        }
-                    });
                 } else {
                     console.error('Color picker wrapper not found!');
                 }
