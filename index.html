@@ -866,12 +866,29 @@
                             // No selection - set color for future typing
                             console.log('Setting color for future typing:', color);
                             
+                            // Save cursor position before setTimeout
+                            const savedRange = selection.getRangeAt(0).cloneRange();
+                            
                             // Use setTimeout to ensure proper execution
                             setTimeout(() => {
+                                // Restore focus and cursor position
+                                editor.focus();
+                                
+                                // Apply color
                                 document.execCommand('styleWithCSS', false, true);
                                 const result = document.execCommand('foreColor', false, color);
                                 console.log('execCommand foreColor result:', result);
                                 console.log('Current foreColor value:', document.queryCommandValue('foreColor'));
+                                
+                                // Restore cursor position
+                                try {
+                                    const newSelection = window.getSelection();
+                                    newSelection.removeAllRanges();
+                                    newSelection.addRange(savedRange);
+                                    console.log('Cursor position restored after color change');
+                                } catch (e) {
+                                    console.log('Could not restore cursor position:', e);
+                                }
                             }, 10);
                         }
                         
