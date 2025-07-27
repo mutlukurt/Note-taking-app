@@ -1,5 +1,6 @@
 class NotesApp {
     constructor() {
+        console.log('Constructor called');
         this.notes = JSON.parse(localStorage.getItem('notes')) || [];
         this.currentTheme = localStorage.getItem('theme') || 'light';
         this.currentSort = localStorage.getItem('sort') || 'date-desc';
@@ -14,33 +15,49 @@ class NotesApp {
             }
         });
         
+        console.log('Notes loaded:', this.notes.length);
         this.init();
         this.checkMobileDesktopMode();
     }
 
     init() {
+        console.log('Init called');
         this.setupEventListeners();
         this.applyTheme();
         this.applySortAndFilter();
         this.renderNotes();
         this.updateEmptyState();
+        console.log('Init completed');
     }
 
     setupEventListeners() {
+        console.log('Setting up event listeners...');
+        
         // Theme toggle - Basit ve güvenilir
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
+            console.log('Theme toggle found');
             themeToggle.onclick = () => {
+                console.log('Theme toggle clicked');
                 this.toggleTheme();
             };
+        } else {
+            console.error('Theme toggle not found!');
         }
 
 
 
         // Add note
-        document.getElementById('addNote').addEventListener('click', () => {
-            this.addNote();
-        });
+        const addNoteBtn = document.getElementById('addNote');
+        if (addNoteBtn) {
+            console.log('Add note button found');
+            addNoteBtn.addEventListener('click', () => {
+                console.log('Add note clicked');
+                this.addNote();
+            });
+        } else {
+            console.error('Add note button not found!');
+        }
 
         // Clear form
         document.getElementById('clearForm').addEventListener('click', () => {
@@ -983,4 +1000,6 @@ class NotesApp {
 
 
 // Initialize the app
+console.log('NotesApp is being initialized...');
 const notesApp = new NotesApp();
+console.log('NotesApp initialized successfully!');
