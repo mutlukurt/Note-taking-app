@@ -834,50 +834,69 @@
                         if (selection.rangeCount > 0 && !selection.isCollapsed) {
                             const range = selection.getRangeAt(0);
                             
-                            // Create wrapper span for the highlight effect
-                            const wrapper = document.createElement('span');
-                            wrapper.style.position = 'relative';
-                            wrapper.style.display = 'inline-block';
+                            // Check if the selected content is already wrapped in a marker
+                            const selectedNode = range.commonAncestorContainer;
+                            const isAlreadyMarked = selectedNode.nodeType === Node.ELEMENT_NODE && 
+                                                   selectedNode.style && 
+                                                   selectedNode.style.position === 'relative' &&
+                                                   selectedNode.querySelector('span[style*="position: absolute"]');
                             
-                            // Create background highlight span
-                            const highlight = document.createElement('span');
-                            highlight.style.position = 'absolute';
-                            highlight.style.top = '0';
-                            highlight.style.left = '0';
-                            highlight.style.right = '0';
-                            highlight.style.bottom = '0';
-                            highlight.style.backgroundColor = color;
-                            highlight.style.borderRadius = '8px';
-                            highlight.style.padding = '2px 4px';
-                            highlight.style.opacity = '0.7';
-                            highlight.style.zIndex = '1';
-                            
-                            // Create text span (on top)
-                            const textSpan = document.createElement('span');
-                            textSpan.style.position = 'relative';
-                            textSpan.style.zIndex = '2';
-                            textSpan.style.backgroundColor = 'transparent';
-                            
-                            try {
-                                // Extract the selected content
-                                const selectedContent = range.extractContents();
+                            if (isAlreadyMarked) {
+                                // If already marked, just change the background color
+                                const existingHighlight = selectedNode.querySelector('span[style*="position: absolute"]');
+                                if (existingHighlight) {
+                                    existingHighlight.style.backgroundColor = color;
+                                    console.log('Existing marker color changed');
+                                }
+                            } else {
+                                // Create new marker wrapper
+                                const wrapper = document.createElement('span');
+                                wrapper.style.position = 'relative';
+                                wrapper.style.display = 'inline-block';
+                                wrapper.className = 'marker-wrapper';
                                 
-                                // Add the content to text span
-                                textSpan.appendChild(selectedContent);
+                                // Create background highlight span
+                                const highlight = document.createElement('span');
+                                highlight.style.position = 'absolute';
+                                highlight.style.top = '0';
+                                highlight.style.left = '0';
+                                highlight.style.right = '0';
+                                highlight.style.bottom = '0';
+                                highlight.style.backgroundColor = color;
+                                highlight.style.borderRadius = '8px';
+                                highlight.style.padding = '2px 4px';
+                                highlight.style.opacity = '0.7';
+                                highlight.style.zIndex = '1';
+                                highlight.className = 'marker-highlight';
                                 
-                                // Add highlight and text to wrapper
-                                wrapper.appendChild(highlight);
-                                wrapper.appendChild(textSpan);
+                                // Create text span (on top)
+                                const textSpan = document.createElement('span');
+                                textSpan.style.position = 'relative';
+                                textSpan.style.zIndex = '2';
+                                textSpan.style.backgroundColor = 'transparent';
+                                textSpan.className = 'marker-text';
                                 
-                                // Insert the wrapper
-                                range.insertNode(wrapper);
-                                
-                                console.log('Custom highlight applied with text on top');
-                            } catch (error) {
-                                console.error('Error applying highlight:', error);
-                                // Fallback to simple background color
-                                const success = document.execCommand('backColor', false, color);
-                                console.log('Fallback highlight applied:', success);
+                                try {
+                                    // Extract the selected content
+                                    const selectedContent = range.extractContents();
+                                    
+                                    // Add the content to text span
+                                    textSpan.appendChild(selectedContent);
+                                    
+                                    // Add highlight and text to wrapper
+                                    wrapper.appendChild(highlight);
+                                    wrapper.appendChild(textSpan);
+                                    
+                                    // Insert the wrapper
+                                    range.insertNode(wrapper);
+                                    
+                                    console.log('New marker applied with text on top');
+                                } catch (error) {
+                                    console.error('Error applying highlight:', error);
+                                    // Fallback to simple background color
+                                    const success = document.execCommand('backColor', false, color);
+                                    console.log('Fallback highlight applied:', success);
+                                }
                             }
                         } else {
                             console.log('No text selected for highlighting');
