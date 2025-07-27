@@ -783,81 +783,79 @@ class NotesApp {
             return;
         }
 
-        // Create PDF content
-        const pdfContent = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>${title || 'Not'}</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        margin: 40px;
-                        line-height: 1.6;
-                        color: #333;
-                    }
-                    .header {
-                        text-align: center;
-                        margin-bottom: 30px;
-                        padding-bottom: 20px;
-                        border-bottom: 2px solid #667eea;
-                    }
-                    .title {
-                        font-size: 24px;
-                        color: #667eea;
-                        margin-bottom: 10px;
-                    }
-                    .date {
-                        color: #666;
-                        font-size: 14px;
-                    }
-                    .content {
-                        font-size: 16px;
-                    }
-                    .content img {
-                        max-width: 100%;
-                        height: auto;
-                        margin: 10px 0;
-                    }
-                    .content ul, .content ol {
-                        margin: 10px 0;
-                        padding-left: 20px;
-                    }
-                    .content li {
-                        margin: 5px 0;
-                    }
-                    @media print {
-                        body { margin: 20px; }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="header">
-                    <div class="title">${title || 'Not'}</div>
-                    <div class="date">Oluşturulma Tarihi: ${new Date().toLocaleDateString('tr-TR')}</div>
+        // Show loading notification
+        this.showNotification('PDF oluşturuluyor...', 'info');
+
+        // Create temporary div for PDF content
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.top = '-9999px';
+        tempDiv.style.width = '800px';
+        tempDiv.style.padding = '40px';
+        tempDiv.style.backgroundColor = 'white';
+        tempDiv.style.fontFamily = 'Arial, sans-serif';
+        tempDiv.style.fontSize = '14px';
+        tempDiv.style.lineHeight = '1.6';
+        tempDiv.style.color = '#333';
+        
+        tempDiv.innerHTML = `
+            <div style="text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #667eea;">
+                <div style="font-size: 24px; color: #667eea; margin-bottom: 10px; font-weight: bold;">
+                    ${title || 'Not'}
                 </div>
-                <div class="content">
-                    ${content || '<p>Not içeriği boş</p>'}
+                <div style="color: #666; font-size: 14px;">
+                    Oluşturulma Tarihi: ${new Date().toLocaleDateString('tr-TR')}
                 </div>
-            </body>
-            </html>
+            </div>
+            <div style="font-size: 16px;">
+                ${content || '<p>Not içeriği boş</p>'}
+            </div>
         `;
 
-        // Create blob and download
-        const blob = new Blob([pdfContent], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${title || 'not'}_${new Date().toISOString().split('T')[0]}.html`;
-        
-        // Trigger download
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        document.body.appendChild(tempDiv);
 
-        this.showNotification('Not başarıyla HTML olarak aktarıldı!', 'success');
+        // Convert to canvas and then to PDF
+        html2canvas(tempDiv, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            document.body.removeChild(tempDiv);
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+            
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 295; // A4 height in mm
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
+
+            // Add first page
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // Add additional pages if needed
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            // Save PDF
+            const fileName = `${title || 'not'}_${new Date().toISOString().split('T')[0]}.pdf`;
+            pdf.save(fileName);
+
+            this.showNotification('PDF başarıyla oluşturuldu!', 'success');
+        }).catch(error => {
+            document.body.removeChild(tempDiv);
+            console.error('PDF oluşturma hatası:', error);
+            this.showNotification('PDF oluşturulurken hata oluştu!', 'error');
+        });
     }
 }
 
