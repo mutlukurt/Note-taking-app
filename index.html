@@ -64,45 +64,70 @@
                         <i class="fas fa-strikethrough"></i>
                     </button>
                     <div class="toolbar-separator"></div>
-                    <div class="color-picker-container">
-                        <button type="button" class="toolbar-btn" id="textColorBtn" title="Metin Rengi">
-                            <i class="fas fa-font"></i>
-                            <span class="color-indicator"></span>
-                        </button>
-                        <div class="simple-color-picker">
-                            <button class="color-btn" data-color="#000000" title="Siyah">
-                                <span class="color-dot" style="background-color: #000000;"></span>
-                            </button>
-                            <button class="color-btn" data-color="#ff0000" title="Kırmızı">
-                                <span class="color-dot" style="background-color: #ff0000;"></span>
-                            </button>
-                        </div>
-                    </div>
+                     <div class="toolbar-group">
+                         <!-- Text Color -->
+                         <div class="color-picker-container">
+                             <button type="button" class="toolbar-btn modern-btn" id="textColorBtn" title="Metin Rengi">
+                                 <i class="fas fa-font"></i>
+                                 <span class="color-indicator"></span>
+                             </button>
+                             <div class="color-palette">
+                                 <button class="color-option" data-color="#000000" title="Siyah">
+                                     <div class="color-dot" style="background-color: #000000;"></div>
+                                 </button>
+                                 <button class="color-option" data-color="#ff0000" title="Kırmızı">
+                                     <div class="color-dot" style="background-color: #ff0000;"></div>
+                                 </button>
+                             </div>
+                         </div>
 
-                    <div class="header-container">
-                        <button type="button" class="toolbar-btn" id="headerBtn" title="Başlık">
-                            <i class="fas fa-heading"></i>
-                            <span class="header-indicator">P</span>
-                        </button>
-                        <div class="header-dropdown">
-                            <button class="header-option" data-header="p" title="Normal Metin">
-                                <span class="header-preview normal-text">P</span>
-                                <span class="header-label">Normal</span>
-                            </button>
-                            <button class="header-option" data-header="h1" title="Başlık 1">
-                                <span class="header-preview h1-preview">H1</span>
-                                <span class="header-label">Başlık 1</span>
-                            </button>
-                            <button class="header-option" data-header="h2" title="Başlık 2">
-                                <span class="header-preview h2-preview">H2</span>
-                                <span class="header-label">Başlık 2</span>
-                            </button>
-                            <button class="header-option" data-header="h3" title="Başlık 3">
-                                <span class="header-preview h3-preview">H3</span>
-                                <span class="header-label">Başlık 3</span>
-                            </button>
-                        </div>
-                    </div>
+                         <!-- Header Selector -->
+                         <div class="header-container">
+                             <button type="button" class="toolbar-btn modern-btn" id="headerBtn" title="Başlık Formatı">
+                                 <i class="fas fa-heading"></i>
+                                 <span class="format-text">Normal</span>
+                                 <i class="fas fa-chevron-down dropdown-arrow"></i>
+                             </button>
+                             <div class="header-dropdown">
+                                 <button class="header-option" data-header="p" title="Normal Metin">
+                                     <div class="option-content">
+                                         <span class="header-preview normal-preview">Aa</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Normal</span>
+                                             <span class="option-desc">Paragraf metni</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                                 <button class="header-option" data-header="h1" title="Büyük Başlık">
+                                     <div class="option-content">
+                                         <span class="header-preview h1-preview">H1</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Başlık 1</span>
+                                             <span class="option-desc">Ana başlık</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                                 <button class="header-option" data-header="h2" title="Orta Başlık">
+                                     <div class="option-content">
+                                         <span class="header-preview h2-preview">H2</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Başlık 2</span>
+                                             <span class="option-desc">Alt başlık</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                                 <button class="header-option" data-header="h3" title="Küçük Başlık">
+                                     <div class="option-content">
+                                         <span class="header-preview h3-preview">H3</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Başlık 3</span>
+                                             <span class="option-desc">Küçük başlık</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                             </div>
+                         </div>
+                     </div>
                     <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
                         <i class="fas fa-list-ul"></i>
@@ -743,20 +768,20 @@
             
             // Text color picker
             if (textColorBtn) {
-                const simpleColorPicker = textColorBtn.parentElement.querySelector('.simple-color-picker');
-                const colorBtns = simpleColorPicker.querySelectorAll('.color-btn');
+                const colorPalette = textColorBtn.parentElement.querySelector('.color-palette');
+                const colorOptions = colorPalette.querySelectorAll('.color-option');
                 
                 let currentColor = '#000000';
                 
                 // Color button click handlers
-                if (colorBtns.length > 0) {
-                    colorBtns.forEach(btn => {
+                if (colorOptions.length > 0) {
+                    colorOptions.forEach(btn => {
                         btn.addEventListener('click', (e) => {
                             e.stopPropagation();
                             const color = btn.dataset.color;
                             
                             // Remove selected class from all color buttons
-                            colorBtns.forEach(s => s.classList.remove('selected'));
+                            colorOptions.forEach(s => s.classList.remove('selected'));
                             // Add selected class to clicked button
                             btn.classList.add('selected');
                             
@@ -822,7 +847,7 @@
                 }
                 
                 // Select black button by default
-                const blackBtn = simpleColorPicker.querySelector('[data-color="#000000"]');
+                const blackBtn = colorPalette.querySelector('[data-color="#000000"]');
                 if (blackBtn) {
                     blackBtn.classList.add('selected');
                 }
@@ -834,7 +859,7 @@
                 const headerContainer = headerBtn.parentElement;
                 const headerDropdown = headerContainer.querySelector('.header-dropdown');
                 const headerOptions = headerDropdown.querySelectorAll('.header-option');
-                const headerIndicator = headerBtn.querySelector('.header-indicator');
+                const headerIndicator = headerBtn.querySelector('.format-text');
                 
                 let currentHeader = 'p';
                 
@@ -847,11 +872,14 @@
                     document.querySelectorAll('.header-dropdown').forEach(dropdown => {
                         if (dropdown !== headerDropdown) {
                             dropdown.classList.remove('active');
+                            dropdown.parentElement.classList.remove('active');
                         }
                     });
                     
                     // Toggle current dropdown
+                    const isActive = headerDropdown.classList.contains('active');
                     headerDropdown.classList.toggle('active');
+                    headerContainer.classList.toggle('active', !isActive);
                 });
                 
                 // Header option click handlers
@@ -869,6 +897,7 @@
                         
                         // Close dropdown
                         headerDropdown.classList.remove('active');
+                        headerContainer.classList.remove('active');
                     });
                 });
                 
@@ -929,7 +958,13 @@
                     
                     // Update indicator
                     if (headerIndicator) {
-                        headerIndicator.textContent = headerType.toUpperCase();
+                        const headerNames = {
+                            'p': 'Normal',
+                            'h1': 'Başlık 1',
+                            'h2': 'Başlık 2', 
+                            'h3': 'Başlık 3'
+                        };
+                        headerIndicator.textContent = headerNames[headerType] || 'Normal';
                     }
                     
                     // Add visual feedback
@@ -947,6 +982,7 @@
                 document.addEventListener('click', (e) => {
                     if (!e.target.closest('.header-container')) {
                         headerDropdown.classList.remove('active');
+                        headerContainer.classList.remove('active');
                     }
                 });
             }

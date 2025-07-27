@@ -1281,136 +1281,163 @@ body.force-desktop-mode .rich-editor {
     }
 }
 
-/* Simple two-color picker */
-.color-picker-container {
-    position: relative;
-    display: inline-flex;
+/* Modern toolbar group */
+.toolbar-group {
+    display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    padding: 0 8px;
 }
 
-#textColorBtn {
+/* Modern button styling */
+.modern-btn {
     position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
 }
 
-#textColorBtn:hover {
+.modern-btn:hover {
     background: var(--bg-hover);
+    border-color: var(--primary-color);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-#textColorBtn.active {
+.modern-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modern-btn.active {
     background: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
 }
 
-/* Color indicator - small dot showing current color */
+/* Color picker modern styling */
+.color-picker-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .color-indicator {
     position: absolute;
     bottom: 2px;
     right: 2px;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: #000000;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 2px solid white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     z-index: 1;
 }
 
-.simple-color-picker {
+.color-palette {
     display: flex;
-    gap: 6px;
+    gap: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.color-btn {
-    width: 28px;
-    height: 28px;
-    border: 2px solid var(--border-color);
+.color-option {
+    width: 32px;
+    height: 32px;
+    border: 2px solid transparent;
     border-radius: 6px;
-    background: var(--bg-card);
+    background: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    padding: 0;
+    position: relative;
 }
 
-.color-btn:hover {
+.color-option:hover {
     border-color: var(--primary-color);
     transform: scale(1.1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.color-btn.selected {
+.color-option.selected {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
+    background: rgba(var(--primary-color-rgb), 0.1);
     transform: scale(1.05);
 }
 
-.color-dot {
-    width: 18px;
-    height: 18px;
+.color-option.selected::after {
+    content: '✓';
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: var(--primary-color);
+    color: white;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
-/* Header dropdown system */
+.color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Header selector modern styling */
 .header-container {
     position: relative;
     display: inline-block;
 }
 
-#headerBtn {
-    position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+.format-text {
+    font-size: 13px;
+    font-weight: 500;
     color: var(--text-color);
-    transition: all 0.3s ease;
-    min-width: 50px;
 }
 
-#headerBtn:hover {
-    background: var(--bg-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.dropdown-arrow {
+    font-size: 10px;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease;
 }
 
-#headerBtn.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+.header-container.active .dropdown-arrow {
+    transform: rotate(180deg);
 }
 
-/* Header indicator - shows current header type */
-.header-indicator {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    font-size: 8px;
-    font-weight: bold;
-    background: var(--primary-color);
-    color: white;
-    padding: 1px 3px;
-    border-radius: 2px;
-    line-height: 1;
-}
-
-/* Header dropdown */
 .header-dropdown {
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
     margin-top: 8px;
     opacity: 0;
     visibility: hidden;
+    transform: translateY(-10px);
     transition: all 0.3s ease;
     z-index: 1000;
     pointer-events: none;
@@ -1418,78 +1445,106 @@ body.force-desktop-mode .rich-editor {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 8px;
-    box-shadow: var(--shadow-lg);
-    min-width: 140px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
 }
 
 .header-dropdown.active {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
     pointer-events: auto;
 }
 
 .header-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: block;
     width: 100%;
-    padding: 8px 12px;
+    padding: 12px;
     border: none;
     background: transparent;
     cursor: pointer;
     border-radius: 8px;
     transition: all 0.2s ease;
     text-align: left;
+    margin-bottom: 4px;
+}
+
+.header-option:last-child {
+    margin-bottom: 0;
 }
 
 .header-option:hover {
     background: var(--bg-hover);
-    transform: translateX(2px);
+    transform: translateX(4px);
 }
 
 .header-option.selected {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb), 0.8));
     color: white;
 }
 
-.header-option.selected .header-preview {
-    color: white;
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .header-preview {
     font-weight: bold;
-    min-width: 24px;
+    min-width: 32px;
     text-align: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
 }
 
-.normal-text {
+.header-option.selected .header-preview {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.normal-preview {
     font-size: 14px;
-    color: var(--text-color);
+    font-weight: normal;
 }
 
 .h1-preview {
-    font-size: 20px;
-    color: var(--primary-color);
+    font-size: 18px;
 }
 
 .h2-preview {
     font-size: 16px;
-    color: var(--primary-color);
 }
 
 .h3-preview {
     font-size: 14px;
-    color: var(--primary-color);
 }
 
-.header-label {
+.option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.option-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.header-option.selected .option-title {
+    color: white;
+}
+
+.option-desc {
     font-size: 12px;
     color: var(--text-secondary);
     font-weight: normal;
 }
 
-.header-option.selected .header-label {
-    color: rgba(255, 255, 255, 0.9);
+.header-option.selected .option-desc {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Rich editor header styles */
@@ -1498,6 +1553,7 @@ body.force-desktop-mode .rich-editor {
     font-weight: bold;
     margin: 0.5em 0;
     line-height: 1.2;
+    color: var(--text-color);
 }
 
 .rich-editor h2 {
@@ -1505,6 +1561,7 @@ body.force-desktop-mode .rich-editor {
     font-weight: bold;
     margin: 0.4em 0;
     line-height: 1.3;
+    color: var(--text-color);
 }
 
 .rich-editor h3 {
@@ -1512,11 +1569,13 @@ body.force-desktop-mode .rich-editor {
     font-weight: bold;
     margin: 0.3em 0;
     line-height: 1.4;
+    color: var(--text-color);
 }
 
 .rich-editor p {
     margin: 0.2em 0;
     line-height: 1.5;
+    color: var(--text-color);
 }
 
 /* Custom highlight styling for rich editor */
