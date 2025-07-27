@@ -202,6 +202,34 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 
 Bu proje MIT lisansı altında lisanslanmıştır.
 
+### 🆓 **Kullanılan Ücretsiz Kaynaklar**
+
+Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
+
+#### 🎨 **İkonlar**
+- **Font Awesome Free**: Ücretsiz ikon kütüphanesi
+- **Lisans**: Font Awesome Free License
+- **CDN**: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/`
+
+#### 🔤 **Fontlar**
+- **System Font Stack**: İşletim sistemi varsayılan fontları
+- **Fontlar**: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial
+- **Lisans**: Her işletim sisteminde varsayılan (ücretsiz)
+
+#### 📚 **Kütüphaneler**
+- **jsPDF**: PDF oluşturma kütüphanesi
+- **html2canvas**: HTML'den canvas oluşturma
+- **Lisans**: MIT License (açık kaynak)
+
+#### ✅ **Kullanım Hakları**
+- ✅ Kişisel kullanım
+- ✅ Ticari kullanım
+- ✅ Açık kaynak projeler
+- ✅ Ücretsiz dağıtım
+- ✅ Play Store yayınlama
+
+**Tüm kaynaklar tamamen ücretsiz ve ticari kullanıma uygundur.**
+
 ## 🎯 Özellik Özeti
 
 ### ✅ **Tam Çalışan Özellikler:**
