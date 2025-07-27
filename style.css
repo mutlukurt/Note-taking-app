@@ -104,6 +104,12 @@ body {
     align-items: center;
 }
 
+.control-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
 .theme-label {
     font-size: 1.1rem;
     font-weight: 600;
@@ -129,6 +135,50 @@ body {
 .theme-toggle:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Language Toggle Button */
+.language-toggle {
+    background: var(--gradient-secondary) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    width: 50px !important;
+    height: 50px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    font-size: 1.2rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: var(--shadow) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.language-toggle:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3) !important;
+}
+
+.language-toggle .lang-text {
+    position: absolute !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    bottom: 5px !important;
+    right: 5px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px !important;
+    padding: 2px 4px !important;
+    min-width: 16px !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.language-toggle.english .lang-text {
+    transform: translateX(-2px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
 }
 
 

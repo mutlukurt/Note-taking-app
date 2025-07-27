@@ -26,9 +26,15 @@
         <div class="theme-control-section">
             <div class="theme-control-content">
                 <span class="theme-label">Tema Seçimi</span>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-sun"></i>
-                </button>
+                <div class="control-buttons">
+                    <button class="language-toggle" id="languageToggle" title="Dil Değiştir">
+                        <i class="fas fa-globe"></i>
+                        <span class="lang-text">TR</span>
+                    </button>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -227,6 +233,10 @@
             // Set up rich text editor toolbar
             setupRichTextEditor();
             console.log('Rich text editor set up');
+            
+            // Set up language toggle
+            setupLanguageToggle();
+            console.log('Language toggle set up');
             
             console.log('Test buttons set up successfully!');
             
@@ -724,6 +734,213 @@
             });
             
             console.log('Rich text editor setup complete!');
+        }
+        
+        // Language Toggle Setup
+        function setupLanguageToggle() {
+            const languageBtn = document.getElementById('languageToggle');
+            let currentLanguage = localStorage.getItem('language') || 'tr';
+            
+            // Set initial language
+            updateLanguage(currentLanguage);
+            
+            if (languageBtn) {
+                languageBtn.addEventListener('click', () => {
+                    currentLanguage = currentLanguage === 'tr' ? 'en' : 'tr';
+                    localStorage.setItem('language', currentLanguage);
+                    updateLanguage(currentLanguage);
+                });
+            }
+        }
+        
+        // Update language function
+        function updateLanguage(lang) {
+            const languageBtn = document.getElementById('languageToggle');
+            const langText = languageBtn.querySelector('.lang-text');
+            
+            if (lang === 'en') {
+                languageBtn.classList.add('english');
+                langText.textContent = 'EN';
+                translateToEnglish();
+            } else {
+                languageBtn.classList.remove('english');
+                langText.textContent = 'TR';
+                translateToTurkish();
+            }
+        }
+        
+        // Translation objects
+        const translations = {
+            tr: {
+                appTitle: 'Not Alma Uygulaması',
+                themeLabel: 'Tema Seçimi',
+                noteTitlePlaceholder: 'Not başlığı...',
+                noteContentPlaceholder: 'Notunuzu buraya yazın...',
+                addNote: 'Not Ekle',
+                clearForm: 'Temizle',
+                exportPDF: 'PDF Aktar',
+                searchPlaceholder: 'Notlarınızda arayın...',
+                sortLabel: 'Sırala:',
+                newest: 'En Yeni',
+                oldest: 'En Eski',
+                title: 'Başlık',
+                all: 'Tümü',
+                pinned: 'Sabitlenenler',
+                normal: 'Normal',
+                emptyStateTitle: 'Henüz not eklenmemiş',
+                emptyStateDesc: 'İlk notunuzu ekleyerek başlayın!',
+                toolbarBold: 'Kalın',
+                toolbarItalic: 'İtalik',
+                toolbarUnderline: 'Altı Çizili',
+                toolbarStrike: 'Üstü Çizili',
+                toolbarList: 'Liste',
+                toolbarOrderedList: 'Numaralı Liste',
+                toolbarLeft: 'Sola Hizala',
+                toolbarCenter: 'Ortala',
+                toolbarRight: 'Sağa Hizala',
+                toolbarImage: 'Fotoğraf Ekle',
+                pin: 'Sabitle',
+                edit: 'Düzenle',
+                delete: 'Sil',
+                searchNotFound: 'Arama sonucu bulunamadı',
+                noResultsFor: 'için sonuç yok',
+                deleteConfirm: 'Bu notu silmek istediğinizden emin misiniz?',
+                noteDeleted: 'Not silindi!',
+                noteAdded: 'Not başarıyla eklendi!',
+                noteUpdated: 'Not güncellendi!',
+                noteDeleted: 'Not silindi!',
+                pleaseEnterContent: 'Lütfen en az bir başlık veya içerik girin!',
+                pdfCreated: 'PDF başarıyla indirildi!',
+                pdfError: 'PDF oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.',
+                pleaseSelectImage: 'Lütfen geçerli bir resim dosyası seçin!',
+                undo: 'Geri Al'
+            },
+            en: {
+                appTitle: 'Note Taking App',
+                themeLabel: 'Theme Selection',
+                noteTitlePlaceholder: 'Note title...',
+                noteContentPlaceholder: 'Write your note here...',
+                addNote: 'Add Note',
+                clearForm: 'Clear',
+                exportPDF: 'Export PDF',
+                searchPlaceholder: 'Search in your notes...',
+                sortLabel: 'Sort:',
+                newest: 'Newest',
+                oldest: 'Oldest',
+                title: 'Title',
+                all: 'All',
+                pinned: 'Pinned',
+                normal: 'Normal',
+                emptyStateTitle: 'No notes added yet',
+                emptyStateDesc: 'Start by adding your first note!',
+                toolbarBold: 'Bold',
+                toolbarItalic: 'Italic',
+                toolbarUnderline: 'Underline',
+                toolbarStrike: 'Strikethrough',
+                toolbarList: 'List',
+                toolbarOrderedList: 'Ordered List',
+                toolbarLeft: 'Align Left',
+                toolbarCenter: 'Center',
+                toolbarRight: 'Align Right',
+                toolbarImage: 'Add Image',
+                pin: 'Pin',
+                edit: 'Edit',
+                delete: 'Delete',
+                searchNotFound: 'Search result not found',
+                noResultsFor: 'no results for',
+                deleteConfirm: 'Are you sure you want to delete this note?',
+                noteDeleted: 'Note deleted!',
+                noteAdded: 'Note added successfully!',
+                noteUpdated: 'Note updated!',
+                noteDeleted: 'Note deleted!',
+                pleaseEnterContent: 'Please enter at least a title or content!',
+                pdfCreated: 'PDF downloaded successfully!',
+                pdfError: 'An error occurred while creating PDF. Please try again.',
+                pleaseSelectImage: 'Please select a valid image file!',
+                undo: 'Undo'
+            }
+        };
+        
+        // Translate to English
+        function translateToEnglish() {
+            const t = translations.en;
+            
+            // Update main elements
+            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
+            document.querySelector('.theme-label').textContent = t.themeLabel;
+            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
+            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
+            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
+            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
+            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            
+            // Update toolbar buttons
+            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
+            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
+            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
+            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
+            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
+            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
+            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
+            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
+            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
+            document.getElementById('addImageBtn').title = t.toolbarImage;
+            
+            // Update controls
+            document.querySelector('.sort-controls span').textContent = t.sortLabel;
+            document.querySelector('[data-sort="date-desc"]').textContent = t.newest;
+            document.querySelector('[data-sort="date-asc"]').textContent = t.oldest;
+            document.querySelector('[data-sort="title"]').textContent = t.title;
+            document.querySelector('[data-filter="all"]').textContent = t.all;
+            document.querySelector('[data-filter="pinned"]').textContent = t.pinned;
+            document.querySelector('[data-filter="unpinned"]').textContent = t.normal;
+            
+            // Update empty state
+            const emptyState = document.getElementById('emptyState');
+            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
+            emptyState.querySelector('p').textContent = t.emptyStateDesc;
+        }
+        
+        // Translate to Turkish
+        function translateToTurkish() {
+            const t = translations.tr;
+            
+            // Update main elements
+            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
+            document.querySelector('.theme-label').textContent = t.themeLabel;
+            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
+            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
+            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
+            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
+            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            
+            // Update toolbar buttons
+            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
+            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
+            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
+            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
+            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
+            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
+            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
+            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
+            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
+            document.getElementById('addImageBtn').title = t.toolbarImage;
+            
+            // Update controls
+            document.querySelector('.sort-controls span').textContent = t.sortLabel;
+            document.querySelector('[data-sort="date-desc"]').textContent = t.newest;
+            document.querySelector('[data-command="date-asc"]').textContent = t.oldest;
+            document.querySelector('[data-sort="title"]').textContent = t.title;
+            document.querySelector('[data-filter="all"]').textContent = t.all;
+            document.querySelector('[data-filter="pinned"]').textContent = t.pinned;
+            document.querySelector('[data-filter="unpinned"]').textContent = t.normal;
+            
+            // Update empty state
+            const emptyState = document.getElementById('emptyState');
+            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
+            emptyState.querySelector('p').textContent = t.emptyStateDesc;
         }
     </script>
     <script src="script.js"></script>
