@@ -756,101 +756,121 @@
             
             // Text color picker
             if (textColorBtn) {
+                console.log('Text color button found');
                 const colorPickerWrapper = textColorBtn.parentElement.querySelector('.color-picker-wrapper');
-                const spectrumGradient = colorPickerWrapper.querySelector('.spectrum-gradient');
-                const spectrumSlider = colorPickerWrapper.querySelector('.spectrum-slider');
-                const colorSwatches = colorPickerWrapper.querySelectorAll('.color-swatch');
                 
-                let currentColor = '#000000';
-                
-                textColorBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Text color button clicked');
+                if (colorPickerWrapper) {
+                    console.log('Color picker wrapper found');
+                    const spectrumGradient = colorPickerWrapper.querySelector('.spectrum-gradient');
+                    const spectrumSlider = colorPickerWrapper.querySelector('.spectrum-slider');
+                    const colorSwatches = colorPickerWrapper.querySelectorAll('.color-swatch');
                     
-                    // Toggle color picker wrapper visibility
-                    const isVisible = colorPickerWrapper.classList.contains('active');
+                    console.log('Spectrum gradient:', spectrumGradient);
+                    console.log('Spectrum slider:', spectrumSlider);
+                    console.log('Color swatches:', colorSwatches.length);
                     
-                    // Hide all other color pickers first
-                    document.querySelectorAll('.color-picker-wrapper').forEach(wrapper => {
-                        wrapper.classList.remove('active');
-                    });
+                    let currentColor = '#000000';
                     
-                    if (!isVisible) {
-                        colorPickerWrapper.classList.add('active');
-                    }
-                });
-                
-                // Spectrum gradient click handler
-                spectrumGradient.addEventListener('click', (e) => {
-                    const rect = spectrumGradient.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const percentage = Math.max(0, Math.min(1, x / rect.width));
-                    
-                    // Calculate color from percentage
-                    const hue = percentage * 360;
-                    const color = `hsl(${hue}, 100%, 50%)`;
-                    
-                    // Convert HSL to HEX for consistency
-                    const hexColor = hslToHex(hue, 100, 50);
-                    
-                    // Update slider position
-                    spectrumSlider.style.left = `${percentage * 100}%`;
-                    
-                    applyColor(hexColor);
-                });
-                
-                // Color swatch click handlers
-                colorSwatches.forEach(swatch => {
-                    swatch.addEventListener('click', (e) => {
+                    textColorBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
                         e.stopPropagation();
-                        const color = swatch.dataset.color;
+                        console.log('Text color button clicked');
                         
-                        // Remove selected class from all swatches
-                        colorSwatches.forEach(s => s.classList.remove('selected'));
-                        // Add selected class to clicked swatch
-                        swatch.classList.add('selected');
+                        // Toggle color picker wrapper visibility
+                        const isVisible = colorPickerWrapper.classList.contains('active');
                         
-                        applyColor(color);
+                        // Hide all other color pickers first
+                        document.querySelectorAll('.color-picker-wrapper').forEach(wrapper => {
+                            wrapper.classList.remove('active');
+                        });
+                        
+                        if (!isVisible) {
+                            colorPickerWrapper.classList.add('active');
+                        }
                     });
-                });
-                
-                // Apply color function
-                function applyColor(color) {
-                    currentColor = color;
-                    console.log('Text color selected:', color);
                     
-                    editor.focus();
+                    // Spectrum gradient click handler
+                    if (spectrumGradient && spectrumSlider) {
+                        spectrumGradient.addEventListener('click', (e) => {
+                            const rect = spectrumGradient.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const percentage = Math.max(0, Math.min(1, x / rect.width));
+                            
+                            // Calculate color from percentage
+                            const hue = percentage * 360;
+                            
+                            // Convert HSL to HEX for consistency
+                            const hexColor = hslToHex(hue, 100, 50);
+                            
+                            // Update slider position
+                            spectrumSlider.style.left = `${percentage * 100}%`;
+                            
+                            applyColor(hexColor);
+                        });
+                    }
                     
-                    // Apply color using simple execCommand
-                    document.execCommand('foreColor', false, color);
+                    // Color swatch click handlers
+                    if (colorSwatches.length > 0) {
+                        colorSwatches.forEach(swatch => {
+                            swatch.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                const color = swatch.dataset.color;
+                                
+                                // Remove selected class from all swatches
+                                colorSwatches.forEach(s => s.classList.remove('selected'));
+                                // Add selected class to clicked swatch
+                                swatch.classList.add('selected');
+                                
+                                applyColor(color);
+                            });
+                        });
+                    }
                     
-                    // Update color indicator
+                    // Apply color function
+                    function applyColor(color) {
+                        currentColor = color;
+                        console.log('Text color selected:', color);
+                        
+                        editor.focus();
+                        
+                        // Apply color using simple execCommand
+                        document.execCommand('foreColor', false, color);
+                        
+                        // Update color indicator
+                        const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                        if (colorIndicator) {
+                            colorIndicator.style.backgroundColor = color;
+                        }
+                        
+                        editor.setAttribute('data-text-color', color);
+                        
+                        // Hide color picker
+                        colorPickerWrapper.classList.remove('active');
+                        
+                        // Add visual feedback
+                        textColorBtn.classList.add('active');
+                        setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                    }
+                    
+                    // HSL to HEX conversion function
+                    function hslToHex(h, s, l) {
+                        l /= 100;
+                        const a = s * Math.min(l, 1 - l) / 100;
+                        const f = n => {
+                            const k = (n + h / 30) % 12;
+                            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                            return Math.round(255 * color).toString(16).padStart(2, '0');
+                        };
+                        return `#${f(0)}${f(8)}${f(4)}`;
+                    }
+                    
+                    // Initialize color indicator
                     const colorIndicator = textColorBtn.querySelector('.color-indicator');
                     if (colorIndicator) {
-                        colorIndicator.style.backgroundColor = color;
+                        colorIndicator.style.backgroundColor = '#000000';
                     }
-                    
-                    editor.setAttribute('data-text-color', color);
-                    
-                    // Hide color picker
-                    colorPickerWrapper.classList.remove('active');
-                    
-                    // Add visual feedback
-                    textColorBtn.classList.add('active');
-                    setTimeout(() => textColorBtn.classList.remove('active'), 200);
-                }
-                
-                // HSL to HEX conversion function
-                function hslToHex(h, s, l) {
-                    l /= 100;
-                    const a = s * Math.min(l, 1 - l) / 100;
-                    const f = n => {
-                        const k = (n + h / 30) % 12;
-                        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-                        return Math.round(255 * color).toString(16).padStart(2, '0');
-                    };
-                    return `#${f(0)}${f(8)}${f(4)}`;
+                } else {
+                    console.error('Color picker wrapper not found!');
                 }
                 
                 // Hide color picker when clicking outside
@@ -861,12 +881,6 @@
                         });
                     }
                 });
-                
-                // Initialize color indicator
-                const colorIndicator = textColorBtn.querySelector('.color-indicator');
-                if (colorIndicator) {
-                    colorIndicator.style.backgroundColor = '#000000';
-                }
             }
             
             // Add keyboard shortcuts
