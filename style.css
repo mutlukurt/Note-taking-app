@@ -90,8 +90,9 @@ body {
 
 /* Ayarlar Bölümü */
 .settings-section {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     position: relative;
+    padding-top: 20px;
 }
 
 .settings-container {
@@ -129,7 +130,7 @@ body {
 .settings-panel {
     position: absolute !important;
     left: 60px !important;
-    top: 0 !important;
+    top: -10px !important;
     background: var(--bg-card) !important;
     border-radius: 25px !important;
     padding: 20px 30px !important;
@@ -140,6 +141,7 @@ body {
     transform: translateX(-20px) !important;
     transition: all 0.3s ease !important;
     white-space: nowrap !important;
+    z-index: 1000 !important;
 }
 
 .settings-panel.active {
@@ -240,6 +242,7 @@ body {
     border-radius: 25px;
     padding: 30px;
     margin-bottom: 30px;
+    margin-top: 30px;
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
 }
