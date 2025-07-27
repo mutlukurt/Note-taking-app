@@ -167,23 +167,19 @@
     <script>
         // Simple test functions
         function testTheme() {
-            console.log('Test theme function called');
             const body = document.body;
             const icon = document.querySelector('#themeToggle i');
             
             if (body.classList.contains('dark-mode')) {
                 body.classList.remove('dark-mode');
                 icon.className = 'fas fa-sun';
-                console.log('Light mode activated');
             } else {
                 body.classList.add('dark-mode');
                 icon.className = 'fas fa-moon';
-                console.log('Dark mode activated');
             }
         }
         
         function testAddNote() {
-            console.log('Test add note function called');
             const title = document.getElementById('noteTitle').value;
             const content = document.getElementById('noteContent').innerHTML;
             
@@ -219,33 +215,27 @@
         }
         
         function testClearForm() {
-            console.log('Test clear form function called');
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteContent').innerHTML = '';
-            console.log('Form cleared');
         }
         
         // DOM loaded
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, setting up test buttons...');
             
             // Set up test buttons
             const themeBtn = document.getElementById('themeToggle');
             if (themeBtn) {
                 themeBtn.onclick = testTheme;
-                console.log('Theme button set up');
             }
             
             const addBtn = document.getElementById('addNote');
             if (addBtn) {
                 addBtn.onclick = testAddNote;
-                console.log('Add note button set up');
             }
             
             const clearBtn = document.getElementById('clearForm');
             if (clearBtn) {
                 clearBtn.onclick = testClearForm;
-                console.log('Clear form button set up');
             }
             
             // Set up search input
@@ -254,29 +244,22 @@
                 searchInput.oninput = (e) => {
                     searchNotes(e.target.value);
                 };
-                console.log('Search input set up');
             }
             
             // Set up PDF export button
             const exportBtn = document.getElementById('exportPDF');
             if (exportBtn) {
                 exportBtn.onclick = exportToPDF;
-                console.log('PDF export button set up');
             }
             
             // Set up rich text editor toolbar
             setupRichTextEditor();
-            console.log('Rich text editor set up');
             
             // Set up language toggle
             setupLanguageToggle();
-            console.log('Language toggle set up');
             
             // Set up settings toggle
             setupSettingsToggle();
-            console.log('Settings toggle set up');
-            
-            console.log('Test buttons set up successfully!');
             
             // Load and display notes
             renderNotes();
@@ -680,17 +663,12 @@
             const editor = document.getElementById('noteContent');
             const imageInput = document.getElementById('imageInput');
             
-            console.log('Setting up rich text editor...');
-            console.log('Toolbar found:', toolbar);
-            console.log('Editor found:', editor);
-            
             // Toolbar button clicks
             if (toolbar) {
                 toolbar.addEventListener('click', (e) => {
                     const btn = e.target.closest('.toolbar-btn');
                     if (btn) {
                         const command = btn.dataset.command;
-                        console.log('Button clicked:', command);
                         
                         if (command) {
                             e.preventDefault();
@@ -701,7 +679,6 @@
                             
                             // Execute command
                             const success = document.execCommand(command, false, null);
-                            console.log('Command executed:', command, 'Success:', success);
                             
                             // Add visual feedback
                             btn.classList.add('active');
@@ -717,7 +694,6 @@
                 addImageBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('Image button clicked');
                     imageInput.click();
                 });
             }
@@ -725,7 +701,6 @@
             if (imageInput) {
                 imageInput.addEventListener('change', (e) => {
                     const file = e.target.files[0];
-                    console.log('File selected:', file);
                     
                     if (file && file.type.startsWith('image/')) {
                         const reader = new FileReader();
@@ -739,7 +714,6 @@
                             
                             editor.focus();
                             const success = document.execCommand('insertHTML', false, img.outerHTML);
-                            console.log('Image inserted:', success);
                             
                             // Clear the input
                             imageInput.value = '';
@@ -756,25 +730,18 @@
             
             // Text color picker
             if (textColorBtn) {
-                console.log('Text color button found');
                 const colorPickerWrapper = textColorBtn.parentElement.querySelector('.color-picker-wrapper');
                 
                 if (colorPickerWrapper) {
-                    console.log('Color picker wrapper found');
                     const spectrumGradient = colorPickerWrapper.querySelector('.spectrum-gradient');
                     const spectrumSlider = colorPickerWrapper.querySelector('.spectrum-slider');
                     const colorSwatches = colorPickerWrapper.querySelectorAll('.color-swatch');
-                    
-                    console.log('Spectrum gradient:', spectrumGradient);
-                    console.log('Spectrum slider:', spectrumSlider);
-                    console.log('Color swatches:', colorSwatches.length);
                     
                     let currentColor = '#000000';
                     
                     textColorBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log('Text color button clicked');
                         
                         // Toggle color picker wrapper visibility
                         const isVisible = colorPickerWrapper.classList.contains('active');
@@ -829,8 +796,6 @@
                     // Apply color function
                     function applyColor(color) {
                         currentColor = color;
-                        console.log('=== APPLY COLOR START ===');
-                        console.log('Color to apply:', color);
                         
                         editor.focus();
                         
@@ -841,7 +806,6 @@
                             // Text is selected - apply color to selection
                             const range = selection.getRangeAt(0);
                             const selectedText = range.toString();
-                            console.log('Selected text:', selectedText);
                             
                             if (selectedText.length > 0) {
                                 // Create a span with the color
@@ -859,37 +823,11 @@
                                 newRange.collapse(true);
                                 selection.removeAllRanges();
                                 selection.addRange(newRange);
-                                
-                                console.log('Color applied to selected text:', color);
                             }
                         } else {
                             // No selection - set color for future typing
-                            console.log('Setting color for future typing:', color);
-                            
-                            // Save cursor position before setTimeout
-                            const savedRange = selection.getRangeAt(0).cloneRange();
-                            
-                            // Use setTimeout to ensure proper execution
-                            setTimeout(() => {
-                                // Restore focus and cursor position
-                                editor.focus();
-                                
-                                // Apply color
-                                document.execCommand('styleWithCSS', false, true);
-                                const result = document.execCommand('foreColor', false, color);
-                                console.log('execCommand foreColor result:', result);
-                                console.log('Current foreColor value:', document.queryCommandValue('foreColor'));
-                                
-                                // Restore cursor position
-                                try {
-                                    const newSelection = window.getSelection();
-                                    newSelection.removeAllRanges();
-                                    newSelection.addRange(savedRange);
-                                    console.log('Cursor position restored after color change');
-                                } catch (e) {
-                                    console.log('Could not restore cursor position:', e);
-                                }
-                            }, 10);
+                            document.execCommand('styleWithCSS', false, true);
+                            document.execCommand('foreColor', false, color);
                         }
                         
                         // Update color indicator
@@ -906,8 +844,6 @@
                         // Add visual feedback
                         textColorBtn.classList.add('active');
                         setTimeout(() => textColorBtn.classList.remove('active'), 200);
-                        
-                        console.log('=== APPLY COLOR END ===');
                     }
                     
                     // HSL to HEX conversion function
@@ -927,8 +863,6 @@
                     if (colorIndicator) {
                         colorIndicator.style.backgroundColor = '#000000';
                     }
-                } else {
-                    console.error('Color picker wrapper not found!');
                 }
                 
                 // Hide color picker when clicking outside
@@ -960,8 +894,6 @@
                     }
                 }
             });
-            
-            console.log('Rich text editor setup complete!');
         }
         
         // Settings Toggle Setup
@@ -970,26 +902,19 @@
             const settingsPanel = document.getElementById('settingsPanel');
             let isSettingsOpen = false;
             
-            console.log('Setting up settings toggle...');
-            console.log('Settings button found:', settingsBtn);
-            console.log('Settings panel found:', settingsPanel);
-            
             if (settingsBtn && settingsPanel) {
                 settingsBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    console.log('Settings button clicked!');
                     isSettingsOpen = !isSettingsOpen;
                     
                     if (isSettingsOpen) {
                         settingsBtn.classList.add('active');
                         settingsPanel.classList.add('active');
-                        console.log('Settings panel opened');
                     } else {
                         settingsBtn.classList.remove('active');
                         settingsPanel.classList.remove('active');
-                        console.log('Settings panel closed');
                     }
                 });
                 
@@ -1000,7 +925,6 @@
                             settingsBtn.classList.remove('active');
                             settingsPanel.classList.remove('active');
                             isSettingsOpen = false;
-                            console.log('Settings panel closed (outside click)');
                         }
                     }
                 });
@@ -1012,10 +936,6 @@
             const languageBtn = document.getElementById('languageToggle');
             let currentLanguage = localStorage.getItem('language') || 'tr';
             
-            console.log('Setting up language toggle...');
-            console.log('Language button found:', languageBtn);
-            console.log('Current language:', currentLanguage);
-            
             // Set initial language
             updateLanguage(currentLanguage);
             
@@ -1024,9 +944,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    console.log('Language button clicked!');
                     currentLanguage = currentLanguage === 'tr' ? 'en' : 'tr';
-                    console.log('Switching to:', currentLanguage);
                     
                     localStorage.setItem('language', currentLanguage);
                     updateLanguage(currentLanguage);
@@ -1039,18 +957,14 @@
             const languageBtn = document.getElementById('languageToggle');
             const langText = languageBtn.querySelector('.lang-text');
             
-            console.log('Updating language to:', lang);
-            
             if (lang === 'en') {
                 languageBtn.classList.add('english');
                 langText.textContent = 'EN';
                 translateToEnglish();
-                console.log('Switched to English');
             } else {
                 languageBtn.classList.remove('english');
                 langText.textContent = 'TR';
                 translateToTurkish();
-                console.log('Switched to Turkish');
             }
         }
         
