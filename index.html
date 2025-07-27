@@ -773,9 +773,36 @@
                         
                         editor.focus();
                         
-                        const success = document.execCommand('foreColor', false, color);
+                        // Get current selection
+                        const selection = window.getSelection();
+                        
+                        if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                            // Text is selected - apply color to selection
+                            const range = selection.getRangeAt(0);
+                            const selectedText = range.toString();
+                            
+                            if (selectedText.length > 0) {
+                                // Create a span with the desired color
+                                const span = document.createElement('span');
+                                span.style.color = color;
+                                span.textContent = selectedText;
+                                
+                                // Replace selected text with colored span
+                                range.deleteContents();
+                                range.insertNode(span);
+                                
+                                // Clear selection
+                                selection.removeAllRanges();
+                                
+                                console.log('Text color applied to selection:', color);
+                            }
+                        } else {
+                            // No selection - set color for future typing
+                            document.execCommand('foreColor', false, color);
+                            console.log('Text color set for typing:', color);
+                        }
+                        
                         editor.setAttribute('data-text-color', color);
-                        console.log('Text color applied:', success, color);
                         
                         // Hide palette
                         textColorPalette.classList.remove('active');
