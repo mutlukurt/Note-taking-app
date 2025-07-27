@@ -32,7 +32,6 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - 🔒 **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
 - ⚙️ **Modern Ayarlar**: Yuvarlak ayarlar butonu ve genişleyen panel
 
-
 ## 🚀 Kullanım
 
 ### 📝 **Temel İşlemler:**
@@ -71,7 +70,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 5. **Geri Alma**: 4 saniye içinde alt kısımda "Geri Al" butonuna tıklayın
 6. **Otomatik Kapanma**: Dışarı tıklayarak kaydırma durumunu sıfırlayın
 
-### 📌 **Gelişmiş Özellikler:**
+### �� **Gelişmiş Özellikler:**
 1. **Sabitleme**: 📌 ikonuna tıklayarak notu sabitleyin
 2. **Sıralama**: "En Yeni", "En Eski", "Başlık" seçenekleri
 3. **Filtreleme**: "Tümü", "Sabitlenenler", "Normal" seçenekleri
@@ -90,7 +89,6 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - **LocalStorage**: Güvenli veri saklama
 - **jsPDF & html2canvas**: PDF export özelliği (MIT License)
 - **System Fonts**: İşletim sistemi varsayılan fontları
-
 
 ## 📁 Dosya Yapısı
 
@@ -159,7 +157,6 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Desktop Mode**: Responsive tasarım ile uyumlu
 - **Privacy Policy**: Modern footer tasarımı
 
-
 ## 🔒 Veri Güvenliği
 
 - **Yerel Depolama**: Notlarınız sadece tarayıcınızda saklanır
@@ -206,11 +203,169 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 4. Push yapın (`git push origin feature/amazing-feature`)
 5. Pull Request oluşturun
 
+## 🔒 Gizlilik Politikası
+
+### 📋 **Veri Toplama ve Kullanım**
+
+Bu uygulama **hiçbir kişisel veri toplamaz** ve **hiçbir veriyi sunucuya göndermez**. Tüm verileriniz sadece tarayıcınızda yerel olarak saklanır.
+
+#### 🔐 **Saklanan Veriler:**
+- **Notlarınız**: Başlık, içerik, tarih, sabitleme durumu
+- **Resimler**: Base64 formatında şifrelenmiş olarak
+- **Tema Tercihi**: Açık/koyu tema seçiminiz
+- **Dil Tercihi**: TR/EN dil seçiminiz
+
+#### 🚫 **Toplanmayan Veriler:**
+- Kişisel bilgiler (ad, e-posta, telefon)
+- Konum bilgileri
+- Tarayıcı geçmişi
+- Çerezler (sadece tema ve dil tercihleri)
+- Üçüncü taraf veriler
+
+### 🛡️ **Veri Güvenliği**
+
+#### ✅ **Güvenlik Önlemleri:**
+- **Yerel Depolama**: Tüm veriler tarayıcınızda saklanır
+- **Şifreleme**: Resimler Base64 formatında şifrelenir
+- **Gizlilik**: Hiçbir veri internet üzerinden gönderilmez
+- **Kontrol**: Verileriniz üzerinde tam kontrolünüz var
+
+#### 🔒 **Veri Koruma:**
+- **GDPR Uyumlu**: Avrupa veri koruma düzenlemelerine uygun
+- **KVKK Uyumlu**: Türkiye kişisel verilerin korunması kanununa uygun
+- **Şeffaflık**: Tüm veri işlemleri şeffaf ve açık
+- **Kullanıcı Hakları**: Verilerinizi istediğiniz zaman silebilirsiniz
+
+### 🗑️ **Veri Silme**
+
+#### 📱 **Manuel Silme:**
+- Not kartındaki çöp kutusu ikonuna tıklayın
+- Swipe-to-Delete özelliğini kullanın
+- Tarayıcı ayarlarından localStorage'ı temizleyin
+
+#### 🔄 **Otomatik Silme:**
+- Tarayıcı verilerini temizlediğinizde
+- Tarayıcı geçmişini sildiğinizde
+- Tarayıcıyı kullandığınızda
+
+### 🌐 **Üçüncü Taraf Servisler**
+
+#### 📚 **Kullanılan CDN Servisleri:**
+- **Font Awesome**: İkon kütüphanesi (sadece görsel)
+- **jsPDF**: PDF oluşturma (sadece işlem sırasında)
+- **html2canvas**: HTML'den canvas oluşturma (sadece işlem sırasında)
+
+#### ✅ **Güvenlik Garantisi:**
+- Hiçbir veri bu servislere gönderilmez
+- Sadece görsel ve işlevsel kaynaklar kullanılır
+- Tüm işlemler tarayıcınızda yerel olarak gerçekleşir
+
 ## 📄 Lisans
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+### 🆓 **MIT Lisansı**
 
-### 🆓 **Kullanılan Ücretsiz Kaynaklar**
+Bu proje MIT lisansı altında lisanslanmıştır. Aşağıdaki koşullar geçerlidir:
+
+```
+MIT License
+
+Copyright (c) 2025 Not Alma Uygulaması
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### ✅ **İzin Verilen Kullanımlar:**
+- ✅ Kişisel kullanım
+- ✅ Ticari kullanım
+- ✅ Açık kaynak projeler
+- ✅ Ücretsiz dağıtım
+- ✅ Play Store yayınlama
+- ✅ Kod değiştirme ve geliştirme
+- ✅ Türev çalışmalar oluşturma
+
+### 🚫 **Kısıtlamalar:**
+- ❌ Telif hakkı bildirimini kaldırma
+- ❌ Lisans koşullarını değiştirme
+- ❌ Yazarı sorumlu tutma
+
+## 📋 Kullanım Şartları
+
+### ✅ **Kabul Edilen Kullanımlar:**
+- Kişisel not alma ve organizasyon
+- İş ve eğitim amaçlı kullanım
+- Açık kaynak projelerde entegrasyon
+- Ticari projelerde kullanım
+- Eğitim ve öğretim amaçlı kullanım
+
+### 🚫 **Yasaklanan Kullanımlar:**
+- Yasadışı içerik oluşturma
+- Başkalarının haklarını ihlal etme
+- Zararlı yazılım geliştirme
+- Spam ve kötüye kullanım
+- Telif hakkı ihlali
+
+### ⚖️ **Sorumluluk Reddi:**
+- Uygulama "olduğu gibi" sunulur
+- Veri kaybından sorumlu değiliz
+- Teknik sorunlardan sorumlu değiliz
+- Üçüncü taraf servislerden sorumlu değiliz
+
+## 🆘 Destek ve İletişim
+
+### 📧 **İletişim Bilgileri:**
+- **GitHub**: [https://github.com/mutlukurt/Note-taking-app](https://github.com/mutlukurt/Note-taking-app)
+- **Issues**: GitHub Issues sayfasından bildirim
+- **Pull Requests**: Katkıda bulunmak için PR gönderin
+
+### 🐛 **Hata Bildirimi:**
+1. GitHub Issues sayfasına gidin
+2. "New Issue" butonuna tıklayın
+3. Hata açıklamasını detaylı şekilde yazın
+4. Tarayıcı ve işletim sistemi bilgilerini ekleyin
+5. Ekran görüntüsü varsa ekleyin
+
+### 💡 **Öneri ve İstekler:**
+- Yeni özellik önerileri için Issues kullanın
+- UI/UX iyileştirme önerileri için Issues kullanın
+- Performans iyileştirme önerileri için Issues kullanın
+
+## 🔄 Güncelleme Geçmişi
+
+### 📅 **v2.0.0 (2025)**
+- ✨ Zengin metin editörü eklendi
+- 📄 PDF export özelliği eklendi
+- 🖼️ Fotoğraf ekleme özelliği eklendi
+- 🌍 Çok dilli destek eklendi
+- 📱 Swipe-to-Delete özelliği eklendi
+- 🎨 Modern ayarlar paneli eklendi
+- 🔒 Gizlilik politikası eklendi
+
+### 📅 **v1.0.0 (2024)**
+- 📝 Temel not alma özellikleri
+- 🎨 Modern tasarım
+- 🌙 Karanlık mod
+- 📱 Responsive tasarım
+- 💾 LocalStorage desteği
+
+## 🏆 Özellikler ve Teknolojiler
+
+## 🆓 **Kullanılan Ücretsiz Kaynaklar**
 
 Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
 
@@ -238,8 +393,6 @@ Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
 
 **Tüm kaynaklar tamamen ücretsiz ve ticari kullanıma uygundur.**
 
-## 🎯 Özellik Özeti
-
 ### ✅ **Tam Çalışan Özellikler:**
 - **Not Yönetimi**: Ekleme, düzenleme, silme, arama
 - **Swipe-to-Delete**: Mobil dostu silme (4 saniye geri alma)
@@ -261,8 +414,22 @@ Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
 - **Cross-browser**: Tüm modern tarayıcılarda çalışır
 - **Free Resources**: Tüm kaynaklar ücretsiz ve açık kaynak
 
+## 📞 İletişim ve Destek
+
+### 🌐 **Resmi Kanallar:**
+- **GitHub Repository**: [https://github.com/mutlukurt/Note-taking-app](https://github.com/mutlukurt/Note-taking-app)
+- **Live Demo**: [https://mutlukurt.github.io/Note-taking-app](https://mutlukurt.github.io/Note-taking-app)
+- **Issues**: [https://github.com/mutlukurt/Note-taking-app/issues](https://github.com/mutlukurt/Note-taking-app/issues)
+
+### 📧 **Destek Türleri:**
+- 🐛 **Hata Bildirimi**: Teknik sorunlar için
+- 💡 **Özellik İsteği**: Yeni özellikler için
+- 📚 **Dokümantasyon**: Kullanım kılavuzu için
+- 🔒 **Gizlilik**: Veri güvenliği soruları için
+- 📄 **Lisans**: Lisans soruları için
+
 ---
 
 **Not**: Bu uygulama tarayıcı tabanlıdır ve internet bağlantısı gerektirir. Font Awesome ikonları, PDF export kütüphaneleri (jsPDF, html2canvas) ve diğer CDN kaynakları için internet bağlantısı gereklidir. Tüm not verileriniz tarayıcınızda güvenli şekilde saklanır.
 
-**© 2025 Not Alma Uygulaması | MIT License**
+**© 2025 Not Alma Uygulaması | MIT License | Gizlilik Politikası | Kullanım Şartları**
