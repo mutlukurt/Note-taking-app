@@ -833,8 +833,47 @@
                         
                         editor.focus();
                         
-                        // Apply color using simple execCommand
-                        document.execCommand('foreColor', false, color);
+                        // More reliable color application
+                        const selection = window.getSelection();
+                        
+                        if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                            // Text is selected - apply color to selection
+                            const range = selection.getRangeAt(0);
+                            const selectedText = range.toString();
+                            
+                            if (selectedText.length > 0) {
+                                // Create a span with the color
+                                const span = document.createElement('span');
+                                span.style.color = color;
+                                span.textContent = selectedText;
+                                
+                                // Replace selected text with colored span
+                                range.deleteContents();
+                                range.insertNode(span);
+                                
+                                // Clear selection
+                                selection.removeAllRanges();
+                                
+                                console.log('Color applied to selected text:', color);
+                            }
+                        } else {
+                            // No selection - set color for future typing
+                            console.log('Setting color for future typing:', color);
+                            
+                            // Force color change by temporarily blurring and refocusing
+                            editor.blur();
+                            
+                            // Use styleWithCSS for consistent behavior
+                            document.execCommand('styleWithCSS', false, true);
+                            
+                            // Apply the color directly
+                            document.execCommand('foreColor', false, color);
+                            
+                            // Refocus the editor
+                            editor.focus();
+                            
+                            console.log('Color applied for typing:', color);
+                        }
                         
                         // Update color indicator
                         const colorIndicator = textColorBtn.querySelector('.color-indicator');
