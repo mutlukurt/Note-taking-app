@@ -78,10 +78,8 @@ class NotesApp {
 
         // Font selector
         document.getElementById('fontSelect').addEventListener('change', (e) => {
-            // Seçimi korumak için setTimeout kullan
-            setTimeout(() => {
-                this.changeFont(e.target.value);
-            }, 10);
+            console.log('Font seçildi:', e.target.value);
+            this.changeFont(e.target.value);
         });
 
         // Image upload
@@ -974,32 +972,14 @@ class NotesApp {
 
     changeFont(fontFamily) {
         const editor = document.getElementById('noteContent');
-        const selection = window.getSelection();
         
         // Editöre odaklan
         editor.focus();
         
-        if (selection.rangeCount > 0 && !selection.isCollapsed) {
-            // Seçili metin varsa, sadece seçili metne font uygula
-            const range = selection.getRangeAt(0);
-            const span = document.createElement('span');
-            span.style.fontFamily = fontFamily;
-            
-            // Seçili içeriği span içine al
-            const contents = range.extractContents();
-            span.appendChild(contents);
-            range.insertNode(span);
-            
-            // Seçimi temizle
-            selection.removeAllRanges();
-            
-            this.showNotification(`Seçili metin için font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
-        } else {
-            // Seçili metin yoksa, yeni yazılacak metin için font ayarla
-            // Font komutunu çalıştır
-            document.execCommand('fontName', false, fontFamily);
-            
-            this.showNotification(`Yeni metin için font ayarlandı: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
+        // Basit ve etkili yöntem: CSS style uygula
+        if (editor.style.fontFamily !== fontFamily) {
+            editor.style.fontFamily = fontFamily;
+            this.showNotification(`Font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
         }
         
         // Font seçiciyi güncelle
@@ -1008,31 +988,13 @@ class NotesApp {
 
     updateFontSelector() {
         const editor = document.getElementById('noteContent');
-        const selection = window.getSelection();
         const fontSelect = document.getElementById('fontSelect');
         
-        if (selection.rangeCount > 0 && !selection.isCollapsed) {
-            // Seçili metnin fontunu kontrol et
-            const range = selection.getRangeAt(0);
-            const container = range.commonAncestorContainer;
-            
-            // Seçili metnin fontunu bul
-            let fontFamily = '';
-            if (container.nodeType === Node.TEXT_NODE) {
-                const parent = container.parentElement;
-                fontFamily = window.getComputedStyle(parent).fontFamily;
-            } else {
-                fontFamily = window.getComputedStyle(container).fontFamily;
-            }
-            
-            // Font seçiciyi güncelle
-            for (let option of fontSelect.options) {
-                if (option.value === fontFamily) {
-                    fontSelect.value = fontFamily;
-                    break;
-                }
-            }
-        }
+        // Editörün mevcut fontunu al
+        const currentFont = editor.style.fontFamily || 'Arial, sans-serif';
+        
+        // Font seçiciyi güncelle
+        fontSelect.value = currentFont;
     }
 }
 

@@ -153,6 +153,7 @@ body {
     overflow-y: auto;
     word-wrap: break-word;
     line-height: 1.6;
+    font-family: Arial, sans-serif;
 }
 
 .rich-editor[contenteditable="true"]:empty:before {
