@@ -401,6 +401,7 @@
             let startX = 0;
             let currentX = 0;
             let isDragging = false;
+            let isSwiped = false;
             
             // Mouse events for desktop testing
             card.addEventListener('mousedown', (e) => {
@@ -415,7 +416,7 @@
                 currentX = e.clientX;
                 const diff = startX - currentX;
                 
-                if (diff > 50) {
+                if (diff > 0) {
                     card.style.transform = `translateX(-${Math.min(diff, 80)}px)`;
                 }
             });
@@ -426,8 +427,10 @@
                 const diff = startX - currentX;
                 if (diff > 80) {
                     card.style.transform = 'translateX(-80px)';
+                    isSwiped = true;
                 } else {
                     card.style.transform = 'translateX(0)';
+                    isSwiped = false;
                 }
                 
                 isDragging = false;
@@ -458,8 +461,10 @@
                 const diff = startX - currentX;
                 if (diff > 80) {
                     card.style.transform = 'translateX(-80px)';
+                    isSwiped = true;
                 } else {
                     card.style.transform = 'translateX(0)';
+                    isSwiped = false;
                 }
                 
                 isDragging = false;
@@ -467,10 +472,22 @@
             
             // Click outside to reset
             document.addEventListener('click', (e) => {
-                if (!card.contains(e.target)) {
+                if (!card.contains(e.target) && isSwiped) {
                     card.style.transform = 'translateX(0)';
+                    isSwiped = false;
                 }
             });
+            
+            // Add click event to swipe delete button
+            const swipeDeleteBtn = card.querySelector('.swipe-delete');
+            if (swipeDeleteBtn) {
+                swipeDeleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteNoteWithUndo(noteId);
+                    card.style.transform = 'translateX(0)';
+                    isSwiped = false;
+                });
+            }
         }
         
         // Delete note with undo
