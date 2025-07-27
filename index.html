@@ -829,77 +829,38 @@
                         
                         editor.focus();
                         
-                        // Create custom highlight with oval corners and opacity
+                        // Check if text is selected
                         const selection = window.getSelection();
                         if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                            // Text is selected - apply marker to selected text
+                            console.log('Text selected, applying marker');
+                            
+                            // Use execCommand for reliable highlighting
+                            const success = document.execCommand('backColor', false, color);
+                            console.log('Marker applied to selected text:', success);
+                            
+                            // Apply custom styling to the highlighted text
                             const range = selection.getRangeAt(0);
+                            const container = range.commonAncestorContainer;
                             
-                            // Check if the selected content is already wrapped in a marker
-                            const selectedNode = range.commonAncestorContainer;
-                            const isAlreadyMarked = selectedNode.nodeType === Node.ELEMENT_NODE && 
-                                                   selectedNode.style && 
-                                                   selectedNode.style.position === 'relative' &&
-                                                   selectedNode.querySelector('span[style*="position: absolute"]');
+                            // Find and style the highlighted elements
+                            setTimeout(() => {
+                                const highlightedElements = editor.querySelectorAll('span[style*="background-color"]');
+                                highlightedElements.forEach(el => {
+                                    if (el.style.backgroundColor === color || 
+                                        el.style.backgroundColor === color.toLowerCase() ||
+                                        el.style.backgroundColor === color.toUpperCase()) {
+                                        el.style.borderRadius = '8px';
+                                        el.style.padding = '2px 4px';
+                                        el.style.opacity = '0.7';
+                                        el.style.display = 'inline-block';
+                                        el.className = 'custom-marker';
+                                    }
+                                });
+                            }, 10);
                             
-                            if (isAlreadyMarked) {
-                                // If already marked, just change the background color
-                                const existingHighlight = selectedNode.querySelector('span[style*="position: absolute"]');
-                                if (existingHighlight) {
-                                    existingHighlight.style.backgroundColor = color;
-                                    console.log('Existing marker color changed');
-                                }
-                            } else {
-                                // Create new marker wrapper
-                                const wrapper = document.createElement('span');
-                                wrapper.style.position = 'relative';
-                                wrapper.style.display = 'inline-block';
-                                wrapper.className = 'marker-wrapper';
-                                
-                                // Create background highlight span
-                                const highlight = document.createElement('span');
-                                highlight.style.position = 'absolute';
-                                highlight.style.top = '0';
-                                highlight.style.left = '0';
-                                highlight.style.right = '0';
-                                highlight.style.bottom = '0';
-                                highlight.style.backgroundColor = color;
-                                highlight.style.borderRadius = '8px';
-                                highlight.style.padding = '2px 4px';
-                                highlight.style.opacity = '0.7';
-                                highlight.style.zIndex = '1';
-                                highlight.className = 'marker-highlight';
-                                
-                                // Create text span (on top)
-                                const textSpan = document.createElement('span');
-                                textSpan.style.position = 'relative';
-                                textSpan.style.zIndex = '2';
-                                textSpan.style.backgroundColor = 'transparent';
-                                textSpan.className = 'marker-text';
-                                
-                                try {
-                                    // Extract the selected content
-                                    const selectedContent = range.extractContents();
-                                    
-                                    // Add the content to text span
-                                    textSpan.appendChild(selectedContent);
-                                    
-                                    // Add highlight and text to wrapper
-                                    wrapper.appendChild(highlight);
-                                    wrapper.appendChild(textSpan);
-                                    
-                                    // Insert the wrapper
-                                    range.insertNode(wrapper);
-                                    
-                                    console.log('New marker applied with text on top');
-                                } catch (error) {
-                                    console.error('Error applying highlight:', error);
-                                    // Fallback to simple background color
-                                    const success = document.execCommand('backColor', false, color);
-                                    console.log('Fallback highlight applied:', success);
-                                }
-                            }
                         } else {
-                            // If no text is selected, enable marker mode for next typing
+                            // No text selected - enable marker mode for typing
                             console.log('No text selected, enabling marker mode');
                             editor.setAttribute('data-marker-color', color);
                             editor.style.caretColor = color;
@@ -956,61 +917,27 @@
             editor.addEventListener('input', (e) => {
                 const markerColor = editor.getAttribute('data-marker-color');
                 if (markerColor) {
-                    // Get the last inserted text and apply marker
-                    const selection = window.getSelection();
-                    if (selection.rangeCount > 0) {
-                        const range = selection.getRangeAt(0);
-                        
-                        // Find the last text node that was just inserted
-                        const lastTextNode = range.startContainer;
-                        if (lastTextNode.nodeType === Node.TEXT_NODE && lastTextNode.textContent.length > 0) {
-                            // Create marker wrapper for the last character
-                            const wrapper = document.createElement('span');
-                            wrapper.style.position = 'relative';
-                            wrapper.style.display = 'inline-block';
-                            wrapper.className = 'marker-wrapper';
-                            
-                            // Create background highlight span
-                            const highlight = document.createElement('span');
-                            highlight.style.position = 'absolute';
-                            highlight.style.top = '0';
-                            highlight.style.left = '0';
-                            highlight.style.right = '0';
-                            highlight.style.bottom = '0';
-                            highlight.style.backgroundColor = markerColor;
-                            highlight.style.borderRadius = '8px';
-                            highlight.style.padding = '2px 4px';
-                            highlight.style.opacity = '0.7';
-                            highlight.style.zIndex = '1';
-                            highlight.className = 'marker-highlight';
-                            
-                            // Create text span (on top)
-                            const textSpan = document.createElement('span');
-                            textSpan.style.position = 'relative';
-                            textSpan.style.zIndex = '2';
-                            textSpan.style.backgroundColor = 'transparent';
-                            textSpan.className = 'marker-text';
-                            
-                            // Extract the last character and wrap it
-                            const lastChar = lastTextNode.textContent.slice(-1);
-                            const beforeLastChar = lastTextNode.textContent.slice(0, -1);
-                            
-                            // Update the text node
-                            lastTextNode.textContent = beforeLastChar;
-                            
-                            // Add the last character to text span
-                            textSpan.textContent = lastChar;
-                            
-                            // Add highlight and text to wrapper
-                            wrapper.appendChild(highlight);
-                            wrapper.appendChild(textSpan);
-                            
-                            // Insert the wrapper after the text node
-                            lastTextNode.parentNode.insertBefore(wrapper, lastTextNode.nextSibling);
-                            
-                            console.log('Marker applied to typed character');
-                        }
-                    }
+                    console.log('Marker mode active, applying to typed text');
+                    
+                    // Use execCommand to apply background color to the last typed character
+                    const success = document.execCommand('backColor', false, markerColor);
+                    console.log('Marker applied to typed text:', success);
+                    
+                    // Apply custom styling to the highlighted elements
+                    setTimeout(() => {
+                        const highlightedElements = editor.querySelectorAll('span[style*="background-color"]');
+                        highlightedElements.forEach(el => {
+                            if (el.style.backgroundColor === markerColor || 
+                                el.style.backgroundColor === markerColor.toLowerCase() ||
+                                el.style.backgroundColor === markerColor.toUpperCase()) {
+                                el.style.borderRadius = '8px';
+                                el.style.padding = '2px 4px';
+                                el.style.opacity = '0.7';
+                                el.style.display = 'inline-block';
+                                el.className = 'custom-marker';
+                            }
+                        });
+                    }, 10);
                 }
             });
             

@@ -469,6 +469,15 @@ body {
 }
 
 /* Custom marker effect styling */
+.custom-marker {
+    border-radius: 8px !important;
+    padding: 2px 4px !important;
+    opacity: 0.7 !important;
+    display: inline-block !important;
+    margin: 0 1px !important;
+}
+
+/* Legacy marker styles for compatibility */
 .rich-editor span[style*="position: relative"] {
     display: inline-block !important;
     margin: 0 1px !important;
