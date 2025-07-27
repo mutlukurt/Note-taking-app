@@ -835,29 +835,34 @@
                             // Text is selected - apply marker to selected text
                             console.log('Text selected, applying marker');
                             
-                            // Use execCommand for reliable highlighting
-                            const success = document.execCommand('backColor', false, color);
-                            console.log('Marker applied to selected text:', success);
-                            
-                            // Apply custom styling to the highlighted text
-                            const range = selection.getRangeAt(0);
-                            const container = range.commonAncestorContainer;
-                            
-                            // Find and style the highlighted elements
-                            setTimeout(() => {
-                                const highlightedElements = editor.querySelectorAll('span[style*="background-color"]');
-                                highlightedElements.forEach(el => {
-                                    if (el.style.backgroundColor === color || 
-                                        el.style.backgroundColor === color.toLowerCase() ||
-                                        el.style.backgroundColor === color.toUpperCase()) {
-                                        el.style.borderRadius = '8px';
-                                        el.style.padding = '2px 4px';
-                                        el.style.opacity = '0.7';
-                                        el.style.display = 'inline-block';
-                                        el.className = 'custom-marker';
-                                    }
-                                });
-                            }, 10);
+                            try {
+                                // Create a span element with background color
+                                const range = selection.getRangeAt(0);
+                                const selectedText = range.toString();
+                                
+                                if (selectedText.length > 0) {
+                                    // Create marker span
+                                    const markerSpan = document.createElement('span');
+                                    markerSpan.style.backgroundColor = color;
+                                    markerSpan.style.borderRadius = '8px';
+                                    markerSpan.style.padding = '2px 4px';
+                                    markerSpan.style.opacity = '0.7';
+                                    markerSpan.style.display = 'inline-block';
+                                    markerSpan.className = 'custom-marker';
+                                    markerSpan.textContent = selectedText;
+                                    
+                                    // Replace selected text with marker span
+                                    range.deleteContents();
+                                    range.insertNode(markerSpan);
+                                    
+                                    console.log('Marker applied successfully to:', selectedText);
+                                }
+                            } catch (error) {
+                                console.error('Error applying marker:', error);
+                                // Fallback to execCommand
+                                const success = document.execCommand('backColor', false, color);
+                                console.log('Fallback marker applied:', success);
+                            }
                             
                         } else {
                             // No text selected - enable marker mode for typing
@@ -919,25 +924,43 @@
                 if (markerColor) {
                     console.log('Marker mode active, applying to typed text');
                     
-                    // Use execCommand to apply background color to the last typed character
-                    const success = document.execCommand('backColor', false, markerColor);
-                    console.log('Marker applied to typed text:', success);
-                    
-                    // Apply custom styling to the highlighted elements
-                    setTimeout(() => {
-                        const highlightedElements = editor.querySelectorAll('span[style*="background-color"]');
-                        highlightedElements.forEach(el => {
-                            if (el.style.backgroundColor === markerColor || 
-                                el.style.backgroundColor === markerColor.toLowerCase() ||
-                                el.style.backgroundColor === markerColor.toUpperCase()) {
-                                el.style.borderRadius = '8px';
-                                el.style.padding = '2px 4px';
-                                el.style.opacity = '0.7';
-                                el.style.display = 'inline-block';
-                                el.className = 'custom-marker';
-                            }
-                        });
-                    }, 10);
+                    // Get the last typed character
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        const textNode = range.startContainer;
+                        
+                        if (textNode.nodeType === Node.TEXT_NODE && textNode.textContent.length > 0) {
+                            // Get the last character
+                            const lastChar = textNode.textContent.slice(-1);
+                            const beforeLastChar = textNode.textContent.slice(0, -1);
+                            
+                            // Update text node to remove last character
+                            textNode.textContent = beforeLastChar;
+                            
+                            // Create marker span for the last character
+                            const markerSpan = document.createElement('span');
+                            markerSpan.style.backgroundColor = markerColor;
+                            markerSpan.style.borderRadius = '8px';
+                            markerSpan.style.padding = '2px 4px';
+                            markerSpan.style.opacity = '0.7';
+                            markerSpan.style.display = 'inline-block';
+                            markerSpan.className = 'custom-marker';
+                            markerSpan.textContent = lastChar;
+                            
+                            // Insert marker span after text node
+                            textNode.parentNode.insertBefore(markerSpan, textNode.nextSibling);
+                            
+                            // Move cursor after the marker
+                            const newRange = document.createRange();
+                            newRange.setStartAfter(markerSpan);
+                            newRange.collapse(true);
+                            selection.removeAllRanges();
+                            selection.addRange(newRange);
+                            
+                            console.log('Marker applied to typed character:', lastChar);
+                        }
+                    }
                 }
             });
             
