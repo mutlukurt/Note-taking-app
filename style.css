@@ -511,6 +511,19 @@ body {
     background-color: transparent !important;
 }
 
+/* Marker mode styling */
+#highlightBtn.marker-mode {
+    background: var(--gradient-secondary) !important;
+    color: white !important;
+    animation: markerModePulse 1s ease-in-out infinite;
+}
+
+@keyframes markerModePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
 /* Adjust textarea border radius when toolbar is present */
 .editor-toolbar + .note-textarea {
     border-radius: 0 0 15px 15px;
