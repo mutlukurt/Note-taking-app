@@ -133,7 +133,7 @@ body {
 .settings-panel {
     position: absolute !important;
     right: 0 !important;
-    top: 60px !important;
+    top: 0 !important;
     background: var(--bg-card) !important;
     border-radius: var(--radius-lg) !important;
     padding: 16px !important;
@@ -141,7 +141,7 @@ body {
     border: 1px solid var(--border-color) !important;
     opacity: 0 !important;
     visibility: hidden !important;
-    transform: translateY(-10px) !important;
+    transform: translateX(20px) !important;
     transition: all 0.2s ease !important;
     min-width: 200px !important;
     z-index: 1000 !important;
@@ -150,7 +150,7 @@ body {
 .settings-panel.active {
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateY(0) !important;
+    transform: translateX(0) !important;
 }
 
 .settings-content {
