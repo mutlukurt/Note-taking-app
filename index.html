@@ -741,12 +741,22 @@
             const languageBtn = document.getElementById('languageToggle');
             let currentLanguage = localStorage.getItem('language') || 'tr';
             
+            console.log('Setting up language toggle...');
+            console.log('Language button found:', languageBtn);
+            console.log('Current language:', currentLanguage);
+            
             // Set initial language
             updateLanguage(currentLanguage);
             
             if (languageBtn) {
-                languageBtn.addEventListener('click', () => {
+                languageBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Language button clicked!');
                     currentLanguage = currentLanguage === 'tr' ? 'en' : 'tr';
+                    console.log('Switching to:', currentLanguage);
+                    
                     localStorage.setItem('language', currentLanguage);
                     updateLanguage(currentLanguage);
                 });
@@ -758,14 +768,18 @@
             const languageBtn = document.getElementById('languageToggle');
             const langText = languageBtn.querySelector('.lang-text');
             
+            console.log('Updating language to:', lang);
+            
             if (lang === 'en') {
                 languageBtn.classList.add('english');
                 langText.textContent = 'EN';
                 translateToEnglish();
+                console.log('Switched to English');
             } else {
                 languageBtn.classList.remove('english');
                 langText.textContent = 'TR';
                 translateToTurkish();
+                console.log('Switched to Turkish');
             }
         }
         
@@ -888,13 +902,26 @@
             document.getElementById('addImageBtn').title = t.toolbarImage;
             
             // Update controls
-            document.querySelector('.sort-controls span').textContent = t.sortLabel;
-            document.querySelector('[data-sort="date-desc"]').textContent = t.newest;
-            document.querySelector('[data-sort="date-asc"]').textContent = t.oldest;
-            document.querySelector('[data-sort="title"]').textContent = t.title;
-            document.querySelector('[data-filter="all"]').textContent = t.all;
-            document.querySelector('[data-filter="pinned"]').textContent = t.pinned;
-            document.querySelector('[data-filter="unpinned"]').textContent = t.normal;
+            const sortSpan = document.querySelector('.sort-controls span');
+            if (sortSpan) sortSpan.textContent = t.sortLabel;
+            
+            const newestBtn = document.querySelector('[data-sort="date-desc"]');
+            if (newestBtn) newestBtn.textContent = t.newest;
+            
+            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
+            if (oldestBtn) oldestBtn.textContent = t.oldest;
+            
+            const titleBtn = document.querySelector('[data-sort="title"]');
+            if (titleBtn) titleBtn.textContent = t.title;
+            
+            const allFilter = document.querySelector('[data-filter="all"]');
+            if (allFilter) allFilter.textContent = t.all;
+            
+            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
+            if (pinnedFilter) pinnedFilter.textContent = t.pinned;
+            
+            const normalFilter = document.querySelector('[data-filter="unpinned"]');
+            if (normalFilter) normalFilter.textContent = t.normal;
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
@@ -929,13 +956,26 @@
             document.getElementById('addImageBtn').title = t.toolbarImage;
             
             // Update controls
-            document.querySelector('.sort-controls span').textContent = t.sortLabel;
-            document.querySelector('[data-sort="date-desc"]').textContent = t.newest;
-            document.querySelector('[data-command="date-asc"]').textContent = t.oldest;
-            document.querySelector('[data-sort="title"]').textContent = t.title;
-            document.querySelector('[data-filter="all"]').textContent = t.all;
-            document.querySelector('[data-filter="pinned"]').textContent = t.pinned;
-            document.querySelector('[data-filter="unpinned"]').textContent = t.normal;
+            const sortSpan = document.querySelector('.sort-controls span');
+            if (sortSpan) sortSpan.textContent = t.sortLabel;
+            
+            const newestBtn = document.querySelector('[data-sort="date-desc"]');
+            if (newestBtn) newestBtn.textContent = t.newest;
+            
+            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
+            if (oldestBtn) oldestBtn.textContent = t.oldest;
+            
+            const titleBtn = document.querySelector('[data-sort="title"]');
+            if (titleBtn) titleBtn.textContent = t.title;
+            
+            const allFilter = document.querySelector('[data-filter="all"]');
+            if (allFilter) allFilter.textContent = t.all;
+            
+            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
+            if (pinnedFilter) pinnedFilter.textContent = t.pinned;
+            
+            const normalFilter = document.querySelector('[data-filter="unpinned"]');
+            if (normalFilter) normalFilter.textContent = t.normal;
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
