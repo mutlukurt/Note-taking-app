@@ -33,6 +33,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - 🖥️ **Masaüstü Modu**: Mobil tarayıcılarda masaüstü görünümü
 - 🔒 **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
 - ⚙️ **Modern Ayarlar**: Yuvarlak ayarlar butonu ve genişleyen panel
+- 🌍 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
 
 ## 🚀 Kullanım
 
@@ -101,6 +102,19 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 6. **Dil Değiştirme**: TR/EN geçişi ile tam arayüz çevirisi
 7. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
 8. **Gizlilik Politikası**: Sayfa altında kapsamlı veri güvenliği bilgileri
+
+### 🔒 **Çok Dilli Gizlilik Politikası & MIT Lisans:**
+1. **Otomatik Çeviri**: Dil değiştirdiğinizde footer otomatik çevriliyor
+2. **Kapsamlı Politika**: 6 ana bölümde detaylı gizlilik açıklaması
+   - **Veri Toplama**: Hiçbir kişisel veri toplanmaz
+   - **Veri Saklama**: Sadece LocalStorage kullanımı
+   - **Çerezler**: Tema ve dil tercihleri için
+   - **Üçüncü Taraf**: CDN servisleri açıklaması
+   - **Güvenlik**: Tarayıcı güvenliği bilgileri
+   - **İletişim**: GitHub üzerinden destek
+3. **MIT Lisans**: Açık kaynak proje açıklaması ve GitHub repo linki
+4. **Professional Tasarım**: Modern card layout, responsive design
+5. **Erişilebilirlik**: Proper link handling, semantic HTML
 
 ## 🎯 Teknolojiler
 
@@ -209,13 +223,42 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 
 ## 🔒 Veri Güvenliği
 
-- **Yerel Depolama**: Notlarınız sadece tarayıcınızda saklanır
-- **Veri Gizliliği**: Hiçbir veri sunucuya gönderilmez
-- **LocalStorage**: Güvenli yerel depolama sistemi
-- **Base64 Encoding**: Resimler şifrelenmiş formatta saklanır
-- **Çerez Politikası**: Sadece tema ve dil tercihleri saklanır
-- **Üçüncü Taraf**: Sadece gerekli CDN servisleri kullanılır
-- **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
+### **🛡️ Kapsamlı Gizlilik Politikası**
+Bu uygulama kullanıcı gizliliğini en üst düzeyde korur:
+
+#### **📊 Veri Toplama**
+- **❌ Kişisel Veri Yok**: Hiçbir kişisel bilgi toplanmaz
+- **❌ Tracking Yok**: Kullanıcı davranışları izlenmez
+- **❌ Analytics Yok**: Üçüncü taraf analitik servisleri kullanılmaz
+
+#### **💾 Veri Saklama**
+- **🏠 Yerel Depolama**: Tüm notlar sadece tarayıcınızda saklanır
+- **🔐 LocalStorage**: Güvenli browser storage kullanımı
+- **❌ Sunucu Yok**: Hiçbir veri sunucuya gönderilmez
+- **🔄 Tam Kontrol**: Verileriniz tamamen sizin kontrolünüzde
+
+#### **🍪 Çerez Kullanımı**
+- **⚙️ Sadece Gerekli**: Tema ve dil tercihleri için
+- **❌ Tracking Çerezleri Yok**: Takip amaçlı çerez kullanılmaz
+- **🎯 Fonksiyonel**: Sadece uygulama işlevselliği için
+
+#### **🌐 Üçüncü Taraf Servisleri**
+- **🎨 Font Awesome**: Sadece ikon gösterimi için CDN
+- **📄 PDF Kütüphaneleri**: Sadece PDF export için
+- **❌ Veri Paylaşımı Yok**: Hiçbir veri üçüncü taraflarla paylaşılmaz
+
+#### **🔐 Güvenlik**
+- **🔒 Şifreleme**: Tüm veriler tarayıcıda şifrelenir
+- **🛡️ HTTPS**: Güvenli bağlantı protokolü
+- **🏠 Offline**: İnternet bağlantısı olmadan da çalışır
+
+#### **📞 İletişim & Destek**
+- **📧 GitHub**: Sorularınız için GitHub Issues
+- **🔍 Şeffaflık**: Açık kaynak kod incelemesi
+- **📋 MIT Lisans**: Özgür kullanım hakları
+
+### **🌍 Çok Dilli Destek**
+Gizlilik politikası hem Türkçe hem İngilizce olarak mevcuttur ve dil değiştirme ile otomatik güncellenir.
 
 ## 🚀 Gelecek Özellikler
 
@@ -404,6 +447,7 @@ SOFTWARE.
 - ✨ **Advanced Components**: Modern dropdown menüler, inline color palette
 - 🎯 **Micro-interactions**: Hover effects, active states, transform animations
 - 📱 **Touch-friendly**: Responsive design improvements, better mobile experience
+- 🔒 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
 
 ### 📅 **v2.0.0 (2025)**
 - ✨ Zengin metin editörü eklendi
