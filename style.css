@@ -468,6 +468,24 @@ body {
     display: inline-block !important;
 }
 
+/* Custom marker effect styling */
+.rich-editor span[style*="position: relative"] {
+    display: inline-block !important;
+    margin: 0 1px !important;
+}
+
+.rich-editor span[style*="position: absolute"][style*="background-color"] {
+    border-radius: 8px !important;
+    padding: 2px 4px !important;
+    opacity: 0.7 !important;
+    z-index: 1 !important;
+}
+
+.rich-editor span[style*="position: relative"][style*="z-index: 2"] {
+    z-index: 2 !important;
+    background-color: transparent !important;
+}
+
 /* Adjust textarea border radius when toolbar is present */
 .editor-toolbar + .note-textarea {
     border-radius: 0 0 15px 15px;
