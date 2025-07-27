@@ -124,8 +124,8 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script>
+        // Test function for theme toggle
         function testTheme() {
             const body = document.body;
             const icon = document.querySelector('#themeToggle i');
@@ -140,6 +140,10 @@
                 console.log('Dark mode activated');
             }
         }
+        
+        // Check if script.js loads
+        console.log('HTML loaded, waiting for script.js...');
     </script>
+    <script src="script.js" onload="console.log('script.js loaded successfully')" onerror="console.error('Failed to load script.js')"></script>
 </body>
 </html>

@@ -37,10 +37,11 @@ class NotesApp {
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             console.log('Theme toggle found');
-            themeToggle.onclick = () => {
+            themeToggle.addEventListener('click', (e) => {
+                e.preventDefault();
                 console.log('Theme toggle clicked');
                 this.toggleTheme();
-            };
+            });
         } else {
             console.error('Theme toggle not found!');
         }
@@ -51,7 +52,8 @@ class NotesApp {
         const addNoteBtn = document.getElementById('addNote');
         if (addNoteBtn) {
             console.log('Add note button found');
-            addNoteBtn.addEventListener('click', () => {
+            addNoteBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 console.log('Add note clicked');
                 this.addNote();
             });
@@ -60,19 +62,42 @@ class NotesApp {
         }
 
         // Clear form
-        document.getElementById('clearForm').addEventListener('click', () => {
-            this.clearForm();
-        });
+        const clearFormBtn = document.getElementById('clearForm');
+        if (clearFormBtn) {
+            console.log('Clear form button found');
+            clearFormBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Clear form clicked');
+                this.clearForm();
+            });
+        } else {
+            console.error('Clear form button not found!');
+        }
 
         // Export PDF
-        document.getElementById('exportPDF').addEventListener('click', () => {
-            this.exportToPDF();
-        });
+        const exportPDFBtn = document.getElementById('exportPDF');
+        if (exportPDFBtn) {
+            console.log('Export PDF button found');
+            exportPDFBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Export PDF clicked');
+                this.exportToPDF();
+            });
+        } else {
+            console.error('Export PDF button not found!');
+        }
 
         // Search
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            this.searchNotes(e.target.value);
-        });
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            console.log('Search input found');
+            searchInput.addEventListener('input', (e) => {
+                console.log('Search input changed:', e.target.value);
+                this.searchNotes(e.target.value);
+            });
+        } else {
+            console.error('Search input not found!');
+        }
 
         // Sort buttons
         document.querySelectorAll('.sort-btn').forEach(btn => {
