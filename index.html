@@ -1066,18 +1066,89 @@
         
         // Update language function
         function updateLanguage(lang) {
+            const t = translations[lang];
+            
+            // Update language button
             const languageBtn = document.getElementById('languageToggle');
             const langText = languageBtn.querySelector('.lang-text');
             
             if (lang === 'en') {
                 languageBtn.classList.add('english');
                 langText.textContent = 'EN';
-                translateToEnglish();
             } else {
                 languageBtn.classList.remove('english');
                 langText.textContent = 'TR';
-                translateToTurkish();
             }
+            
+            // Update main elements
+            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
+            document.querySelector('.settings-label').textContent = t.themeLabel;
+            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
+            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
+            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
+            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
+            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            
+            // Update toolbar buttons
+            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
+            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
+            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
+            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
+            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
+            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
+            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
+            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
+            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
+            document.getElementById('addImageBtn').title = t.toolbarImage;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
+            
+            // Update controls
+            const sortSpan = document.querySelector('.sort-controls span');
+            if (sortSpan) sortSpan.textContent = t.sortLabel;
+            
+            const newestBtn = document.querySelector('[data-sort="date-desc"]');
+            if (newestBtn) newestBtn.textContent = t.newest;
+            
+            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
+            if (oldestBtn) oldestBtn.textContent = t.oldest;
+            
+            const titleBtn = document.querySelector('[data-sort="title"]');
+            if (titleBtn) titleBtn.textContent = t.title;
+            
+            const allFilter = document.querySelector('[data-filter="all"]');
+            if (allFilter) allFilter.textContent = t.allNotes;
+            
+            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
+            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
+            
+            const normalFilter = document.querySelector('[data-filter="unpinned"]');
+            if (normalFilter) normalFilter.textContent = t.normalNotes;
+            
+            // Update empty state
+            const emptyState = document.getElementById('emptyState');
+            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
+            emptyState.querySelector('p').textContent = t.emptyStateDesc;
+            
+            // Update privacy policy
+            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
+            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
+            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
+            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
+            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
+            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
+            document.querySelector('#cookiesText').textContent = t.cookiesText;
+            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
+            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
+            document.querySelector('#securityLabel').textContent = t.security + ':';
+            document.querySelector('#securityText').textContent = t.securityText;
+            document.querySelector('#contactLabel').textContent = t.contact + ':';
+            document.querySelector('#contactText').textContent = t.contactText;
+            document.querySelector('#copyrightText').textContent = t.copyright;
+            
+            // Update MIT License
+            const mitLicenseElement = document.querySelector('#mitLicenseText');
+            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
         }
         
         // Translation objects
