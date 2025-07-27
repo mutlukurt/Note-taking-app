@@ -90,7 +90,7 @@ body {
 
 .theme-toggle {
     position: absolute !important;
-    top: 80px !important;
+    top: 120px !important;
     right: 20px !important;
     background: var(--gradient-accent) !important;
     border: none !important;
@@ -682,7 +682,7 @@ body {
     }
     
     .theme-toggle {
-        top: 70px !important;
+        top: 110px !important;
         right: 15px !important;
         width: 45px !important;
         height: 45px !important;
@@ -717,7 +717,7 @@ body {
     }
     
     .theme-toggle {
-        top: 60px !important;
+        top: 100px !important;
         right: 10px !important;
         width: 40px !important;
         height: 40px !important;
