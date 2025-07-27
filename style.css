@@ -1214,8 +1214,8 @@ body.force-desktop-mode .rich-editor {
 .privacy-policy {
     background: var(--bg-card);
     border-top: 1px solid var(--border-color);
-    margin-top: 60px;
-    padding: 40px 0;
+    margin-top: 40px;
+    padding: 25px 0;
 }
 
 .privacy-content {
@@ -1225,21 +1225,21 @@ body.force-desktop-mode .rich-editor {
 
 .privacy-content h3 {
     color: var(--text-primary);
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
 .privacy-text {
     color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 30px;
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
 .privacy-text p {
-    margin-bottom: 12px;
-    font-size: 0.85rem;
+    margin-bottom: 8px;
+    font-size: 0.75rem;
 }
 
 .privacy-text strong {
@@ -1249,24 +1249,24 @@ body.force-desktop-mode .rich-editor {
 
 .privacy-links {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 /* Responsive Privacy Policy */
 @media (max-width: 768px) {
     .privacy-policy {
-        padding: 30px 0;
-        margin-top: 40px;
+        padding: 20px 0;
+        margin-top: 30px;
     }
     
     .privacy-content h3 {
-        font-size: 0.95rem;
+        font-size: 0.8rem;
     }
     
     .privacy-text p {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }
