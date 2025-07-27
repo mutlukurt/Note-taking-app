@@ -706,3 +706,145 @@ body {
 * {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+/* Desktop Mode for Mobile Browsers */
+@media (min-width: 769px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px 0;
+    }
+    
+    .app-title {
+        font-size: 2.5rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .note-form {
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .button-group {
+        flex-direction: row;
+        gap: 15px;
+        justify-content: flex-start;
+    }
+    
+    .btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        min-width: auto;
+        width: auto;
+    }
+    
+    .notes-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .note-card {
+        margin-bottom: 0;
+        min-height: 200px;
+    }
+    
+    .notes-controls {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .sort-controls, .pin-controls {
+        flex-direction: row;
+        gap: 10px;
+        width: auto;
+        justify-content: flex-start;
+    }
+    
+    .search-section {
+        margin-bottom: 20px;
+    }
+    
+    .search-box {
+        max-width: 400px;
+    }
+    
+    .editor-toolbar {
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    .toolbar-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        min-width: 40px;
+    }
+    
+    .rich-editor {
+        min-height: 150px;
+        padding: 15px;
+    }
+}
+
+/* Large Desktop Mode */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1400px;
+        padding: 30px;
+    }
+    
+    .notes-container {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 25px;
+    }
+    
+    .note-form {
+        padding: 40px;
+    }
+    
+    .button-group {
+        gap: 20px;
+    }
+    
+    .btn {
+        padding: 15px 30px;
+        font-size: 18px;
+    }
+}
+
+/* Extra Large Desktop Mode */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1600px;
+        padding: 40px;
+    }
+    
+    .notes-container {
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        gap: 30px;
+    }
+    
+    .app-title {
+        font-size: 3rem;
+    }
+    
+    .note-form {
+        padding: 50px;
+    }
+}

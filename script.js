@@ -15,6 +15,7 @@ class NotesApp {
         });
         
         this.init();
+        this.checkMobileDesktopMode();
     }
 
     init() {
@@ -856,6 +857,69 @@ class NotesApp {
             console.error('PDF oluşturma hatası:', error);
             this.showNotification('PDF oluşturulurken hata oluştu!', 'error');
         });
+    }
+
+    checkMobileDesktopMode() {
+        // Check if user is on mobile and has enabled desktop mode
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isDesktopMode = window.innerWidth >= 769;
+        
+        if (isMobile && isDesktopMode) {
+            // User is on mobile but viewing in desktop mode
+            this.showNotification('🖥️ Masaüstü modunda görüntüleniyor! Daha iyi deneyim için mobil moda geçebilirsiniz.', 'info', 8000);
+            
+            // Add a floating button to switch to mobile mode
+            this.addMobileModeToggle();
+        }
+    }
+
+    addMobileModeToggle() {
+        // Remove existing toggle if any
+        const existingToggle = document.getElementById('mobileModeToggle');
+        if (existingToggle) {
+            existingToggle.remove();
+        }
+
+        // Create floating toggle button
+        const toggleBtn = document.createElement('button');
+        toggleBtn.id = 'mobileModeToggle';
+        toggleBtn.innerHTML = '📱';
+        toggleBtn.title = 'Mobil moda geç';
+        toggleBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        `;
+
+        toggleBtn.addEventListener('click', () => {
+            // Force mobile viewport
+            const viewport = document.querySelector('meta[name="viewport"]');
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+            
+            // Reload page to apply mobile styles
+            window.location.reload();
+        });
+
+        toggleBtn.addEventListener('mouseenter', () => {
+            toggleBtn.style.transform = 'scale(1.1)';
+        });
+
+        toggleBtn.addEventListener('mouseleave', () => {
+            toggleBtn.style.transform = 'scale(1)';
+        });
+
+        document.body.appendChild(toggleBtn);
     }
 }
 
