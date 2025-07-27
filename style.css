@@ -382,35 +382,30 @@ body {
     margin: 0 5px;
 }
 
-/* Color palette buttons */
-#textColorBtn, #highlightBtn {
+/* Text color button */
+#textColorBtn {
     position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
-#textColorBtn::before, #highlightBtn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #0080ff, #8000ff);
-    background-size: 200% 200%;
-    animation: colorRainbow 3s ease-in-out infinite;
-    opacity: 0.7;
+#textColorBtn:hover {
+    background: var(--bg-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-#textColorBtn:hover::before, #highlightBtn:hover::before {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
+#textColorBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes colorRainbow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+#textColorBtn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 /* Color palette styling */
@@ -423,8 +418,8 @@ body {
     border-radius: var(--radius);
     padding: 8px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
     z-index: 1000;
     box-shadow: var(--shadow-lg);
     opacity: 0;
@@ -442,18 +437,19 @@ body {
 }
 
 .color-option {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
     cursor: pointer;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     transition: all 0.2s ease;
     position: relative;
 }
 
 .color-option:hover {
-    transform: scale(1.2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.15);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-color);
 }
 
 .color-option:active {
@@ -465,111 +461,27 @@ body {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff) !important;
-    border: 2px solid #ccc !important;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1) !important;
+    border: 2px solid var(--border-color) !important;
     position: relative !important;
 }
 
 .color-option.clear-color:hover {
-    transform: scale(1.2) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    transform: scale(1.15) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
+    border-color: var(--primary-color) !important;
 }
 
 .color-option.clear-color i {
     color: white !important;
-    font-size: 10px !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+    font-size: 12px !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+    font-weight: bold !important;
 }
 
 /* Custom highlight styling for rich editor */
-.rich-editor span[style*="background-color"] {
-    border-radius: 8px !important;
-    padding: 2px 4px !important;
-    opacity: 0.7 !important;
-    display: inline-block !important;
-}
-
-/* Custom marker effect styling */
-.marker-wrapper {
-    display: inline-block !important;
-    margin: 0 1px !important;
-    position: relative !important;
-}
-
-.marker-background {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    border-radius: 8px !important;
-    padding: 2px 4px !important;
-    z-index: 1 !important;
-}
-
-.marker-text {
-    position: relative !important;
-    z-index: 2 !important;
-    background-color: transparent !important;
-    color: #000000 !important; /* Force black text */
-    opacity: 1 !important; /* Force full opacity */
-    font-weight: inherit !important;
-}
-
-/* Legacy marker styles for compatibility */
-.rich-editor span[style*="position: relative"] {
-    display: inline-block !important;
-    margin: 0 1px !important;
-}
-
-.rich-editor span[style*="position: absolute"][style*="background-color"] {
-    border-radius: 8px !important;
-    padding: 2px 4px !important;
-    opacity: 0.7 !important;
-    z-index: 1 !important;
-}
-
-.rich-editor span[style*="position: relative"][style*="z-index: 2"] {
-    z-index: 2 !important;
-    background-color: transparent !important;
-}
-
-/* Marker wrapper classes */
-.marker-wrapper {
-    display: inline-block !important;
-    margin: 0 1px !important;
-    position: relative !important;
-}
-
-.marker-highlight {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    border-radius: 8px !important;
-    padding: 2px 4px !important;
-    opacity: 0.7 !important;
-    z-index: 1 !important;
-}
-
-.marker-text {
-    position: relative !important;
-    z-index: 2 !important;
-    background-color: transparent !important;
-}
-
-/* Marker mode styling */
-#highlightBtn.marker-mode {
-    background: var(--gradient-secondary) !important;
-    color: white !important;
-    animation: markerModePulse 1s ease-in-out infinite;
-}
-
-@keyframes markerModePulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.rich-editor strong {
+    font-weight: 600;
 }
 
 /* Adjust textarea border radius when toolbar is present */
