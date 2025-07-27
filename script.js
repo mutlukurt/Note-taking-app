@@ -863,14 +863,37 @@ class NotesApp {
         // Check if user is on mobile and has enabled desktop mode
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isDesktopMode = window.innerWidth >= 769;
+        const isLandscape = window.innerWidth > window.innerHeight;
         
-        if (isMobile && isDesktopMode) {
+        // Check for desktop mode indicators
+        const isDesktopModeActive = isMobile && (isDesktopMode || isLandscape || window.innerWidth > 600);
+        
+        if (isDesktopModeActive) {
             // User is on mobile but viewing in desktop mode
             this.showNotification('🖥️ Masaüstü modunda görüntüleniyor! Daha iyi deneyim için mobil moda geçebilirsiniz.', 'info', 8000);
+            
+            // Force desktop layout by adding CSS class
+            document.body.classList.add('force-desktop-mode');
             
             // Add a floating button to switch to mobile mode
             this.addMobileModeToggle();
         }
+        
+        // Listen for resize events to detect mode changes
+        window.addEventListener('resize', () => {
+            const newIsDesktopMode = window.innerWidth >= 769;
+            const newIsLandscape = window.innerWidth > window.innerHeight;
+            const newIsDesktopModeActive = isMobile && (newIsDesktopMode || newIsLandscape || window.innerWidth > 600);
+            
+            if (newIsDesktopModeActive && !document.body.classList.contains('force-desktop-mode')) {
+                document.body.classList.add('force-desktop-mode');
+                this.addMobileModeToggle();
+            } else if (!newIsDesktopModeActive && document.body.classList.contains('force-desktop-mode')) {
+                document.body.classList.remove('force-desktop-mode');
+                const toggleBtn = document.getElementById('mobileModeToggle');
+                if (toggleBtn) toggleBtn.remove();
+            }
+        });
     }
 
     addMobileModeToggle() {
@@ -903,12 +926,18 @@ class NotesApp {
         `;
 
         toggleBtn.addEventListener('click', () => {
+            // Remove desktop mode class
+            document.body.classList.remove('force-desktop-mode');
+            
             // Force mobile viewport
             const viewport = document.querySelector('meta[name="viewport"]');
             viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
             
-            // Reload page to apply mobile styles
-            window.location.reload();
+            // Remove floating button
+            toggleBtn.remove();
+            
+            // Show notification
+            this.showNotification('📱 Mobil moda geçildi!', 'success');
         });
 
         toggleBtn.addEventListener('mouseenter', () => {

@@ -848,3 +848,97 @@ body {
         padding: 50px;
     }
 }
+
+/* Force Desktop Mode for Mobile Browsers */
+body.force-desktop-mode .container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+}
+
+body.force-desktop-mode .header {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 30px !important;
+    padding: 20px 0 !important;
+}
+
+body.force-desktop-mode .app-title {
+    font-size: 2.5rem !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 15px !important;
+}
+
+body.force-desktop-mode .note-form {
+    padding: 30px !important;
+    border-radius: 20px !important;
+    margin-bottom: 30px !important;
+}
+
+body.force-desktop-mode .button-group {
+    flex-direction: row !important;
+    gap: 15px !important;
+    justify-content: flex-start !important;
+}
+
+body.force-desktop-mode .btn {
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    min-width: auto !important;
+    width: auto !important;
+}
+
+body.force-desktop-mode .notes-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+}
+
+body.force-desktop-mode .note-card {
+    margin-bottom: 0 !important;
+    min-height: 200px !important;
+}
+
+body.force-desktop-mode .notes-controls {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+body.force-desktop-mode .sort-controls,
+body.force-desktop-mode .pin-controls {
+    flex-direction: row !important;
+    gap: 10px !important;
+    width: auto !important;
+    justify-content: flex-start !important;
+}
+
+body.force-desktop-mode .search-section {
+    margin-bottom: 20px !important;
+}
+
+body.force-desktop-mode .search-box {
+    max-width: 400px !important;
+}
+
+body.force-desktop-mode .editor-toolbar {
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+    padding: 10px !important;
+}
+
+body.force-desktop-mode .toolbar-btn {
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+    min-width: 40px !important;
+}
+
+body.force-desktop-mode .rich-editor {
+    min-height: 150px !important;
+    padding: 15px !important;
+}
