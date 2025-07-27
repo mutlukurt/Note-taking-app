@@ -829,17 +829,28 @@
                     // Apply color function
                     function applyColor(color) {
                         currentColor = color;
-                        console.log('Text color selected:', color);
+                        console.log('=== APPLY COLOR START ===');
+                        console.log('Color to apply:', color);
+                        console.log('Editor element:', editor);
+                        console.log('Editor focused:', document.activeElement === editor);
                         
-                        editor.focus();
+                        // Ensure editor is focused
+                        if (document.activeElement !== editor) {
+                            editor.focus();
+                            console.log('Editor focused manually');
+                        }
                         
                         // More reliable color application
                         const selection = window.getSelection();
+                        console.log('Selection:', selection);
+                        console.log('Selection collapsed:', selection.isCollapsed);
+                        console.log('Selection range count:', selection.rangeCount);
                         
                         if (selection.rangeCount > 0 && !selection.isCollapsed) {
                             // Text is selected - apply color to selection
                             const range = selection.getRangeAt(0);
                             const selectedText = range.toString();
+                            console.log('Selected text:', selectedText);
                             
                             if (selectedText.length > 0) {
                                 // Create a span with the color
@@ -858,27 +869,23 @@
                             }
                         } else {
                             // No selection - set color for future typing
-                            console.log('Setting color for future typing:', color);
+                            console.log('No selection - setting color for typing');
+                            console.log('Using execCommand with color:', color);
                             
-                            // Force color change by temporarily blurring and refocusing
-                            editor.blur();
+                            // Simple direct application
+                            const styleResult = document.execCommand('styleWithCSS', false, true);
+                            const colorResult = document.execCommand('foreColor', false, color);
                             
-                            // Use styleWithCSS for consistent behavior
-                            document.execCommand('styleWithCSS', false, true);
-                            
-                            // Apply the color directly
-                            document.execCommand('foreColor', false, color);
-                            
-                            // Refocus the editor
-                            editor.focus();
-                            
-                            console.log('Color applied for typing:', color);
+                            console.log('styleWithCSS result:', styleResult);
+                            console.log('foreColor result:', colorResult);
+                            console.log('Current document.queryCommandValue("foreColor"):', document.queryCommandValue('foreColor'));
                         }
                         
                         // Update color indicator
                         const colorIndicator = textColorBtn.querySelector('.color-indicator');
                         if (colorIndicator) {
                             colorIndicator.style.backgroundColor = color;
+                            console.log('Color indicator updated');
                         }
                         
                         editor.setAttribute('data-text-color', color);
@@ -889,6 +896,8 @@
                         // Add visual feedback
                         textColorBtn.classList.add('active');
                         setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                        
+                        console.log('=== APPLY COLOR END ===');
                     }
                     
                     // HSL to HEX conversion function
