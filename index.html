@@ -147,12 +147,35 @@
             const title = document.getElementById('noteTitle').value;
             const content = document.getElementById('noteContent').innerHTML;
             
-            if (title || content) {
-                alert('Not ekleniyor: ' + title);
-                console.log('Note content:', content);
-            } else {
-                alert('Lütfen başlık veya içerik girin!');
+            if (!title && !content) {
+                alert('Lütfen en az bir başlık veya içerik girin!');
+                return;
             }
+            
+            // Create note object
+            const note = {
+                id: Date.now(),
+                title: title || 'Başlıksız Not',
+                content: content || 'İçerik yok',
+                date: new Date().toLocaleString('tr-TR'),
+                timestamp: Date.now(),
+                pinned: false
+            };
+            
+            // Get notes from localStorage
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            notes.push(note);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            
+            // Clear form
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').innerHTML = '';
+            
+            // Show success message
+            alert('Not başarıyla eklendi!');
+            
+            // Refresh notes display
+            renderNotes();
         }
         
         function testClearForm() {
@@ -185,8 +208,175 @@
                 console.log('Clear form button set up');
             }
             
+            // Set up search input
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.oninput = (e) => {
+                    searchNotes(e.target.value);
+                };
+                console.log('Search input set up');
+            }
+            
             console.log('Test buttons set up successfully!');
+            
+            // Load and display notes
+            renderNotes();
         });
+        
+        // Function to render notes
+        function renderNotes() {
+            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const container = document.getElementById('notesContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (notes.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'flex';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+            
+            notes.forEach(note => {
+                const noteCard = createNoteCard(note);
+                container.appendChild(noteCard);
+            });
+        }
+        
+        // Function to create note card
+        function createNoteCard(note) {
+            const card = document.createElement('div');
+            card.className = 'note-card';
+            if (note.pinned) card.classList.add('pinned');
+            
+            card.innerHTML = `
+                <div class="note-header">
+                    <h3 class="note-title">${note.title}</h3>
+                    <span class="note-date">${note.date}</span>
+                </div>
+                <div class="note-content">${note.content}</div>
+                <div class="note-actions">
+                    <button class="action-btn pin" onclick="togglePin(${note.id})" title="Sabitle">
+                        <i class="fas fa-thumbtack"></i>
+                    </button>
+                    <button class="action-btn edit" onclick="editNote(${note.id})" title="Düzenle">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete" onclick="deleteNote(${note.id})" title="Sil">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Function to delete note
+        function deleteNote(id) {
+            if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
+                let notes = JSON.parse(localStorage.getItem('notes')) || [];
+                notes = notes.filter(note => note.id !== id);
+                localStorage.setItem('notes', JSON.stringify(notes));
+                renderNotes();
+                alert('Not silindi!');
+            }
+        }
+        
+        // Function to toggle pin
+        function togglePin(id) {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const note = notes.find(note => note.id === id);
+            if (note) {
+                note.pinned = !note.pinned;
+                localStorage.setItem('notes', JSON.stringify(notes));
+                renderNotes();
+            }
+        }
+        
+        // Function to edit note
+        function editNote(id) {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const note = notes.find(note => note.id === id);
+            if (note) {
+                document.getElementById('noteTitle').value = note.title;
+                document.getElementById('noteContent').innerHTML = note.content;
+                
+                // Change add button to update button temporarily
+                const addBtn = document.getElementById('addNote');
+                addBtn.innerHTML = '<i class="fas fa-save"></i> Güncelle';
+                addBtn.onclick = () => updateNote(id);
+            }
+        }
+        
+        // Function to update note
+        function updateNote(id) {
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').innerHTML;
+            
+            if (!title && !content) {
+                alert('Lütfen en az bir başlık veya içerik girin!');
+                return;
+            }
+            
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const noteIndex = notes.findIndex(note => note.id === id);
+            
+            if (noteIndex !== -1) {
+                notes[noteIndex].title = title || 'Başlıksız Not';
+                notes[noteIndex].content = content || 'İçerik yok';
+                notes[noteIndex].date = new Date().toLocaleString('tr-TR');
+                
+                localStorage.setItem('notes', JSON.stringify(notes));
+                
+                // Reset form and button
+                document.getElementById('noteTitle').value = '';
+                document.getElementById('noteContent').innerHTML = '';
+                
+                const addBtn = document.getElementById('addNote');
+                addBtn.innerHTML = '<i class="fas fa-plus"></i> Not Ekle';
+                addBtn.onclick = testAddNote;
+                
+                renderNotes();
+                alert('Not güncellendi!');
+            }
+        }
+        
+        // Function to search notes
+        function searchNotes(query) {
+            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+            const container = document.getElementById('notesContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (!query.trim()) {
+                renderNotes();
+                return;
+            }
+            
+            const filteredNotes = notes.filter(note => 
+                note.title.toLowerCase().includes(query.toLowerCase()) ||
+                note.content.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            if (filteredNotes.length === 0) {
+                container.innerHTML = '';
+                emptyState.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <h3>Arama sonucu bulunamadı</h3>
+                    <p>"${query}" için sonuç yok</p>
+                `;
+                emptyState.style.display = 'flex';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+            
+            filteredNotes.forEach(note => {
+                const noteCard = createNoteCard(note);
+                container.appendChild(noteCard);
+            });
+        }
     </script>
     <script src="script.js"></script>
 </body>
