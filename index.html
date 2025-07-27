@@ -124,18 +124,70 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script>
-        // Initialize app after DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing app...');
-            if (typeof NotesApp !== 'undefined') {
-                window.notesApp = new NotesApp();
-                console.log('App initialized successfully!');
+        // Simple test functions
+        function testTheme() {
+            console.log('Test theme function called');
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                icon.className = 'fas fa-sun';
+                console.log('Light mode activated');
             } else {
-                console.error('NotesApp class not found!');
+                body.classList.add('dark-mode');
+                icon.className = 'fas fa-moon';
+                console.log('Dark mode activated');
             }
+        }
+        
+        function testAddNote() {
+            console.log('Test add note function called');
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').innerHTML;
+            
+            if (title || content) {
+                alert('Not ekleniyor: ' + title);
+                console.log('Note content:', content);
+            } else {
+                alert('Lütfen başlık veya içerik girin!');
+            }
+        }
+        
+        function testClearForm() {
+            console.log('Test clear form function called');
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').innerHTML = '';
+            console.log('Form cleared');
+        }
+        
+        // DOM loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up test buttons...');
+            
+            // Set up test buttons
+            const themeBtn = document.getElementById('themeToggle');
+            if (themeBtn) {
+                themeBtn.onclick = testTheme;
+                console.log('Theme button set up');
+            }
+            
+            const addBtn = document.getElementById('addNote');
+            if (addBtn) {
+                addBtn.onclick = testAddNote;
+                console.log('Add note button set up');
+            }
+            
+            const clearBtn = document.getElementById('clearForm');
+            if (clearBtn) {
+                clearBtn.onclick = testClearForm;
+                console.log('Clear form button set up');
+            }
+            
+            console.log('Test buttons set up successfully!');
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
