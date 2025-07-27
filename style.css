@@ -160,7 +160,7 @@ body {
     color: var(--text-secondary);
     pointer-events: none;
     position: absolute;
-    top: 50px;
+    top: 120px;
     left: 20px;
 }
 
