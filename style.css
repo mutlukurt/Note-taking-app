@@ -386,157 +386,6 @@ body {
     margin: 0 5px;
 }
 
-/* Modern color picker styling */
-.color-picker-container {
-    position: relative;
-    display: inline-block;
-}
-
-#textColorBtn {
-    position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    transition: all 0.3s ease;
-    overflow: visible;
-}
-
-#textColorBtn:hover {
-    background: var(--bg-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-#textColorBtn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#textColorBtn.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Color indicator - small dot showing current color */
-.color-indicator {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #000000;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    z-index: 1;
-}
-
-/* Color picker wrapper for better positioning */
-.color-picker-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    pointer-events: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: var(--shadow-lg);
-    min-width: 200px;
-}
-
-.color-picker-wrapper.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-/* Spectrum gradient slider */
-.spectrum-picker {
-    margin-bottom: 12px;
-    position: relative;
-}
-
-.spectrum-gradient {
-    width: 100%;
-    height: 20px;
-    border-radius: 10px;
-    background: linear-gradient(to right, 
-        #ff0000 0%, 
-        #ff8000 12.5%, 
-        #ffff00 25%, 
-        #80ff00 37.5%, 
-        #00ff00 50%, 
-        #00ff80 62.5%, 
-        #00ffff 75%, 
-        #0080ff 87.5%, 
-        #0000ff 100%
-    );
-    cursor: pointer;
-    position: relative;
-    border: 1px solid var(--border-color);
-}
-
-.spectrum-slider {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 18px;
-    height: 18px;
-    background: white;
-    border: 3px solid #333;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    transition: all 0.2s ease;
-    z-index: 10;
-}
-
-.spectrum-slider:hover {
-    transform: translate(-50%, -50%) scale(1.3);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
-}
-
-/* Color grid */
-.color-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 6px;
-}
-
-.color-swatch {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 2px solid var(--border-color);
-    transition: all 0.2s ease;
-    position: relative;
-}
-
-.color-swatch:hover {
-    transform: scale(1.15);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    border-color: var(--primary-color);
-}
-
-.color-swatch:active {
-    transform: scale(0.95);
-}
-
-.color-swatch.selected {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
-}
-
 /* Custom highlight styling for rich editor */
 .rich-editor strong {
     font-weight: 600;
@@ -1430,4 +1279,89 @@ body.force-desktop-mode .rich-editor {
     .privacy-text p {
         font-size: 0.7rem;
     }
+}
+
+/* Simple two-color picker */
+.color-picker-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#textColorBtn {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+#textColorBtn:hover {
+    background: var(--bg-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#textColorBtn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Color indicator - small dot showing current color */
+.color-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.simple-color-picker {
+    display: flex;
+    gap: 6px;
+}
+
+.color-btn {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-card);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.color-btn:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.color-btn.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
+    transform: scale(1.05);
+}
+
+.color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Custom highlight styling for rich editor */
+.rich-editor strong {
+    font-weight: 600;
 }

@@ -69,25 +69,13 @@
                             <i class="fas fa-font"></i>
                             <span class="color-indicator"></span>
                         </button>
-                        <div class="color-picker-wrapper">
-                            <div class="spectrum-picker">
-                                <div class="spectrum-gradient"></div>
-                                <div class="spectrum-slider" id="spectrumSlider"></div>
-                            </div>
-                            <div class="color-grid">
-                                <div class="color-swatch" data-color="#000000" style="background: #000000;"></div>
-                                <div class="color-swatch" data-color="#ffffff" style="background: #ffffff;"></div>
-                                <div class="color-swatch" data-color="#ff0000" style="background: #ff0000;"></div>
-                                <div class="color-swatch" data-color="#00ff00" style="background: #00ff00;"></div>
-                                <div class="color-swatch" data-color="#0000ff" style="background: #0000ff;"></div>
-                                <div class="color-swatch" data-color="#ffff00" style="background: #ffff00;"></div>
-                                <div class="color-swatch" data-color="#ff00ff" style="background: #ff00ff;"></div>
-                                <div class="color-swatch" data-color="#00ffff" style="background: #00ffff;"></div>
-                                <div class="color-swatch" data-color="#ff8000" style="background: #ff8000;"></div>
-                                <div class="color-swatch" data-color="#8000ff" style="background: #8000ff;"></div>
-                                <div class="color-swatch" data-color="#ff0080" style="background: #ff0080;"></div>
-                                <div class="color-swatch" data-color="#80ff00" style="background: #80ff00;"></div>
-                            </div>
+                        <div class="simple-color-picker">
+                            <button class="color-btn" data-color="#000000" title="Siyah">
+                                <span class="color-dot" style="background-color: #000000;"></span>
+                            </button>
+                            <button class="color-btn" data-color="#ff0000" title="Kırmızı">
+                                <span class="color-dot" style="background-color: #ff0000;"></span>
+                            </button>
                         </div>
                     </div>
                     <div class="toolbar-separator"></div>
@@ -730,149 +718,89 @@
             
             // Text color picker
             if (textColorBtn) {
-                const colorPickerWrapper = textColorBtn.parentElement.querySelector('.color-picker-wrapper');
+                const simpleColorPicker = textColorBtn.parentElement.querySelector('.simple-color-picker');
+                const colorBtns = simpleColorPicker.querySelectorAll('.color-btn');
                 
-                if (colorPickerWrapper) {
-                    const spectrumGradient = colorPickerWrapper.querySelector('.spectrum-gradient');
-                    const spectrumSlider = colorPickerWrapper.querySelector('.spectrum-slider');
-                    const colorSwatches = colorPickerWrapper.querySelectorAll('.color-swatch');
-                    
-                    let currentColor = '#000000';
-                    
-                    textColorBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        // Toggle color picker wrapper visibility
-                        const isVisible = colorPickerWrapper.classList.contains('active');
-                        
-                        // Hide all other color pickers first
-                        document.querySelectorAll('.color-picker-wrapper').forEach(wrapper => {
-                            wrapper.classList.remove('active');
+                let currentColor = '#000000';
+                
+                // Color button click handlers
+                if (colorBtns.length > 0) {
+                    colorBtns.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const color = btn.dataset.color;
+                            
+                            // Remove selected class from all color buttons
+                            colorBtns.forEach(s => s.classList.remove('selected'));
+                            // Add selected class to clicked button
+                            btn.classList.add('selected');
+                            
+                            applyColor(color);
                         });
-                        
-                        if (!isVisible) {
-                            colorPickerWrapper.classList.add('active');
-                        }
                     });
-                    
-                    // Spectrum gradient click handler
-                    if (spectrumGradient && spectrumSlider) {
-                        spectrumGradient.addEventListener('click', (e) => {
-                            const rect = spectrumGradient.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const percentage = Math.max(0, Math.min(1, x / rect.width));
-                            
-                            // Calculate color from percentage
-                            const hue = percentage * 360;
-                            
-                            // Convert HSL to HEX for consistency
-                            const hexColor = hslToHex(hue, 100, 50);
-                            
-                            // Update slider position
-                            spectrumSlider.style.left = `${percentage * 100}%`;
-                            
-                            applyColor(hexColor);
-                        });
-                    }
-                    
-                    // Color swatch click handlers
-                    if (colorSwatches.length > 0) {
-                        colorSwatches.forEach(swatch => {
-                            swatch.addEventListener('click', (e) => {
-                                e.stopPropagation();
-                                const color = swatch.dataset.color;
-                                
-                                // Remove selected class from all swatches
-                                colorSwatches.forEach(s => s.classList.remove('selected'));
-                                // Add selected class to clicked swatch
-                                swatch.classList.add('selected');
-                                
-                                applyColor(color);
-                            });
-                        });
-                    }
-                    
-                    // Apply color function
-                    function applyColor(color) {
-                        currentColor = color;
-                        
-                        editor.focus();
-                        
-                        // Get current selection
-                        const selection = window.getSelection();
-                        
-                        if (selection.rangeCount > 0 && !selection.isCollapsed) {
-                            // Text is selected - apply color to selection
-                            const range = selection.getRangeAt(0);
-                            const selectedText = range.toString();
-                            
-                            if (selectedText.length > 0) {
-                                // Create a span with the color
-                                const span = document.createElement('span');
-                                span.style.color = color;
-                                span.textContent = selectedText;
-                                
-                                // Replace selected text with colored span
-                                range.deleteContents();
-                                range.insertNode(span);
-                                
-                                // Position cursor after the span
-                                const newRange = document.createRange();
-                                newRange.setStartAfter(span);
-                                newRange.collapse(true);
-                                selection.removeAllRanges();
-                                selection.addRange(newRange);
-                            }
-                        } else {
-                            // No selection - set color for future typing
-                            document.execCommand('styleWithCSS', false, true);
-                            document.execCommand('foreColor', false, color);
-                        }
-                        
-                        // Update color indicator
-                        const colorIndicator = textColorBtn.querySelector('.color-indicator');
-                        if (colorIndicator) {
-                            colorIndicator.style.backgroundColor = color;
-                        }
-                        
-                        editor.setAttribute('data-text-color', color);
-                        
-                        // Hide color picker
-                        colorPickerWrapper.classList.remove('active');
-                        
-                        // Add visual feedback
-                        textColorBtn.classList.add('active');
-                        setTimeout(() => textColorBtn.classList.remove('active'), 200);
-                    }
-                    
-                    // HSL to HEX conversion function
-                    function hslToHex(h, s, l) {
-                        l /= 100;
-                        const a = s * Math.min(l, 1 - l) / 100;
-                        const f = n => {
-                            const k = (n + h / 30) % 12;
-                            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-                            return Math.round(255 * color).toString(16).padStart(2, '0');
-                        };
-                        return `#${f(0)}${f(8)}${f(4)}`;
-                    }
-                    
-                    // Initialize color indicator
-                    const colorIndicator = textColorBtn.querySelector('.color-indicator');
-                    if (colorIndicator) {
-                        colorIndicator.style.backgroundColor = '#000000';
-                    }
                 }
                 
-                // Hide color picker when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!e.target.closest('.color-picker-container')) {
-                        document.querySelectorAll('.color-picker-wrapper').forEach(wrapper => {
-                            wrapper.classList.remove('active');
-                        });
+                // Apply color function
+                function applyColor(color) {
+                    currentColor = color;
+                    
+                    editor.focus();
+                    
+                    // Get current selection
+                    const selection = window.getSelection();
+                    
+                    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                        // Text is selected - apply color to selection
+                        const range = selection.getRangeAt(0);
+                        const selectedText = range.toString();
+                        
+                        if (selectedText.length > 0) {
+                            // Create a span with the color
+                            const span = document.createElement('span');
+                            span.style.color = color;
+                            span.textContent = selectedText;
+                            
+                            // Replace selected text with colored span
+                            range.deleteContents();
+                            range.insertNode(span);
+                            
+                            // Position cursor after the span
+                            const newRange = document.createRange();
+                            newRange.setStartAfter(span);
+                            newRange.collapse(true);
+                            selection.removeAllRanges();
+                            selection.addRange(newRange);
+                        }
+                    } else {
+                        // No selection - set color for future typing
+                        document.execCommand('styleWithCSS', false, true);
+                        document.execCommand('foreColor', false, color);
                     }
-                });
+                    
+                    // Update color indicator
+                    const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                    if (colorIndicator) {
+                        colorIndicator.style.backgroundColor = color;
+                    }
+                    
+                    editor.setAttribute('data-text-color', color);
+                    
+                    // Add visual feedback
+                    textColorBtn.classList.add('active');
+                    setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                }
+                
+                // Initialize color indicator and select black by default
+                const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                if (colorIndicator) {
+                    colorIndicator.style.backgroundColor = '#000000';
+                }
+                
+                // Select black button by default
+                const blackBtn = simpleColorPicker.querySelector('[data-color="#000000"]');
+                if (blackBtn) {
+                    blackBtn.classList.add('selected');
+                }
             }
             
             // Add keyboard shortcuts
