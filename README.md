@@ -8,7 +8,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 ## ✨ Özellikler
 
 - 🎨 **Modern Tasarım**: Oval köşeli, gradient renkli modern UI
-- 🌙 **Karanlık Mod**: Sağ üst köşedeki gece/gündüz ikonu ile açık/koyu tema değiştirme
+- 🌙 **Karanlık Mod**: Tema kontrol bölümündeki gece/gündüz ikonu ile açık/koyu tema değiştirme
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
 - ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
@@ -23,6 +23,8 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
 - 📐 **Hizalama**: Sola, orta ve sağa hizalama
 - 🖼️ **Fotoğraf Ekleme**: Notlarınıza resim ekleyebilme (5MB'a kadar)
+- 📄 **PDF Export**: Notlarınızı PDF formatında dışa aktarma
+- 🖥️ **Masaüstü Modu**: Mobil tarayıcılarda masaüstü görünümü
 
 
 ## 🚀 Kullanım
@@ -32,7 +34,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 2. **Arama**: Üst kısımdaki arama kutusunu kullanarak notlarınızda arama yapın
 3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
 4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın veya sola kaydırın
-5. **Tema Değiştirme**: Sağ üst köşedeki güneş/ay ikonuna tıklayın
+5. **Tema Değiştirme**: Tema kontrol bölümündeki güneş/ay ikonuna tıklayın
 6. **Temizleme**: "Temizle" butonu ile formu temizleyin
 
 ### ✨ **Zengin Metin Editörü:**
@@ -41,6 +43,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 2. **Liste Oluşturma**: • (Madde işaretli) veya 1. (Numaralı) butonları
 3. **Hizalama**: ← (Sola), ↔ (Ortala), → (Sağa) butonları
 4. **Fotoğraf Ekleme**: 🖼️ butonuna tıklayıp resim seçin (5MB'a kadar)
+5. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
 
 
 ### 📌 **Gelişmiş Özellikler:**
@@ -48,6 +51,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 2. **Sıralama**: "En Yeni", "En Eski", "Başlık" seçenekleri
 3. **Filtreleme**: "Tümü", "Sabitlenenler", "Normal" seçenekleri
 4. **Swipe Silme**: Notu sola kaydırarak silin (4 saniye geri alma)
+5. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
 
 ## 🎯 Teknolojiler
 
@@ -56,6 +60,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - **JavaScript (ES6+)**: Modern JavaScript sınıfları ve metodları
 - **Font Awesome**: Güzel ikonlar
 - **LocalStorage**: Veri saklama
+- **jsPDF & html2canvas**: PDF export özelliği
 
 
 ## 📁 Dosya Yapısı
@@ -115,6 +120,9 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Zengin Editör**: Profesyonel toolbar tasarımı
 - **Swipe Animasyonları**: Mobil dostu kaydırma efektleri
 - **Pin Göstergeleri**: Özel gradient arka planlar
+- **Tema Kontrol Bölümü**: Not alma kısmı ile aynı tasarım stili
+- **PDF Export**: Profesyonel PDF çıktısı
+- **Masaüstü Modu**: Responsive tasarım ile uyumlu
 
 
 ## 🔒 Veri Güvenliği
@@ -135,9 +143,12 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - [ ] Gelişmiş arama filtreleri
 - [ ] Kullanıcı sistemi (backend ile)
 - [ ] Çoklu dosya yükleme
-
 - [ ] Not şablonları
 - [ ] Otomatik yedekleme
+- [ ] Gelişmiş tema seçenekleri
+- [ ] Not arşivleme
+- [ ] Gelişmiş PDF şablonları
+- [ ] Not istatistikleri
 
 ## 🤝 Katkıda Bulunma
 
