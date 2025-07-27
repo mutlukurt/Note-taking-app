@@ -29,7 +29,6 @@ class NotesApp {
     setupEventListeners() {
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', () => {
-            console.log('Theme toggle button clicked!');
             this.toggleTheme();
         });
 
@@ -116,27 +115,37 @@ class NotesApp {
     }
 
     toggleTheme() {
-        console.log('Toggle theme clicked! Current theme:', this.currentTheme);
-        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        console.log('New theme:', this.currentTheme);
+        // Tema değiştir
+        if (this.currentTheme === 'light') {
+            this.currentTheme = 'dark';
+        } else {
+            this.currentTheme = 'light';
+        }
+        
+        // LocalStorage'a kaydet
         localStorage.setItem('theme', this.currentTheme);
+        
+        // Temayı uygula
         this.applyTheme();
+        
+        // Bildirim göster
+        const themeName = this.currentTheme === 'dark' ? 'Karanlık' : 'Açık';
+        this.showNotification(`${themeName} tema aktif`, 'success');
     }
 
     applyTheme() {
-        console.log('Applying theme:', this.currentTheme);
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
         const icon = themeToggle.querySelector('i');
 
         if (this.currentTheme === 'dark') {
+            // Karanlık tema
             body.classList.add('dark-mode');
             icon.className = 'fas fa-moon';
-            console.log('Dark mode applied');
         } else {
+            // Açık tema
             body.classList.remove('dark-mode');
             icon.className = 'fas fa-sun';
-            console.log('Light mode applied');
         }
     }
 
