@@ -29,6 +29,7 @@ class NotesApp {
     setupEventListeners() {
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', () => {
+            console.log('Theme toggle button clicked!');
             this.toggleTheme();
         });
 
@@ -115,12 +116,15 @@ class NotesApp {
     }
 
     toggleTheme() {
+        console.log('Toggle theme clicked! Current theme:', this.currentTheme);
         this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        console.log('New theme:', this.currentTheme);
         localStorage.setItem('theme', this.currentTheme);
         this.applyTheme();
     }
 
     applyTheme() {
+        console.log('Applying theme:', this.currentTheme);
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
         const icon = themeToggle.querySelector('i');
@@ -128,9 +132,11 @@ class NotesApp {
         if (this.currentTheme === 'dark') {
             body.classList.add('dark-mode');
             icon.className = 'fas fa-moon';
+            console.log('Dark mode applied');
         } else {
             body.classList.remove('dark-mode');
             icon.className = 'fas fa-sun';
+            console.log('Light mode applied');
         }
     }
 
