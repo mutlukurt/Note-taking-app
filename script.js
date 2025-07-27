@@ -78,7 +78,10 @@ class NotesApp {
 
         // Font selector
         document.getElementById('fontSelect').addEventListener('change', (e) => {
-            this.changeFont(e.target.value);
+            // Seçimi korumak için setTimeout kullan
+            setTimeout(() => {
+                this.changeFont(e.target.value);
+            }, 10);
         });
 
         // Image upload
@@ -978,30 +981,21 @@ class NotesApp {
         
         if (selection.rangeCount > 0 && !selection.isCollapsed) {
             // Seçili metin varsa, sadece seçili metne font uygula
-            document.execCommand('fontName', false, fontFamily);
+            const range = selection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.style.fontFamily = fontFamily;
+            
+            // Seçili içeriği span içine al
+            const contents = range.extractContents();
+            span.appendChild(contents);
+            range.insertNode(span);
+            
+            // Seçimi temizle
+            selection.removeAllRanges();
+            
             this.showNotification(`Seçili metin için font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
         } else {
             // Seçili metin yoksa, yeni yazılacak metin için font ayarla
-            // Önce editöre odaklan
-            editor.focus();
-            
-            // Cursor pozisyonunu al
-            const range = document.createRange();
-            const sel = window.getSelection();
-            
-            // Eğer cursor editör içindeyse
-            if (editor.contains(sel.anchorNode)) {
-                range.setStart(sel.anchorNode, sel.anchorOffset);
-                range.setEnd(sel.anchorNode, sel.anchorOffset);
-            } else {
-                // Cursor editör dışındaysa, editörün sonuna koy
-                range.selectNodeContents(editor);
-                range.collapse(false);
-            }
-            
-            sel.removeAllRanges();
-            sel.addRange(range);
-            
             // Font komutunu çalıştır
             document.execCommand('fontName', false, fontFamily);
             
