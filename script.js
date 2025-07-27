@@ -33,15 +33,14 @@ class NotesApp {
     setupEventListeners() {
         console.log('Setting up event listeners...');
         
-        // Theme toggle - Basit ve güvenilir
+        // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             console.log('Theme toggle found');
-            themeToggle.addEventListener('click', (e) => {
-                e.preventDefault();
+            themeToggle.onclick = () => {
                 console.log('Theme toggle clicked');
                 this.toggleTheme();
-            });
+            };
         } else {
             console.error('Theme toggle not found!');
         }
@@ -52,11 +51,10 @@ class NotesApp {
         const addNoteBtn = document.getElementById('addNote');
         if (addNoteBtn) {
             console.log('Add note button found');
-            addNoteBtn.addEventListener('click', (e) => {
-                e.preventDefault();
+            addNoteBtn.onclick = () => {
                 console.log('Add note clicked');
                 this.addNote();
-            });
+            };
         } else {
             console.error('Add note button not found!');
         }
@@ -65,11 +63,10 @@ class NotesApp {
         const clearFormBtn = document.getElementById('clearForm');
         if (clearFormBtn) {
             console.log('Clear form button found');
-            clearFormBtn.addEventListener('click', (e) => {
-                e.preventDefault();
+            clearFormBtn.onclick = () => {
                 console.log('Clear form clicked');
                 this.clearForm();
-            });
+            };
         } else {
             console.error('Clear form button not found!');
         }
@@ -78,11 +75,10 @@ class NotesApp {
         const exportPDFBtn = document.getElementById('exportPDF');
         if (exportPDFBtn) {
             console.log('Export PDF button found');
-            exportPDFBtn.addEventListener('click', (e) => {
-                e.preventDefault();
+            exportPDFBtn.onclick = () => {
                 console.log('Export PDF clicked');
                 this.exportToPDF();
-            });
+            };
         } else {
             console.error('Export PDF button not found!');
         }
@@ -91,10 +87,10 @@ class NotesApp {
         const searchInput = document.getElementById('searchInput');
         if (searchInput) {
             console.log('Search input found');
-            searchInput.addEventListener('input', (e) => {
+            searchInput.oninput = (e) => {
                 console.log('Search input changed:', e.target.value);
                 this.searchNotes(e.target.value);
-            });
+            };
         } else {
             console.error('Search input not found!');
         }
@@ -1024,7 +1020,5 @@ class NotesApp {
 
 
 
-// Initialize the app
-console.log('NotesApp is being initialized...');
-const notesApp = new NotesApp();
-console.log('NotesApp initialized successfully!');
+// NotesApp class is ready to be initialized
+console.log('NotesApp class loaded successfully!');

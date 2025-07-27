@@ -26,7 +26,7 @@
         <div class="theme-control-section">
             <div class="theme-control-content">
                 <span class="theme-label">Tema Seçimi</span>
-                <button class="theme-toggle" id="themeToggle" onclick="testTheme()">
+                <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-sun"></i>
                 </button>
             </div>
@@ -124,26 +124,18 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
-        // Test function for theme toggle
-        function testTheme() {
-            const body = document.body;
-            const icon = document.querySelector('#themeToggle i');
-            
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                icon.className = 'fas fa-sun';
-                console.log('Light mode activated');
+        // Initialize app after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing app...');
+            if (typeof NotesApp !== 'undefined') {
+                window.notesApp = new NotesApp();
+                console.log('App initialized successfully!');
             } else {
-                body.classList.add('dark-mode');
-                icon.className = 'fas fa-moon';
-                console.log('Dark mode activated');
+                console.error('NotesApp class not found!');
             }
-        }
-        
-        // Check if script.js loads
-        console.log('HTML loaded, waiting for script.js...');
+        });
     </script>
-    <script src="script.js" onload="console.log('script.js loaded successfully')" onerror="console.error('Failed to load script.js')"></script>
 </body>
 </html>
