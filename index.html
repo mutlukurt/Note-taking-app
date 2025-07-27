@@ -782,14 +782,19 @@
                             const selectedText = range.toString();
                             
                             if (selectedText.length > 0) {
-                                // Create a span with the desired color
-                                const span = document.createElement('span');
-                                span.style.color = color;
-                                span.textContent = selectedText;
-                                
-                                // Replace selected text with colored span
-                                range.deleteContents();
-                                range.insertNode(span);
+                                if (color === '#000000') {
+                                    // For black color, create plain text node
+                                    const textNode = document.createTextNode(selectedText);
+                                    range.deleteContents();
+                                    range.insertNode(textNode);
+                                } else {
+                                    // For other colors, create colored span
+                                    const span = document.createElement('span');
+                                    span.style.color = color;
+                                    span.textContent = selectedText;
+                                    range.deleteContents();
+                                    range.insertNode(span);
+                                }
                                 
                                 // Clear selection
                                 selection.removeAllRanges();
@@ -798,7 +803,18 @@
                             }
                         } else {
                             // No selection - set color for future typing
-                            document.execCommand('foreColor', false, color);
+                            // Clear any existing color first
+                            document.execCommand('styleWithCSS', false, true);
+                            
+                            if (color === '#000000') {
+                                // For black, try to reset to default
+                                document.execCommand('foreColor', false, 'initial');
+                                document.execCommand('foreColor', false, 'black');
+                                editor.style.color = '';
+                            } else {
+                                // For other colors, apply directly
+                                document.execCommand('foreColor', false, color);
+                            }
                             console.log('Text color set for typing:', color);
                         }
                         
