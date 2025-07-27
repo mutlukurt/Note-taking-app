@@ -6,93 +6,92 @@
 
 :root {
     /* Light Mode Colors */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
     --bg-card: #ffffff;
-    --text-primary: #2c3e50;
-    --text-secondary: #6c757d;
-    --border-color: #e9ecef;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --text-primary: #1a202c;
+    --text-secondary: #718096;
+    --border-color: #e2e8f0;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
     --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     --success-color: #28a745;
     --danger-color: #dc3545;
     --warning-color: #ffc107;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
 }
 
 /* Light mode (default) */
 body {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
     --bg-card: #ffffff;
-    --text-primary: #2c3e50;
-    --text-secondary: #6c757d;
-    --border-color: #e9ecef;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --text-primary: #1a202c;
+    --text-secondary: #718096;
+    --border-color: #e2e8f0;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .dark-mode {
-    --bg-primary: #1a1a1a !important;
-    --bg-secondary: #2d2d2d !important;
-    --bg-card: #333333 !important;
-    --text-primary: #ffffff !important;
-    --text-secondary: #b0b0b0 !important;
-    --border-color: #404040 !important;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    --bg-primary: #0f172a !important;
+    --bg-secondary: #1e293b !important;
+    --bg-card: #334155 !important;
+    --text-primary: #f1f5f9 !important;
+    --text-secondary: #94a3b8 !important;
+    --border-color: #475569 !important;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
 
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
     transition: all 0.3s ease;
     min-height: 100vh;
+    line-height: 1.6;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 16px;
     position: relative;
 }
 
 /* Header Styles */
 .header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    padding: 20px 0;
+    margin-bottom: 24px;
+    padding: 16px 0;
 }
 
 .app-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .app-title i {
-    font-size: 2rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.5rem;
+    color: var(--gradient-primary);
 }
 
 /* Ayarlar Bölümü */
 .settings-section {
-    margin-bottom: 40px;
+    margin-bottom: 0;
     position: relative;
-    padding-top: 20px;
 }
 
 .settings-container {
@@ -102,70 +101,73 @@ body {
 }
 
 .settings-toggle {
-    background: var(--gradient-primary) !important;
-    border: none !important;
-    border-radius: 50px !important;
-    width: 50px !important;
-    height: 50px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+    width: 40px !important;
+    height: 40px !important;
     cursor: pointer !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    color: white !important;
-    font-size: 1.2rem !important;
-    transition: all 0.3s ease !important;
-    box-shadow: var(--shadow) !important;
+    color: var(--text-secondary) !important;
+    font-size: 1rem !important;
+    transition: all 0.2s ease !important;
+    box-shadow: var(--shadow-card) !important;
     z-index: 10 !important;
 }
 
 .settings-toggle:hover {
-    transform: scale(1.1) !important;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    box-shadow: var(--shadow) !important;
 }
 
 .settings-toggle.active {
-    transform: rotate(90deg) !important;
+    background: var(--gradient-primary) !important;
+    color: white !important;
 }
 
 .settings-panel {
     position: absolute !important;
-    left: 60px !important;
-    top: -10px !important;
+    right: 0 !important;
+    top: 50px !important;
     background: var(--bg-card) !important;
-    border-radius: 25px !important;
-    padding: 20px 30px !important;
-    box-shadow: var(--shadow) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 16px !important;
+    box-shadow: var(--shadow-lg) !important;
     border: 1px solid var(--border-color) !important;
     opacity: 0 !important;
     visibility: hidden !important;
-    transform: translateX(-20px) !important;
-    transition: all 0.3s ease !important;
-    white-space: nowrap !important;
+    transform: translateY(-10px) !important;
+    transition: all 0.2s ease !important;
+    min-width: 200px !important;
     z-index: 1000 !important;
 }
 
 .settings-panel.active {
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateX(0) !important;
+    transform: translateY(0) !important;
 }
 
 .settings-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .settings-label {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .settings-buttons {
     display: flex;
-    gap: 15px;
+    gap: 8px;
     align-items: center;
 }
 
@@ -239,11 +241,10 @@ body {
 /* Note Form Styles */
 .note-form {
     background: var(--bg-card);
-    border-radius: 25px;
-    padding: 30px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    box-shadow: var(--shadow);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-card);
     border: 1px solid var(--border-color);
 }
 
@@ -253,14 +254,14 @@ body {
 
 .note-input {
     width: 100%;
-    padding: 15px 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 15px;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
     font-size: 1rem;
     background: var(--bg-secondary);
     color: var(--text-primary);
-    margin-bottom: 15px;
-    transition: all 0.3s ease;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
 }
 
 .note-input:focus {
@@ -272,15 +273,15 @@ body {
 .note-textarea {
     width: 100%;
     min-height: 120px;
-    padding: 15px 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 15px;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
     font-size: 1rem;
     background: var(--bg-secondary);
     color: var(--text-primary);
     resize: vertical;
     font-family: inherit;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .note-textarea:focus {
@@ -386,48 +387,53 @@ body {
 }
 
 .btn {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 15px;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
-    min-width: 140px;
+    gap: 6px;
+    min-width: 120px;
     justify-content: center;
+    background: var(--bg-card);
+    color: var(--text-primary);
 }
 
 .btn-primary {
     background: var(--gradient-primary);
     color: white;
+    border: none;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 
 .btn-secondary {
-    background: var(--gradient-secondary);
-    color: white;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3);
+    background: var(--bg-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 
 .btn-export {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    color: white;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .btn-export:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+    background: var(--bg-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 
 /* Search Section */
@@ -485,10 +491,10 @@ body {
 /* Note Card Styles */
 .note-card {
     background: var(--bg-card);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    transition: all 0.2s ease;
     position: relative;
     overflow: visible;
     cursor: grab;
