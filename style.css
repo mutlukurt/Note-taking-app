@@ -382,13 +382,19 @@ body {
     margin: 0 5px;
 }
 
-/* Text color button */
+/* Modern color picker styling */
+.color-picker-container {
+    position: relative;
+    display: inline-block;
+}
+
 #textColorBtn {
     position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: var(--text-color);
     transition: all 0.3s ease;
+    overflow: visible;
 }
 
 #textColorBtn:hover {
@@ -408,52 +414,27 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Color palette styling */
-.color-palette {
+/* Color indicator - small dot showing current color */
+.color-indicator {
     position: absolute;
-    top: 100%;
-    left: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 8px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    z-index: 1000;
-    box-shadow: var(--shadow-lg);
+    bottom: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Hide the native color picker input */
+#colorPicker {
+    position: absolute;
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    margin-top: 5px;
-    min-width: 120px;
-}
-
-.color-palette.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.color-option {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 2px solid var(--border-color);
-    transition: all 0.2s ease;
-    position: relative;
-}
-
-.color-option:hover {
-    transform: scale(1.15);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    border-color: var(--primary-color);
-}
-
-.color-option:active {
-    transform: scale(0.95);
+    pointer-events: none;
+    width: 0;
+    height: 0;
 }
 
 /* Custom highlight styling for rich editor */

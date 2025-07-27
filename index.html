@@ -64,19 +64,12 @@
                         <i class="fas fa-strikethrough"></i>
                     </button>
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" id="textColorBtn" title="Metin Rengi">
-                        <i class="fas fa-font"></i>
-                    </button>
-                    <div class="color-palette" id="textColorPalette">
-                        <div class="color-option" data-color="#000000" style="background-color: #000000;"></div>
-                        <div class="color-option" data-color="#ff0000" style="background-color: #ff0000;"></div>
-                        <div class="color-option" data-color="#ff8000" style="background-color: #ff8000;"></div>
-                        <div class="color-option" data-color="#ffff00" style="background-color: #ffff00;"></div>
-                        <div class="color-option" data-color="#80ff00" style="background-color: #80ff00;"></div>
-                        <div class="color-option" data-color="#00ff00" style="background-color: #00ff00;"></div>
-                        <div class="color-option" data-color="#00ff80" style="background-color: #00ff80;"></div>
-                        <div class="color-option" data-color="#0080ff" style="background-color: #0080ff;"></div>
-                        <div class="color-option" data-color="#8000ff" style="background-color: #8000ff;"></div>
+                    <div class="color-picker-container">
+                        <button type="button" class="toolbar-btn" id="textColorBtn" title="Metin Rengi">
+                            <i class="fas fa-font"></i>
+                            <span class="color-indicator"></span>
+                        </button>
+                        <input type="color" id="colorPicker" value="#000000" style="display: none;">
                     </div>
                     <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
@@ -741,103 +734,48 @@
             
             // Color picker functionality
             const textColorBtn = document.getElementById('textColorBtn');
-            const textColorPalette = document.getElementById('textColorPalette');
+            const colorPicker = document.getElementById('colorPicker');
             
-            // Text color palette
-            if (textColorBtn && textColorPalette) {
+            // Text color picker
+            if (textColorBtn && colorPicker) {
                 textColorBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Text color button clicked');
                     
-                    // Toggle palette visibility
-                    const isVisible = textColorPalette.classList.contains('active');
-                    
-                    // Hide all palettes first
-                    document.querySelectorAll('.color-palette').forEach(palette => {
-                        palette.classList.remove('active');
-                    });
-                    
-                    // Show/hide this palette
-                    if (!isVisible) {
-                        textColorPalette.classList.add('active');
-                    }
+                    // Trigger color picker
+                    colorPicker.click();
                 });
                 
-                // Text color options
-                textColorPalette.querySelectorAll('.color-option').forEach(option => {
-                    option.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const color = option.dataset.color;
-                        console.log('Text color selected:', color);
-                        
-                        editor.focus();
-                        
-                        // Get current selection
-                        const selection = window.getSelection();
-                        
-                        if (selection.rangeCount > 0 && !selection.isCollapsed) {
-                            // Text is selected - apply color to selection
-                            const range = selection.getRangeAt(0);
-                            const selectedText = range.toString();
-                            
-                            if (selectedText.length > 0) {
-                                if (color === '#000000') {
-                                    // For black color, create plain text node
-                                    const textNode = document.createTextNode(selectedText);
-                                    range.deleteContents();
-                                    range.insertNode(textNode);
-                                } else {
-                                    // For other colors, create colored span
-                                    const span = document.createElement('span');
-                                    span.style.color = color;
-                                    span.textContent = selectedText;
-                                    range.deleteContents();
-                                    range.insertNode(span);
-                                }
-                                
-                                // Clear selection
-                                selection.removeAllRanges();
-                                
-                                console.log('Text color applied to selection:', color);
-                            }
-                        } else {
-                            // No selection - set color for future typing
-                            // Clear any existing color first
-                            document.execCommand('styleWithCSS', false, true);
-                            
-                            if (color === '#000000') {
-                                // For black, try to reset to default
-                                document.execCommand('foreColor', false, 'initial');
-                                document.execCommand('foreColor', false, 'black');
-                                editor.style.color = '';
-                            } else {
-                                // For other colors, apply directly
-                                document.execCommand('foreColor', false, color);
-                            }
-                            console.log('Text color set for typing:', color);
-                        }
-                        
-                        editor.setAttribute('data-text-color', color);
-                        
-                        // Hide palette
-                        textColorPalette.classList.remove('active');
-                        
-                        // Add visual feedback
-                        textColorBtn.classList.add('active');
-                        setTimeout(() => textColorBtn.classList.remove('active'), 200);
-                    });
+                // Color picker change event
+                colorPicker.addEventListener('change', (e) => {
+                    const color = e.target.value;
+                    console.log('Text color selected:', color);
+                    
+                    editor.focus();
+                    
+                    // Apply color using simple execCommand
+                    document.execCommand('foreColor', false, color);
+                    
+                    // Update color indicator
+                    const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                    if (colorIndicator) {
+                        colorIndicator.style.backgroundColor = color;
+                    }
+                    
+                    editor.setAttribute('data-text-color', color);
+                    
+                    // Add visual feedback
+                    textColorBtn.classList.add('active');
+                    setTimeout(() => textColorBtn.classList.remove('active'), 200);
                 });
-            }
-            
-            // Close palettes when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.color-palette') && !e.target.closest('#textColorBtn')) {
-                    document.querySelectorAll('.color-palette').forEach(palette => {
-                        palette.classList.remove('active');
-                    });
+                
+                // Initialize color indicator
+                const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                if (colorIndicator) {
+                    colorIndicator.style.backgroundColor = '#000000';
                 }
-            });
+            }
             
             // Add keyboard shortcuts
             editor.addEventListener('keydown', (e) => {
