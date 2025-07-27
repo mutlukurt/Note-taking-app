@@ -8,7 +8,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 ## ✨ Özellikler
 
 - 🎨 **Modern Tasarım**: Oval köşeli, gradient renkli modern UI
-- 🌙 **Karanlık Mod**: Tema kontrol bölümündeki gece/gündüz ikonu ile açık/koyu tema değiştirme
+- 🌙 **Karanlık Mod**: Ayarlar bölümündeki gece/gündüz ikonu ile açık/koyu tema değiştirme
 - 🌍 **Çok Dilli Destek**: TR/EN dil değiştirme özelliği
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
@@ -38,9 +38,18 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 2. **Arama**: Üst kısımdaki arama kutusunu kullanarak notlarınızda arama yapın
 3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
 4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
-5. **Tema Değiştirme**: Tema kontrol bölümündeki güneş/ay ikonuna tıklayın
-6. **Dil Değiştirme**: Tema kontrol bölümündeki dünya ikonuna tıklayın (TR ↔ EN)
-7. **Temizleme**: "Temizle" butonu ile formu temizleyin
+5. **Tema Değiştirme**: Ayarlar bölümündeki güneş/ay ikonuna tıklayın
+6. **Dil Değiştirme**: Ayarlar bölümündeki dünya ikonuna tıklayın (TR ↔ EN)
+7. **Ayarlar Paneli**: Yuvarlak ayarlar butonuna tıklayarak tema ve dil seçeneklerini açın
+8. **Temizleme**: "Temizle" butonu ile formu temizleyin
+
+### ⚙️ **Ayarlar Sistemi:**
+1. **Yuvarlak Ayarlar Butonu**: Dişli ikonu ile modern tasarım
+2. **Genişleyen Panel**: Tıklandığında sağa doğru smooth açılma
+3. **Tema Değiştirme**: Güneş/ay ikonu ile açık/koyu tema
+4. **Dil Değiştirme**: Dünya ikonu ile TR/EN geçişi
+5. **Dışarı Tıklama**: Panel dışına tıklayarak kapatma
+6. **Animasyonlar**: Rotasyon, scale ve transform efektleri
 
 ### ✨ **Zengin Metin Editörü:**
 1. **Metin Formatlama**: Metni seçin ve toolbar'daki butonları kullanın
@@ -139,7 +148,7 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Swipe-to-Delete**: Kırmızı gradient silme butonu
 - **Undo Notification**: Alt kısımda güzel geri alma bildirimi
 - **Pin Göstergeleri**: Özel gradient arka planlar
-- **Tema Kontrol Bölümü**: Not alma kısmı ile aynı tasarım stili
+- **Ayarlar Bölümü**: Yuvarlak ayarlar butonu ve genişleyen panel sistemi
 - **Dil Değiştirme Butonu**: Yuvarlak dünya ikonu ile TR/EN geçişi
 - **PDF Export**: Profesyonel PDF çıktısı
 - **Masaüstü Modu**: Responsive tasarım ile uyumlu
