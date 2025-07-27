@@ -9,6 +9,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 
 - 🎨 **Modern Tasarım**: Oval köşeli, gradient renkli modern UI
 - 🌙 **Karanlık Mod**: Tema kontrol bölümündeki gece/gündüz ikonu ile açık/koyu tema değiştirme
+- 🌍 **Çok Dilli Destek**: TR/EN dil değiştirme özelliği
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
 - ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
@@ -38,7 +39,8 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
 4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
 5. **Tema Değiştirme**: Tema kontrol bölümündeki güneş/ay ikonuna tıklayın
-6. **Temizleme**: "Temizle" butonu ile formu temizleyin
+6. **Dil Değiştirme**: Tema kontrol bölümündeki dünya ikonuna tıklayın (TR ↔ EN)
+7. **Temizleme**: "Temizle" butonu ile formu temizleyin
 
 ### ✨ **Zengin Metin Editörü:**
 1. **Metin Formatlama**: Metni seçin ve toolbar'daki butonları kullanın
@@ -64,7 +66,8 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 3. **Filtreleme**: "Tümü", "Sabitlenenler", "Normal" seçenekleri
 4. **Swipe-to-Delete**: Not kartını sola kaydırarak kırmızı silme butonunu gösterin
 5. **Geri Alma**: Silinen notlar için 4 saniye geri alma süresi
-6. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
+6. **Dil Değiştirme**: TR/EN geçişi ile tam arayüz çevirisi
+7. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
 
 ## 🎯 Teknolojiler
 
@@ -137,6 +140,7 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Undo Notification**: Alt kısımda güzel geri alma bildirimi
 - **Pin Göstergeleri**: Özel gradient arka planlar
 - **Tema Kontrol Bölümü**: Not alma kısmı ile aynı tasarım stili
+- **Dil Değiştirme Butonu**: Yuvarlak dünya ikonu ile TR/EN geçişi
 - **PDF Export**: Profesyonel PDF çıktısı
 - **Masaüstü Modu**: Responsive tasarım ile uyumlu
 
@@ -170,12 +174,12 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - [ ] Otomatik kaydetme
 - [ ] Not geçmişi
 - [ ] İçe/dışa aktarma (JSON, TXT)
-- [ ] Çoklu dil desteği
 - [ ] Gelişmiş toolbar seçenekleri
 - [ ] Tablo oluşturma
 - [ ] Kod bloğu desteği
 - [ ] Emoji picker
 - [ ] Otomatik tamamlama
+- [ ] Daha fazla dil desteği (Almanca, Fransızca, vb.)
 
 ## 🤝 Katkıda Bulunma
 
@@ -197,6 +201,7 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 - **Rich Text Editor**: Kalın, italik, listeler, hizalama, fotoğraf
 - **PDF Export**: Profesyonel PDF çıktısı
 - **Karanlık Mod**: Tema değiştirme
+- **Çok Dilli Destek**: TR/EN dil değiştirme
 - **Responsive Tasarım**: Tüm cihazlarda mükemmel görünüm
 - **LocalStorage**: Güvenli veri saklama
 - **Klavye Kısayolları**: Hızlı erişim
