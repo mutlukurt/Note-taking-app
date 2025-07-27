@@ -159,9 +159,9 @@ body {
     content: attr(data-placeholder);
     color: var(--text-secondary);
     pointer-events: none;
-    position: absolute;
-    top: 120px;
-    left: 20px;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 .rich-editor img {
