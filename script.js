@@ -25,6 +25,12 @@ class NotesApp {
         this.renderNotes();
         this.updateEmptyState();
         this.setupThemeOptions();
+        
+        // Debug: Check theme elements
+        console.log('Theme elements check:');
+        console.log('Theme menu button:', document.getElementById('themeMenuBtn'));
+        console.log('Theme dropdown:', document.getElementById('themeDropdown'));
+        console.log('Theme options:', document.querySelectorAll('.theme-option').length);
     }
 
     setupEventListeners() {
@@ -38,7 +44,15 @@ class NotesApp {
             e.preventDefault();
             e.stopPropagation();
             console.log('Theme menu button clicked!');
-            this.toggleThemeMenu();
+            
+            // Check if dropdown exists
+            const dropdown = document.getElementById('themeDropdown');
+            if (dropdown) {
+                console.log('Dropdown found:', dropdown);
+                this.toggleThemeMenu();
+            } else {
+                console.error('Dropdown not found!');
+            }
         });
 
         // Theme options - will be added dynamically
@@ -155,12 +169,14 @@ class NotesApp {
         const dropdown = document.getElementById('themeDropdown');
         console.log('Toggle theme menu clicked');
         
-        if (dropdown.style.display === 'block') {
-            dropdown.style.display = 'none';
+        // Basit toggle
+        if (dropdown.classList.contains('show')) {
             dropdown.classList.remove('show');
+            dropdown.style.display = 'none';
+            console.log('Theme menu closed');
         } else {
-            dropdown.style.display = 'block';
             dropdown.classList.add('show');
+            dropdown.style.display = 'block';
             console.log('Theme menu opened');
             this.setupThemeOptions();
         }

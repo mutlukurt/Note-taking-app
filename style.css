@@ -193,19 +193,21 @@ body {
     box-shadow: var(--shadow);
     padding: 10px;
     min-width: 180px;
-    z-index: 1000;
+    z-index: 9999;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
     display: none;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .theme-dropdown.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-    display: block;
+    display: block !important;
 }
 
 .theme-option {
