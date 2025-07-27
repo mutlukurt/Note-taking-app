@@ -24,13 +24,6 @@ class NotesApp {
         this.applySortAndFilter();
         this.renderNotes();
         this.updateEmptyState();
-        this.setupThemeOptions();
-        
-        // Debug: Check theme elements
-        console.log('Theme elements check:');
-        console.log('Theme menu button:', document.getElementById('themeMenuBtn'));
-        console.log('Theme dropdown:', document.getElementById('themeDropdown'));
-        console.log('Theme options:', document.querySelectorAll('.theme-option').length);
     }
 
     setupEventListeners() {
@@ -39,34 +32,7 @@ class NotesApp {
             this.toggleTheme();
         });
 
-        // Theme menu button
-        document.getElementById('themeMenuBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Theme menu button clicked!');
-            
-            // Check if dropdown exists
-            const dropdown = document.getElementById('themeDropdown');
-            if (dropdown) {
-                console.log('Dropdown found:', dropdown);
-                this.toggleThemeMenu();
-            } else {
-                console.error('Dropdown not found!');
-            }
-        });
 
-        // Theme options - will be added dynamically
-        this.setupThemeOptions();
-
-        // Close theme menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const themeSelector = document.querySelector('.theme-selector');
-            const dropdown = document.getElementById('themeDropdown');
-            
-            if (dropdown.style.display === 'block' && !themeSelector.contains(e.target)) {
-                this.closeThemeMenu();
-            }
-        });
 
         // Add note
         document.getElementById('addNote').addEventListener('click', () => {
@@ -154,91 +120,18 @@ class NotesApp {
         this.applyTheme();
     }
 
-    setupThemeOptions() {
-        // Add event listeners to theme options
-        document.querySelectorAll('.theme-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const theme = e.currentTarget.dataset.theme;
-                this.changeTheme(theme);
-            });
-        });
-    }
-
-    toggleThemeMenu() {
-        const dropdown = document.getElementById('themeDropdown');
-        console.log('Toggle theme menu clicked');
-        
-        // Basit toggle
-        if (dropdown.classList.contains('show')) {
-            dropdown.classList.remove('show');
-            dropdown.style.display = 'none';
-            console.log('Theme menu closed');
-        } else {
-            dropdown.classList.add('show');
-            dropdown.style.display = 'block';
-            console.log('Theme menu opened');
-            this.setupThemeOptions();
-        }
-    }
-
-    closeThemeMenu() {
-        const dropdown = document.getElementById('themeDropdown');
-        dropdown.style.display = 'none';
-        dropdown.classList.remove('show');
-    }
-
-    changeTheme(theme) {
-        this.currentTheme = theme;
-        localStorage.setItem('theme', theme);
-        this.applyTheme();
-        this.closeThemeMenu();
-        this.updateThemeMenu();
-        
-        const themeNames = {
-            'light': 'Açık',
-            'dark': 'Gece',
-            'purple': 'Açık Mor',
-            'blue': 'Açık Mavi',
-            'night-blue': 'Gece Mavisi',
-            'vintage': 'Vintage'
-        };
-        
-        this.showNotification(`Tema değiştirildi: ${themeNames[theme]}`, 'success');
-    }
-
-    updateThemeMenu() {
-        document.querySelectorAll('.theme-option').forEach(option => {
-            option.classList.remove('active');
-            if (option.dataset.theme === this.currentTheme) {
-                option.classList.add('active');
-            }
-        });
-    }
-
     applyTheme() {
-        // Remove all theme classes
-        document.body.classList.remove('dark-mode', 'purple-theme', 'blue-theme', 'night-blue-theme', 'vintage-theme');
-        
-        // Add current theme class
-        if (this.currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (this.currentTheme !== 'light') {
-            document.body.classList.add(`${this.currentTheme}-theme`);
-        }
-        
-        // Update theme toggle icon
+        const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
         const icon = themeToggle.querySelector('i');
-        
-        if (this.currentTheme === 'dark' || this.currentTheme === 'night-blue') {
+
+        if (this.currentTheme === 'dark') {
+            body.classList.add('dark-mode');
             icon.className = 'fas fa-moon';
         } else {
+            body.classList.remove('dark-mode');
             icon.className = 'fas fa-sun';
         }
-        
-        // Update theme menu
-        this.updateThemeMenu();
     }
 
     setSort(sortType) {

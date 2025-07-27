@@ -8,7 +8,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 ## ✨ Özellikler
 
 - 🎨 **Modern Tasarım**: Oval köşeli, gradient renkli modern UI
-- 🌙 **Karanlık Mod**: Sağ üst köşedeki gece/gündüz ikonu ile tema değiştirme
+- 🌙 **Karanlık Mod**: Sağ üst köşedeki gece/gündüz ikonu ile açık/koyu tema değiştirme
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
 - ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
