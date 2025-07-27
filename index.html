@@ -67,11 +67,29 @@
                     <button type="button" class="toolbar-btn" id="textColorBtn" title="Metin Rengi">
                         <i class="fas fa-palette"></i>
                     </button>
-                    <input type="color" id="textColorPicker" style="display: none;">
+                    <div class="color-palette" id="textColorPalette">
+                        <div class="color-option" data-color="#ff0000" style="background-color: #ff0000;"></div>
+                        <div class="color-option" data-color="#ff8000" style="background-color: #ff8000;"></div>
+                        <div class="color-option" data-color="#ffff00" style="background-color: #ffff00;"></div>
+                        <div class="color-option" data-color="#80ff00" style="background-color: #80ff00;"></div>
+                        <div class="color-option" data-color="#00ff00" style="background-color: #00ff00;"></div>
+                        <div class="color-option" data-color="#00ff80" style="background-color: #00ff80;"></div>
+                        <div class="color-option" data-color="#0080ff" style="background-color: #0080ff;"></div>
+                        <div class="color-option" data-color="#8000ff" style="background-color: #8000ff;"></div>
+                    </div>
                     <button type="button" class="toolbar-btn" id="highlightBtn" title="Arka Plan Rengi">
                         <i class="fas fa-highlighter"></i>
                     </button>
-                    <input type="color" id="highlightPicker" style="display: none;">
+                    <div class="color-palette" id="highlightColorPalette">
+                        <div class="color-option" data-color="#ffebee" style="background-color: #ffebee;"></div>
+                        <div class="color-option" data-color="#fff3e0" style="background-color: #fff3e0;"></div>
+                        <div class="color-option" data-color="#fffde7" style="background-color: #fffde7;"></div>
+                        <div class="color-option" data-color="#f1f8e9" style="background-color: #f1f8e9;"></div>
+                        <div class="color-option" data-color="#e8f5e8" style="background-color: #e8f5e8;"></div>
+                        <div class="color-option" data-color="#e0f2f1" style="background-color: #e0f2f1;"></div>
+                        <div class="color-option" data-color="#e3f2fd" style="background-color: #e3f2fd;"></div>
+                        <div class="color-option" data-color="#f3e5f5" style="background-color: #f3e5f5;"></div>
+                    </div>
                     <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
                         <i class="fas fa-list-ul"></i>
@@ -735,55 +753,121 @@
             
             // Color picker functionality
             const textColorBtn = document.getElementById('textColorBtn');
-            const textColorPicker = document.getElementById('textColorPicker');
+            const textColorPalette = document.getElementById('textColorPalette');
             const highlightBtn = document.getElementById('highlightBtn');
-            const highlightPicker = document.getElementById('highlightPicker');
+            const highlightColorPalette = document.getElementById('highlightColorPalette');
             
-            // Text color picker
-            if (textColorBtn && textColorPicker) {
+            // Text color palette
+            if (textColorBtn && textColorPalette) {
                 textColorBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Text color button clicked');
-                    textColorPicker.click();
+                    
+                    // Toggle palette visibility
+                    const isVisible = textColorPalette.classList.contains('active');
+                    
+                    // Hide all palettes first
+                    document.querySelectorAll('.color-palette').forEach(palette => {
+                        palette.classList.remove('active');
+                    });
+                    
+                    // Show/hide this palette
+                    if (!isVisible) {
+                        textColorPalette.classList.add('active');
+                    }
                 });
                 
-                textColorPicker.addEventListener('change', (e) => {
-                    const color = e.target.value;
-                    console.log('Text color selected:', color);
-                    
-                    editor.focus();
-                    const success = document.execCommand('foreColor', false, color);
-                    console.log('Text color applied:', success);
-                    
-                    // Add visual feedback
-                    textColorBtn.classList.add('active');
-                    setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                // Text color options
+                textColorPalette.querySelectorAll('.color-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const color = option.dataset.color;
+                        console.log('Text color selected:', color);
+                        
+                        editor.focus();
+                        const success = document.execCommand('foreColor', false, color);
+                        console.log('Text color applied:', success);
+                        
+                        // Hide palette
+                        textColorPalette.classList.remove('active');
+                        
+                        // Add visual feedback
+                        textColorBtn.classList.add('active');
+                        setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                    });
                 });
             }
             
-            // Highlight color picker
-            if (highlightBtn && highlightPicker) {
+            // Highlight color palette
+            if (highlightBtn && highlightColorPalette) {
                 highlightBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Highlight button clicked');
-                    highlightPicker.click();
+                    
+                    // Toggle palette visibility
+                    const isVisible = highlightColorPalette.classList.contains('active');
+                    
+                    // Hide all palettes first
+                    document.querySelectorAll('.color-palette').forEach(palette => {
+                        palette.classList.remove('active');
+                    });
+                    
+                    // Show/hide this palette
+                    if (!isVisible) {
+                        highlightColorPalette.classList.add('active');
+                    }
                 });
                 
-                highlightPicker.addEventListener('change', (e) => {
-                    const color = e.target.value;
-                    console.log('Highlight color selected:', color);
-                    
-                    editor.focus();
-                    const success = document.execCommand('backColor', false, color);
-                    console.log('Highlight color applied:', success);
-                    
-                    // Add visual feedback
-                    highlightBtn.classList.add('active');
-                    setTimeout(() => highlightBtn.classList.remove('active'), 200);
+                // Highlight color options
+                highlightColorPalette.querySelectorAll('.color-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const color = option.dataset.color;
+                        console.log('Highlight color selected:', color);
+                        
+                        editor.focus();
+                        
+                        // Create custom highlight with oval corners and opacity
+                        const selection = window.getSelection();
+                        if (selection.rangeCount > 0) {
+                            const range = selection.getRangeAt(0);
+                            const span = document.createElement('span');
+                            span.style.backgroundColor = color;
+                            span.style.borderRadius = '8px';
+                            span.style.padding = '2px 4px';
+                            span.style.opacity = '0.7';
+                            span.style.display = 'inline-block';
+                            
+                            try {
+                                range.surroundContents(span);
+                                console.log('Custom highlight applied');
+                            } catch (error) {
+                                // Fallback to execCommand if surroundContents fails
+                                const success = document.execCommand('backColor', false, color);
+                                console.log('Fallback highlight applied:', success);
+                            }
+                        }
+                        
+                        // Hide palette
+                        highlightColorPalette.classList.remove('active');
+                        
+                        // Add visual feedback
+                        highlightBtn.classList.add('active');
+                        setTimeout(() => highlightBtn.classList.remove('active'), 200);
+                    });
                 });
             }
+            
+            // Close palettes when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.color-palette') && !e.target.closest('#textColorBtn') && !e.target.closest('#highlightBtn')) {
+                    document.querySelectorAll('.color-palette').forEach(palette => {
+                        palette.classList.remove('active');
+                    });
+                }
+            });
             
             // Add keyboard shortcuts
             editor.addEventListener('keydown', (e) => {

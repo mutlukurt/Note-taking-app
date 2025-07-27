@@ -343,6 +343,7 @@ body {
     border-bottom: none;
     border-radius: 15px 15px 0 0;
     flex-wrap: wrap;
+    position: relative;
 }
 
 
@@ -381,10 +382,9 @@ body {
     margin: 0 5px;
 }
 
-/* Color picker buttons */
+/* Color palette buttons */
 #textColorBtn, #highlightBtn {
     position: relative;
-    overflow: hidden;
 }
 
 #textColorBtn::before, #highlightBtn::before {
@@ -396,7 +396,7 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080);
+    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #0080ff, #8000ff);
     background-size: 200% 200%;
     animation: colorRainbow 3s ease-in-out infinite;
     opacity: 0.7;
@@ -413,13 +413,59 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* Color picker input styling */
-#textColorPicker, #highlightPicker {
+/* Color palette styling */
+.color-palette {
     position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
     opacity: 0;
-    pointer-events: none;
-    width: 1px;
-    height: 1px;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    min-width: 120px;
+}
+
+.color-palette.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.color-option {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-option:active {
+    transform: scale(0.95);
+}
+
+/* Custom highlight styling for rich editor */
+.rich-editor span[style*="background-color"] {
+    border-radius: 8px !important;
+    padding: 2px 4px !important;
+    opacity: 0.7 !important;
+    display: inline-block !important;
 }
 
 /* Adjust textarea border radius when toolbar is present */
