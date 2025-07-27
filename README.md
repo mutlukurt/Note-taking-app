@@ -23,7 +23,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
 - 📐 **Hizalama**: Sola, orta ve sağa hizalama
 - 🖼️ **Fotoğraf Ekleme**: Notlarınıza resim ekleyebilme (5MB'a kadar)
-- 📄 **PDF Export**: Notlarınızı direkt PDF olarak indirme
+
 
 ## 🚀 Kullanım
 
@@ -41,7 +41,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 2. **Liste Oluşturma**: • (Madde işaretli) veya 1. (Numaralı) butonları
 3. **Hizalama**: ← (Sola), ↔ (Ortala), → (Sağa) butonları
 4. **Fotoğraf Ekleme**: 🖼️ butonuna tıklayıp resim seçin (5MB'a kadar)
-5. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
+
 
 ### 📌 **Gelişmiş Özellikler:**
 1. **Sabitleme**: 📌 ikonuna tıklayarak notu sabitleyin
@@ -56,8 +56,7 @@ Modern, kullanıcı dostu ve güzel tasarımlı bir not alma uygulaması. Oval k
 - **JavaScript (ES6+)**: Modern JavaScript sınıfları ve metodları
 - **Font Awesome**: Güzel ikonlar
 - **LocalStorage**: Veri saklama
-- **jsPDF**: PDF dosyası oluşturma
-- **html2canvas**: HTML'i resme çevirme
+
 
 ## 📁 Dosya Yapısı
 
@@ -116,7 +115,7 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **Zengin Editör**: Profesyonel toolbar tasarımı
 - **Swipe Animasyonları**: Mobil dostu kaydırma efektleri
 - **Pin Göstergeleri**: Özel gradient arka planlar
-- **PDF Export**: A4 formatında yüksek kaliteli PDF çıktısı
+
 
 ## 🔒 Veri Güvenliği
 
@@ -136,7 +135,7 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - [ ] Gelişmiş arama filtreleri
 - [ ] Kullanıcı sistemi (backend ile)
 - [ ] Çoklu dosya yükleme
-- [x] PDF export
+
 - [ ] Not şablonları
 - [ ] Otomatik yedekleme
 

@@ -76,11 +76,7 @@ class NotesApp {
             });
         });
 
-        // Font selector
-        document.getElementById('fontSelect').addEventListener('change', (e) => {
-            console.log('Font seçildi:', e.target.value);
-            this.changeFont(e.target.value);
-        });
+
 
         // Image upload
         document.getElementById('addImageBtn').addEventListener('click', () => {
@@ -113,14 +109,7 @@ class NotesApp {
             this.updateToolbarState();
         });
 
-        // Font selector update on selection change
-        document.getElementById('noteContent').addEventListener('mouseup', () => {
-            this.updateFontSelector();
-        });
 
-        document.getElementById('noteContent').addEventListener('keyup', () => {
-            this.updateFontSelector();
-        });
     }
 
     toggleTheme() {
@@ -743,8 +732,7 @@ class NotesApp {
             btn.classList.toggle('active', isActive);
         });
         
-        // Update font selector
-        this.updateFontSelector();
+
     }
 
     handleImageUpload(event) {
@@ -970,32 +958,7 @@ class NotesApp {
         }
     }
 
-    changeFont(fontFamily) {
-        const editor = document.getElementById('noteContent');
-        
-        // Editöre odaklan
-        editor.focus();
-        
-        // Basit ve etkili yöntem: CSS style uygula
-        if (editor.style.fontFamily !== fontFamily) {
-            editor.style.fontFamily = fontFamily;
-            this.showNotification(`Font değiştirildi: ${fontFamily.split(',')[0].replace(/'/g, '')}`, 'success');
-        }
-        
-        // Font seçiciyi güncelle
-        this.updateFontSelector();
-    }
 
-    updateFontSelector() {
-        const editor = document.getElementById('noteContent');
-        const fontSelect = document.getElementById('fontSelect');
-        
-        // Editörün mevcut fontunu al
-        const currentFont = editor.style.fontFamily || 'Arial, sans-serif';
-        
-        // Font seçiciyi güncelle
-        fontSelect.value = currentFont;
-    }
 }
 
 
