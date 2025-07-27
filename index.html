@@ -78,6 +78,31 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="header-container">
+                        <button type="button" class="toolbar-btn" id="headerBtn" title="Başlık">
+                            <i class="fas fa-heading"></i>
+                            <span class="header-indicator">P</span>
+                        </button>
+                        <div class="header-dropdown">
+                            <button class="header-option" data-header="p" title="Normal Metin">
+                                <span class="header-preview normal-text">P</span>
+                                <span class="header-label">Normal</span>
+                            </button>
+                            <button class="header-option" data-header="h1" title="Başlık 1">
+                                <span class="header-preview h1-preview">H1</span>
+                                <span class="header-label">Başlık 1</span>
+                            </button>
+                            <button class="header-option" data-header="h2" title="Başlık 2">
+                                <span class="header-preview h2-preview">H2</span>
+                                <span class="header-label">Başlık 2</span>
+                            </button>
+                            <button class="header-option" data-header="h3" title="Başlık 3">
+                                <span class="header-preview h3-preview">H3</span>
+                                <span class="header-label">Başlık 3</span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
                         <i class="fas fa-list-ul"></i>
@@ -801,6 +826,129 @@
                 if (blackBtn) {
                     blackBtn.classList.add('selected');
                 }
+            }
+            
+            // Header selector
+            const headerBtn = toolbar.querySelector('#headerBtn');
+            if (headerBtn) {
+                const headerContainer = headerBtn.parentElement;
+                const headerDropdown = headerContainer.querySelector('.header-dropdown');
+                const headerOptions = headerDropdown.querySelectorAll('.header-option');
+                const headerIndicator = headerBtn.querySelector('.header-indicator');
+                
+                let currentHeader = 'p';
+                
+                // Toggle dropdown
+                headerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other dropdowns first
+                    document.querySelectorAll('.header-dropdown').forEach(dropdown => {
+                        if (dropdown !== headerDropdown) {
+                            dropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    headerDropdown.classList.toggle('active');
+                });
+                
+                // Header option click handlers
+                headerOptions.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const headerType = option.dataset.header;
+                        applyHeader(headerType);
+                        
+                        // Update UI
+                        headerOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        
+                        // Close dropdown
+                        headerDropdown.classList.remove('active');
+                    });
+                });
+                
+                // Apply header function
+                function applyHeader(headerType) {
+                    currentHeader = headerType;
+                    editor.focus();
+                    
+                    // Get current selection or cursor position
+                    const selection = window.getSelection();
+                    
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        
+                        // Find the current block element (paragraph or header)
+                        let blockElement = range.commonAncestorContainer;
+                        
+                        // If we're in a text node, get its parent
+                        if (blockElement.nodeType === Node.TEXT_NODE) {
+                            blockElement = blockElement.parentElement;
+                        }
+                        
+                        // Find the closest block-level element
+                        while (blockElement && blockElement !== editor && 
+                               !['P', 'H1', 'H2', 'H3', 'DIV'].includes(blockElement.tagName)) {
+                            blockElement = blockElement.parentElement;
+                        }
+                        
+                        // If we found a valid block element
+                        if (blockElement && blockElement !== editor) {
+                            const content = blockElement.innerHTML;
+                            const newElement = document.createElement(headerType.toUpperCase());
+                            newElement.innerHTML = content;
+                            
+                            // Copy any existing styles
+                            if (blockElement.style.cssText) {
+                                newElement.style.cssText = blockElement.style.cssText;
+                            }
+                            
+                            // Replace the old element
+                            blockElement.parentNode.replaceChild(newElement, blockElement);
+                            
+                            // Restore cursor position
+                            const newRange = document.createRange();
+                            newRange.selectNodeContents(newElement);
+                            newRange.collapse(false);
+                            selection.removeAllRanges();
+                            selection.addRange(newRange);
+                        } else {
+                            // If no block element found, use execCommand for new content
+                            if (headerType === 'p') {
+                                document.execCommand('formatBlock', false, 'div');
+                            } else {
+                                document.execCommand('formatBlock', false, headerType);
+                            }
+                        }
+                    }
+                    
+                    // Update indicator
+                    if (headerIndicator) {
+                        headerIndicator.textContent = headerType.toUpperCase();
+                    }
+                    
+                    // Add visual feedback
+                    headerBtn.classList.add('active');
+                    setTimeout(() => headerBtn.classList.remove('active'), 200);
+                }
+                
+                // Initialize - select normal text by default
+                const normalOption = headerDropdown.querySelector('[data-header="p"]');
+                if (normalOption) {
+                    normalOption.classList.add('selected');
+                }
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.header-container')) {
+                        headerDropdown.classList.remove('active');
+                    }
+                });
             }
             
             // Add keyboard shortcuts
