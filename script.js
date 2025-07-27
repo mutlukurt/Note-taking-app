@@ -27,10 +27,13 @@ class NotesApp {
     }
 
     setupEventListeners() {
-        // Theme toggle
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            this.toggleTheme();
-        });
+        // Theme toggle - Basit ve güvenilir
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.onclick = () => {
+                this.toggleTheme();
+            };
+        }
 
 
 
@@ -116,11 +119,7 @@ class NotesApp {
 
     toggleTheme() {
         // Tema değiştir
-        if (this.currentTheme === 'light') {
-            this.currentTheme = 'dark';
-        } else {
-            this.currentTheme = 'light';
-        }
+        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
         
         // LocalStorage'a kaydet
         localStorage.setItem('theme', this.currentTheme);
@@ -136,16 +135,19 @@ class NotesApp {
     applyTheme() {
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
-
-        if (this.currentTheme === 'dark') {
-            // Karanlık tema
-            body.classList.add('dark-mode');
-            icon.className = 'fas fa-moon';
-        } else {
-            // Açık tema
-            body.classList.remove('dark-mode');
-            icon.className = 'fas fa-sun';
+        
+        if (themeToggle) {
+            const icon = themeToggle.querySelector('i');
+            
+            if (this.currentTheme === 'dark') {
+                // Karanlık tema
+                body.classList.add('dark-mode');
+                if (icon) icon.className = 'fas fa-moon';
+            } else {
+                // Açık tema
+                body.classList.remove('dark-mode');
+                if (icon) icon.className = 'fas fa-sun';
+            }
         }
     }
 
