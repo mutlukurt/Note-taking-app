@@ -152,6 +152,8 @@ class NotesApp {
             this.updateToolbarState();
         });
 
+        // Color picker setup
+        this.setupColorPicker();
 
     }
 
@@ -1015,6 +1017,100 @@ class NotesApp {
         }
     }
 
+    setupColorPicker() {
+        const colorPickerBtn = document.getElementById('colorPickerBtn');
+        const colorPalette = document.getElementById('colorPalette');
+        const colorOptions = document.querySelectorAll('.color-option');
+        
+        if (!colorPickerBtn || !colorPalette) {
+            console.error('Color picker elements not found!');
+            return;
+        }
+
+        // Toggle color palette
+        colorPickerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isOpen = colorPalette.classList.contains('show');
+            
+            // Close all other palettes first
+            document.querySelectorAll('.color-palette.show').forEach(palette => {
+                if (palette !== colorPalette) {
+                    palette.classList.remove('show');
+                }
+            });
+            
+            // Toggle current palette
+            if (isOpen) {
+                colorPalette.classList.remove('show');
+                colorPickerBtn.classList.remove('active');
+            } else {
+                colorPalette.classList.add('show');
+                colorPickerBtn.classList.add('active');
+            }
+        });
+
+        // Handle color selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const color = option.getAttribute('data-color');
+                
+                // Remove active class from all options
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add active class to selected option
+                option.classList.add('selected');
+                
+                // Apply color to selected text
+                this.applyTextColor(color);
+                
+                // Close palette
+                colorPalette.classList.remove('show');
+                colorPickerBtn.classList.remove('active');
+                
+                // Show notification
+                this.showNotification(`Metin rengi değiştirildi: ${color}`, 'success');
+            });
+        });
+
+        // Close palette when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!colorPickerBtn.contains(e.target) && !colorPalette.contains(e.target)) {
+                colorPalette.classList.remove('show');
+                colorPickerBtn.classList.remove('active');
+            }
+        });
+    }
+
+    applyTextColor(color) {
+        const editor = document.getElementById('noteContent');
+        
+        if (!editor) {
+            console.error('Editor not found!');
+            return;
+        }
+
+        // Focus editor first
+        editor.focus();
+        
+        // Check if there's a selection
+        const selection = window.getSelection();
+        
+        if (selection.rangeCount > 0 && !selection.isCollapsed) {
+            // Apply color to selected text
+            document.execCommand('foreColor', false, color);
+        } else {
+            // No selection, apply color to cursor position
+            document.execCommand('foreColor', false, color);
+        }
+        
+        // Update toolbar state
+        this.updateToolbarState();
+    }
 
 }
 

@@ -381,6 +381,60 @@ body {
     margin: 0 5px;
 }
 
+/* Color Picker Styles */
+.color-picker-container {
+    position: relative;
+    display: inline-block;
+}
+
+.color-picker-btn {
+    position: relative;
+}
+
+.color-picker-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.color-palette {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px;
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 120px;
+}
+
+.color-palette.show {
+    display: grid;
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: var(--text-primary);
+}
+
+.color-option.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
 /* Adjust textarea border radius when toolbar is present */
 .editor-toolbar + .note-textarea {
     border-radius: 0 0 15px 15px;
