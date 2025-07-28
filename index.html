@@ -1006,15 +1006,27 @@
                 colorOptions.forEach(option => {
                     option.addEventListener('click', (e) => {
                         e.stopPropagation();
+                        
+                        // Remove selected class from all options
+                        colorOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Add selected class to clicked option
+                        option.classList.add('selected');
+                        
                         const color = option.dataset.color;
                         applyTextColor(color);
                     });
                 });
             }
             
-            // Load saved text color (optional - for future use)
+            // Load saved text color and highlight the last selected color
             const savedColor = localStorage.getItem('noteTextColor');
-            // Note: We don't apply saved color on load as it should be applied per text selection
+            if (savedColor) {
+                const savedOption = document.querySelector(`[data-color="${savedColor}"]`);
+                if (savedOption) {
+                    savedOption.classList.add('selected');
+                }
+            }
         }
         
         // Language Toggle Setup
@@ -1553,32 +1565,32 @@
                 </button>
             </div>
             <div class="color-palette-grid">
-                <div class="color-option" data-color="#000000" title="Siyah"></div>
-                <div class="color-option" data-color="#333333" title="Koyu Gri"></div>
-                <div class="color-option" data-color="#666666" title="Gri"></div>
-                <div class="color-option" data-color="#999999" title="Açık Gri"></div>
-                <div class="color-option" data-color="#ff0000" title="Kırmızı"></div>
-                <div class="color-option" data-color="#ff6600" title="Turuncu"></div>
-                <div class="color-option" data-color="#ffcc00" title="Sarı"></div>
-                <div class="color-option" data-color="#00ff00" title="Yeşil"></div>
-                <div class="color-option" data-color="#00ccff" title="Açık Mavi"></div>
-                <div class="color-option" data-color="#0066ff" title="Mavi"></div>
-                <div class="color-option" data-color="#6600ff" title="Mor"></div>
-                <div class="color-option" data-color="#ff00ff" title="Pembe"></div>
-                <div class="color-option" data-color="#cc6600" title="Kahverengi"></div>
-                <div class="color-option" data-color="#ff6666" title="Açık Kırmızı"></div>
-                <div class="color-option" data-color="#ffcc66" title="Açık Turuncu"></div>
-                <div class="color-option" data-color="#ffff66" title="Açık Sarı"></div>
-                <div class="color-option" data-color="#66ff66" title="Açık Yeşil"></div>
-                <div class="color-option" data-color="#66ccff" title="Açık Mavi"></div>
-                <div class="color-option" data-color="#6699ff" title="Orta Mavi"></div>
-                <div class="color-option" data-color="#9966ff" title="Açık Mor"></div>
-                <div class="color-option" data-color="#ff66ff" title="Açık Pembe"></div>
-                <div class="color-option" data-color="#cc9966" title="Açık Kahverengi"></div>
-                <div class="color-option" data-color="#ff3333" title="Canlı Kırmızı"></div>
-                <div class="color-option" data-color="#ff9933" title="Canlı Turuncu"></div>
-                <div class="color-option" data-color="#33cc33" title="Canlı Yeşil"></div>
-                <div class="color-option" data-color="#3366ff" title="Canlı Mavi"></div>
+                <div class="color-option" data-color="#000000" title="Siyah" style="background-color: #000000;"></div>
+                <div class="color-option" data-color="#333333" title="Koyu Gri" style="background-color: #333333;"></div>
+                <div class="color-option" data-color="#666666" title="Gri" style="background-color: #666666;"></div>
+                <div class="color-option" data-color="#999999" title="Açık Gri" style="background-color: #999999;"></div>
+                <div class="color-option" data-color="#ff0000" title="Kırmızı" style="background-color: #ff0000;"></div>
+                <div class="color-option" data-color="#ff6600" title="Turuncu" style="background-color: #ff6600;"></div>
+                <div class="color-option" data-color="#ffcc00" title="Sarı" style="background-color: #ffcc00;"></div>
+                <div class="color-option" data-color="#00ff00" title="Yeşil" style="background-color: #00ff00;"></div>
+                <div class="color-option" data-color="#00ccff" title="Açık Mavi" style="background-color: #00ccff;"></div>
+                <div class="color-option" data-color="#0066ff" title="Mavi" style="background-color: #0066ff;"></div>
+                <div class="color-option" data-color="#6600ff" title="Mor" style="background-color: #6600ff;"></div>
+                <div class="color-option" data-color="#ff00ff" title="Pembe" style="background-color: #ff00ff;"></div>
+                <div class="color-option" data-color="#cc6600" title="Kahverengi" style="background-color: #cc6600;"></div>
+                <div class="color-option" data-color="#ff6666" title="Açık Kırmızı" style="background-color: #ff6666;"></div>
+                <div class="color-option" data-color="#ffcc66" title="Açık Turuncu" style="background-color: #ffcc66;"></div>
+                <div class="color-option" data-color="#ffff66" title="Açık Sarı" style="background-color: #ffff66;"></div>
+                <div class="color-option" data-color="#66ff66" title="Açık Yeşil" style="background-color: #66ff66;"></div>
+                <div class="color-option" data-color="#66ccff" title="Açık Mavi" style="background-color: #66ccff;"></div>
+                <div class="color-option" data-color="#6699ff" title="Orta Mavi" style="background-color: #6699ff;"></div>
+                <div class="color-option" data-color="#9966ff" title="Açık Mor" style="background-color: #9966ff;"></div>
+                <div class="color-option" data-color="#ff66ff" title="Açık Pembe" style="background-color: #ff66ff;"></div>
+                <div class="color-option" data-color="#cc9966" title="Açık Kahverengi" style="background-color: #cc9966;"></div>
+                <div class="color-option" data-color="#ff3333" title="Canlı Kırmızı" style="background-color: #ff3333;"></div>
+                <div class="color-option" data-color="#ff9933" title="Canlı Turuncu" style="background-color: #ff9933;"></div>
+                <div class="color-option" data-color="#33cc33" title="Canlı Yeşil" style="background-color: #33cc33;"></div>
+                <div class="color-option" data-color="#3366ff" title="Canlı Mavi" style="background-color: #3366ff;"></div>
             </div>
         </div>
     </div>
