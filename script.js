@@ -152,8 +152,7 @@ class NotesApp {
             this.updateToolbarState();
         });
 
-        // Color grid setup
-        this.setupColorGrid();
+
 
     }
 
@@ -1017,82 +1016,7 @@ class NotesApp {
         }
     }
 
-    setupColorGrid() {
-        console.log('Setting up color grid...');
-        const colorGridBtn = document.getElementById('colorGridBtn');
-        const colorGridModal = document.getElementById('colorGridModal');
-        const closeColorGrid = document.getElementById('closeColorGrid');
-        const gridColors = document.querySelectorAll('.grid-color');
-        
-        console.log('Color grid elements:', {
-            colorGridBtn: !!colorGridBtn,
-            colorGridModal: !!colorGridModal,
-            closeColorGrid: !!closeColorGrid,
-            gridColorsCount: gridColors.length
-        });
-        
-        if (!colorGridBtn || !colorGridModal) {
-            console.error('Color grid elements not found!');
-            return;
-        }
 
-        // Open color grid modal
-        colorGridBtn.addEventListener('click', (e) => {
-            console.log('Color grid button clicked!');
-            e.preventDefault();
-            e.stopPropagation();
-            colorGridModal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-            console.log('Modal should be visible now');
-        });
-
-        // Close color grid modal
-        const closeModal = () => {
-            colorGridModal.classList.remove('show');
-            document.body.style.overflow = ''; // Restore scrolling
-        };
-
-        closeColorGrid.addEventListener('click', closeModal);
-
-        // Close modal when clicking outside
-        colorGridModal.addEventListener('click', (e) => {
-            if (e.target === colorGridModal) {
-                closeModal();
-            }
-        });
-
-        // Close modal on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && colorGridModal.classList.contains('show')) {
-                closeModal();
-            }
-        });
-
-        // Handle color selection
-        gridColors.forEach(color => {
-            color.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const selectedColor = color.getAttribute('data-color');
-                
-                // Remove selected class from all colors
-                gridColors.forEach(c => c.classList.remove('selected'));
-                
-                // Add selected class to clicked color
-                color.classList.add('selected');
-                
-                // Apply color to text
-                this.applyTextColor(selectedColor);
-                
-                // Close modal
-                closeModal();
-                
-                // Show notification
-                this.showNotification(`Metin rengi değiştirildi: ${selectedColor}`, 'success');
-            });
-        });
-    }
 
     applyTextColor(color) {
         const editor = document.getElementById('noteContent');
