@@ -133,9 +133,17 @@
                     </button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" id="colorPaletteBtn" title="Metin Rengi" onclick="openColorPalette()">
-                        <i class="fas fa-palette"></i>
-                    </button>
+                    <!-- Color Swatches in Toolbar -->
+                    <div class="color-swatches-container">
+                        <div class="color-swatch" data-color="#000000" title="Siyah" style="background-color: #000000;"></div>
+                        <div class="color-swatch" data-color="#ff0000" title="Kırmızı" style="background-color: #ff0000;"></div>
+                        <div class="color-swatch" data-color="#00ff00" title="Yeşil" style="background-color: #00ff00;"></div>
+                        <div class="color-swatch" data-color="#0066ff" title="Mavi" style="background-color: #0066ff;"></div>
+                        <div class="color-swatch" data-color="#ffcc00" title="Sarı" style="background-color: #ffcc00;"></div>
+                        <div class="color-swatch" data-color="#ff6600" title="Turuncu" style="background-color: #ff6600;"></div>
+                        <div class="color-swatch" data-color="#6600ff" title="Mor" style="background-color: #6600ff;"></div>
+                        <div class="color-swatch" data-color="#ff00ff" title="Pembe" style="background-color: #ff00ff;"></div>
+                    </div>
                 </div>
                 
                 <div id="noteContent" class="note-textarea rich-editor" contenteditable="true" data-placeholder="Notunuzu buraya yazın..."></div>
@@ -249,22 +257,7 @@
             document.getElementById('noteContent').innerHTML = '';
         }
         
-        // Color palette functions
-        function openColorPalette() {
-            const modal = document.getElementById('colorPaletteModal');
-            if (modal) {
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        function closeColorPalette() {
-            const modal = document.getElementById('colorPaletteModal');
-            if (modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        }
+        // Color palette functions removed - colors now in toolbar
         
         // Mobile-optimized caret position preservation using Selection and Range APIs
         function saveCaretPosition() {
@@ -583,9 +576,6 @@
                 editor.scrollLeft = scrollLeft;
             });
             
-            // Automatically close the palette immediately
-            closeColorPalette();
-            
             // Return focus to editor for seamless typing
             setTimeout(() => {
                 editor.focus();
@@ -695,7 +685,7 @@
             setupSettingsToggle();
             
             // Set up color palette
-            setupColorPalette();
+            // setupColorPalette() removed - colors now in toolbar
             
             // Load and display notes
             renderNotes();
@@ -1173,18 +1163,52 @@
                 });
             }
             
-            // Color palette modal (auto-closing)
-            const colorPaletteModal = document.getElementById('colorPaletteModal');
-            const colorOptions = document.querySelectorAll('.color-option');
-            
-            if (colorPaletteModal) {
-                // Close on outside click
-                window.addEventListener('click', (e) => {
-                    if (e.target == colorPaletteModal) {
-                        colorPaletteModal.style.display = 'none';
-                    }
+                    // Color swatches in toolbar
+        const colorSwatches = document.querySelectorAll('.color-swatch');
+        
+        if (colorSwatches.length > 0) {
+            colorSwatches.forEach(swatch => {
+                // Unified click/touch handler for all devices
+                const handleColorSelect = (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    
+                    // Visual feedback
+                    swatch.style.transform = 'scale(0.95)';
+                    
+                    // Remove selected class from all swatches
+                    colorSwatches.forEach(s => s.classList.remove('selected'));
+                    
+                    // Add selected class to selected swatch
+                    swatch.classList.add('selected');
+                    
+                    const color = swatch.dataset.color;
+                    
+                    // Apply color directly
+                    applyTextColor(color);
+                    
+                    // Reset transform after a short delay
+                    setTimeout(() => {
+                        swatch.style.transform = '';
+                    }, 150);
+                };
+                
+                // Click event for desktop
+                swatch.addEventListener('click', handleColorSelect);
+                
+                // Touch events for mobile (with passive: false for preventDefault)
+                swatch.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                }, { passive: false });
+                
+                swatch.addEventListener('touchend', handleColorSelect, { passive: false });
+                
+                // Prevent text selection on mobile
+                swatch.addEventListener('selectstart', (e) => {
+                    e.preventDefault();
                 });
-            }
+            });
+        }
             
             // Apply background color function
             function applyBackgroundColor(color) {
@@ -1232,124 +1256,7 @@
             }
         }
         
-        // Color Palette Setup
-        function setupColorPalette() {
-            const modal = document.getElementById('colorPaletteModal');
-            const colorOptions = document.querySelectorAll('.color-option');
-            
-            if (modal) {
-                // Close on outside click
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeColorPalette();
-                    }
-                });
-                
-                // Close on escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && modal.style.display === 'flex') {
-                        closeColorPalette();
-                    }
-                });
-                
-                // Keyboard navigation for color options
-                let currentColorIndex = 0;
-                document.addEventListener('keydown', (e) => {
-                    if (modal.style.display === 'flex') {
-                        const colorOptions = document.querySelectorAll('.color-option');
-                        const totalColors = colorOptions.length;
-                        
-                        switch(e.key) {
-                            case 'ArrowRight':
-                                e.preventDefault();
-                                currentColorIndex = (currentColorIndex + 1) % totalColors;
-                                break;
-                            case 'ArrowLeft':
-                                e.preventDefault();
-                                currentColorIndex = (currentColorIndex - 1 + totalColors) % totalColors;
-                                break;
-                            case 'ArrowDown':
-                                e.preventDefault();
-                                currentColorIndex = (currentColorIndex + 5) % totalColors;
-                                break;
-                            case 'ArrowUp':
-                                e.preventDefault();
-                                currentColorIndex = (currentColorIndex - 5 + totalColors) % totalColors;
-                                break;
-                            case 'Enter':
-                            case ' ':
-                                e.preventDefault();
-                                if (colorOptions[currentColorIndex]) {
-                                    colorOptions[currentColorIndex].click();
-                                }
-                                break;
-                        }
-                        
-                        // Update visual focus
-                        colorOptions.forEach((option, index) => {
-                            if (index === currentColorIndex) {
-                                option.style.outline = '2px solid var(--text-primary)';
-                                option.style.outlineOffset = '2px';
-                            } else {
-                                option.style.outline = 'none';
-                            }
-                        });
-                    }
-                });
-                
-                // Mobile-friendly color option events
-                colorOptions.forEach(option => {
-                    // Unified click/touch handler for all devices
-                    const handleColorSelect = (e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        
-                        // Visual feedback
-                        option.style.transform = 'scale(0.95)';
-                        
-                        // Remove selected class from all options
-                        colorOptions.forEach(opt => opt.classList.remove('selected'));
-                        
-                        // Add selected class to selected option
-                        option.classList.add('selected');
-                        
-                        const color = option.dataset.color;
-                        
-                        // Apply color and auto-close palette
-                        applyTextColor(color);
-                        
-                        // Reset transform after a short delay
-                        setTimeout(() => {
-                            option.style.transform = '';
-                        }, 150);
-                    };
-                    
-                    // Click event for desktop
-                    option.addEventListener('click', handleColorSelect);
-                    
-                    // Touch events for mobile (with passive: false for preventDefault)
-                    option.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                    }, { passive: false });
-                    
-                    option.addEventListener('touchend', handleColorSelect, { passive: false });
-                    
-                    // Prevent text selection on mobile
-                    option.addEventListener('selectstart', (e) => {
-                        e.preventDefault();
-                    });
-                });
-            }
-            
-            // Load saved text color and highlight the last selected color
-            const savedColor = localStorage.getItem('noteTextColor');
-            if (savedColor) {
-                const savedOption = document.querySelector(`[data-color="${savedColor}"]`);
-                if (savedOption) {
-                    savedOption.classList.add('selected');
-                }
-            }
-        }
+        // Color Palette Setup removed - colors now in toolbar
         
         // Language Toggle Setup
         function setupLanguageToggle() {
@@ -1877,39 +1784,7 @@
         });
     </script>
     
-    <!-- Mobile-Friendly Color Palette Modal -->
-    <div id="colorPaletteModal" class="color-palette-modal">
-        <div class="color-palette-content">
-            <div class="color-palette-grid">
-                <div class="color-option" data-color="#000000" title="Siyah" style="background-color: #000000;"></div>
-                <div class="color-option" data-color="#333333" title="Koyu Gri" style="background-color: #333333;"></div>
-                <div class="color-option" data-color="#666666" title="Gri" style="background-color: #666666;"></div>
-                <div class="color-option" data-color="#999999" title="Açık Gri" style="background-color: #999999;"></div>
-                <div class="color-option" data-color="#ff0000" title="Kırmızı" style="background-color: #ff0000;"></div>
-                <div class="color-option" data-color="#ff6600" title="Turuncu" style="background-color: #ff6600;"></div>
-                <div class="color-option" data-color="#ffcc00" title="Sarı" style="background-color: #ffcc00;"></div>
-                <div class="color-option" data-color="#00ff00" title="Yeşil" style="background-color: #00ff00;"></div>
-                <div class="color-option" data-color="#00ccff" title="Açık Mavi" style="background-color: #00ccff;"></div>
-                <div class="color-option" data-color="#0066ff" title="Mavi" style="background-color: #0066ff;"></div>
-                <div class="color-option" data-color="#6600ff" title="Mor" style="background-color: #6600ff;"></div>
-                <div class="color-option" data-color="#ff00ff" title="Pembe" style="background-color: #ff00ff;"></div>
-                <div class="color-option" data-color="#cc6600" title="Kahverengi" style="background-color: #cc6600;"></div>
-                <div class="color-option" data-color="#ff6666" title="Açık Kırmızı" style="background-color: #ff6666;"></div>
-                <div class="color-option" data-color="#ffcc66" title="Açık Turuncu" style="background-color: #ffcc66;"></div>
-                <div class="color-option" data-color="#ffff66" title="Açık Sarı" style="background-color: #ffff66;"></div>
-                <div class="color-option" data-color="#66ff66" title="Açık Yeşil" style="background-color: #66ff66;"></div>
-                <div class="color-option" data-color="#66ccff" title="Açık Mavi" style="background-color: #66ccff;"></div>
-                <div class="color-option" data-color="#6699ff" title="Orta Mavi" style="background-color: #6699ff;"></div>
-                <div class="color-option" data-color="#9966ff" title="Açık Mor" style="background-color: #9966ff;"></div>
-                <div class="color-option" data-color="#ff66ff" title="Açık Pembe" style="background-color: #ff66ff;"></div>
-                <div class="color-option" data-color="#cc9966" title="Açık Kahverengi" style="background-color: #cc9966;"></div>
-                <div class="color-option" data-color="#ff3333" title="Canlı Kırmızı" style="background-color: #ff3333;"></div>
-                <div class="color-option" data-color="#ff9933" title="Canlı Turuncu" style="background-color: #ff9933;"></div>
-                <div class="color-option" data-color="#33cc33" title="Canlı Yeşil" style="background-color: #33cc33;"></div>
-                <div class="color-option" data-color="#3366ff" title="Canlı Mavi" style="background-color: #3366ff;"></div>
-            </div>
-        </div>
-    </div>
+    <!-- Color palette modal removed - colors now in toolbar -->
     
     <script src="script.js"></script>
     
