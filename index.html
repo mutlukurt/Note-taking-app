@@ -229,21 +229,25 @@
     </div>
 
     <script>
-        // Simple test functions
-        function testTheme() {
+        // Real functions
+        function toggleTheme() {
             const body = document.body;
             const icon = document.querySelector('#themeToggle i');
             
             if (body.classList.contains('dark-mode')) {
                 body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
                 icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
             } else {
+                body.classList.remove('light-mode');
                 body.classList.add('dark-mode');
                 icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
             }
         }
         
-        function testAddNote() {
+        function addNote() {
             const title = document.getElementById('noteTitle').value;
             const content = document.getElementById('noteContent').innerHTML;
             
@@ -264,7 +268,7 @@
             
             // Get notes from localStorage
             let notes = JSON.parse(localStorage.getItem('notes')) || [];
-            notes.push(note);
+            notes.unshift(note); // Add to beginning
             localStorage.setItem('notes', JSON.stringify(notes));
             
             // Clear form
@@ -272,13 +276,13 @@
             document.getElementById('noteContent').innerHTML = '';
             
             // Show success message
-            alert('Not başarıyla eklendi!');
+            showNotification('Not başarıyla eklendi!', 'success');
             
             // Refresh notes display
             renderNotes();
         }
         
-        function testClearForm() {
+        function clearForm() {
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteContent').innerHTML = '';
         }
@@ -484,20 +488,20 @@
         // DOM loaded
         document.addEventListener('DOMContentLoaded', function() {
             
-            // Set up test buttons
+            // Set up buttons
             const themeBtn = document.getElementById('themeToggle');
             if (themeBtn) {
-                themeBtn.onclick = testTheme;
+                themeBtn.onclick = toggleTheme;
             }
             
             const addBtn = document.getElementById('addNote');
             if (addBtn) {
-                addBtn.onclick = testAddNote;
+                addBtn.onclick = addNote;
             }
             
             const clearBtn = document.getElementById('clearForm');
             if (clearBtn) {
-                clearBtn.onclick = testClearForm;
+                clearBtn.onclick = clearForm;
             }
             
             // Set up search input
