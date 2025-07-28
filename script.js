@@ -33,14 +33,28 @@ class NotesApp {
     setupEventListeners() {
         console.log('Setting up event listeners...');
         
-        // Theme toggle
+        // Theme toggle - Cross-platform (Desktop, Tablet, Mobile)
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             console.log('Theme toggle found');
-            themeToggle.onclick = () => {
+            
+            // Add click event for desktop/tablet
+            themeToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 console.log('Theme toggle clicked');
                 this.toggleTheme();
-            };
+            });
+            
+            // Add touch event for mobile
+            themeToggle.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Theme toggle touched');
+                this.toggleTheme();
+            });
+            
+            console.log('Theme toggle initialized for all platforms');
         } else {
             console.error('Theme toggle not found!');
         }

@@ -1318,6 +1318,137 @@
         // Translation system removed - English only
         
         // Translation functions removed - English only system
+        
+        // Settings System - Cross-platform (Desktop, Tablet, Mobile)
+        function toggleSettings() {
+            console.log('toggleSettings called');
+            const settingsToggle = document.getElementById('settingsToggle');
+            const settingsPanel = document.getElementById('settingsPanel');
+            
+            if (settingsToggle && settingsPanel) {
+                const isActive = settingsPanel.classList.contains('active');
+                
+                if (isActive) {
+                    settingsToggle.classList.remove('active');
+                    settingsPanel.classList.remove('active');
+                    console.log('Settings panel closed');
+                } else {
+                    settingsToggle.classList.add('active');
+                    settingsPanel.classList.add('active');
+                    console.log('Settings panel opened');
+                }
+            } else {
+                console.error('Settings elements not found');
+            }
+        }
+        
+        // Theme Toggle System - Cross-platform
+        function toggleTheme() {
+            console.log('toggleTheme called');
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            if (body.classList.contains('light-mode')) {
+                // Switch to dark mode
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+                console.log('Switched to dark mode');
+            } else {
+                // Switch to light mode
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+                console.log('Switched to light mode');
+            }
+        }
+        
+        // Initialize Settings System
+        function initializeSettings() {
+            console.log('Initializing settings system...');
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (themeToggle) {
+                const themeIcon = themeToggle.querySelector('i');
+                
+                if (savedTheme === 'dark') {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+                
+                // Add click event listener for theme toggle
+                themeToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleTheme();
+                });
+                
+                // Add touch event for mobile
+                themeToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleTheme();
+                });
+                
+                console.log('Theme toggle initialized');
+            }
+            
+            // Close settings when clicking outside
+            document.addEventListener('click', function(e) {
+                const settingsToggle = document.getElementById('settingsToggle');
+                const settingsPanel = document.getElementById('settingsPanel');
+                
+                if (settingsToggle && settingsPanel) {
+                    if (!settingsToggle.contains(e.target) && !settingsPanel.contains(e.target)) {
+                        if (settingsPanel.classList.contains('active')) {
+                            settingsToggle.classList.remove('active');
+                            settingsPanel.classList.remove('active');
+                            console.log('Settings panel closed by outside click');
+                        }
+                    }
+                }
+            });
+            
+            // Add touch events for mobile settings toggle
+            const settingsToggle = document.getElementById('settingsToggle');
+            if (settingsToggle) {
+                settingsToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSettings();
+                });
+                
+                console.log('Settings toggle initialized');
+            }
+            
+            console.log('Settings system initialized successfully');
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeSettings);
+        
+        // Also initialize immediately in case DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeSettings);
+        } else {
+            initializeSettings();
+        }
     </script>
     
     <!-- Color palette modal removed - colors now in toolbar -->
