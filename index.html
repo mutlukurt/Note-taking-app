@@ -583,11 +583,16 @@
                 editor.scrollLeft = scrollLeft;
             });
             
-            // Close the palette
+            // Automatically close the palette immediately
             closeColorPalette();
             
-            // Show notification
-            showNotification('Metin rengi değiştirildi!', 'success');
+            // Return focus to editor for seamless typing
+            setTimeout(() => {
+                editor.focus();
+                if (caretBookmark) {
+                    restoreCaretPosition(caretBookmark);
+                }
+            }, 10);
         }
         
 
@@ -1168,30 +1173,16 @@
                 });
             }
             
-            // Color palette modal
+            // Color palette modal (auto-closing)
             const colorPaletteModal = document.getElementById('colorPaletteModal');
-            const closeColorPaletteBtn = document.getElementById('closeColorPaletteBtn');
             const colorOptions = document.querySelectorAll('.color-option');
             
-            if (colorPaletteModal && closeColorPaletteBtn) {
-                closeColorPaletteBtn.addEventListener('click', () => {
-                    colorPaletteModal.style.display = 'none';
-                });
-                
+            if (colorPaletteModal) {
+                // Close on outside click
                 window.addEventListener('click', (e) => {
                     if (e.target == colorPaletteModal) {
                         colorPaletteModal.style.display = 'none';
                     }
-                });
-                
-                // Color option click handlers
-                colorOptions.forEach(option => {
-                    option.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const color = option.dataset.color;
-                        applyBackgroundColor(color);
-                        colorPaletteModal.style.display = 'none';
-                    });
                 });
             }
             
@@ -1244,13 +1235,9 @@
         // Color Palette Setup
         function setupColorPalette() {
             const modal = document.getElementById('colorPaletteModal');
-            const closeBtn = document.getElementById('closeColorPaletteBtn');
             const colorOptions = document.querySelectorAll('.color-option');
             
-            if (modal && closeBtn) {
-                // Close button event
-                closeBtn.addEventListener('click', closeColorPalette);
-                
+            if (modal) {
                 // Close on outside click
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
@@ -1310,42 +1297,42 @@
                     }
                 });
                 
-                // Color option click and touch events for mobile compatibility
+                // Mobile-friendly color option events
                 colorOptions.forEach(option => {
-                    // Click event for desktop
-                    option.addEventListener('click', (e) => {
+                    // Unified click/touch handler for all devices
+                    const handleColorSelect = (e) => {
                         e.stopPropagation();
                         e.preventDefault();
                         
+                        // Visual feedback
+                        option.style.transform = 'scale(0.95)';
+                        
                         // Remove selected class from all options
                         colorOptions.forEach(opt => opt.classList.remove('selected'));
                         
-                        // Add selected class to clicked option
+                        // Add selected class to selected option
                         option.classList.add('selected');
                         
                         const color = option.dataset.color;
+                        
+                        // Apply color and auto-close palette
                         applyTextColor(color);
-                    });
+                        
+                        // Reset transform after a short delay
+                        setTimeout(() => {
+                            option.style.transform = '';
+                        }, 150);
+                    };
                     
-                    // Touch events for mobile
+                    // Click event for desktop
+                    option.addEventListener('click', handleColorSelect);
+                    
+                    // Touch events for mobile (with passive: false for preventDefault)
                     option.addEventListener('touchstart', (e) => {
                         e.preventDefault();
-                        option.style.transform = 'scale(0.95)';
                     }, { passive: false });
                     
-                    option.addEventListener('touchend', (e) => {
-                        e.preventDefault();
-                        option.style.transform = '';
-                        
-                        // Remove selected class from all options
-                        colorOptions.forEach(opt => opt.classList.remove('selected'));
-                        
-                        // Add selected class to touched option
-                        option.classList.add('selected');
-                        
-                        const color = option.dataset.color;
-                        applyTextColor(color);
-                    }, { passive: false });
+                    option.addEventListener('touchend', handleColorSelect, { passive: false });
                     
                     // Prevent text selection on mobile
                     option.addEventListener('selectstart', (e) => {
@@ -1890,15 +1877,9 @@
         });
     </script>
     
-    <!-- Color Palette Modal -->
+    <!-- Mobile-Friendly Color Palette Modal -->
     <div id="colorPaletteModal" class="color-palette-modal">
         <div class="color-palette-content">
-            <div class="color-palette-header">
-                <h3>Metin Rengi Seçin</h3>
-                <button id="closeColorPaletteBtn" class="close-palette-btn">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
             <div class="color-palette-grid">
                 <div class="color-option" data-color="#000000" title="Siyah" style="background-color: #000000;"></div>
                 <div class="color-option" data-color="#333333" title="Koyu Gri" style="background-color: #333333;"></div>
