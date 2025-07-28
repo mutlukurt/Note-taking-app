@@ -9,7 +9,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 
 - 🎨 **Modern Tasarım**: Professional UI/UX, modern butonlar ve smooth animasyonlar
 - 🌙 **Karanlık Mod**: Ayarlar bölümündeki gece/gündüz ikonu ile açık/koyu tema değiştirme
-- 🌍 **Çok Dilli Destek**: TR/EN dil değiştirme özelliği
+- 🌍 **Çok Dilli Destek**: TR/EN dil değiştirme özelliği - tüm sayfa içeriği çevrilir
 - 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
 - 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
 - ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
@@ -34,6 +34,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - 🔒 **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
 - ⚙️ **Modern Ayarlar**: Yuvarlak ayarlar butonu ve genişleyen panel
 - 🌍 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
+- 🎨 **Renk Paleti**: 24 renk seçeneği, grid layout, touch-friendly mobile tasarım
 
 ## 🚀 Kullanım
 
@@ -43,17 +44,19 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
 4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
 5. **Tema Değiştirme**: Ayarlar bölümündeki güneş/ay ikonuna tıklayın
-6. **Dil Değiştirme**: Ayarlar bölümündeki dünya ikonuna tıklayın (TR ↔ EN)
+6. **Dil Değiştirme**: Ayarlar bölümündeki dünya ikonuna tıklayın (TR ↔ EN) - tüm sayfa içeriği çevrilir
 7. **Ayarlar Paneli**: Yuvarlak ayarlar butonuna tıklayarak tema ve dil seçeneklerini açın
 8. **Temizleme**: "Temizle" butonu ile formu temizleyin
 
 ### ⚙️ **Ayarlar Sistemi:**
-1. **Yuvarlak Ayarlar Butonu**: Dişli ikonu ile modern tasarım
+1. **Yuvarlak Ayarlar Butonu**: ⚙️ dişli ikonu ile modern tasarım
 2. **Genişleyen Panel**: Tıklandığında sağa doğru smooth açılma
-3. **Tema Değiştirme**: Güneş/ay ikonu ile açık/koyu tema
-4. **Dil Değiştirme**: Dünya ikonu ile TR/EN geçişi
+3. **Tema Değiştirme**: 🌙/☀️ ikonu ile açık/koyu tema
+4. **Dil Değiştirme**: 🌍 ikonu ile TR/EN geçişi - tüm sayfa çevrilir
 5. **Dışarı Tıklama**: Panel dışına tıklayarak kapatma
 6. **Animasyonlar**: Rotasyon, scale ve transform efektleri
+7. **Cross-Platform**: Desktop ve mobile'da touch/click desteği
+8. **Touch-Friendly**: Mobile'da büyük touch alanları
 
 ### ✨ **Zengin Metin Editörü:**
 1. **Metin Formatlama**: Metni seçin ve toolbar'daki butonları kullanın
@@ -65,25 +68,27 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 5. **Görsel Geri Bildirim**: Butonlara tıkladığınızda aktif durum göstergesi
 6. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
 
-### 🎨 **Modern Renk Sistemi:**
-1. **Renk Seçimi**: Font butonu yanındaki renk seçeneklerinden birini seçin
-   - **⚫ Siyah**: Normal metin rengi
-   - **🔴 Kırmızı**: Vurgu ve önemli metinler için
-2. **Seçili Metin**: Metni seçtikten sonra renk butonuna tıklayın
-3. **Yazım Sırasında**: Renk seçip yazmaya devam edin
-4. **Visual Feedback**: Seçili renkte ✓ işareti görünür
-5. **Renk Göstergesi**: Font butonunda küçük renk noktası
+### 🎨 **Renk Paleti Sistemi:**
+1. **Renk Paleti**: 🎨 ikonuna tıklayarak 24 renk seçeneğini açın
+2. **Grid Layout**: 6x4 grid düzeninde 24 farklı renk
+3. **Touch-Friendly**: Mobile'da büyük touch alanları (50x50px)
+4. **Sonsuz Döngü**: İstediğiniz kadar renk değiştirebilirsiniz
+5. **Seçili Metin**: Metni seçtikten sonra renk seçin
+6. **Yazım Sırasında**: Renk seçip yazmaya devam edin
+7. **Mobile Optimized**: Touch event'ler ve responsive tasarım
 
 ### 📋 **Başlık Sistemi:**
-1. **Başlık Dropdown**: Başlık butonuna tıklayarak menüyü açın
+1. **Başlık Dropdown**: 📋 ikonuna tıklayarak menüyü açın
    - **Normal**: Standart paragraf metni
    - **Başlık 1 (H1)**: En büyük başlık (2em)
    - **Başlık 2 (H2)**: Orta başlık (1.5em)
    - **Başlık 3 (H3)**: Küçük başlık (1.2em)
-2. **Mevcut Satır**: Cursor'un bulunduğu satırı seçilen başlık tipine dönüştürür
-3. **Visual Preview**: Dropdown'da her seçeneğin boyut önizlemesi
-4. **Smart Indicator**: Buton üzerinde mevcut format göstergesi
-5. **Smooth Animation**: Dropdown açılma/kapanma animasyonları
+2. **Seçili Metin**: Metni seçtikten sonra başlık tipini seçin
+3. **Yeni Başlık**: Seçili metin yoksa yeni başlık oluşturur
+4. **Visual Preview**: Dropdown'da her seçeneğin boyut önizlemesi
+5. **Smart Indicator**: Buton üzerinde mevcut format göstergesi
+6. **Outside Click**: Dışarı tıklayarak dropdown'ı kapatın
+7. **Smooth Animation**: Dropdown açılma/kapanma animasyonları
 
 ### 📱 **Swipe-to-Delete (Mobil Özellik):**
 1. **Mobil Cihazda**: Not kartını sola kaydırın
