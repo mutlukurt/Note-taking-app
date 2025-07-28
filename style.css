@@ -1506,7 +1506,7 @@ body.force-desktop-mode .rich-editor {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 10000;
     pointer-events: none;
     background: var(--bg-card);
     border: 1px solid var(--border-color);

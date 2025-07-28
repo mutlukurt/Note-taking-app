@@ -1151,6 +1151,65 @@
                 });
             }
             
+            // Header dropdown functionality
+            const headerBtn = document.getElementById('headerBtn');
+            const headerContainer = document.querySelector('.header-container');
+            const headerDropdown = document.querySelector('.header-dropdown');
+            const headerOptions = document.querySelectorAll('.header-option');
+            
+            if (headerBtn && headerContainer && headerDropdown) {
+                // Toggle dropdown on button click
+                headerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    headerContainer.classList.toggle('active');
+                    headerDropdown.classList.toggle('active');
+                });
+                
+                // Handle header option clicks
+                headerOptions.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const headerType = option.dataset.header;
+                        const formatText = option.querySelector('.option-title').textContent;
+                        
+                        // Update button text
+                        const formatTextElement = headerBtn.querySelector('.format-text');
+                        if (formatTextElement) {
+                            formatTextElement.textContent = formatText;
+                        }
+                        
+                        // Apply header format
+                        editor.focus();
+                        
+                        if (headerType === 'p') {
+                            document.execCommand('formatBlock', false, 'p');
+                        } else {
+                            document.execCommand('formatBlock', false, headerType);
+                        }
+                        
+                        // Close dropdown
+                        headerContainer.classList.remove('active');
+                        headerDropdown.classList.remove('active');
+                        
+                        // Add visual feedback
+                        option.classList.add('selected');
+                        setTimeout(() => option.classList.remove('selected'), 200);
+                    });
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!headerContainer.contains(e.target)) {
+                        headerContainer.classList.remove('active');
+                        headerDropdown.classList.remove('active');
+                    }
+                });
+            }
+            
             // Color picker functionality
             const colorPaletteBtn = document.getElementById('colorPaletteBtn');
             
