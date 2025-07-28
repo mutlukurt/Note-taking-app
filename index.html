@@ -1651,15 +1651,8 @@
             emptyState.querySelector('h3').textContent = t.emptyStateTitle;
             emptyState.querySelector('p').textContent = t.emptyStateDesc;
             
-            // Update privacy policy
-            document.querySelector('.privacy-content h3').textContent = t.privacyTitle;
-            document.querySelector('.privacy-text p:nth-child(1)').innerHTML = `<strong>${t.dataCollection}:</strong> ${t.dataCollectionText}`;
-            document.querySelector('.privacy-text p:nth-child(2)').innerHTML = `<strong>${t.dataStorage}:</strong> ${t.dataStorageText}`;
-            document.querySelector('.privacy-text p:nth-child(3)').innerHTML = `<strong>${t.cookies}:</strong> ${t.cookiesText}`;
-            document.querySelector('.privacy-text p:nth-child(4)').innerHTML = `<strong>${t.thirdParty}:</strong> ${t.thirdPartyText}`;
-            document.querySelector('.privacy-text p:nth-child(5)').innerHTML = `<strong>${t.security}:</strong> ${t.securityText}`;
-            document.querySelector('.privacy-text p:nth-child(6)').innerHTML = `<strong>${t.contact}:</strong> ${t.contactText}`;
-            document.querySelector('.privacy-links span').textContent = t.copyright;
+            // Update privacy policy and MIT license
+            updatePrivacyPolicyTranslation('en');
         }
         
         // Translate to Turkish
@@ -1713,29 +1706,76 @@
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
-            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
-            emptyState.querySelector('p').textContent = t.emptyStateDesc;
+            if (emptyState) {
+                const h3 = emptyState.querySelector('h3');
+                const p = emptyState.querySelector('p');
+                if (h3) h3.textContent = t.emptyStateTitle;
+                if (p) p.textContent = t.emptyStateDesc;
+            }
             
-            // Update privacy policy
-            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
-            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
-            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
-            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
-            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
-            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
-            document.querySelector('#cookiesText').textContent = t.cookiesText;
-            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
-            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
-            document.querySelector('#securityLabel').textContent = t.security + ':';
-            document.querySelector('#securityText').textContent = t.securityText;
-            document.querySelector('#contactLabel').textContent = t.contact + ':';
-            document.querySelector('#contactText').textContent = t.contactText;
-            document.querySelector('#copyrightText').textContent = t.copyright;
-            
-            // Update MIT License
-            const mitLicenseElement = document.querySelector('#mitLicenseText');
-            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+            // Update privacy policy and MIT license
+            updatePrivacyPolicyTranslation('tr');
         }
+
+        // Function to update privacy policy and MIT license translations
+        function updatePrivacyPolicyTranslation(lang) {
+            const t = translations[lang];
+            
+            try {
+                // Update privacy policy elements
+                const privacyTitle = document.querySelector('#privacyTitle');
+                if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
+                
+                const dataCollectionLabel = document.querySelector('#dataCollectionLabel');
+                if (dataCollectionLabel) dataCollectionLabel.textContent = t.dataCollection + ':';
+                
+                const dataCollectionText = document.querySelector('#dataCollectionText');
+                if (dataCollectionText) dataCollectionText.textContent = t.dataCollectionText;
+                
+                const dataStorageLabel = document.querySelector('#dataStorageLabel');
+                if (dataStorageLabel) dataStorageLabel.textContent = t.dataStorage + ':';
+                
+                const dataStorageText = document.querySelector('#dataStorageText');
+                if (dataStorageText) dataStorageText.textContent = t.dataStorageText;
+                
+                const cookiesLabel = document.querySelector('#cookiesLabel');
+                if (cookiesLabel) cookiesLabel.textContent = t.cookies + ':';
+                
+                const cookiesText = document.querySelector('#cookiesText');
+                if (cookiesText) cookiesText.textContent = t.cookiesText;
+                
+                const thirdPartyLabel = document.querySelector('#thirdPartyLabel');
+                if (thirdPartyLabel) thirdPartyLabel.textContent = t.thirdParty + ':';
+                
+                const thirdPartyText = document.querySelector('#thirdPartyText');
+                if (thirdPartyText) thirdPartyText.textContent = t.thirdPartyText;
+                
+                const securityLabel = document.querySelector('#securityLabel');
+                if (securityLabel) securityLabel.textContent = t.security + ':';
+                
+                const securityText = document.querySelector('#securityText');
+                if (securityText) securityText.textContent = t.securityText;
+                
+                const contactLabel = document.querySelector('#contactLabel');
+                if (contactLabel) contactLabel.textContent = t.contact + ':';
+                
+                const contactText = document.querySelector('#contactText');
+                if (contactText) contactText.textContent = t.contactText;
+                
+                const copyrightText = document.querySelector('#copyrightText');
+                if (copyrightText) copyrightText.textContent = t.copyright;
+                
+                // Update MIT License
+                const mitLicenseElement = document.querySelector('#mitLicenseText');
+                if (mitLicenseElement) {
+                    mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+                }
+            } catch (error) {
+                console.log('Privacy policy translation error:', error);
+            }
+        }
+
+        // Translation objects
     </script>
     
     <script>
@@ -1775,6 +1815,11 @@
                 
                 // Apply translations to the page
                 applyTranslations(newLang);
+                
+                // Update privacy policy and MIT license translations
+                setTimeout(() => {
+                    updatePrivacyPolicyTranslation(newLang);
+                }, 100);
             }
         }
 
