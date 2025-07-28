@@ -327,6 +327,9 @@ body {
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .rich-editor[contenteditable="true"]:empty:before {
@@ -1657,6 +1660,8 @@ body.force-desktop-mode .rich-editor {
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
     background: var(--bg-card);
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .color-option {
@@ -1734,6 +1739,7 @@ body.force-desktop-mode .rich-editor {
         grid-template-columns: repeat(4, 1fr);
         gap: 12px;
         padding: 20px;
+        max-height: 350px;
     }
     
     .color-option {
@@ -1764,9 +1770,10 @@ body.force-desktop-mode .rich-editor {
     }
     
     .color-palette-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 10px;
         padding: 16px;
+        max-height: 300px;
     }
     
     .color-option {
@@ -1797,9 +1804,10 @@ body.force-desktop-mode .rich-editor {
     }
     
     .color-palette-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 8px;
         padding: 12px;
+        max-height: 250px;
     }
     
     .color-option {
@@ -1828,6 +1836,7 @@ body.force-desktop-mode .rich-editor {
         grid-template-columns: repeat(2, 1fr);
         gap: 6px;
         padding: 10px;
+        max-height: 200px;
     }
     
     .color-option {

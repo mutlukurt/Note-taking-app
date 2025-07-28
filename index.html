@@ -266,71 +266,103 @@
             }
         }
         
-        // Helper function to save and restore cursor position
-        function saveCursorPosition() {
+        // Enhanced cursor position preservation using Selection and Range APIs
+        function saveCaretPosition() {
             const editor = document.getElementById('noteContent');
             const selection = window.getSelection();
             
             if (selection.rangeCount > 0) {
                 const range = selection.getRangeAt(0);
+                
+                // Create a bookmark to preserve the exact position
+                const bookmark = {
+                    startContainer: range.startContainer,
+                    startOffset: range.startOffset,
+                    endContainer: range.endContainer,
+                    endOffset: range.endOffset,
+                    collapsed: range.collapsed,
+                    commonAncestorContainer: range.commonAncestorContainer
+                };
+                
+                // Also save text position as backup
                 const preCaretRange = range.cloneRange();
                 preCaretRange.selectNodeContents(editor);
                 preCaretRange.setEnd(range.endContainer, range.endOffset);
-                return {
-                    startOffset: range.startOffset,
-                    endOffset: range.endOffset,
-                    startContainer: range.startContainer,
-                    endContainer: range.endContainer,
-                    collapsed: range.collapsed,
-                    textBefore: preCaretRange.toString().length
-                };
+                bookmark.textBefore = preCaretRange.toString().length;
+                
+                return bookmark;
             }
             return null;
         }
         
-        function restoreCursorPosition(savedPosition) {
-            if (!savedPosition) return;
+        function restoreCaretPosition(bookmark) {
+            if (!bookmark) return false;
             
             const editor = document.getElementById('noteContent');
             const selection = window.getSelection();
             
             try {
+                // Try to restore using the exact DOM references
                 const range = document.createRange();
-                range.setStart(savedPosition.startContainer, savedPosition.startOffset);
-                range.setEnd(savedPosition.endContainer, savedPosition.endOffset);
+                range.setStart(bookmark.startContainer, bookmark.startOffset);
+                range.setEnd(bookmark.endContainer, bookmark.endOffset);
                 
                 selection.removeAllRanges();
                 selection.addRange(range);
+                return true;
             } catch (e) {
-                // Fallback: try to restore by text position
-                const textNodes = [];
-                const walker = document.createTreeWalker(
-                    editor,
-                    NodeFilter.SHOW_TEXT,
-                    null,
-                    false
-                );
+                console.log('Direct restoration failed, using fallback method');
                 
-                let node;
-                while (node = walker.nextNode()) {
-                    textNodes.push(node);
-                }
-                
-                let currentLength = 0;
-                for (let i = 0; i < textNodes.length; i++) {
-                    const nodeLength = textNodes[i].length;
-                    if (currentLength + nodeLength >= savedPosition.textBefore) {
-                        const offset = savedPosition.textBefore - currentLength;
-                        const range = document.createRange();
-                        range.setStart(textNodes[i], offset);
-                        range.setEnd(textNodes[i], offset);
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                        break;
-                    }
-                    currentLength += nodeLength;
-                }
+                // Fallback: restore using text position
+                return restoreCaretByTextPosition(editor, bookmark.textBefore);
             }
+        }
+        
+        function restoreCaretByTextPosition(editor, textBefore) {
+            const selection = window.getSelection();
+            const textNodes = [];
+            
+            // Collect all text nodes in the editor
+            const walker = document.createTreeWalker(
+                editor,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            let node;
+            while (node = walker.nextNode()) {
+                textNodes.push(node);
+            }
+            
+            // Find the correct position
+            let currentLength = 0;
+            for (let i = 0; i < textNodes.length; i++) {
+                const nodeLength = textNodes[i].length;
+                if (currentLength + nodeLength >= textBefore) {
+                    const offset = Math.min(textBefore - currentLength, nodeLength);
+                    const range = document.createRange();
+                    range.setStart(textNodes[i], offset);
+                    range.setEnd(textNodes[i], offset);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    return true;
+                }
+                currentLength += nodeLength;
+            }
+            
+            // If we can't find the position, place cursor at the end
+            if (textNodes.length > 0) {
+                const lastNode = textNodes[textNodes.length - 1];
+                const range = document.createRange();
+                range.setStart(lastNode, lastNode.length);
+                range.setEnd(lastNode, lastNode.length);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                return true;
+            }
+            
+            return false;
         }
         
         function applyTextColor(color) {
@@ -341,66 +373,74 @@
             const scrollTop = editor.scrollTop;
             const scrollLeft = editor.scrollLeft;
             
-            // Save cursor position using our helper function
-            const savedPosition = saveCursorPosition();
+            // Save caret position before any DOM changes
+            const caretBookmark = saveCaretPosition();
             
             // Focus the editor
             editor.focus();
             
-            // Restore cursor position
-            if (savedPosition) {
-                restoreCursorPosition(savedPosition);
+            // Restore caret position
+            if (caretBookmark) {
+                restoreCaretPosition(caretBookmark);
             }
             
-            // Apply color using execCommand
+            // Apply color from current caret position onward
             let success = false;
             try {
+                // Try execCommand first
                 success = document.execCommand('foreColor', false, color);
             } catch (e) {
                 console.log('execCommand failed, using manual approach');
             }
             
-            // If execCommand fails or doesn't work properly, use manual approach
+            // If execCommand fails, use manual approach
             if (!success) {
                 const selection = window.getSelection();
                 
-                if (savedPosition && !savedPosition.collapsed) {
-                    // Text is selected - wrap it in a colored span
+                if (caretBookmark) {
+                    // Create a range from the saved caret position to the end
                     const range = document.createRange();
-                    range.setStart(savedPosition.startContainer, savedPosition.startOffset);
-                    range.setEnd(savedPosition.endContainer, savedPosition.endOffset);
+                    range.setStart(caretBookmark.startContainer, caretBookmark.startOffset);
                     
-                    const span = document.createElement('span');
-                    span.style.color = color;
-                    span.textContent = range.toString();
-                    range.deleteContents();
-                    range.insertNode(span);
+                    // Find the end of the editor content
+                    const endRange = document.createRange();
+                    endRange.selectNodeContents(editor);
+                    endRange.collapse(false);
+                    range.setEnd(endRange.endContainer, endRange.endOffset);
                     
-                    // Position cursor after the colored text
-                    const newRange = document.createRange();
-                    newRange.setStartAfter(span);
-                    newRange.collapse(true);
-                    selection.removeAllRanges();
-                    selection.addRange(newRange);
-                } else if (savedPosition) {
-                    // Cursor position - insert a colored span
-                    const range = document.createRange();
-                    range.setStart(savedPosition.startContainer, savedPosition.startOffset);
-                    range.collapse(true);
+                    // Check if there's content to color
+                    const contentToColor = range.toString();
                     
-                    const span = document.createElement('span');
-                    span.style.color = color;
-                    span.innerHTML = '&nbsp;'; // Non-breaking space
-                    range.insertNode(span);
-                    
-                    // Position cursor after the span
-                    const newRange = document.createRange();
-                    newRange.setStartAfter(span);
-                    newRange.collapse(true);
-                    selection.removeAllRanges();
-                    selection.addRange(newRange);
+                    if (contentToColor.length > 0) {
+                        // Color the text from caret position to end
+                        const span = document.createElement('span');
+                        span.style.color = color;
+                        span.textContent = contentToColor;
+                        range.deleteContents();
+                        range.insertNode(span);
+                        
+                        // Position cursor at the end of the colored text
+                        const newRange = document.createRange();
+                        newRange.setStartAfter(span);
+                        newRange.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(newRange);
+                    } else {
+                        // No content to color, insert a colored space at caret position
+                        const span = document.createElement('span');
+                        span.style.color = color;
+                        span.innerHTML = '&nbsp;';
+                        range.insertNode(span);
+                        
+                        // Position cursor after the span
+                        const newRange = document.createRange();
+                        newRange.setStartAfter(span);
+                        newRange.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(newRange);
+                    }
                 } else {
-                    // No saved position, insert at end
+                    // No saved position, insert colored text at the end
                     const span = document.createElement('span');
                     span.style.color = color;
                     span.innerHTML = '&nbsp;';
@@ -421,14 +461,14 @@
             // Ensure editor has focus
             editor.focus();
             
-            // Final cursor position restoration
-            if (savedPosition) {
+            // Final caret position restoration
+            if (caretBookmark) {
                 setTimeout(() => {
-                    restoreCursorPosition(savedPosition);
+                    restoreCaretPosition(caretBookmark);
                 }, 1);
             }
             
-            // Restore scroll position with a small delay to ensure DOM updates
+            // Restore scroll position
             setTimeout(() => {
                 editor.scrollTop = scrollTop;
                 editor.scrollLeft = scrollLeft;
@@ -1113,6 +1153,51 @@
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape' && modal.style.display === 'flex') {
                         closeColorPalette();
+                    }
+                });
+                
+                // Keyboard navigation for color options
+                let currentColorIndex = 0;
+                document.addEventListener('keydown', (e) => {
+                    if (modal.style.display === 'flex') {
+                        const colorOptions = document.querySelectorAll('.color-option');
+                        const totalColors = colorOptions.length;
+                        
+                        switch(e.key) {
+                            case 'ArrowRight':
+                                e.preventDefault();
+                                currentColorIndex = (currentColorIndex + 1) % totalColors;
+                                break;
+                            case 'ArrowLeft':
+                                e.preventDefault();
+                                currentColorIndex = (currentColorIndex - 1 + totalColors) % totalColors;
+                                break;
+                            case 'ArrowDown':
+                                e.preventDefault();
+                                currentColorIndex = (currentColorIndex + 5) % totalColors;
+                                break;
+                            case 'ArrowUp':
+                                e.preventDefault();
+                                currentColorIndex = (currentColorIndex - 5 + totalColors) % totalColors;
+                                break;
+                            case 'Enter':
+                            case ' ':
+                                e.preventDefault();
+                                if (colorOptions[currentColorIndex]) {
+                                    colorOptions[currentColorIndex].click();
+                                }
+                                break;
+                        }
+                        
+                        // Update visual focus
+                        colorOptions.forEach((option, index) => {
+                            if (index === currentColorIndex) {
+                                option.style.outline = '2px solid var(--text-primary)';
+                                option.style.outlineOffset = '2px';
+                            } else {
+                                option.style.outline = 'none';
+                            }
+                        });
                     }
                 });
                 
