@@ -314,8 +314,42 @@
                     selection.addRange(range);
                 }
                 
-                // Rengi uygula
-                document.execCommand('foreColor', false, color);
+                // Rengi uygula - güvenilir yöntem
+                try {
+                    // Önce execCommand dene
+                    const success = document.execCommand('foreColor', false, color);
+                    
+                    // Eğer execCommand çalışmazsa, manuel olarak uygula
+                    if (!success && range) {
+                        if (!range.collapsed) {
+                            // Seçili metin varsa
+                            const span = document.createElement('span');
+                            span.style.color = color;
+                            range.surroundContents(span);
+                        } else {
+                            // İmleç pozisyonunda
+                            const span = document.createElement('span');
+                            span.style.color = color;
+                            span.innerHTML = '&nbsp;';
+                            range.insertNode(span);
+                            range.setStartAfter(span);
+                            range.setEndAfter(span);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Renk uygulama hatası:', error);
+                    // Fallback: basit span ekleme
+                    if (range) {
+                        const span = document.createElement('span');
+                        span.style.color = color;
+                        if (!range.collapsed) {
+                            range.surroundContents(span);
+                        } else {
+                            span.innerHTML = '&nbsp;';
+                            range.insertNode(span);
+                        }
+                    }
+                }
                 
                 // Modalı kapat
                 closeColorPalette();
