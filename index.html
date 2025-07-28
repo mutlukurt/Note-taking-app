@@ -1722,75 +1722,107 @@
             const t = translations[lang];
             console.log('updatePrivacyPolicyTranslation called with lang:', lang);
             
-            try {
-                // Update privacy policy elements
-                const privacyTitle = document.querySelector('#privacyTitle');
-                console.log('privacyTitle element:', privacyTitle);
-                if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
-                
-                const dataCollectionLabel = document.querySelector('#dataCollectionLabel');
-                console.log('dataCollectionLabel element:', dataCollectionLabel);
-                if (dataCollectionLabel) dataCollectionLabel.textContent = t.dataCollection + ':';
-                
-                const dataCollectionText = document.querySelector('#dataCollectionText');
-                console.log('dataCollectionText element:', dataCollectionText);
-                if (dataCollectionText) dataCollectionText.textContent = t.dataCollectionText;
-                
-                const dataStorageLabel = document.querySelector('#dataStorageLabel');
-                console.log('dataStorageLabel element:', dataStorageLabel);
-                if (dataStorageLabel) dataStorageLabel.textContent = t.dataStorage + ':';
-                
-                const dataStorageText = document.querySelector('#dataStorageText');
-                console.log('dataStorageText element:', dataStorageText);
-                if (dataStorageText) dataStorageText.textContent = t.dataStorageText;
-                
-                const cookiesLabel = document.querySelector('#cookiesLabel');
-                console.log('cookiesLabel element:', cookiesLabel);
-                if (cookiesLabel) cookiesLabel.textContent = t.cookies + ':';
-                
-                const cookiesText = document.querySelector('#cookiesText');
-                console.log('cookiesText element:', cookiesText);
-                if (cookiesText) cookiesText.textContent = t.cookiesText;
-                
-                const thirdPartyLabel = document.querySelector('#thirdPartyLabel');
-                console.log('thirdPartyLabel element:', thirdPartyLabel);
-                if (thirdPartyLabel) thirdPartyLabel.textContent = t.thirdParty + ':';
-                
-                const thirdPartyText = document.querySelector('#thirdPartyText');
-                console.log('thirdPartyText element:', thirdPartyText);
-                if (thirdPartyText) thirdPartyText.textContent = t.thirdPartyText;
-                
-                const securityLabel = document.querySelector('#securityLabel');
-                console.log('securityLabel element:', securityLabel);
-                if (securityLabel) securityLabel.textContent = t.security + ':';
-                
-                const securityText = document.querySelector('#securityText');
-                console.log('securityText element:', securityText);
-                if (securityText) securityText.textContent = t.securityText;
-                
-                const contactLabel = document.querySelector('#contactLabel');
-                console.log('contactLabel element:', contactLabel);
-                if (contactLabel) contactLabel.textContent = t.contact + ':';
-                
-                const contactText = document.querySelector('#contactText');
-                console.log('contactText element:', contactText);
-                if (contactText) contactText.textContent = t.contactText;
-                
-                const copyrightText = document.querySelector('#copyrightText');
-                console.log('copyrightText element:', copyrightText);
-                if (copyrightText) copyrightText.textContent = t.copyright;
-                
-                // Update MIT License
-                const mitLicenseElement = document.querySelector('#mitLicenseText');
-                console.log('mitLicenseElement element:', mitLicenseElement);
-                if (mitLicenseElement) {
-                    mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+            // Function to actually update the elements
+            function updateElements() {
+                try {
+                    // Update privacy policy elements
+                    const privacyTitle = document.querySelector('#privacyTitle');
+                    console.log('privacyTitle element:', privacyTitle);
+                    if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
+                    
+                    const dataCollectionLabel = document.querySelector('#dataCollectionLabel');
+                    console.log('dataCollectionLabel element:', dataCollectionLabel);
+                    if (dataCollectionLabel) dataCollectionLabel.textContent = t.dataCollection + ':';
+                    
+                    const dataCollectionText = document.querySelector('#dataCollectionText');
+                    console.log('dataCollectionText element:', dataCollectionText);
+                    if (dataCollectionText) dataCollectionText.textContent = t.dataCollectionText;
+                    
+                    const dataStorageLabel = document.querySelector('#dataStorageLabel');
+                    console.log('dataStorageLabel element:', dataStorageLabel);
+                    if (dataStorageLabel) dataStorageLabel.textContent = t.dataStorage + ':';
+                    
+                    const dataStorageText = document.querySelector('#dataStorageText');
+                    console.log('dataStorageText element:', dataStorageText);
+                    if (dataStorageText) dataStorageText.textContent = t.dataStorageText;
+                    
+                    const cookiesLabel = document.querySelector('#cookiesLabel');
+                    console.log('cookiesLabel element:', cookiesLabel);
+                    if (cookiesLabel) cookiesLabel.textContent = t.cookies + ':';
+                    
+                    const cookiesText = document.querySelector('#cookiesText');
+                    console.log('cookiesText element:', cookiesText);
+                    if (cookiesText) cookiesText.textContent = t.cookiesText;
+                    
+                    const thirdPartyLabel = document.querySelector('#thirdPartyLabel');
+                    console.log('thirdPartyLabel element:', thirdPartyLabel);
+                    if (thirdPartyLabel) thirdPartyLabel.textContent = t.thirdParty + ':';
+                    
+                    const thirdPartyText = document.querySelector('#thirdPartyText');
+                    console.log('thirdPartyText element:', thirdPartyText);
+                    if (thirdPartyText) thirdPartyText.textContent = t.thirdPartyText;
+                    
+                    const securityLabel = document.querySelector('#securityLabel');
+                    console.log('securityLabel element:', securityLabel);
+                    if (securityLabel) securityLabel.textContent = t.security + ':';
+                    
+                    const securityText = document.querySelector('#securityText');
+                    console.log('securityText element:', securityText);
+                    if (securityText) securityText.textContent = t.securityText;
+                    
+                    const contactLabel = document.querySelector('#contactLabel');
+                    console.log('contactLabel element:', contactLabel);
+                    if (contactLabel) contactLabel.textContent = t.contact + ':';
+                    
+                    const contactText = document.querySelector('#contactText');
+                    console.log('contactText element:', contactText);
+                    if (contactText) contactText.textContent = t.contactText;
+                    
+                    const copyrightText = document.querySelector('#copyrightText');
+                    console.log('copyrightText element:', copyrightText);
+                    if (copyrightText) copyrightText.textContent = t.copyright;
+                    
+                    // Update MIT License
+                    const mitLicenseElement = document.querySelector('#mitLicenseText');
+                    console.log('mitLicenseElement element:', mitLicenseElement);
+                    if (mitLicenseElement) {
+                        mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+                    }
+                    
+                    console.log('Privacy policy translation completed successfully');
+                    return true;
+                } catch (error) {
+                    console.log('Privacy policy translation error:', error);
+                    return false;
+                }
+            }
+            
+            // Try to update immediately
+            if (updateElements()) {
+                return;
+            }
+            
+            // If elements are not found, wait and retry
+            console.log('Elements not found, retrying in 100ms...');
+            setTimeout(() => {
+                if (updateElements()) {
+                    return;
                 }
                 
-                console.log('Privacy policy translation completed successfully');
-            } catch (error) {
-                console.log('Privacy policy translation error:', error);
-            }
+                // Try again after 500ms
+                console.log('Elements still not found, retrying in 500ms...');
+                setTimeout(() => {
+                    if (updateElements()) {
+                        return;
+                    }
+                    
+                    // Final try after 1 second
+                    console.log('Final retry after 1 second...');
+                    setTimeout(() => {
+                        updateElements();
+                    }, 1000);
+                }, 500);
+            }, 100);
         }
 
         // Translation objects
