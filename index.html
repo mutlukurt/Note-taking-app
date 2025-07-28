@@ -173,15 +173,15 @@
 
         <div class="notes-controls">
             <div class="sort-controls">
-                <span style="color: var(--text-secondary); font-size: 0.9rem; margin-right: 10px;">Sırala:</span>
-                <button class="sort-btn active" data-sort="date-desc">En Yeni</button>
-                <button class="sort-btn" data-sort="date-asc">En Eski</button>
-                <button class="sort-btn" data-sort="title">Başlık</button>
+                <span id="sortLabel" style="color: var(--text-secondary); font-size: 0.9rem; margin-right: 10px;">Sırala:</span>
+                <button id="sortNewest" class="sort-btn active" data-sort="date-desc">En Yeni</button>
+                <button id="sortOldest" class="sort-btn" data-sort="date-asc">En Eski</button>
+                <button id="sortTitle" class="sort-btn" data-sort="title">Başlık</button>
             </div>
             <div class="pin-controls">
-                <button class="pin-filter active" data-filter="all">Tümü</button>
-                <button class="pin-filter" data-filter="pinned">Sabitlenenler</button>
-                <button class="pin-filter" data-filter="unpinned">Normal</button>
+                <button id="filterAll" class="pin-filter active" data-filter="all">Tümü</button>
+                <button id="filterPinned" class="pin-filter" data-filter="pinned">Sabitlenenler</button>
+                <button id="filterNormal" class="pin-filter" data-filter="unpinned">Normal</button>
             </div>
         </div>
 
@@ -191,8 +191,8 @@
 
         <div class="empty-state" id="emptyState">
             <i class="fas fa-notes-medical"></i>
-            <h3>Henüz not eklenmemiş</h3>
-            <p>İlk notunuzu ekleyerek başlayın!</p>
+            <h3 id="emptyStateTitle">Henüz not eklenmemiş</h3>
+            <p id="emptyStateDesc">İlk notunuzu ekleyerek başlayın!</p>
         </div>
     </div>
 
@@ -1386,39 +1386,13 @@
                 document.getElementById('addImageBtn').title = t.toolbarImage;
                 document.getElementById('textColorBtn').title = t.toolbarTextColor;
                 
-                // Update controls
-                const sortSpan = document.querySelector('.sort-controls span');
-                if (sortSpan) sortSpan.textContent = t.sortLabel;
-                
-                const newestBtn = document.querySelector('[data-sort="date-desc"]');
-                if (newestBtn) newestBtn.textContent = t.newest;
-                
-                const oldestBtn = document.querySelector('[data-sort="date-asc"]');
-                if (oldestBtn) oldestBtn.textContent = t.oldest;
-                
-                const titleBtn = document.querySelector('[data-sort="title"]');
-                if (titleBtn) titleBtn.textContent = t.title;
-                
-                const allFilter = document.querySelector('[data-filter="all"]');
-                if (allFilter) allFilter.textContent = t.allNotes;
-                
-                const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-                if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
-                
-                const normalFilter = document.querySelector('[data-filter="unpinned"]');
-                if (normalFilter) normalFilter.textContent = t.normalNotes;
-                
-                // Update empty state
-                const emptyState = document.getElementById('emptyState');
-                if (emptyState) {
-                    emptyState.querySelector('h3').textContent = t.emptyStateTitle;
-                    emptyState.querySelector('p').textContent = t.emptyStateDesc;
-                }
-                
                 console.log('✅ Main UI translation completed');
             } catch (error) {
                 console.error('❌ Main UI translation error:', error);
             }
+            
+            // Update controls and empty state translations
+            updateControlsTranslations(lang);
             
             // Update footer translations
             updateFooterTranslations(lang);
@@ -1457,18 +1431,10 @@
                 sortLabel: "Sırala:",
                 newest: "En Yeni",
                 oldest: "En Eski",
-                title: "Not Alma Uygulaması",
-                noteTitle: "Not Başlığı",
-                noteContent: "Not İçeriği",
-                addNote: "Not Ekle",
-                clear: "Temizle",
-                search: "Notlarda ara...",
-                allNotes: "Tüm Notlar",
-                pinnedNotes: "Sabitlenenler",
-                normalNotes: "Normal Notlar",
-                newest: "En Yeni",
-                oldest: "En Eski",
                 byTitle: "Başlık",
+                allNotes: "Tümü",
+                pinnedNotes: "Sabitlenenler",
+                normalNotes: "Normal",
                 edit: "Düzenle",
                 delete: "Sil",
                 pin: "Sabitle",
@@ -1533,6 +1499,9 @@
                 newest: "Newest",
                 oldest: "Oldest",
                 byTitle: "Title",
+                allNotes: "All",
+                pinnedNotes: "Pinned",
+                normalNotes: "Normal",
                 edit: "Edit",
                 delete: "Delete",
                 pin: "Pin",
@@ -1858,6 +1827,84 @@
                 }
             }, 100); // Small delay to ensure DOM is ready
         }
+
+        // Separate function to update controls and empty state translations
+        function updateControlsTranslations(lang) {
+            console.log('🎛️ Updating controls for language:', lang);
+            const t = translations[lang];
+            
+            if (!t) {
+                console.error('❌ Translations not found for language:', lang);
+                return;
+            }
+            
+            // Wait for DOM to be ready
+            setTimeout(() => {
+                try {
+                    // Update sort controls
+                    const sortLabel = document.getElementById('sortLabel');
+                    if (sortLabel) {
+                        sortLabel.textContent = t.sortLabel;
+                        console.log('✅ Sort label updated');
+                    }
+                    
+                    const sortNewest = document.getElementById('sortNewest');
+                    if (sortNewest) {
+                        sortNewest.textContent = t.newest;
+                        console.log('✅ Sort newest updated');
+                    }
+                    
+                    const sortOldest = document.getElementById('sortOldest');
+                    if (sortOldest) {
+                        sortOldest.textContent = t.oldest;
+                        console.log('✅ Sort oldest updated');
+                    }
+                    
+                    const sortTitle = document.getElementById('sortTitle');
+                    if (sortTitle) {
+                        sortTitle.textContent = t.byTitle;
+                        console.log('✅ Sort title updated');
+                    }
+                    
+                    // Update filter controls
+                    const filterAll = document.getElementById('filterAll');
+                    if (filterAll) {
+                        filterAll.textContent = t.allNotes;
+                        console.log('✅ Filter all updated');
+                    }
+                    
+                    const filterPinned = document.getElementById('filterPinned');
+                    if (filterPinned) {
+                        filterPinned.textContent = t.pinnedNotes;
+                        console.log('✅ Filter pinned updated');
+                    }
+                    
+                    const filterNormal = document.getElementById('filterNormal');
+                    if (filterNormal) {
+                        filterNormal.textContent = t.normalNotes;
+                        console.log('✅ Filter normal updated');
+                    }
+                    
+                    // Update empty state
+                    const emptyStateTitle = document.getElementById('emptyStateTitle');
+                    if (emptyStateTitle) {
+                        emptyStateTitle.textContent = t.emptyStateTitle;
+                        console.log('✅ Empty state title updated');
+                    }
+                    
+                    const emptyStateDesc = document.getElementById('emptyStateDesc');
+                    if (emptyStateDesc) {
+                        emptyStateDesc.textContent = t.emptyStateDesc;
+                        console.log('✅ Empty state description updated');
+                    }
+                    
+                    console.log('✅ Controls translation completed for:', lang);
+                    
+                } catch (error) {
+                    console.error('❌ Controls translation error:', error);
+                }
+            }, 100); // Small delay to ensure DOM is ready
+        }
     </script>
     
     <script>
@@ -2015,8 +2062,9 @@
         // Set up language toggle after NotesApp initialization
         setupLanguageToggle();
         
-        // Ensure footer is translated on page load
+        // Ensure all translations are applied on page load
         const currentLang = localStorage.getItem('language') || 'tr';
+        updateControlsTranslations(currentLang);
         updateFooterTranslations(currentLang);
     </script>
 </body>
