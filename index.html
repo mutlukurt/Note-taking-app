@@ -342,6 +342,8 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
+                    console.log('Color clicked:', color.getAttribute('data-color'));
+                    
                     const selectedColor = color.getAttribute('data-color');
                     
                     // Remove selected class from all colors
@@ -354,7 +356,8 @@
                     applyTextColor(selectedColor);
                     
                     // Close modal
-                    closeModal();
+                    colorGridModal.classList.remove('show');
+                    document.body.style.overflow = '';
                     
                     // Show notification
                     showNotification(`Metin rengi değiştirildi: ${selectedColor}`, 'success');
