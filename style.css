@@ -119,6 +119,10 @@ body {
     transition: all 0.2s ease !important;
     box-shadow: var(--shadow-card) !important;
     z-index: 10 !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
 }
 
 .settings-toggle:hover {
@@ -191,6 +195,10 @@ body {
     font-size: 1rem !important;
     transition: all 0.2s ease !important;
     box-shadow: var(--shadow-card) !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
 }
 
 .theme-toggle:hover {
@@ -217,6 +225,10 @@ body {
     box-shadow: var(--shadow-card) !important;
     position: relative !important;
     overflow: hidden !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
 }
 
 .language-toggle:hover {

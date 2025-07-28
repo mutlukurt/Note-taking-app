@@ -25,14 +25,14 @@
         <!-- Ayarlar bölümü -->
         <div class="settings-section">
             <div class="settings-container">
-                <button class="settings-toggle" id="settingsToggle" title="Ayarlar">
+                <button class="settings-toggle" id="settingsToggle" title="Ayarlar" onclick="toggleSettings()">
                     <i class="fas fa-cog"></i>
                 </button>
                 <div class="settings-panel" id="settingsPanel">
                     <div class="settings-content">
                         <span class="settings-label">Ayarlar</span>
                         <div class="settings-buttons">
-                            <button class="language-toggle" id="languageToggle" title="Dil Değiştir">
+                            <button class="language-toggle" id="languageToggle" title="Dil Değiştir" onclick="toggleLanguage()">
                                 <i class="fas fa-globe"></i>
                                 <span class="lang-text">TR</span>
                             </button>
@@ -1607,6 +1607,63 @@
             mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
         }
     </script>
+    
+    <script>
+        // Global functions for settings panel
+        function toggleSettings() {
+            console.log('toggleSettings called');
+            const settingsToggle = document.getElementById('settingsToggle');
+            const settingsPanel = document.getElementById('settingsPanel');
+            
+            if (settingsToggle && settingsPanel) {
+                settingsToggle.classList.toggle('active');
+                settingsPanel.classList.toggle('active');
+                console.log('Settings panel toggled');
+            } else {
+                console.error('Settings elements not found');
+            }
+        }
+
+        function toggleLanguage() {
+            console.log('toggleLanguage called');
+            const languageToggle = document.getElementById('languageToggle');
+            const langText = languageToggle.querySelector('.lang-text');
+            
+            if (languageToggle && langText) {
+                if (langText.textContent === 'TR') {
+                    langText.textContent = 'EN';
+                    languageToggle.classList.add('english');
+                    alert('Dil İngilizce olarak değiştirildi');
+                } else {
+                    langText.textContent = 'TR';
+                    languageToggle.classList.remove('english');
+                    alert('Dil Türkçe olarak değiştirildi');
+                }
+            }
+        }
+
+        // Mobile touch support
+        document.addEventListener('DOMContentLoaded', function() {
+            // Touch events for mobile
+            const settingsToggle = document.getElementById('settingsToggle');
+            const languageToggle = document.getElementById('languageToggle');
+            
+            if (settingsToggle) {
+                settingsToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    toggleSettings();
+                });
+            }
+            
+            if (languageToggle) {
+                languageToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    toggleLanguage();
+                });
+            }
+        });
+    </script>
+    
     <script src="script.js"></script>
     
     <!-- Gizlilik Politikası ve Lisans -->
