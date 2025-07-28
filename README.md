@@ -22,7 +22,6 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - 🔔 **Bildirimler**: İşlem sonuçları için güzel bildirimler
 - ⌨️ **Klavye Kısayolları**: Enter ile not ekleme, Ctrl+Enter ile içerik ekleme
 - ✨ **Zengin Metin Editörü**: Kalın, italik, altı çizili, üstü çizili formatlama
-- 🎨 **Modern Renk Sistemi**: Siyah/Kırmızı renk seçenekleri, professional UI
 - 📋 **Başlık Sistemi**: H1, H2, H3 başlık seçenekleri, dropdown menü
 - ⌨️ **Klavye Kısayolları**: Ctrl+B (kalın), Ctrl+I (italik), Ctrl+U (altı çizili)
 - 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
@@ -34,7 +33,6 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - 🔒 **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
 - ⚙️ **Modern Ayarlar**: Yuvarlak ayarlar butonu ve genişleyen panel
 - 🌍 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
-- 🎨 **Renk Paleti**: 24 renk seçeneği, grid layout, touch-friendly mobile tasarım
 
 ## 🚀 Kullanım
 
@@ -68,14 +66,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 5. **Görsel Geri Bildirim**: Butonlara tıkladığınızda aktif durum göstergesi
 6. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
 
-### 🎨 **Renk Paleti Sistemi:**
-1. **Renk Paleti**: 🎨 ikonuna tıklayarak 24 renk seçeneğini açın
-2. **Grid Layout**: 6x4 grid düzeninde 24 farklı renk
-3. **Touch-Friendly**: Mobile'da büyük touch alanları (50x50px)
-4. **Sonsuz Döngü**: İstediğiniz kadar renk değiştirebilirsiniz
-5. **Seçili Metin**: Metni seçtikten sonra renk seçin
-6. **Yazım Sırasında**: Renk seçip yazmaya devam edin
-7. **Mobile Optimized**: Touch event'ler ve responsive tasarım
+
 
 ### 📋 **Başlık Sistemi:**
 1. **Başlık Dropdown**: 📋 ikonuna tıklayarak menüyü açın
