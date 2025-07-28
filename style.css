@@ -403,13 +403,14 @@ body {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 8px;
+    padding: 10px;
     display: none;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    gap: 6px;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 120px;
+    min-width: 140px;
+    max-width: 160px;
 }
 
 .color-palette.show {
@@ -417,12 +418,13 @@ body {
 }
 
 .color-option {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
     cursor: pointer;
     border: 2px solid transparent;
     transition: all 0.2s ease;
+    position: relative;
 }
 
 .color-option:hover {
@@ -1322,5 +1324,36 @@ body.force-desktop-mode .rich-editor {
     
     .privacy-text p {
         font-size: 0.7rem;
+    }
+}
+
+/* Responsive Color Picker */
+@media (max-width: 768px) {
+    .color-palette {
+        min-width: 120px;
+        max-width: 140px;
+        padding: 8px;
+        gap: 4px;
+    }
+    
+    .color-option {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .color-palette {
+        min-width: 100px;
+        max-width: 120px;
+        padding: 6px;
+        gap: 3px;
+    }
+    
+    .color-option {
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
     }
 }

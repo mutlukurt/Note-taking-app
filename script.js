@@ -1048,32 +1048,26 @@ class NotesApp {
             } else {
                 colorPalette.classList.add('show');
                 colorPickerBtn.classList.add('active');
+                
+                // Position palette properly
+                this.positionColorPalette(colorPalette, colorPickerBtn);
             }
         });
 
-        // Handle color selection
+        // Handle color selection with touch support
         colorOptions.forEach(option => {
+            // Mouse events
             option.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                const color = option.getAttribute('data-color');
-                
-                // Remove active class from all options
-                colorOptions.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add active class to selected option
-                option.classList.add('selected');
-                
-                // Apply color to selected text
-                this.applyTextColor(color);
-                
-                // Close palette
-                colorPalette.classList.remove('show');
-                colorPickerBtn.classList.remove('active');
-                
-                // Show notification
-                this.showNotification(`Metin rengi değiştirildi: ${color}`, 'success');
+                this.selectColor(option, colorPalette, colorPickerBtn);
+            });
+            
+            // Touch events for mobile
+            option.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.selectColor(option, colorPalette, colorPickerBtn);
             });
         });
 
@@ -1084,6 +1078,61 @@ class NotesApp {
                 colorPickerBtn.classList.remove('active');
             }
         });
+
+        // Close palette on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && colorPalette.classList.contains('show')) {
+                colorPalette.classList.remove('show');
+                colorPickerBtn.classList.remove('active');
+            }
+        });
+    }
+
+    selectColor(option, colorPalette, colorPickerBtn) {
+        const color = option.getAttribute('data-color');
+        const colorOptions = document.querySelectorAll('.color-option');
+        
+        // Remove active class from all options
+        colorOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // Add active class to selected option
+        option.classList.add('selected');
+        
+        // Apply color to selected text
+        this.applyTextColor(color);
+        
+        // Close palette
+        colorPalette.classList.remove('show');
+        colorPickerBtn.classList.remove('active');
+        
+        // Show notification
+        this.showNotification(`Metin rengi değiştirildi: ${color}`, 'success');
+    }
+
+    positionColorPalette(colorPalette, colorPickerBtn) {
+        // Ensure palette is positioned correctly
+        const rect = colorPickerBtn.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        
+        // Reset position
+        colorPalette.style.left = '0';
+        colorPalette.style.top = '100%';
+        
+        // Check if palette would go off screen
+        const paletteRect = colorPalette.getBoundingClientRect();
+        
+        // Adjust horizontal position if needed
+        if (rect.left + paletteRect.width > viewportWidth) {
+            colorPalette.style.left = 'auto';
+            colorPalette.style.right = '0';
+        }
+        
+        // Adjust vertical position if needed
+        if (rect.bottom + paletteRect.height > viewportHeight) {
+            colorPalette.style.top = 'auto';
+            colorPalette.style.bottom = '100%';
+        }
     }
 
     applyTextColor(color) {
