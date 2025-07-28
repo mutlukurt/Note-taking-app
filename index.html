@@ -266,7 +266,7 @@
             }
         }
         
-        // Enhanced cursor position preservation using Selection and Range APIs
+        // Mobile-optimized caret position preservation using Selection and Range APIs
         function saveCaretPosition() {
             const editor = document.getElementById('noteContent');
             const selection = window.getSelection();
@@ -274,21 +274,34 @@
             if (selection.rangeCount > 0) {
                 const range = selection.getRangeAt(0);
                 
-                // Create a bookmark to preserve the exact position
+                // Create a comprehensive bookmark for mobile compatibility
                 const bookmark = {
                     startContainer: range.startContainer,
                     startOffset: range.startOffset,
                     endContainer: range.endContainer,
                     endOffset: range.endOffset,
                     collapsed: range.collapsed,
-                    commonAncestorContainer: range.commonAncestorContainer
+                    commonAncestorContainer: range.commonAncestorContainer,
+                    timestamp: Date.now() // For mobile browser compatibility
                 };
                 
-                // Also save text position as backup
-                const preCaretRange = range.cloneRange();
-                preCaretRange.selectNodeContents(editor);
-                preCaretRange.setEnd(range.endContainer, range.endOffset);
-                bookmark.textBefore = preCaretRange.toString().length;
+                // Save text position as backup for mobile browsers
+                try {
+                    const preCaretRange = range.cloneRange();
+                    preCaretRange.selectNodeContents(editor);
+                    preCaretRange.setEnd(range.endContainer, range.endOffset);
+                    bookmark.textBefore = preCaretRange.toString().length;
+                    
+                    // Save character offset for better mobile support
+                    const allText = editor.textContent || editor.innerText;
+                    const selectedText = range.toString();
+                    bookmark.charOffset = bookmark.textBefore;
+                    bookmark.selectedText = selectedText;
+                } catch (e) {
+                    console.log('Text position calculation failed, using fallback');
+                    bookmark.textBefore = 0;
+                    bookmark.charOffset = 0;
+                }
                 
                 return bookmark;
             }
@@ -301,21 +314,44 @@
             const editor = document.getElementById('noteContent');
             const selection = window.getSelection();
             
+            // Mobile-optimized restoration with multiple fallback strategies
             try {
-                // Try to restore using the exact DOM references
+                // Primary method: Direct DOM reference restoration
                 const range = document.createRange();
                 range.setStart(bookmark.startContainer, bookmark.startOffset);
                 range.setEnd(bookmark.endContainer, bookmark.endOffset);
                 
                 selection.removeAllRanges();
                 selection.addRange(range);
-                return true;
-            } catch (e) {
-                console.log('Direct restoration failed, using fallback method');
                 
-                // Fallback: restore using text position
-                return restoreCaretByTextPosition(editor, bookmark.textBefore);
+                // Verify restoration worked
+                if (selection.rangeCount > 0) {
+                    const restoredRange = selection.getRangeAt(0);
+                    if (restoredRange.startContainer === bookmark.startContainer &&
+                        restoredRange.startOffset === bookmark.startOffset) {
+                        return true;
+                    }
+                }
+            } catch (e) {
+                console.log('Direct restoration failed, trying fallback methods');
             }
+            
+            // Fallback 1: Text position restoration
+            if (bookmark.textBefore !== undefined) {
+                if (restoreCaretByTextPosition(editor, bookmark.textBefore)) {
+                    return true;
+                }
+            }
+            
+            // Fallback 2: Character offset restoration
+            if (bookmark.charOffset !== undefined) {
+                if (restoreCaretByCharOffset(editor, bookmark.charOffset)) {
+                    return true;
+                }
+            }
+            
+            // Final fallback: Place cursor at end
+            return placeCursorAtEnd(editor);
         }
         
         function restoreCaretByTextPosition(editor, textBefore) {
@@ -365,21 +401,91 @@
             return false;
         }
         
+        function restoreCaretByCharOffset(editor, charOffset) {
+            const selection = window.getSelection();
+            const allText = editor.textContent || editor.innerText;
+            
+            if (charOffset > allText.length) {
+                charOffset = allText.length;
+            }
+            
+            // Find the text node containing the character offset
+            const walker = document.createTreeWalker(
+                editor,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            let node;
+            let currentOffset = 0;
+            
+            while (node = walker.nextNode()) {
+                const nodeLength = node.length;
+                if (currentOffset + nodeLength >= charOffset) {
+                    const localOffset = charOffset - currentOffset;
+                    const range = document.createRange();
+                    range.setStart(node, localOffset);
+                    range.setEnd(node, localOffset);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    return true;
+                }
+                currentOffset += nodeLength;
+            }
+            
+            return false;
+        }
+        
+        function placeCursorAtEnd(editor) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            
+            // Find the last text node
+            const walker = document.createTreeWalker(
+                editor,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            let lastNode = null;
+            let node;
+            while (node = walker.nextNode()) {
+                lastNode = node;
+            }
+            
+            if (lastNode) {
+                range.setStart(lastNode, lastNode.length);
+                range.setEnd(lastNode, lastNode.length);
+            } else {
+                range.selectNodeContents(editor);
+                range.collapse(false);
+            }
+            
+            selection.removeAllRanges();
+            selection.addRange(range);
+            return true;
+        }
+        
         function applyTextColor(color) {
             const editor = document.getElementById('noteContent');
             if (!editor) return;
             
-            // Save current state
+            // Save current state for mobile compatibility
             const scrollTop = editor.scrollTop;
             const scrollLeft = editor.scrollLeft;
+            const wasFocused = document.activeElement === editor;
             
             // Save caret position before any DOM changes
             const caretBookmark = saveCaretPosition();
             
-            // Focus the editor
-            editor.focus();
+            // Mobile-optimized focus handling
+            if (!wasFocused) {
+                editor.focus();
+            }
             
-            // Restore caret position
+            // Restore caret position with mobile-specific handling
             if (caretBookmark) {
                 restoreCaretPosition(caretBookmark);
             }
@@ -458,21 +564,24 @@
             // Save the color preference
             localStorage.setItem('noteTextColor', color);
             
-            // Ensure editor has focus
-            editor.focus();
-            
-            // Final caret position restoration
+            // Mobile-optimized final restoration
             if (caretBookmark) {
-                setTimeout(() => {
+                // Use requestAnimationFrame for better mobile performance
+                requestAnimationFrame(() => {
                     restoreCaretPosition(caretBookmark);
-                }, 1);
+                    
+                    // Ensure focus is maintained on mobile
+                    if (wasFocused) {
+                        editor.focus();
+                    }
+                });
             }
             
-            // Restore scroll position
-            setTimeout(() => {
+            // Restore scroll position with mobile-specific timing
+            requestAnimationFrame(() => {
                 editor.scrollTop = scrollTop;
                 editor.scrollLeft = scrollLeft;
-            }, 5);
+            });
             
             // Close the palette
             closeColorPalette();
@@ -1201,10 +1310,12 @@
                     }
                 });
                 
-                // Color option click events
+                // Color option click and touch events for mobile compatibility
                 colorOptions.forEach(option => {
+                    // Click event for desktop
                     option.addEventListener('click', (e) => {
                         e.stopPropagation();
+                        e.preventDefault();
                         
                         // Remove selected class from all options
                         colorOptions.forEach(opt => opt.classList.remove('selected'));
@@ -1214,6 +1325,31 @@
                         
                         const color = option.dataset.color;
                         applyTextColor(color);
+                    });
+                    
+                    // Touch events for mobile
+                    option.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        option.style.transform = 'scale(0.95)';
+                    }, { passive: false });
+                    
+                    option.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        option.style.transform = '';
+                        
+                        // Remove selected class from all options
+                        colorOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Add selected class to touched option
+                        option.classList.add('selected');
+                        
+                        const color = option.dataset.color;
+                        applyTextColor(color);
+                    }, { passive: false });
+                    
+                    // Prevent text selection on mobile
+                    option.addEventListener('selectstart', (e) => {
+                        e.preventDefault();
                     });
                 });
             }
