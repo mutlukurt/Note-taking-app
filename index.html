@@ -321,22 +321,15 @@
             // Apply color to text
             applyTextColor(color);
             
-            // Minimize modal to see the text
+            // Close modal after color selection
             const modal = document.getElementById('colorGridModal');
             if (modal) {
-                modal.style.transform = 'scale(0.8)';
-                modal.style.opacity = '0.7';
-                modal.style.pointerEvents = 'none';
-                
-                // Restore modal after 2 seconds
-                setTimeout(() => {
-                    modal.style.transform = 'scale(1)';
-                    modal.style.opacity = '1';
-                    modal.style.pointerEvents = 'auto';
-                }, 2000);
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
             }
             
-            console.log('Color applied, modal minimized temporarily');
+            console.log('Color applied, modal closed');
             
             // Show notification
             showNotification(`Metin rengi değiştirildi: ${color}`, 'success');
