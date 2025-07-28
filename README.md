@@ -22,7 +22,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 - 🔔 **Bildirimler**: İşlem sonuçları için güzel bildirimler
 - ⌨️ **Klavye Kısayolları**: Enter ile not ekleme, Ctrl+Enter ile içerik ekleme
 - ✨ **Zengin Metin Editörü**: Kalın, italik, altı çizili, üstü çizili formatlama
-- 📋 **Başlık Sistemi**: H1, H2, H3 başlık seçenekleri, dropdown menü
+- 📋 **Başlık Sistemi**: H1, H2, H3 başlık seçenekleri, çalışan dropdown menü
 - ⌨️ **Klavye Kısayolları**: Ctrl+B (kalın), Ctrl+I (italik), Ctrl+U (altı çizili)
 - 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
 - 📐 **Hizalama**: Sola, orta ve sağa hizalama
@@ -69,7 +69,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 
 
 ### 📋 **Başlık Sistemi:**
-1. **Başlık Dropdown**: 📋 ikonuna tıklayarak menüyü açın
+1. **Başlık Dropdown**: 📋 ikonuna tıklayarak menüyü açın ✅ **ÇALIŞIYOR**
    - **Normal**: Standart paragraf metni
    - **Başlık 1 (H1)**: En büyük başlık (2em)
    - **Başlık 2 (H2)**: Orta başlık (1.5em)
@@ -80,6 +80,7 @@ Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulamas
 5. **Smart Indicator**: Buton üzerinde mevcut format göstergesi
 6. **Outside Click**: Dışarı tıklayarak dropdown'ı kapatın
 7. **Smooth Animation**: Dropdown açılma/kapanma animasyonları
+8. **Mobile Compatible**: Tüm cihazlarda çalışır
 
 ### 📱 **Swipe-to-Delete (Mobil Özellik):**
 1. **Mobil Cihazda**: Not kartını sola kaydırın
@@ -437,6 +438,16 @@ SOFTWARE.
 - Performans iyileştirme önerileri için Issues kullanın
 
 ## 🔄 Güncelleme Geçmişi
+
+### 📅 **v2.2.0 (2025)**
+- 🔧 **Header Dropdown Düzeltmesi**: Başlık seçici dropdown menüsü tamamen çalışır hale getirildi
+- 🎯 **Event Listener'lar**: Header buton ve seçenekleri için JavaScript event listener'ları eklendi
+- 📋 **Format Block**: H1, H2, H3, Normal metin formatları düzgün çalışıyor
+- 🎨 **Z-Index Düzeltmesi**: Dropdown menüsü artık diğer elementlerin üstünde görünüyor
+- ✨ **Visual Feedback**: Seçilen format buton metninde gösteriliyor
+- 🔄 **Auto Close**: Dışarı tıklayınca dropdown otomatik kapanıyor
+- 🎭 **Smooth Animation**: Dropdown açılma/kapanma animasyonları
+- 📱 **Mobile Compatible**: Tüm cihazlarda header dropdown çalışıyor
 
 ### 📅 **v2.1.0 (2025)**
 - 🎨 **Modern UI Güncellemesi**: Professional button tasarımı ve smooth animasyonlar
