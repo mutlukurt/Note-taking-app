@@ -133,7 +133,7 @@
                     </button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" id="colorGridBtn" title="Renk Paleti">
+                    <button type="button" class="toolbar-btn" id="colorGridBtn" title="Renk Paleti" onclick="openColorGrid()">
                         <i class="fas fa-palette"></i>
                     </button>
                 </div>
@@ -283,35 +283,36 @@
             document.getElementById('noteContent').innerHTML = '';
         }
         
+        // Open color grid function
+        function openColorGrid() {
+            console.log('Opening color grid...');
+            const colorGridModal = document.getElementById('colorGridModal');
+            if (colorGridModal) {
+                colorGridModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                console.log('Color grid opened!');
+            } else {
+                console.error('Color grid modal not found!');
+            }
+        }
+        
         // Color Grid Setup Function
         function setupColorGrid() {
             console.log('Setting up color grid...');
-            const colorGridBtn = document.getElementById('colorGridBtn');
             const colorGridModal = document.getElementById('colorGridModal');
             const closeColorGrid = document.getElementById('closeColorGrid');
             const gridColors = document.querySelectorAll('.grid-color');
             
             console.log('Color grid elements:', {
-                colorGridBtn: !!colorGridBtn,
                 colorGridModal: !!colorGridModal,
                 closeColorGrid: !!closeColorGrid,
                 gridColorsCount: gridColors.length
             });
             
-            if (!colorGridBtn || !colorGridModal) {
-                console.error('Color grid elements not found!');
+            if (!colorGridModal) {
+                console.error('Color grid modal not found!');
                 return;
             }
-
-            // Open color grid modal
-            colorGridBtn.addEventListener('click', (e) => {
-                console.log('Color grid button clicked!');
-                e.preventDefault();
-                e.stopPropagation();
-                colorGridModal.classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
-                console.log('Modal should be visible now');
-            });
 
             // Close color grid modal
             const closeModal = () => {
