@@ -304,6 +304,16 @@
             }
         });
         
+        // Global event listener for color selection
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.grid-color')) {
+                const colorElement = e.target.closest('.grid-color');
+                const color = colorElement.getAttribute('data-color');
+                console.log('Color clicked via global listener:', color);
+                selectColor(color);
+            }
+        });
+        
         // Select color function
         function selectColor(color) {
             console.log('Color selected:', color);
