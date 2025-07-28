@@ -1319,22 +1319,29 @@
         
         // Language Toggle Setup
         function setupLanguageToggle() {
+            console.log('🌍 Setting up language toggle...');
             const languageBtn = document.getElementById('languageToggle');
             let currentLanguage = localStorage.getItem('language') || 'tr';
+            
+            console.log('Current language:', currentLanguage);
             
             // Set initial language
             updateLanguage(currentLanguage);
             
             if (languageBtn) {
+                console.log('Language button found, adding event listener');
                 languageBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     currentLanguage = currentLanguage === 'tr' ? 'en' : 'tr';
+                    console.log('Language changed to:', currentLanguage);
                     
                     localStorage.setItem('language', currentLanguage);
                     updateLanguage(currentLanguage);
                 });
+            } else {
+                console.error('❌ Language button not found!');
             }
         }
         
