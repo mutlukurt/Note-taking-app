@@ -133,7 +133,7 @@
                     </button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" id="colorGridBtn" title="Renk Paleti" onclick="openColorGrid()">
+                    <button type="button" class="toolbar-btn" id="colorPaletteBtn" title="Renk Paleti" onclick="openColorPalette()">
                         <i class="fas fa-palette"></i>
                     </button>
                 </div>
@@ -188,42 +188,39 @@
         </div>
     </div>
 
-    <!-- Color Grid Modal -->
-    <div id="colorGridModal" class="color-grid-modal">
-        <div class="color-grid-content">
-            <div class="color-grid-header">
-                <h3>Renk Paleti</h3>
-                <button class="close-color-grid" id="closeColorGrid" onclick="closeColorGrid()">
+    <!-- Simple Color Palette Modal -->
+    <div id="colorPaletteModal" class="color-palette-modal">
+        <div class="color-palette-content">
+            <div class="color-palette-header">
+                <h3>Renk Seçin</h3>
+                <button class="close-palette" onclick="closeColorPalette()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="color-grid-container">
-                <div class="color-grid">
-                    <div class="grid-color" data-color="#000000" style="background-color: #000000;" title="Siyah" onclick="selectColor('#000000')"></div>
-                    <div class="grid-color" data-color="#ff0000" style="background-color: #ff0000;" title="Kırmızı" onclick="selectColor('#ff0000')"></div>
-                    <div class="grid-color" data-color="#ffffff" style="background-color: #ffffff; border: 1px solid #ccc;" title="Beyaz" onclick="selectColor('#ffffff')"></div>
-                    <div class="grid-color" data-color="#00ff00" style="background-color: #00ff00;" title="Yeşil" onclick="selectColor('#00ff00')"></div>
-                    <div class="grid-color" data-color="#0000ff" style="background-color: #0000ff;" title="Mavi" onclick="selectColor('#0000ff')"></div>
-                    <div class="grid-color" data-color="#ffff00" style="background-color: #ffff00;" title="Sarı" onclick="selectColor('#ffff00')"></div>
-                    <div class="grid-color" data-color="#ff00ff" style="background-color: #ff00ff;" title="Magenta" onclick="selectColor('#ff00ff')"></div>
-                    <div class="grid-color" data-color="#00ffff" style="background-color: #00ffff;" title="Cyan" onclick="selectColor('#00ffff')"></div>
-                    <div class="grid-color" data-color="#ffa500" style="background-color: #ffa500;" title="Turuncu" onclick="selectColor('#ffa500')"></div>
-                    <div class="grid-color" data-color="#800080" style="background-color: #800080;" title="Mor" onclick="selectColor('#800080')"></div>
-                    <div class="grid-color" data-color="#008000" style="background-color: #008000;" title="Koyu Yeşil" onclick="selectColor('#008000')"></div>
-                    <div class="grid-color" data-color="#000080" style="background-color: #000080;" title="Lacivert" onclick="selectColor('#000080')"></div>
-                    <div class="grid-color" data-color="#ff69b4" style="background-color: #ff69b4;" title="Pembe" onclick="selectColor('#ff69b4')"></div>
-                    <div class="grid-color" data-color="#32cd32" style="background-color: #32cd32;" title="Açık Yeşil" onclick="selectColor('#32cd32')"></div>
-                    <div class="grid-color" data-color="#87ceeb" style="background-color: #87ceeb;" title="Açık Mavi" onclick="selectColor('#87ceeb')"></div>
-                    <div class="grid-color" data-color="#dda0dd" style="background-color: #dda0dd;" title="Açık Mor" onclick="selectColor('#dda0dd')"></div>
-                    <div class="grid-color" data-color="#f0e68c" style="background-color: #f0e68c;" title="Açık Sarı" onclick="selectColor('#f0e68c')"></div>
-                    <div class="grid-color" data-color="#ffb6c1" style="background-color: #ffb6c1;" title="Açık Pembe" onclick="selectColor('#ffb6c1')"></div>
-                    <div class="grid-color" data-color="#ff4500" style="background-color: #ff4500;" title="Turuncu Kırmızı" onclick="selectColor('#ff4500')"></div>
-                    <div class="grid-color" data-color="#4169e1" style="background-color: #4169e1;" title="Royal Mavi" onclick="selectColor('#4169e1')"></div>
-                    <div class="grid-color" data-color="#228b22" style="background-color: #228b22;" title="Orman Yeşili" onclick="selectColor('#228b22')"></div>
-                    <div class="grid-color" data-color="#daa520" style="background-color: #daa520;" title="Altın Sarısı" onclick="selectColor('#daa520')"></div>
-                    <div class="grid-color" data-color="#c71585" style="background-color: #c71585;" title="Orta Pembe" onclick="selectColor('#c71585')"></div>
-                    <div class="grid-color" data-color="#20b2aa" style="background-color: #20b2aa;" title="Açık Deniz Yeşili" onclick="selectColor('#20b2aa')"></div>
-                </div>
+            <div class="color-palette-grid">
+                <div class="color-item" style="background-color: #000000;" onclick="applyColor('#000000')" title="Siyah"></div>
+                <div class="color-item" style="background-color: #ff0000;" onclick="applyColor('#ff0000')" title="Kırmızı"></div>
+                <div class="color-item" style="background-color: #00ff00;" onclick="applyColor('#00ff00')" title="Yeşil"></div>
+                <div class="color-item" style="background-color: #0000ff;" onclick="applyColor('#0000ff')" title="Mavi"></div>
+                <div class="color-item" style="background-color: #ffff00;" onclick="applyColor('#ffff00')" title="Sarı"></div>
+                <div class="color-item" style="background-color: #ff00ff;" onclick="applyColor('#ff00ff')" title="Magenta"></div>
+                <div class="color-item" style="background-color: #00ffff;" onclick="applyColor('#00ffff')" title="Cyan"></div>
+                <div class="color-item" style="background-color: #ffa500;" onclick="applyColor('#ffa500')" title="Turuncu"></div>
+                <div class="color-item" style="background-color: #800080;" onclick="applyColor('#800080')" title="Mor"></div>
+                <div class="color-item" style="background-color: #008000;" onclick="applyColor('#008000')" title="Koyu Yeşil"></div>
+                <div class="color-item" style="background-color: #000080;" onclick="applyColor('#000080')" title="Lacivert"></div>
+                <div class="color-item" style="background-color: #ff69b4;" onclick="applyColor('#ff69b4')" title="Pembe"></div>
+                <div class="color-item" style="background-color: #32cd32;" onclick="applyColor('#32cd32')" title="Açık Yeşil"></div>
+                <div class="color-item" style="background-color: #87ceeb;" onclick="applyColor('#87ceeb')" title="Açık Mavi"></div>
+                <div class="color-item" style="background-color: #dda0dd;" onclick="applyColor('#dda0dd')" title="Açık Mor"></div>
+                <div class="color-item" style="background-color: #f0e68c;" onclick="applyColor('#f0e68c')" title="Açık Sarı"></div>
+                <div class="color-item" style="background-color: #ffb6c1;" onclick="applyColor('#ffb6c1')" title="Açık Pembe"></div>
+                <div class="color-item" style="background-color: #ff4500;" onclick="applyColor('#ff4500')" title="Turuncu Kırmızı"></div>
+                <div class="color-item" style="background-color: #4169e1;" onclick="applyColor('#4169e1')" title="Royal Mavi"></div>
+                <div class="color-item" style="background-color: #228b22;" onclick="applyColor('#228b22')" title="Orman Yeşili"></div>
+                <div class="color-item" style="background-color: #daa520;" onclick="applyColor('#daa520')" title="Altın Sarısı"></div>
+                <div class="color-item" style="background-color: #c71585;" onclick="applyColor('#c71585')" title="Orta Pembe"></div>
+                <div class="color-item" style="background-color: #20b2aa;" onclick="applyColor('#20b2aa')" title="Açık Deniz Yeşili"></div>
             </div>
         </div>
     </div>
@@ -288,94 +285,54 @@
         }
         
         // Simple and working color palette functions
-        function openColorGrid() {
-            console.log('Opening color palette...');
-            const colorGridModal = document.getElementById('colorGridModal');
-            
-            if (colorGridModal) {
-                colorGridModal.style.display = 'flex';
-                colorGridModal.classList.add('show');
+        function openColorPalette() {
+            const modal = document.getElementById('colorPaletteModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('show');
                 document.body.style.overflow = 'hidden';
-                
-                console.log('Color palette opened successfully!');
-            } else {
-                console.error('Color palette modal not found!');
             }
         }
 
-        // Simple and working color selection function
-        function selectColor(color) {
-            console.log('Color selected:', color);
-            
-            const modal = document.getElementById('colorGridModal');
+        function applyColor(color) {
             const editor = document.getElementById('noteContent');
-            
-            if (!modal || !editor) {
-                console.error('Required elements not found!');
-                return;
-            }
-            
-            // Simple color application
-            try {
-                // Focus editor if not focused
-                if (document.activeElement !== editor) {
-                    editor.focus();
-                }
-                
-                // Apply color
-                const colorApplied = document.execCommand('foreColor', false, color);
-                
-                if (colorApplied) {
-                    console.log('Color successfully applied:', color);
-                    
-                    // Close modal
-                    closeColorGrid();
-                    
-                    // Keep focus on editor
-                    editor.focus();
-                } else {
-                    console.error('Failed to apply color:', color);
-                }
-            } catch (error) {
-                console.error('Error applying color:', error);
+            if (editor) {
+                editor.focus();
+                document.execCommand('foreColor', false, color);
+                closeColorPalette();
+                editor.focus();
             }
         }
 
-        // Simple close function
-        function closeColorGrid() {
-            const modal = document.getElementById('colorGridModal');
-            
+        function closeColorPalette() {
+            const modal = document.getElementById('colorPaletteModal');
             if (modal) {
                 modal.classList.remove('show');
                 setTimeout(() => {
                     modal.style.display = 'none';
-                }, 300);
+                }, 200);
                 document.body.style.overflow = '';
-                
-                console.log('Color palette closed successfully!');
             }
         }
         
-        // Simple color grid setup
+        // Simple color palette setup
         function setupColorGrid() {
-            console.log('Color grid setup complete - using onclick attributes');
-            
             // Add escape key listener
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    const modal = document.getElementById('colorGridModal');
+                    const modal = document.getElementById('colorPaletteModal');
                     if (modal && modal.classList.contains('show')) {
-                        closeColorGrid();
+                        closeColorPalette();
                     }
                 }
             });
             
             // Add click outside to close
-            const modal = document.getElementById('colorGridModal');
+            const modal = document.getElementById('colorPaletteModal');
             if (modal) {
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
-                        closeColorGrid();
+                        closeColorPalette();
                     }
                 });
             }

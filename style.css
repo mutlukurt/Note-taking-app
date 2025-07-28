@@ -398,40 +398,38 @@ body {
     margin: 0 5px;
 }
 
-/* Color Grid Modal Styles */
-.color-grid-modal {
+/* Simple Color Palette Modal Styles */
+.color-palette-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 10000;
-    backdrop-filter: blur(5px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
 }
 
-.color-grid-modal.show {
+.color-palette-modal.show {
     display: flex;
-    opacity: 1;
+    animation: fadeIn 0.3s ease;
 }
 
-.color-grid-content {
+.color-palette-content {
     background: var(--bg-card);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 0;
-    max-width: 90vw;
-    max-height: 90vh;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
-    animation: modalSlideIn 0.3s ease;
+    animation: slideUp 0.3s ease;
 }
 
-.color-grid-header {
+.color-palette-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -439,69 +437,79 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-.color-grid-header h3 {
+.color-palette-header h3 {
     margin: 0;
     color: var(--text-primary);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
-.close-color-grid {
+.close-palette {
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     cursor: pointer;
     padding: 8px;
     border-radius: 8px;
     transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.close-color-grid:hover {
+.close-palette:hover {
     background: var(--bg-hover);
     color: var(--text-primary);
 }
 
-.color-grid-container {
+.color-palette-grid {
     padding: 24px;
-    overflow-y: auto;
-    max-height: 60vh;
-}
-
-.color-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 12px;
-    max-width: 400px;
 }
 
-.grid-color {
-    width: 50px;
-    height: 50px;
+.color-item {
+    width: 45px;
+    height: 45px;
     border-radius: 12px;
     cursor: pointer;
     border: 3px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     position: relative;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
 
-.grid-color:hover {
+.color-item:hover {
     transform: scale(1.1);
     border-color: var(--text-primary);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.grid-color:active {
+.color-item:active {
     transform: scale(0.95);
     transition: transform 0.1s ease;
 }
 
-.grid-color.selected {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-color), 0 4px 16px rgba(0, 0, 0, 0.2);
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes modalSlideIn {
@@ -1457,50 +1465,50 @@ body.force-desktop-mode .rich-editor {
     }
 }
 
-/* Responsive Color Grid Modal */
+/* Responsive Color Palette Modal */
 @media (max-width: 768px) {
-    .color-grid-content {
+    .color-palette-content {
         max-width: 95vw;
         margin: 20px;
     }
     
-    .color-grid {
+    .color-palette-grid {
         grid-template-columns: repeat(5, 1fr);
         gap: 10px;
     }
     
-    .grid-color {
-        width: 45px;
-        height: 45px;
+    .color-item {
+        width: 40px;
+        height: 40px;
         border-radius: 10px;
     }
     
-    .color-grid-header {
+    .color-palette-header {
         padding: 16px 20px;
     }
     
-    .color-grid-container {
+    .color-palette-grid {
         padding: 20px;
     }
 }
 
 @media (max-width: 480px) {
-    .color-grid {
+    .color-palette-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 8px;
     }
     
-    .grid-color {
-        width: 40px;
-        height: 40px;
+    .color-item {
+        width: 35px;
+        height: 35px;
         border-radius: 8px;
     }
     
-    .color-grid-header {
+    .color-palette-header {
         padding: 12px 16px;
     }
     
-    .color-grid-container {
+    .color-palette-grid {
         padding: 16px;
     }
 }
