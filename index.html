@@ -1404,25 +1404,58 @@
             emptyState.querySelector('h3').textContent = t.emptyStateTitle;
             emptyState.querySelector('p').textContent = t.emptyStateDesc;
             
-            // Update privacy policy
-            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
-            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
-            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
-            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
-            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
-            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
-            document.querySelector('#cookiesText').textContent = t.cookiesText;
-            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
-            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
-            document.querySelector('#securityLabel').textContent = t.security + ':';
-            document.querySelector('#securityText').textContent = t.securityText;
-            document.querySelector('#contactLabel').textContent = t.contact + ':';
-            document.querySelector('#contactText').textContent = t.contactText;
-            document.querySelector('#copyrightText').textContent = t.copyright;
-            
-            // Update MIT License
-            const mitLicenseElement = document.querySelector('#mitLicenseText');
-            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+            // Update privacy policy with error handling
+            try {
+                const privacyTitle = document.querySelector('#privacyTitle');
+                if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
+                
+                const dataCollectionLabel = document.querySelector('#dataCollectionLabel');
+                if (dataCollectionLabel) dataCollectionLabel.textContent = t.dataCollection + ':';
+                
+                const dataCollectionText = document.querySelector('#dataCollectionText');
+                if (dataCollectionText) dataCollectionText.textContent = t.dataCollectionText;
+                
+                const dataStorageLabel = document.querySelector('#dataStorageLabel');
+                if (dataStorageLabel) dataStorageLabel.textContent = t.dataStorage + ':';
+                
+                const dataStorageText = document.querySelector('#dataStorageText');
+                if (dataStorageText) dataStorageText.textContent = t.dataStorageText;
+                
+                const cookiesLabel = document.querySelector('#cookiesLabel');
+                if (cookiesLabel) cookiesLabel.textContent = t.cookies + ':';
+                
+                const cookiesText = document.querySelector('#cookiesText');
+                if (cookiesText) cookiesText.textContent = t.cookiesText;
+                
+                const thirdPartyLabel = document.querySelector('#thirdPartyLabel');
+                if (thirdPartyLabel) thirdPartyLabel.textContent = t.thirdParty + ':';
+                
+                const thirdPartyText = document.querySelector('#thirdPartyText');
+                if (thirdPartyText) thirdPartyText.textContent = t.thirdPartyText;
+                
+                const securityLabel = document.querySelector('#securityLabel');
+                if (securityLabel) securityLabel.textContent = t.security + ':';
+                
+                const securityText = document.querySelector('#securityText');
+                if (securityText) securityText.textContent = t.securityText;
+                
+                const contactLabel = document.querySelector('#contactLabel');
+                if (contactLabel) contactLabel.textContent = t.contact + ':';
+                
+                const contactText = document.querySelector('#contactText');
+                if (contactText) contactText.textContent = t.contactText;
+                
+                const copyrightText = document.querySelector('#copyrightText');
+                if (copyrightText) copyrightText.textContent = t.copyright;
+                
+                // Update MIT License with error handling
+                const mitLicenseElement = document.querySelector('#mitLicenseText');
+                if (mitLicenseElement) {
+                    mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+                }
+            } catch (error) {
+                console.log('Privacy policy translation error:', error);
+            }
         }
         
         // Translation objects
