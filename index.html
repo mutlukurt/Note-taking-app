@@ -288,6 +288,7 @@
             console.log('Opening color grid...');
             const colorGridModal = document.getElementById('colorGridModal');
             if (colorGridModal) {
+                colorGridModal.style.display = 'flex';
                 colorGridModal.classList.add('show');
                 document.body.style.overflow = 'hidden';
                 console.log('Color grid opened!');
@@ -325,14 +326,10 @@
             const modal = document.getElementById('colorGridModal');
             if (modal) {
                 modal.classList.remove('show');
-                modal.style.display = 'none';
                 document.body.style.overflow = '';
             }
             
             console.log('Color applied, modal closed');
-            
-            // Show notification
-            showNotification(`Metin rengi değiştirildi: ${color}`, 'success');
         }
         
         // Color Grid Setup Function
@@ -356,6 +353,7 @@
             // Close color grid modal
             const closeModal = () => {
                 colorGridModal.classList.remove('show');
+                colorGridModal.style.display = 'none';
                 document.body.style.overflow = ''; // Restore scrolling
             };
 
