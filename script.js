@@ -1018,10 +1018,18 @@ class NotesApp {
     }
 
     setupColorGrid() {
+        console.log('Setting up color grid...');
         const colorGridBtn = document.getElementById('colorGridBtn');
         const colorGridModal = document.getElementById('colorGridModal');
         const closeColorGrid = document.getElementById('closeColorGrid');
         const gridColors = document.querySelectorAll('.grid-color');
+        
+        console.log('Color grid elements:', {
+            colorGridBtn: !!colorGridBtn,
+            colorGridModal: !!colorGridModal,
+            closeColorGrid: !!closeColorGrid,
+            gridColorsCount: gridColors.length
+        });
         
         if (!colorGridBtn || !colorGridModal) {
             console.error('Color grid elements not found!');
@@ -1030,10 +1038,12 @@ class NotesApp {
 
         // Open color grid modal
         colorGridBtn.addEventListener('click', (e) => {
+            console.log('Color grid button clicked!');
             e.preventDefault();
             e.stopPropagation();
             colorGridModal.classList.add('show');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            console.log('Modal should be visible now');
         });
 
         // Close color grid modal
