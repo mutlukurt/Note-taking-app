@@ -64,6 +64,71 @@
                         <i class="fas fa-strikethrough"></i>
                     </button>
                     <div class="toolbar-separator"></div>
+                     <div class="toolbar-group">
+                         <!-- Text Color -->
+                         <div class="color-picker-container">
+                             <button type="button" class="toolbar-btn modern-btn" id="textColorBtn" title="Metin Rengi">
+                                 <i class="fas fa-font"></i>
+                                 <span class="color-indicator"></span>
+                             </button>
+                             <div class="color-palette">
+                                 <button class="color-option" data-color="#000000" title="Siyah">
+                                     <div class="color-dot" style="background-color: #000000;"></div>
+                                 </button>
+                                 <button class="color-option" data-color="#ff0000" title="Kırmızı">
+                                     <div class="color-dot" style="background-color: #ff0000;"></div>
+                                 </button>
+                             </div>
+                         </div>
+
+                         <!-- Header Selector -->
+                         <div class="header-container">
+                             <button type="button" class="toolbar-btn modern-btn" id="headerBtn" title="Başlık Formatı">
+                                 <i class="fas fa-heading"></i>
+                                 <span class="format-text">Normal</span>
+                                 <i class="fas fa-chevron-down dropdown-arrow"></i>
+                             </button>
+                             <div class="header-dropdown">
+                                 <button class="header-option" data-header="p" title="Normal Metin">
+                                     <div class="option-content">
+                                         <span class="header-preview normal-preview">Aa</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Normal</span>
+                                             <span class="option-desc">Paragraf metni</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                                 <button class="header-option" data-header="h1" title="Büyük Başlık">
+                                     <div class="option-content">
+                                         <span class="header-preview h1-preview">H1</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Başlık 1</span>
+                                             <span class="option-desc">Ana başlık</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                                 <button class="header-option" data-header="h2" title="Orta Başlık">
+                                     <div class="option-content">
+                                         <span class="header-preview h2-preview">H2</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Başlık 2</span>
+                                             <span class="option-desc">Alt başlık</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                                 <button class="header-option" data-header="h3" title="Küçük Başlık">
+                                     <div class="option-content">
+                                         <span class="header-preview h3-preview">H3</span>
+                                         <div class="option-info">
+                                             <span class="option-title">Başlık 3</span>
+                                             <span class="option-desc">Küçük başlık</span>
+                                         </div>
+                                     </div>
+                                 </button>
+                             </div>
+                         </div>
+                     </div>
+                    <div class="toolbar-separator"></div>
                     <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
                         <i class="fas fa-list-ul"></i>
                     </button>
@@ -164,23 +229,19 @@
     <script>
         // Simple test functions
         function testTheme() {
-            console.log('Test theme function called');
             const body = document.body;
             const icon = document.querySelector('#themeToggle i');
             
             if (body.classList.contains('dark-mode')) {
                 body.classList.remove('dark-mode');
                 icon.className = 'fas fa-sun';
-                console.log('Light mode activated');
             } else {
                 body.classList.add('dark-mode');
                 icon.className = 'fas fa-moon';
-                console.log('Dark mode activated');
             }
         }
         
         function testAddNote() {
-            console.log('Test add note function called');
             const title = document.getElementById('noteTitle').value;
             const content = document.getElementById('noteContent').innerHTML;
             
@@ -216,33 +277,27 @@
         }
         
         function testClearForm() {
-            console.log('Test clear form function called');
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteContent').innerHTML = '';
-            console.log('Form cleared');
         }
         
         // DOM loaded
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, setting up test buttons...');
             
             // Set up test buttons
             const themeBtn = document.getElementById('themeToggle');
             if (themeBtn) {
                 themeBtn.onclick = testTheme;
-                console.log('Theme button set up');
             }
             
             const addBtn = document.getElementById('addNote');
             if (addBtn) {
                 addBtn.onclick = testAddNote;
-                console.log('Add note button set up');
             }
             
             const clearBtn = document.getElementById('clearForm');
             if (clearBtn) {
                 clearBtn.onclick = testClearForm;
-                console.log('Clear form button set up');
             }
             
             // Set up search input
@@ -251,29 +306,22 @@
                 searchInput.oninput = (e) => {
                     searchNotes(e.target.value);
                 };
-                console.log('Search input set up');
             }
             
             // Set up PDF export button
             const exportBtn = document.getElementById('exportPDF');
             if (exportBtn) {
                 exportBtn.onclick = exportToPDF;
-                console.log('PDF export button set up');
             }
             
             // Set up rich text editor toolbar
             setupRichTextEditor();
-            console.log('Rich text editor set up');
             
             // Set up language toggle
             setupLanguageToggle();
-            console.log('Language toggle set up');
             
             // Set up settings toggle
             setupSettingsToggle();
-            console.log('Settings toggle set up');
-            
-            console.log('Test buttons set up successfully!');
             
             // Load and display notes
             renderNotes();
@@ -677,17 +725,12 @@
             const editor = document.getElementById('noteContent');
             const imageInput = document.getElementById('imageInput');
             
-            console.log('Setting up rich text editor...');
-            console.log('Toolbar found:', toolbar);
-            console.log('Editor found:', editor);
-            
             // Toolbar button clicks
             if (toolbar) {
                 toolbar.addEventListener('click', (e) => {
                     const btn = e.target.closest('.toolbar-btn');
                     if (btn) {
                         const command = btn.dataset.command;
-                        console.log('Button clicked:', command);
                         
                         if (command) {
                             e.preventDefault();
@@ -698,7 +741,6 @@
                             
                             // Execute command
                             const success = document.execCommand(command, false, null);
-                            console.log('Command executed:', command, 'Success:', success);
                             
                             // Add visual feedback
                             btn.classList.add('active');
@@ -714,7 +756,6 @@
                 addImageBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('Image button clicked');
                     imageInput.click();
                 });
             }
@@ -722,7 +763,6 @@
             if (imageInput) {
                 imageInput.addEventListener('change', (e) => {
                     const file = e.target.files[0];
-                    console.log('File selected:', file);
                     
                     if (file && file.type.startsWith('image/')) {
                         const reader = new FileReader();
@@ -736,7 +776,6 @@
                             
                             editor.focus();
                             const success = document.execCommand('insertHTML', false, img.outerHTML);
-                            console.log('Image inserted:', success);
                             
                             // Clear the input
                             imageInput.value = '';
@@ -744,6 +783,230 @@
                         reader.readAsDataURL(file);
                     } else {
                         alert('Lütfen geçerli bir resim dosyası seçin!');
+                    }
+                });
+            }
+            
+            // Color picker functionality
+            const textColorBtn = document.getElementById('textColorBtn');
+            
+            // Text color picker
+            if (textColorBtn) {
+                const colorPalette = textColorBtn.parentElement.querySelector('.color-palette');
+                const colorOptions = colorPalette.querySelectorAll('.color-option');
+                
+                let currentColor = '#000000';
+                
+                // Color button click handlers
+                if (colorOptions.length > 0) {
+                    colorOptions.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const color = btn.dataset.color;
+                            
+                            // Remove selected class from all color buttons
+                            colorOptions.forEach(s => s.classList.remove('selected'));
+                            // Add selected class to clicked button
+                            btn.classList.add('selected');
+                            
+                            applyColor(color);
+                        });
+                    });
+                }
+                
+                // Apply color function
+                function applyColor(color) {
+                    currentColor = color;
+                    
+                    editor.focus();
+                    
+                    // Get current selection
+                    const selection = window.getSelection();
+                    
+                    if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                        // Text is selected - apply color to selection
+                        const range = selection.getRangeAt(0);
+                        const selectedText = range.toString();
+                        
+                        if (selectedText.length > 0) {
+                            // Create a span with the color
+                            const span = document.createElement('span');
+                            span.style.color = color;
+                            span.textContent = selectedText;
+                            
+                            // Replace selected text with colored span
+                            range.deleteContents();
+                            range.insertNode(span);
+                            
+                            // Position cursor after the span
+                            const newRange = document.createRange();
+                            newRange.setStartAfter(span);
+                            newRange.collapse(true);
+                            selection.removeAllRanges();
+                            selection.addRange(newRange);
+                        }
+                    } else {
+                        // No selection - set color for future typing
+                        document.execCommand('styleWithCSS', false, true);
+                        document.execCommand('foreColor', false, color);
+                    }
+                    
+                    // Update color indicator
+                    const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                    if (colorIndicator) {
+                        colorIndicator.style.backgroundColor = color;
+                    }
+                    
+                    editor.setAttribute('data-text-color', color);
+                    
+                    // Add visual feedback
+                    textColorBtn.classList.add('active');
+                    setTimeout(() => textColorBtn.classList.remove('active'), 200);
+                }
+                
+                // Initialize color indicator and select black by default
+                const colorIndicator = textColorBtn.querySelector('.color-indicator');
+                if (colorIndicator) {
+                    colorIndicator.style.backgroundColor = '#000000';
+                }
+                
+                // Select black button by default
+                const blackBtn = colorPalette.querySelector('[data-color="#000000"]');
+                if (blackBtn) {
+                    blackBtn.classList.add('selected');
+                }
+            }
+            
+            // Header selector
+            const headerBtn = toolbar.querySelector('#headerBtn');
+            if (headerBtn) {
+                const headerContainer = headerBtn.parentElement;
+                const headerDropdown = headerContainer.querySelector('.header-dropdown');
+                const headerOptions = headerDropdown.querySelectorAll('.header-option');
+                const headerIndicator = headerBtn.querySelector('.format-text');
+                
+                let currentHeader = 'p';
+                
+                // Toggle dropdown
+                headerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other dropdowns first
+                    document.querySelectorAll('.header-dropdown').forEach(dropdown => {
+                        if (dropdown !== headerDropdown) {
+                            dropdown.classList.remove('active');
+                            dropdown.parentElement.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    const isActive = headerDropdown.classList.contains('active');
+                    headerDropdown.classList.toggle('active');
+                    headerContainer.classList.toggle('active', !isActive);
+                });
+                
+                // Header option click handlers
+                headerOptions.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const headerType = option.dataset.header;
+                        applyHeader(headerType);
+                        
+                        // Update UI
+                        headerOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        
+                        // Close dropdown
+                        headerDropdown.classList.remove('active');
+                        headerContainer.classList.remove('active');
+                    });
+                });
+                
+                // Apply header function
+                function applyHeader(headerType) {
+                    currentHeader = headerType;
+                    editor.focus();
+                    
+                    // Get current selection or cursor position
+                    const selection = window.getSelection();
+                    
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        
+                        // Find the current block element (paragraph or header)
+                        let blockElement = range.commonAncestorContainer;
+                        
+                        // If we're in a text node, get its parent
+                        if (blockElement.nodeType === Node.TEXT_NODE) {
+                            blockElement = blockElement.parentElement;
+                        }
+                        
+                        // Find the closest block-level element
+                        while (blockElement && blockElement !== editor && 
+                               !['P', 'H1', 'H2', 'H3', 'DIV'].includes(blockElement.tagName)) {
+                            blockElement = blockElement.parentElement;
+                        }
+                        
+                        // If we found a valid block element
+                        if (blockElement && blockElement !== editor) {
+                            const content = blockElement.innerHTML;
+                            const newElement = document.createElement(headerType.toUpperCase());
+                            newElement.innerHTML = content;
+                            
+                            // Copy any existing styles
+                            if (blockElement.style.cssText) {
+                                newElement.style.cssText = blockElement.style.cssText;
+                            }
+                            
+                            // Replace the old element
+                            blockElement.parentNode.replaceChild(newElement, blockElement);
+                            
+                            // Restore cursor position
+                            const newRange = document.createRange();
+                            newRange.selectNodeContents(newElement);
+                            newRange.collapse(false);
+                            selection.removeAllRanges();
+                            selection.addRange(newRange);
+                        } else {
+                            // If no block element found, use execCommand for new content
+                            if (headerType === 'p') {
+                                document.execCommand('formatBlock', false, 'div');
+                            } else {
+                                document.execCommand('formatBlock', false, headerType);
+                            }
+                        }
+                    }
+                    
+                    // Update indicator
+                    if (headerIndicator) {
+                        const headerNames = {
+                            'p': 'Normal',
+                            'h1': 'Başlık 1',
+                            'h2': 'Başlık 2', 
+                            'h3': 'Başlık 3'
+                        };
+                        headerIndicator.textContent = headerNames[headerType] || 'Normal';
+                    }
+                    
+                    // Add visual feedback
+                    headerBtn.classList.add('active');
+                    setTimeout(() => headerBtn.classList.remove('active'), 200);
+                }
+                
+                // Initialize - select normal text by default
+                const normalOption = headerDropdown.querySelector('[data-header="p"]');
+                if (normalOption) {
+                    normalOption.classList.add('selected');
+                }
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.header-container')) {
+                        headerDropdown.classList.remove('active');
+                        headerContainer.classList.remove('active');
                     }
                 });
             }
@@ -767,8 +1030,6 @@
                     }
                 }
             });
-            
-            console.log('Rich text editor setup complete!');
         }
         
         // Settings Toggle Setup
@@ -777,26 +1038,19 @@
             const settingsPanel = document.getElementById('settingsPanel');
             let isSettingsOpen = false;
             
-            console.log('Setting up settings toggle...');
-            console.log('Settings button found:', settingsBtn);
-            console.log('Settings panel found:', settingsPanel);
-            
             if (settingsBtn && settingsPanel) {
                 settingsBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    console.log('Settings button clicked!');
                     isSettingsOpen = !isSettingsOpen;
                     
                     if (isSettingsOpen) {
                         settingsBtn.classList.add('active');
                         settingsPanel.classList.add('active');
-                        console.log('Settings panel opened');
                     } else {
                         settingsBtn.classList.remove('active');
                         settingsPanel.classList.remove('active');
-                        console.log('Settings panel closed');
                     }
                 });
                 
@@ -807,7 +1061,6 @@
                             settingsBtn.classList.remove('active');
                             settingsPanel.classList.remove('active');
                             isSettingsOpen = false;
-                            console.log('Settings panel closed (outside click)');
                         }
                     }
                 });
@@ -819,10 +1072,6 @@
             const languageBtn = document.getElementById('languageToggle');
             let currentLanguage = localStorage.getItem('language') || 'tr';
             
-            console.log('Setting up language toggle...');
-            console.log('Language button found:', languageBtn);
-            console.log('Current language:', currentLanguage);
-            
             // Set initial language
             updateLanguage(currentLanguage);
             
@@ -831,9 +1080,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    console.log('Language button clicked!');
                     currentLanguage = currentLanguage === 'tr' ? 'en' : 'tr';
-                    console.log('Switching to:', currentLanguage);
                     
                     localStorage.setItem('language', currentLanguage);
                     updateLanguage(currentLanguage);
@@ -843,141 +1090,227 @@
         
         // Update language function
         function updateLanguage(lang) {
+            const t = translations[lang];
+            
+            // Update language button
             const languageBtn = document.getElementById('languageToggle');
             const langText = languageBtn.querySelector('.lang-text');
-            
-            console.log('Updating language to:', lang);
             
             if (lang === 'en') {
                 languageBtn.classList.add('english');
                 langText.textContent = 'EN';
-                translateToEnglish();
-                console.log('Switched to English');
             } else {
                 languageBtn.classList.remove('english');
                 langText.textContent = 'TR';
-                translateToTurkish();
-                console.log('Switched to Turkish');
             }
+            
+            // Update main elements
+            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
+            document.querySelector('.settings-label').textContent = t.themeLabel;
+            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
+            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
+            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
+            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
+            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            
+            // Update toolbar buttons
+            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
+            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
+            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
+            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
+            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
+            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
+            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
+            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
+            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
+            document.getElementById('addImageBtn').title = t.toolbarImage;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
+            
+            // Update controls
+            const sortSpan = document.querySelector('.sort-controls span');
+            if (sortSpan) sortSpan.textContent = t.sortLabel;
+            
+            const newestBtn = document.querySelector('[data-sort="date-desc"]');
+            if (newestBtn) newestBtn.textContent = t.newest;
+            
+            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
+            if (oldestBtn) oldestBtn.textContent = t.oldest;
+            
+            const titleBtn = document.querySelector('[data-sort="title"]');
+            if (titleBtn) titleBtn.textContent = t.title;
+            
+            const allFilter = document.querySelector('[data-filter="all"]');
+            if (allFilter) allFilter.textContent = t.allNotes;
+            
+            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
+            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
+            
+            const normalFilter = document.querySelector('[data-filter="unpinned"]');
+            if (normalFilter) normalFilter.textContent = t.normalNotes;
+            
+            // Update empty state
+            const emptyState = document.getElementById('emptyState');
+            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
+            emptyState.querySelector('p').textContent = t.emptyStateDesc;
+            
+            // Update privacy policy
+            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
+            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
+            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
+            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
+            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
+            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
+            document.querySelector('#cookiesText').textContent = t.cookiesText;
+            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
+            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
+            document.querySelector('#securityLabel').textContent = t.security + ':';
+            document.querySelector('#securityText').textContent = t.securityText;
+            document.querySelector('#contactLabel').textContent = t.contact + ':';
+            document.querySelector('#contactText').textContent = t.contactText;
+            document.querySelector('#copyrightText').textContent = t.copyright;
+            
+            // Update MIT License
+            const mitLicenseElement = document.querySelector('#mitLicenseText');
+            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
         }
         
         // Translation objects
         const translations = {
             tr: {
                 appTitle: 'Not Alma Uygulaması',
-                themeLabel: 'Ayarlar',
-                noteTitlePlaceholder: 'Not başlığı...',
-                noteContentPlaceholder: 'Notunuzu buraya yazın...',
-                addNote: 'Not Ekle',
-                clearForm: 'Temizle',
-                exportPDF: 'PDF Aktar',
-                searchPlaceholder: 'Notlarınızda arayın...',
-                sortLabel: 'Sırala:',
-                newest: 'En Yeni',
-                oldest: 'En Eski',
-                title: 'Başlık',
-                all: 'Tümü',
-                pinned: 'Sabitlenenler',
-                normal: 'Normal',
-                emptyStateTitle: 'Henüz not eklenmemiş',
-                emptyStateDesc: 'İlk notunuzu ekleyerek başlayın!',
+                searchPlaceholder: 'Notlarda ara...',
+                newNote: 'Yeni Not',
+                deleteNote: 'Notu Sil',
+                saveNote: 'Notu Kaydet',
+                noteTitle: 'Not Başlığı',
+                noteContent: 'Not içeriğini buraya yazın...',
+                noNotes: 'Henüz not yok. İlk notunuzu oluşturun!',
+                searchNoResults: 'Arama kriterlerine uygun not bulunamadı.',
+                confirmDelete: 'Bu notu silmek istediğinizden emin misiniz?',
+                exportNotes: 'Notları Dışa Aktar',
+                importNotes: 'Notları İçe Aktar',
+                darkMode: 'Karanlık Mod',
+                lightMode: 'Aydınlık Mod',
+                language: 'Dil',
                 toolbarBold: 'Kalın',
                 toolbarItalic: 'İtalik',
                 toolbarUnderline: 'Altı Çizili',
                 toolbarStrike: 'Üstü Çizili',
-                toolbarList: 'Liste',
-                toolbarOrderedList: 'Numaralı Liste',
-                toolbarLeft: 'Sola Hizala',
-                toolbarCenter: 'Ortala',
-                toolbarRight: 'Sağa Hizala',
-                toolbarImage: 'Fotoğraf Ekle',
-                pin: 'Sabitle',
-                edit: 'Düzenle',
-                delete: 'Sil',
-                searchNotFound: 'Arama sonucu bulunamadı',
-                noResultsFor: 'için sonuç yok',
-                deleteConfirm: 'Bu notu silmek istediğinizden emin misiniz?',
-                noteDeleted: 'Not silindi!',
-                noteAdded: 'Not başarıyla eklendi!',
-                noteUpdated: 'Not güncellendi!',
-                noteDeleted: 'Not silindi!',
-                pleaseEnterContent: 'Lütfen en az bir başlık veya içerik girin!',
-                pdfCreated: 'PDF başarıyla indirildi!',
-                pdfError: 'PDF oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.',
-                pleaseSelectImage: 'Lütfen geçerli bir resim dosyası seçin!',
-                undo: 'Geri Al',
-                privacyTitle: 'Gizlilik Politikası',
-                dataCollection: 'Veri Toplama',
-                dataCollectionText: 'Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.',
-                dataStorage: 'Veri Saklama',
-                dataStorageText: 'Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.',
-                cookies: 'Çerezler',
-                cookiesText: 'Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.',
-                thirdParty: 'Üçüncü Taraf',
-                thirdPartyText: 'Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.',
-                security: 'Güvenlik',
-                securityText: 'Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.',
-                contact: 'İletişim',
-                contactText: 'Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.',
-                copyright: '© 2025 Not Alma Uygulaması | MIT License'
+                toolbarImage: 'Resim Ekle',
+                toolbarTextColor: 'Metin Rengi',
+                title: "Not Alma Uygulaması",
+                noteTitlePlaceholder: "Not Başlığı",
+                noteContentPlaceholder: "Not İçeriği",
+                addNote: "Not Ekle",
+                clearForm: "Temizle",
+                exportPDF: "PDF Aktar",
+                sortLabel: "Sırala:",
+                newest: "En Yeni",
+                oldest: "En Eski",
+                title: "Not Alma Uygulaması",
+                noteTitle: "Not Başlığı",
+                noteContent: "Not İçeriği",
+                addNote: "Not Ekle",
+                clear: "Temizle",
+                search: "Notlarda ara...",
+                allNotes: "Tüm Notlar",
+                pinnedNotes: "Sabitlenenler",
+                normalNotes: "Normal Notlar",
+                newest: "En Yeni",
+                oldest: "En Eski",
+                byTitle: "Başlık",
+                edit: "Düzenle",
+                delete: "Sil",
+                pin: "Sabitle",
+                unpin: "Sabitlemeyi Kaldır",
+                save: "Kaydet",
+                cancel: "İptal",
+                undo: "Geri Al",
+                emptyStateTitle: "Henüz not eklenmemiş",
+                emptyStateDesc: "İlk notunuzu ekleyerek başlayın!",
+                
+                // Privacy Policy Translations
+                privacyTitle: "🔒 Gizlilik Politikası",
+                dataCollection: "Veri Toplama",
+                dataCollectionText: "Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.",
+                dataStorage: "Veri Saklama",
+                dataStorageText: "Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.",
+                cookies: "Çerezler",
+                cookiesText: "Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.",
+                thirdParty: "Üçüncü Taraf",
+                thirdPartyText: "Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.",
+                security: "Güvenlik",
+                securityText: "Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.",
+                contact: "İletişim",
+                contactText: "Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.",
+                copyright: "© 2025 Not Alma Uygulaması | MIT License",
+                mitLicense: "MIT Lisansı:",
+                mitLicenseText: "Bu proje açık kaynak kodludur. Kaynak kodu serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz. Detaylar için",
+                githubRepo: "GitHub deposunu",
+                visitText: "ziyaret edin."
             },
             en: {
                 appTitle: 'Note Taking App',
-                themeLabel: 'Settings',
-                noteTitlePlaceholder: 'Note title...',
-                noteContentPlaceholder: 'Write your note here...',
-                addNote: 'Add Note',
-                clearForm: 'Clear',
-                exportPDF: 'Export PDF',
-                searchPlaceholder: 'Search in your notes...',
-                sortLabel: 'Sort:',
-                newest: 'Newest',
-                oldest: 'Oldest',
-                title: 'Title',
-                all: 'All',
-                pinned: 'Pinned',
-                normal: 'Normal',
-                emptyStateTitle: 'No notes added yet',
-                emptyStateDesc: 'Start by adding your first note!',
+                searchPlaceholder: 'Search notes...',
+                newNote: 'New Note',
+                deleteNote: 'Delete Note',
+                saveNote: 'Save Note',
+                noteTitle: 'Note Title',
+                noteContent: 'Write your note content here...',
+                noNotes: 'No notes yet. Create your first note!',
+                searchNoResults: 'No notes found matching your search criteria.',
+                confirmDelete: 'Are you sure you want to delete this note?',
+                exportNotes: 'Export Notes',
+                importNotes: 'Import Notes',
+                darkMode: 'Dark Mode',
+                lightMode: 'Light Mode',
+                language: 'Language',
                 toolbarBold: 'Bold',
                 toolbarItalic: 'Italic',
                 toolbarUnderline: 'Underline',
                 toolbarStrike: 'Strikethrough',
-                toolbarList: 'List',
-                toolbarOrderedList: 'Ordered List',
-                toolbarLeft: 'Align Left',
-                toolbarCenter: 'Center',
-                toolbarRight: 'Align Right',
                 toolbarImage: 'Add Image',
-                pin: 'Pin',
-                edit: 'Edit',
-                delete: 'Delete',
-                searchNotFound: 'Search result not found',
-                noResultsFor: 'no results for',
-                deleteConfirm: 'Are you sure you want to delete this note?',
-                noteDeleted: 'Note deleted!',
-                noteAdded: 'Note added successfully!',
-                noteUpdated: 'Note updated!',
-                noteDeleted: 'Note deleted!',
-                pleaseEnterContent: 'Please enter at least a title or content!',
-                pdfCreated: 'PDF downloaded successfully!',
-                pdfError: 'An error occurred while creating PDF. Please try again.',
-                pleaseSelectImage: 'Please select a valid image file!',
-                undo: 'Undo',
-                privacyTitle: 'Privacy Policy',
-                dataCollection: 'Data Collection',
-                dataCollectionText: 'This application does not collect any personal data. All your notes are stored only in your browser.',
-                dataStorage: 'Data Storage',
-                dataStorageText: 'Your notes are stored locally using LocalStorage. No data is sent to any server.',
-                cookies: 'Cookies',
-                cookiesText: 'The application only uses necessary cookies to store your theme and language preferences.',
-                thirdParty: 'Third Party',
-                thirdPartyText: 'CDN is used for Font Awesome icons and PDF libraries. These services are only required for application functionality.',
-                security: 'Security',
-                securityText: 'All your data is stored securely and encrypted in your browser.',
-                contact: 'Contact',
-                contactText: 'You can contact us through GitHub for your questions.',
-                copyright: '© 2025 Note Taking App | MIT License'
+                toolbarTextColor: 'Text Color',
+                title: "Note Taking App",
+                noteTitlePlaceholder: "Note Title",
+                noteContentPlaceholder: "Note Content",
+                addNote: "Add Note",
+                clear: "Clear",
+                exportPDF: "Export PDF",
+                sortLabel: "Sort:",
+                newest: "Newest",
+                oldest: "Oldest",
+                byTitle: "Title",
+                edit: "Edit",
+                delete: "Delete",
+                pin: "Pin",
+                unpin: "Unpin",
+                save: "Save",
+                cancel: "Cancel",
+                undo: "Undo",
+                emptyStateTitle: "No notes yet",
+                emptyStateDesc: "Start by adding your first note!",
+                
+                // Privacy Policy Translations
+                privacyTitle: "🔒 Privacy Policy",
+                dataCollection: "Data Collection",
+                dataCollectionText: "This application does not collect any personal data. All your notes are stored only in your browser.",
+                dataStorage: "Data Storage",
+                dataStorageText: "Your notes are stored locally using LocalStorage. No data is sent to any server.",
+                cookies: "Cookies",
+                cookiesText: "The application only uses necessary cookies to store your theme and language preferences.",
+                thirdParty: "Third Party",
+                thirdPartyText: "CDN is used for Font Awesome icons and PDF libraries. These services are only required for application functionality.",
+                security: "Security",
+                securityText: "All your data is stored securely and encrypted in your browser.",
+                contact: "Contact",
+                contactText: "For questions, you can contact us via GitHub.",
+                copyright: "© 2025 Note Taking App | MIT License",
+                mitLicense: "MIT License:",
+                mitLicenseText: "This project is open source. You are free to use, modify, and distribute it. For details, visit",
+                githubRepo: "GitHub repository",
+                visitText: "."
             }
         };
         
@@ -1006,6 +1339,7 @@
             document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
             document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
             document.getElementById('addImageBtn').title = t.toolbarImage;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
             
             // Update controls
             const sortSpan = document.querySelector('.sort-controls span');
@@ -1021,13 +1355,13 @@
             if (titleBtn) titleBtn.textContent = t.title;
             
             const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.all;
+            if (allFilter) allFilter.textContent = t.allNotes;
             
             const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinned;
+            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
             
             const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normal;
+            if (normalFilter) normalFilter.textContent = t.normalNotes;
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
@@ -1070,6 +1404,7 @@
             document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
             document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
             document.getElementById('addImageBtn').title = t.toolbarImage;
+            document.getElementById('textColorBtn').title = t.toolbarTextColor;
             
             // Update controls
             const sortSpan = document.querySelector('.sort-controls span');
@@ -1085,13 +1420,13 @@
             if (titleBtn) titleBtn.textContent = t.title;
             
             const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.all;
+            if (allFilter) allFilter.textContent = t.allNotes;
             
             const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinned;
+            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
             
             const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normal;
+            if (normalFilter) normalFilter.textContent = t.normalNotes;
             
             // Update empty state
             const emptyState = document.getElementById('emptyState');
@@ -1099,33 +1434,49 @@
             emptyState.querySelector('p').textContent = t.emptyStateDesc;
             
             // Update privacy policy
-            document.querySelector('.privacy-content h3').textContent = t.privacyTitle;
-            document.querySelector('.privacy-text p:nth-child(1)').innerHTML = `<strong>${t.dataCollection}:</strong> ${t.dataCollectionText}`;
-            document.querySelector('.privacy-text p:nth-child(2)').innerHTML = `<strong>${t.dataStorage}:</strong> ${t.dataStorageText}`;
-            document.querySelector('.privacy-text p:nth-child(3)').innerHTML = `<strong>${t.cookies}:</strong> ${t.cookiesText}`;
-            document.querySelector('.privacy-text p:nth-child(4)').innerHTML = `<strong>${t.thirdParty}:</strong> ${t.thirdPartyText}`;
-            document.querySelector('.privacy-text p:nth-child(5)').innerHTML = `<strong>${t.security}:</strong> ${t.securityText}`;
-            document.querySelector('.privacy-text p:nth-child(6)').innerHTML = `<strong>${t.contact}:</strong> ${t.contactText}`;
-            document.querySelector('.privacy-links span').textContent = t.copyright;
+            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
+            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
+            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
+            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
+            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
+            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
+            document.querySelector('#cookiesText').textContent = t.cookiesText;
+            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
+            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
+            document.querySelector('#securityLabel').textContent = t.security + ':';
+            document.querySelector('#securityText').textContent = t.securityText;
+            document.querySelector('#contactLabel').textContent = t.contact + ':';
+            document.querySelector('#contactText').textContent = t.contactText;
+            document.querySelector('#copyrightText').textContent = t.copyright;
+            
+            // Update MIT License
+            const mitLicenseElement = document.querySelector('#mitLicenseText');
+            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
         }
     </script>
     <script src="script.js"></script>
     
-    <!-- Gizlilik Politikası -->
+    <!-- Gizlilik Politikası ve Lisans -->
     <footer class="privacy-policy">
         <div class="container">
             <div class="privacy-content">
-                <h3>🔒 Gizlilik Politikası</h3>
+                <h3 id="privacyTitle">🔒 Gizlilik Politikası</h3>
                 <div class="privacy-text">
-                    <p><strong>Veri Toplama:</strong> Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.</p>
-                    <p><strong>Veri Saklama:</strong> Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.</p>
-                    <p><strong>Çerezler:</strong> Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.</p>
-                    <p><strong>Üçüncü Taraf:</strong> Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.</p>
-                    <p><strong>Güvenlik:</strong> Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.</p>
-                    <p><strong>İletişim:</strong> Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.</p>
+                    <p id="dataCollectionSection"><strong id="dataCollectionLabel">Veri Toplama:</strong> <span id="dataCollectionText">Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.</span></p>
+                    <p id="dataStorageSection"><strong id="dataStorageLabel">Veri Saklama:</strong> <span id="dataStorageText">Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.</span></p>
+                    <p id="cookiesSection"><strong id="cookiesLabel">Çerezler:</strong> <span id="cookiesText">Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.</span></p>
+                    <p id="thirdPartySection"><strong id="thirdPartyLabel">Üçüncü Taraf:</strong> <span id="thirdPartyText">Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.</span></p>
+                    <p id="securitySection"><strong id="securityLabel">Güvenlik:</strong> <span id="securityText">Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.</span></p>
+                    <p id="contactSection"><strong id="contactLabel">İletişim:</strong> <span id="contactText">Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.</span></p>
                 </div>
                 <div class="privacy-links">
-                    <span>© 2025 Not Alma Uygulaması | MIT License</span>
+                    <span id="copyrightText">© 2025 Not Alma Uygulaması | MIT License</span>
+                    <div class="license-info">
+                        <p id="mitLicenseText">
+                            <strong>MIT Lisansı:</strong> Bu proje açık kaynak kodludur. Kaynak kodu serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz. 
+                            Detaylar için <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">GitHub deposunu</a> ziyaret edin.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
