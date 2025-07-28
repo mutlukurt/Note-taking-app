@@ -386,60 +386,111 @@ body {
     margin: 0 5px;
 }
 
-/* Color Picker Styles */
-.color-picker-container {
-    position: relative;
-    display: inline-block;
-}
-
-.color-picker-btn {
-    position: relative;
-}
-
-.color-picker-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.color-palette {
-    position: absolute;
-    top: 100%;
+/* Color Grid Modal Styles */
+.color-grid-modal {
+    position: fixed;
+    top: 0;
     left: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     display: none;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 140px;
-    max-width: 160px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
 }
 
-.color-palette.show {
-    display: grid;
+.color-grid-modal.show {
+    display: flex;
 }
 
-.color-option {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
+.color-grid-content {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 0;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    animation: modalSlideIn 0.3s ease;
+}
+
+.color-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.color-grid-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.close-color-grid {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
     cursor: pointer;
-    border: 2px solid transparent;
+    padding: 8px;
+    border-radius: 8px;
     transition: all 0.2s ease;
-    position: relative;
 }
 
-.color-option:hover {
+.close-color-grid:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.color-grid-container {
+    padding: 24px;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    max-width: 400px;
+}
+
+.grid-color {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grid-color:hover {
     transform: scale(1.1);
     border-color: var(--text-primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-.color-option.selected {
+.grid-color.selected {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color), 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 /* Custom highlight styling for rich editor */
@@ -1384,34 +1435,51 @@ body.force-desktop-mode .rich-editor {
     }
 }
 
-/* Responsive Color Picker */
+/* Responsive Color Grid Modal */
 @media (max-width: 768px) {
-    .color-palette {
-        min-width: 120px;
-        max-width: 140px;
-        padding: 8px;
-        gap: 4px;
+    .color-grid-content {
+        max-width: 95vw;
+        margin: 20px;
     }
     
-    .color-option {
-        width: 24px;
-        height: 24px;
-        border-radius: 4px;
+    .color-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+    }
+    
+    .grid-color {
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+    }
+    
+    .color-grid-header {
+        padding: 16px 20px;
+    }
+    
+    .color-grid-container {
+        padding: 20px;
     }
 }
 
 @media (max-width: 480px) {
-    .color-palette {
-        min-width: 100px;
-        max-width: 120px;
-        padding: 6px;
-        gap: 3px;
+    .color-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
     }
     
-    .color-option {
-        width: 20px;
-        height: 20px;
-        border-radius: 3px;
+    .grid-color {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+    }
+    
+    .color-grid-header {
+        padding: 12px 16px;
+    }
+    
+    .color-grid-container {
+        padding: 16px;
     }
 }
 

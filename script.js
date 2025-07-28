@@ -152,8 +152,8 @@ class NotesApp {
             this.updateToolbarState();
         });
 
-        // Color picker setup
-        this.setupColorPicker();
+        // Color grid setup
+        this.setupColorGrid();
 
     }
 
@@ -1017,122 +1017,71 @@ class NotesApp {
         }
     }
 
-    setupColorPicker() {
-        const colorPickerBtn = document.getElementById('colorPickerBtn');
-        const colorPalette = document.getElementById('colorPalette');
-        const colorOptions = document.querySelectorAll('.color-option');
+    setupColorGrid() {
+        const colorGridBtn = document.getElementById('colorGridBtn');
+        const colorGridModal = document.getElementById('colorGridModal');
+        const closeColorGrid = document.getElementById('closeColorGrid');
+        const gridColors = document.querySelectorAll('.grid-color');
         
-        if (!colorPickerBtn || !colorPalette) {
-            console.error('Color picker elements not found!');
+        if (!colorGridBtn || !colorGridModal) {
+            console.error('Color grid elements not found!');
             return;
         }
 
-        // Toggle color palette
-        colorPickerBtn.addEventListener('click', (e) => {
+        // Open color grid modal
+        colorGridBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
-            const isOpen = colorPalette.classList.contains('show');
-            
-            // Close all other palettes first
-            document.querySelectorAll('.color-palette.show').forEach(palette => {
-                if (palette !== colorPalette) {
-                    palette.classList.remove('show');
-                }
-            });
-            
-            // Toggle current palette
-            if (isOpen) {
-                colorPalette.classList.remove('show');
-                colorPickerBtn.classList.remove('active');
-            } else {
-                colorPalette.classList.add('show');
-                colorPickerBtn.classList.add('active');
-                
-                // Position palette properly
-                this.positionColorPalette(colorPalette, colorPickerBtn);
+            colorGridModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+
+        // Close color grid modal
+        const closeModal = () => {
+            colorGridModal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        closeColorGrid.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        colorGridModal.addEventListener('click', (e) => {
+            if (e.target === colorGridModal) {
+                closeModal();
             }
         });
 
-        // Handle color selection with touch support
-        colorOptions.forEach(option => {
-            // Mouse events
-            option.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.selectColor(option, colorPalette, colorPickerBtn);
-            });
-            
-            // Touch events for mobile
-            option.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.selectColor(option, colorPalette, colorPickerBtn);
-            });
-        });
-
-        // Close palette when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!colorPickerBtn.contains(e.target) && !colorPalette.contains(e.target)) {
-                colorPalette.classList.remove('show');
-                colorPickerBtn.classList.remove('active');
-            }
-        });
-
-        // Close palette on escape key
+        // Close modal on escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && colorPalette.classList.contains('show')) {
-                colorPalette.classList.remove('show');
-                colorPickerBtn.classList.remove('active');
+            if (e.key === 'Escape' && colorGridModal.classList.contains('show')) {
+                closeModal();
             }
         });
-    }
 
-    selectColor(option, colorPalette, colorPickerBtn) {
-        const color = option.getAttribute('data-color');
-        const colorOptions = document.querySelectorAll('.color-option');
-        
-        // Remove active class from all options
-        colorOptions.forEach(opt => opt.classList.remove('selected'));
-        
-        // Add active class to selected option
-        option.classList.add('selected');
-        
-        // Apply color to selected text
-        this.applyTextColor(color);
-        
-        // Close palette
-        colorPalette.classList.remove('show');
-        colorPickerBtn.classList.remove('active');
-        
-        // Show notification
-        this.showNotification(`Metin rengi değiştirildi: ${color}`, 'success');
-    }
-
-    positionColorPalette(colorPalette, colorPickerBtn) {
-        // Ensure palette is positioned correctly
-        const rect = colorPickerBtn.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        // Reset position
-        colorPalette.style.left = '0';
-        colorPalette.style.top = '100%';
-        
-        // Check if palette would go off screen
-        const paletteRect = colorPalette.getBoundingClientRect();
-        
-        // Adjust horizontal position if needed
-        if (rect.left + paletteRect.width > viewportWidth) {
-            colorPalette.style.left = 'auto';
-            colorPalette.style.right = '0';
-        }
-        
-        // Adjust vertical position if needed
-        if (rect.bottom + paletteRect.height > viewportHeight) {
-            colorPalette.style.top = 'auto';
-            colorPalette.style.bottom = '100%';
-        }
+        // Handle color selection
+        gridColors.forEach(color => {
+            color.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const selectedColor = color.getAttribute('data-color');
+                
+                // Remove selected class from all colors
+                gridColors.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked color
+                color.classList.add('selected');
+                
+                // Apply color to text
+                this.applyTextColor(selectedColor);
+                
+                // Close modal
+                closeModal();
+                
+                // Show notification
+                this.showNotification(`Metin rengi değiştirildi: ${selectedColor}`, 'success');
+            });
+        });
     }
 
     applyTextColor(color) {
