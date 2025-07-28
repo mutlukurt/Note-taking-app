@@ -297,10 +297,43 @@
         function applyColor(color) {
             const editor = document.getElementById('noteContent');
             if (editor) {
+                // Scroll pozisyonunu kaydet
+                const scrollTop = editor.scrollTop;
+                const scrollLeft = editor.scrollLeft;
+                
+                // Mevcut seçimi ve pozisyonu kaydet
+                const selection = window.getSelection();
+                const range = selection.rangeCount > 0 ? selection.getRangeAt(0).cloneRange() : null;
+                
+                // Editöre odaklan
                 editor.focus();
+                
+                // Eğer seçim varsa, onu geri yükle
+                if (range) {
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+                
+                // Rengi uygula
                 document.execCommand('foreColor', false, color);
+                
+                // Modalı kapat
                 closeColorPalette();
+                
+                // Editöre tekrar odaklan
                 editor.focus();
+                
+                // Seçimi geri yükle
+                if (range) {
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+                
+                // Scroll pozisyonunu geri yükle
+                setTimeout(() => {
+                    editor.scrollTop = scrollTop;
+                    editor.scrollLeft = scrollLeft;
+                }, 10);
             }
         }
 

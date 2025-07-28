@@ -319,7 +319,8 @@ body {
     overflow-y: auto;
     word-wrap: break-word;
     line-height: 1.6;
-
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .rich-editor[contenteditable="true"]:empty:before {
