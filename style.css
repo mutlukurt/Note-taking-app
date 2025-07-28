@@ -1676,28 +1676,32 @@ body.force-desktop-mode .rich-editor {
 }
 
 /* Color swatches */
-.color-option[data-color="#ffffff"] { background-color: #ffffff; border: 1px solid #e0e0e0; }
-.color-option[data-color="#f8f9fa"] { background-color: #f8f9fa; }
-.color-option[data-color="#e9ecef"] { background-color: #e9ecef; }
-.color-option[data-color="#dee2e6"] { background-color: #dee2e6; }
-.color-option[data-color="#f8f4ff"] { background-color: #f8f4ff; }
-.color-option[data-color="#fff4f4"] { background-color: #fff4f4; }
-.color-option[data-color="#f4fff4"] { background-color: #f4fff4; }
-.color-option[data-color="#f4f8ff"] { background-color: #f4f8ff; }
-.color-option[data-color="#fff8f4"] { background-color: #fff8f4; }
-.color-option[data-color="#fff4f8"] { background-color: #fff4f8; }
-.color-option[data-color="#f0f8ff"] { background-color: #f0f8ff; }
-.color-option[data-color="#f5f5dc"] { background-color: #f5f5dc; }
-.color-option[data-color="#ffe4e1"] { background-color: #ffe4e1; }
-.color-option[data-color="#e6f3ff"] { background-color: #e6f3ff; }
-.color-option[data-color="#f0fff0"] { background-color: #f0fff0; }
-.color-option[data-color="#fffaf0"] { background-color: #fffaf0; }
-.color-option[data-color="#faf0e6"] { background-color: #faf0e6; }
-.color-option[data-color="#fff5ee"] { background-color: #fff5ee; }
-.color-option[data-color="#f8f8ff"] { background-color: #f8f8ff; }
-.color-option[data-color="#fafafa"] { background-color: #fafafa; }
-.color-option[data-color="#f5f5f5"] { background-color: #f5f5f5; }
-.color-option[data-color="#fff8dc"] { background-color: #fff8dc; }
+.color-option[data-color="#000000"] { background-color: #000000; }
+.color-option[data-color="#333333"] { background-color: #333333; }
+.color-option[data-color="#666666"] { background-color: #666666; }
+.color-option[data-color="#999999"] { background-color: #999999; }
+.color-option[data-color="#ff0000"] { background-color: #ff0000; }
+.color-option[data-color="#ff6600"] { background-color: #ff6600; }
+.color-option[data-color="#ffcc00"] { background-color: #ffcc00; }
+.color-option[data-color="#00ff00"] { background-color: #00ff00; }
+.color-option[data-color="#00ccff"] { background-color: #00ccff; }
+.color-option[data-color="#0066ff"] { background-color: #0066ff; }
+.color-option[data-color="#6600ff"] { background-color: #6600ff; }
+.color-option[data-color="#ff00ff"] { background-color: #ff00ff; }
+.color-option[data-color="#cc6600"] { background-color: #cc6600; }
+.color-option[data-color="#ff6666"] { background-color: #ff6666; }
+.color-option[data-color="#ffcc66"] { background-color: #ffcc66; }
+.color-option[data-color="#ffff66"] { background-color: #ffff66; }
+.color-option[data-color="#66ff66"] { background-color: #66ff66; }
+.color-option[data-color="#66ccff"] { background-color: #66ccff; }
+.color-option[data-color="#6699ff"] { background-color: #6699ff; }
+.color-option[data-color="#9966ff"] { background-color: #9966ff; }
+.color-option[data-color="#ff66ff"] { background-color: #ff66ff; }
+.color-option[data-color="#cc9966"] { background-color: #cc9966; }
+.color-option[data-color="#ff3333"] { background-color: #ff3333; }
+.color-option[data-color="#ff9933"] { background-color: #ff9933; }
+.color-option[data-color="#33cc33"] { background-color: #33cc33; }
+.color-option[data-color="#3366ff"] { background-color: #3366ff; }
 
 @keyframes fadeIn {
     from { opacity: 0; }

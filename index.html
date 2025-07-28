@@ -133,7 +133,7 @@
                     </button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" id="colorPaletteBtn" title="Arka Plan Rengi" onclick="openColorPalette()">
+                    <button type="button" class="toolbar-btn" id="colorPaletteBtn" title="Metin Rengi" onclick="openColorPalette()">
                         <i class="fas fa-palette"></i>
                     </button>
                 </div>
@@ -266,7 +266,7 @@
             }
         }
         
-        function applyBackgroundColor(color) {
+        function applyTextColor(color) {
             // Save current cursor position and selection
             const editor = document.getElementById('noteContent');
             const selection = window.getSelection();
@@ -274,11 +274,38 @@
             const scrollTop = editor.scrollTop;
             const scrollLeft = editor.scrollLeft;
             
-            // Apply background color to the editor
-            editor.style.backgroundColor = color;
+            // Focus the editor first
+            editor.focus();
+            
+            // Restore selection if it exists
+            if (range) {
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+            
+            // Apply text color using execCommand
+            const success = document.execCommand('foreColor', false, color);
+            
+            // If execCommand fails, use manual approach
+            if (!success && range) {
+                if (!range.collapsed) {
+                    // Text is selected - wrap it in a colored span
+                    const span = document.createElement('span');
+                    span.style.color = color;
+                    range.surroundContents(span);
+                } else {
+                    // Cursor position - insert a colored span
+                    const span = document.createElement('span');
+                    span.style.color = color;
+                    span.innerHTML = '&nbsp;'; // Non-breaking space for cursor position
+                    range.insertNode(span);
+                    range.setStartAfter(span);
+                    range.setEndAfter(span);
+                }
+            }
             
             // Save the color preference
-            localStorage.setItem('noteBackgroundColor', color);
+            localStorage.setItem('noteTextColor', color);
             
             // Restore cursor position and selection
             if (range) {
@@ -297,7 +324,7 @@
             closeColorPalette();
             
             // Show notification
-            showNotification('Arka plan rengi değiştirildi!', 'success');
+            showNotification('Metin rengi değiştirildi!', 'success');
         }
         
 
@@ -980,19 +1007,14 @@
                     option.addEventListener('click', (e) => {
                         e.stopPropagation();
                         const color = option.dataset.color;
-                        applyBackgroundColor(color);
+                        applyTextColor(color);
                     });
                 });
             }
             
-            // Load saved background color
-            const savedColor = localStorage.getItem('noteBackgroundColor');
-            if (savedColor) {
-                const editor = document.getElementById('noteContent');
-                if (editor) {
-                    editor.style.backgroundColor = savedColor;
-                }
-            }
+            // Load saved text color (optional - for future use)
+            const savedColor = localStorage.getItem('noteTextColor');
+            // Note: We don't apply saved color on load as it should be applied per text selection
         }
         
         // Language Toggle Setup
@@ -1126,7 +1148,7 @@
                 toolbarUnderline: 'Altı Çizili',
                 toolbarStrike: 'Üstü Çizili',
                 toolbarImage: 'Resim Ekle',
-                toolbarBackgroundColor: 'Arka Plan Rengi',
+                toolbarBackgroundColor: 'Metin Rengi',
                 title: "Not Alma Uygulaması",
                 noteTitlePlaceholder: "Not Başlığı",
                 noteContentPlaceholder: "Not İçeriği",
@@ -1199,7 +1221,7 @@
                 toolbarUnderline: 'Underline',
                 toolbarStrike: 'Strikethrough',
                 toolbarImage: 'Add Image',
-                toolbarBackgroundColor: 'Background Color',
+                toolbarBackgroundColor: 'Text Color',
                 title: "Note Taking App",
                 noteTitlePlaceholder: "Note Title",
                 noteContentPlaceholder: "Note Content",
@@ -1525,36 +1547,38 @@
     <div id="colorPaletteModal" class="color-palette-modal">
         <div class="color-palette-content">
             <div class="color-palette-header">
-                <h3>Arka Plan Rengi Seçin</h3>
+                <h3>Metin Rengi Seçin</h3>
                 <button id="closeColorPaletteBtn" class="close-palette-btn">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="color-palette-grid">
-                <div class="color-option" data-color="#ffffff" title="Beyaz"></div>
-                <div class="color-option" data-color="#f8f9fa" title="Açık Gri"></div>
-                <div class="color-option" data-color="#e9ecef" title="Gri"></div>
-                <div class="color-option" data-color="#dee2e6" title="Orta Gri"></div>
-                <div class="color-option" data-color="#f8f4ff" title="Açık Mor"></div>
-                <div class="color-option" data-color="#fff4f4" title="Açık Kırmızı"></div>
-                <div class="color-option" data-color="#f4fff4" title="Açık Yeşil"></div>
-                <div class="color-option" data-color="#f4f8ff" title="Açık Mavi"></div>
-                <div class="color-option" data-color="#fff8f4" title="Açık Turuncu"></div>
-                <div class="color-option" data-color="#fff4f8" title="Açık Pembe"></div>
-                <div class="color-option" data-color="#f0f8ff" title="Alice Mavi"></div>
-                <div class="color-option" data-color="#f5f5dc" title="Bej"></div>
-                <div class="color-option" data-color="#ffe4e1" title="Misty Rose"></div>
-                <div class="color-option" data-color="#e6f3ff" title="Açık Cyan"></div>
-                <div class="color-option" data-color="#f0fff0" title="Honeydew"></div>
-                <div class="color-option" data-color="#fffaf0" title="Floral White"></div>
-                <div class="color-option" data-color="#faf0e6" title="Linen"></div>
-                <div class="color-option" data-color="#f0f8ff" title="Alice Blue"></div>
-                <div class="color-option" data-color="#fff5ee" title="Seashell"></div>
-                <div class="color-option" data-color="#f8f8ff" title="Ghost White"></div>
-                <div class="color-option" data-color="#fafafa" title="Snow"></div>
-                <div class="color-option" data-color="#f5f5f5" title="White Smoke"></div>
-                <div class="color-option" data-color="#faf0e6" title="Linen"></div>
-                <div class="color-option" data-color="#fff8dc" title="Cornsilk"></div>
+                <div class="color-option" data-color="#000000" title="Siyah"></div>
+                <div class="color-option" data-color="#333333" title="Koyu Gri"></div>
+                <div class="color-option" data-color="#666666" title="Gri"></div>
+                <div class="color-option" data-color="#999999" title="Açık Gri"></div>
+                <div class="color-option" data-color="#ff0000" title="Kırmızı"></div>
+                <div class="color-option" data-color="#ff6600" title="Turuncu"></div>
+                <div class="color-option" data-color="#ffcc00" title="Sarı"></div>
+                <div class="color-option" data-color="#00ff00" title="Yeşil"></div>
+                <div class="color-option" data-color="#00ccff" title="Açık Mavi"></div>
+                <div class="color-option" data-color="#0066ff" title="Mavi"></div>
+                <div class="color-option" data-color="#6600ff" title="Mor"></div>
+                <div class="color-option" data-color="#ff00ff" title="Pembe"></div>
+                <div class="color-option" data-color="#cc6600" title="Kahverengi"></div>
+                <div class="color-option" data-color="#ff6666" title="Açık Kırmızı"></div>
+                <div class="color-option" data-color="#ffcc66" title="Açık Turuncu"></div>
+                <div class="color-option" data-color="#ffff66" title="Açık Sarı"></div>
+                <div class="color-option" data-color="#66ff66" title="Açık Yeşil"></div>
+                <div class="color-option" data-color="#66ccff" title="Açık Mavi"></div>
+                <div class="color-option" data-color="#6699ff" title="Orta Mavi"></div>
+                <div class="color-option" data-color="#9966ff" title="Açık Mor"></div>
+                <div class="color-option" data-color="#ff66ff" title="Açık Pembe"></div>
+                <div class="color-option" data-color="#cc9966" title="Açık Kahverengi"></div>
+                <div class="color-option" data-color="#ff3333" title="Canlı Kırmızı"></div>
+                <div class="color-option" data-color="#ff9933" title="Canlı Turuncu"></div>
+                <div class="color-option" data-color="#33cc33" title="Canlı Yeşil"></div>
+                <div class="color-option" data-color="#3366ff" title="Canlı Mavi"></div>
             </div>
         </div>
     </div>
