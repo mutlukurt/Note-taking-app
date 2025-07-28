@@ -355,9 +355,15 @@
                     // Apply color to text
                     applyTextColor(selectedColor);
                     
-                    // Close modal
-                    colorGridModal.classList.remove('show');
-                    document.body.style.overflow = '';
+                    // Close modal - try multiple methods
+                    console.log('Closing modal...');
+                    const modal = document.getElementById('colorGridModal');
+                    if (modal) {
+                        modal.classList.remove('show');
+                        modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                        console.log('Modal should be closed now');
+                    }
                     
                     // Show notification
                     showNotification(`Metin rengi değiştirildi: ${selectedColor}`, 'success');
