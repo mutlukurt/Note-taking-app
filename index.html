@@ -266,59 +266,173 @@
             }
         }
         
-        function applyTextColor(color) {
-            // Save current cursor position and selection
+        // Helper function to save and restore cursor position
+        function saveCursorPosition() {
             const editor = document.getElementById('noteContent');
             const selection = window.getSelection();
-            const range = selection.rangeCount > 0 ? selection.getRangeAt(0).cloneRange() : null;
+            
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(editor);
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+                return {
+                    startOffset: range.startOffset,
+                    endOffset: range.endOffset,
+                    startContainer: range.startContainer,
+                    endContainer: range.endContainer,
+                    collapsed: range.collapsed,
+                    textBefore: preCaretRange.toString().length
+                };
+            }
+            return null;
+        }
+        
+        function restoreCursorPosition(savedPosition) {
+            if (!savedPosition) return;
+            
+            const editor = document.getElementById('noteContent');
+            const selection = window.getSelection();
+            
+            try {
+                const range = document.createRange();
+                range.setStart(savedPosition.startContainer, savedPosition.startOffset);
+                range.setEnd(savedPosition.endContainer, savedPosition.endOffset);
+                
+                selection.removeAllRanges();
+                selection.addRange(range);
+            } catch (e) {
+                // Fallback: try to restore by text position
+                const textNodes = [];
+                const walker = document.createTreeWalker(
+                    editor,
+                    NodeFilter.SHOW_TEXT,
+                    null,
+                    false
+                );
+                
+                let node;
+                while (node = walker.nextNode()) {
+                    textNodes.push(node);
+                }
+                
+                let currentLength = 0;
+                for (let i = 0; i < textNodes.length; i++) {
+                    const nodeLength = textNodes[i].length;
+                    if (currentLength + nodeLength >= savedPosition.textBefore) {
+                        const offset = savedPosition.textBefore - currentLength;
+                        const range = document.createRange();
+                        range.setStart(textNodes[i], offset);
+                        range.setEnd(textNodes[i], offset);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        break;
+                    }
+                    currentLength += nodeLength;
+                }
+            }
+        }
+        
+        function applyTextColor(color) {
+            const editor = document.getElementById('noteContent');
+            if (!editor) return;
+            
+            // Save current state
             const scrollTop = editor.scrollTop;
             const scrollLeft = editor.scrollLeft;
             
-            // Focus the editor first
+            // Save cursor position using our helper function
+            const savedPosition = saveCursorPosition();
+            
+            // Focus the editor
             editor.focus();
             
-            // Restore selection if it exists
-            if (range) {
-                selection.removeAllRanges();
-                selection.addRange(range);
+            // Restore cursor position
+            if (savedPosition) {
+                restoreCursorPosition(savedPosition);
             }
             
-            // Apply text color using execCommand
-            const success = document.execCommand('foreColor', false, color);
+            // Apply color using execCommand
+            let success = false;
+            try {
+                success = document.execCommand('foreColor', false, color);
+            } catch (e) {
+                console.log('execCommand failed, using manual approach');
+            }
             
-            // If execCommand fails, use manual approach
-            if (!success && range) {
-                if (!range.collapsed) {
+            // If execCommand fails or doesn't work properly, use manual approach
+            if (!success) {
+                const selection = window.getSelection();
+                
+                if (savedPosition && !savedPosition.collapsed) {
                     // Text is selected - wrap it in a colored span
+                    const range = document.createRange();
+                    range.setStart(savedPosition.startContainer, savedPosition.startOffset);
+                    range.setEnd(savedPosition.endContainer, savedPosition.endOffset);
+                    
                     const span = document.createElement('span');
                     span.style.color = color;
-                    range.surroundContents(span);
-                } else {
-                    // Cursor position - insert a colored span
-                    const span = document.createElement('span');
-                    span.style.color = color;
-                    span.innerHTML = '&nbsp;'; // Non-breaking space for cursor position
+                    span.textContent = range.toString();
+                    range.deleteContents();
                     range.insertNode(span);
-                    range.setStartAfter(span);
-                    range.setEndAfter(span);
+                    
+                    // Position cursor after the colored text
+                    const newRange = document.createRange();
+                    newRange.setStartAfter(span);
+                    newRange.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+                } else if (savedPosition) {
+                    // Cursor position - insert a colored span
+                    const range = document.createRange();
+                    range.setStart(savedPosition.startContainer, savedPosition.startOffset);
+                    range.collapse(true);
+                    
+                    const span = document.createElement('span');
+                    span.style.color = color;
+                    span.innerHTML = '&nbsp;'; // Non-breaking space
+                    range.insertNode(span);
+                    
+                    // Position cursor after the span
+                    const newRange = document.createRange();
+                    newRange.setStartAfter(span);
+                    newRange.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+                } else {
+                    // No saved position, insert at end
+                    const span = document.createElement('span');
+                    span.style.color = color;
+                    span.innerHTML = '&nbsp;';
+                    editor.appendChild(span);
+                    
+                    // Position cursor after the span
+                    const newRange = document.createRange();
+                    newRange.setStartAfter(span);
+                    newRange.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
                 }
             }
             
             // Save the color preference
             localStorage.setItem('noteTextColor', color);
             
-            // Restore cursor position and selection
-            if (range) {
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
+            // Ensure editor has focus
             editor.focus();
             
-            // Restore scroll position
+            // Final cursor position restoration
+            if (savedPosition) {
+                setTimeout(() => {
+                    restoreCursorPosition(savedPosition);
+                }, 1);
+            }
+            
+            // Restore scroll position with a small delay to ensure DOM updates
             setTimeout(() => {
                 editor.scrollTop = scrollTop;
                 editor.scrollLeft = scrollLeft;
-            }, 10);
+            }, 5);
             
             // Close the palette
             closeColorPalette();

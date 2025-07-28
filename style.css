@@ -321,6 +321,12 @@ body {
     line-height: 1.6;
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
+    caret-color: var(--text-primary);
+    outline: none;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .rich-editor[contenteditable="true"]:empty:before {
@@ -1592,6 +1598,8 @@ body.force-desktop-mode .rich-editor {
     z-index: 10000;
     backdrop-filter: blur(8px);
     animation: fadeIn 0.3s ease;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .color-palette-content {
