@@ -1815,11 +1815,6 @@
                 
                 // Apply translations to the page
                 applyTranslations(newLang);
-                
-                // Update privacy policy and MIT license translations
-                setTimeout(() => {
-                    updatePrivacyPolicyTranslation(newLang);
-                }, 100);
             }
         }
 
@@ -1878,25 +1873,8 @@
                 emptyState.querySelector('p').textContent = t.emptyStateDesc;
             }
             
-            // Update privacy policy
-            document.querySelector('#privacyTitle').textContent = t.privacyTitle;
-            document.querySelector('#dataCollectionLabel').textContent = t.dataCollection + ':';
-            document.querySelector('#dataCollectionText').textContent = t.dataCollectionText;
-            document.querySelector('#dataStorageLabel').textContent = t.dataStorage + ':';
-            document.querySelector('#dataStorageText').textContent = t.dataStorageText;
-            document.querySelector('#cookiesLabel').textContent = t.cookies + ':';
-            document.querySelector('#cookiesText').textContent = t.cookiesText;
-            document.querySelector('#thirdPartyLabel').textContent = t.thirdParty + ':';
-            document.querySelector('#thirdPartyText').textContent = t.thirdPartyText;
-            document.querySelector('#securityLabel').textContent = t.security + ':';
-            document.querySelector('#securityText').textContent = t.securityText;
-            document.querySelector('#contactLabel').textContent = t.contact + ':';
-            document.querySelector('#contactText').textContent = t.contactText;
-            document.querySelector('#copyrightText').textContent = t.copyright;
-            
-            // Update MIT License
-            const mitLicenseElement = document.querySelector('#mitLicenseText');
-            mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
+            // Update privacy policy and MIT license
+            updatePrivacyPolicyTranslation(lang);
         }
 
         // Mobile touch support
