@@ -299,6 +299,137 @@
             document.getElementById('noteContent').innerHTML = '';
         }
         
+        // Color Grid Setup Function
+        function setupColorGrid() {
+            console.log('Setting up color grid...');
+            const colorGridBtn = document.getElementById('colorGridBtn');
+            const colorGridModal = document.getElementById('colorGridModal');
+            const closeColorGrid = document.getElementById('closeColorGrid');
+            const gridColors = document.querySelectorAll('.grid-color');
+            
+            console.log('Color grid elements:', {
+                colorGridBtn: !!colorGridBtn,
+                colorGridModal: !!colorGridModal,
+                closeColorGrid: !!closeColorGrid,
+                gridColorsCount: gridColors.length
+            });
+            
+            if (!colorGridBtn || !colorGridModal) {
+                console.error('Color grid elements not found!');
+                return;
+            }
+
+            // Open color grid modal
+            colorGridBtn.addEventListener('click', (e) => {
+                console.log('Color grid button clicked!');
+                e.preventDefault();
+                e.stopPropagation();
+                colorGridModal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                console.log('Modal should be visible now');
+            });
+
+            // Close color grid modal
+            const closeModal = () => {
+                colorGridModal.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+            };
+
+            closeColorGrid.addEventListener('click', closeModal);
+
+            // Close modal when clicking outside
+            colorGridModal.addEventListener('click', (e) => {
+                if (e.target === colorGridModal) {
+                    closeModal();
+                }
+            });
+
+            // Close modal on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && colorGridModal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+
+            // Handle color selection
+            gridColors.forEach(color => {
+                color.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const selectedColor = color.getAttribute('data-color');
+                    
+                    // Remove selected class from all colors
+                    gridColors.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked color
+                    color.classList.add('selected');
+                    
+                    // Apply color to text
+                    applyTextColor(selectedColor);
+                    
+                    // Close modal
+                    closeModal();
+                    
+                    // Show notification
+                    showNotification(`Metin rengi değiştirildi: ${selectedColor}`, 'success');
+                });
+            });
+        }
+        
+        // Apply text color function
+        function applyTextColor(color) {
+            const editor = document.getElementById('noteContent');
+            
+            if (!editor) {
+                console.error('Editor not found!');
+                return;
+            }
+
+            // Focus editor first
+            editor.focus();
+            
+            // Check if there's a selection
+            const selection = window.getSelection();
+            
+            if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                // Apply color to selected text
+                document.execCommand('foreColor', false, color);
+            } else {
+                // No selection, apply color to cursor position
+                document.execCommand('foreColor', false, color);
+            }
+        }
+        
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 10001;
+                font-size: 14px;
+                font-weight: 500;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
         // DOM loaded
         document.addEventListener('DOMContentLoaded', function() {
             
@@ -340,6 +471,9 @@
             
             // Set up settings toggle
             setupSettingsToggle();
+            
+            // Set up color grid
+            setupColorGrid();
             
             // Load and display notes
             renderNotes();
