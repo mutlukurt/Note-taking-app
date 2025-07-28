@@ -285,7 +285,7 @@ class NotesApp {
     }
 
     deleteNote(id) {
-        if (confirm('Bu notu silmek istediğinizden emin misiniz?')) {
+        if (confirm('Are you sure you want to delete this note?')) {
             this.notes = this.notes.filter(note => note.id !== id);
             this.saveNotes();
             this.applySortAndFilter();
