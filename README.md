@@ -445,7 +445,6 @@ SOFTWARE.
 - 🔧 **Header Dropdown Fix**: Header selector dropdown menu fully functional
 - 🎯 **Event Listeners**: Added JavaScript event listeners for header button and options
 - 📋 **Format Block**: H1, H2, H3, Normal text formats working properly
-- 🎨 **Z-Index Fix**: Dropdown menu now appears above other elements
 - ✨ **Visual Feedback**: Selected format shown in button text
 - 🔄 **Auto Close**: Dropdown closes automatically when clicking outside
 - 🎭 **Smooth Animation**: Dropdown open/close animations
