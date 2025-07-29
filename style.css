@@ -416,60 +416,7 @@ body {
     margin: 0 5px;
 }
 
-/* Color Swatches in Toolbar */
-.color-swatches-container {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin: 0 4px;
-}
 
-.color-swatch {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    position: relative;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.color-swatch:hover {
-    transform: scale(1.1);
-    border-color: var(--text-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.color-swatch:active {
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
-}
-
-.color-swatch.selected {
-    border-color: var(--text-primary);
-    border-width: 3px;
-    box-shadow: 0 0 0 1px var(--bg-card), 0 2px 8px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
-}
-
-/* Mobile-specific touch feedback for color swatches */
-@media (hover: none) and (pointer: coarse) {
-    .color-swatch:hover {
-        transform: none;
-    }
-    
-    .color-swatch:active {
-        transform: scale(0.95);
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-}
 
 
 
@@ -1675,51 +1622,3 @@ body.force-desktop-mode .rich-editor {
 
 /* Responsive color palette CSS removed - colors now in toolbar */
 
-/* Responsive Color Swatches in Toolbar */
-@media (max-width: 768px) {
-    .color-swatches-container {
-        gap: 4px;
-        margin: 0 2px;
-    }
-    
-    .color-swatch {
-        width: 20px;
-        height: 20px;
-        border-radius: 4px;
-        border-width: 1px;
-    }
-    
-    .color-swatch.selected {
-        border-width: 2px;
-    }
-}
-
-@media (max-width: 480px) {
-    .color-swatches-container {
-        gap: 3px;
-        margin: 0 1px;
-    }
-    
-    .color-swatch {
-        width: 18px;
-        height: 18px;
-        border-radius: 3px;
-        border-width: 1px;
-    }
-    
-    .color-swatch.selected {
-        border-width: 2px;
-    }
-}
-
-@media (max-width: 360px) {
-    .color-swatches-container {
-        gap: 2px;
-    }
-    
-    .color-swatch {
-        width: 16px;
-        height: 16px;
-        border-radius: 2px;
-    }
-}

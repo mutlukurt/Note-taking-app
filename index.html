@@ -132,18 +132,7 @@
                         <i class="fas fa-image"></i>
                     </button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                    <div class="toolbar-separator"></div>
-                    <!-- Color Swatches in Toolbar -->
-                    <div class="color-swatches-container">
-                        <div class="color-swatch" data-color="#000000" title="Siyah" style="background-color: #000000;"></div>
-                        <div class="color-swatch" data-color="#ff0000" title="Kırmızı" style="background-color: #ff0000;"></div>
-                        <div class="color-swatch" data-color="#00ff00" title="Yeşil" style="background-color: #00ff00;"></div>
-                        <div class="color-swatch" data-color="#0066ff" title="Mavi" style="background-color: #0066ff;"></div>
-                        <div class="color-swatch" data-color="#ffcc00" title="Sarı" style="background-color: #ffcc00;"></div>
-                        <div class="color-swatch" data-color="#ff6600" title="Turuncu" style="background-color: #ff6600;"></div>
-                        <div class="color-swatch" data-color="#6600ff" title="Mor" style="background-color: #6600ff;"></div>
-                        <div class="color-swatch" data-color="#ff00ff" title="Pembe" style="background-color: #ff00ff;"></div>
-                    </div>
+
                 </div>
                 
                 <div id="noteContent" class="note-textarea rich-editor" contenteditable="true" data-placeholder="Notunuzu buraya yazın..."></div>
@@ -461,157 +450,13 @@
             return true;
         }
         
-        function applyTextColor(color) {
-            const editor = document.getElementById('noteContent');
-            if (!editor) return;
-            
-            // Save current state for mobile compatibility
-            const scrollTop = editor.scrollTop;
-            const scrollLeft = editor.scrollLeft;
-            const wasFocused = document.activeElement === editor;
-            
-            // Save caret position before any DOM changes
-            const caretBookmark = saveCaretPosition();
-            
-            // Mobile-optimized focus handling
-            if (!wasFocused) {
-                editor.focus();
-            }
-            
-            // Restore caret position with mobile-specific handling
-            if (caretBookmark) {
-                restoreCaretPosition(caretBookmark);
-            }
-            
-            // Apply color from current caret position onward
-            let success = false;
-            try {
-                // Try execCommand first
-                success = document.execCommand('foreColor', false, color);
-            } catch (e) {
-                console.log('execCommand failed, using manual approach');
-            }
-            
-            // If execCommand fails, use manual approach
-            if (!success) {
-                const selection = window.getSelection();
-                
-                if (caretBookmark) {
-                    // Create a range from the saved caret position to the end
-                    const range = document.createRange();
-                    range.setStart(caretBookmark.startContainer, caretBookmark.startOffset);
-                    
-                    // Find the end of the editor content
-                    const endRange = document.createRange();
-                    endRange.selectNodeContents(editor);
-                    endRange.collapse(false);
-                    range.setEnd(endRange.endContainer, endRange.endOffset);
-                    
-                    // Check if there's content to color
-                    const contentToColor = range.toString();
-                    
-                    if (contentToColor.length > 0) {
-                        // Color the text from caret position to end
-                        const span = document.createElement('span');
-                        span.style.color = color;
-                        span.textContent = contentToColor;
-                        range.deleteContents();
-                        range.insertNode(span);
-                        
-                        // Position cursor at the end of the colored text
-                        const newRange = document.createRange();
-                        newRange.setStartAfter(span);
-                        newRange.collapse(true);
-                        selection.removeAllRanges();
-                        selection.addRange(newRange);
-                    } else {
-                        // No content to color, insert a colored space at caret position
-                        const span = document.createElement('span');
-                        span.style.color = color;
-                        span.innerHTML = '&nbsp;';
-                        range.insertNode(span);
-                        
-                        // Position cursor after the span
-                        const newRange = document.createRange();
-                        newRange.setStartAfter(span);
-                        newRange.collapse(true);
-                        selection.removeAllRanges();
-                        selection.addRange(newRange);
-                    }
-                } else {
-                    // No saved position, insert colored text at the end
-                    const span = document.createElement('span');
-                    span.style.color = color;
-                    span.innerHTML = '&nbsp;';
-                    editor.appendChild(span);
-                    
-                    // Position cursor after the span
-                    const newRange = document.createRange();
-                    newRange.setStartAfter(span);
-                    newRange.collapse(true);
-                    selection.removeAllRanges();
-                    selection.addRange(newRange);
-                }
-            }
-            
-            // Save the color preference
-            localStorage.setItem('noteTextColor', color);
-            
-            // Mobile-optimized final restoration
-            if (caretBookmark) {
-                // Use requestAnimationFrame for better mobile performance
-                requestAnimationFrame(() => {
-                    restoreCaretPosition(caretBookmark);
-                    
-                    // Ensure focus is maintained on mobile
-                    if (wasFocused) {
-                        editor.focus();
-                    }
-                });
-            }
-            
-            // Restore scroll position with mobile-specific timing
-            requestAnimationFrame(() => {
-                editor.scrollTop = scrollTop;
-                editor.scrollLeft = scrollLeft;
-            });
-            
-            // Return focus to editor for seamless typing
-            setTimeout(() => {
-                editor.focus();
-                if (caretBookmark) {
-                    restoreCaretPosition(caretBookmark);
-                }
-            }, 10);
-        }
+
         
 
         
 
         
-        // Apply text color function
-        function applyTextColor(color) {
-            const editor = document.getElementById('noteContent');
-            
-            if (!editor) {
-                console.error('Editor not found!');
-                return;
-            }
 
-            // Focus editor first
-            editor.focus();
-            
-            // Check if there's a selection
-            const selection = window.getSelection();
-            
-            if (selection.rangeCount > 0 && !selection.isCollapsed) {
-                // Apply color to selected text
-                document.execCommand('foreColor', false, color);
-            } else {
-                // No selection, apply color to cursor position
-                document.execCommand('foreColor', false, color);
-            }
-        }
         
         // Show notification function
         function showNotification(message, type = 'info') {
@@ -1222,62 +1067,7 @@
                 });
             }
             
-                    // Color swatches in toolbar
-        const colorSwatches = document.querySelectorAll('.color-swatch');
-        
-        if (colorSwatches.length > 0) {
-            colorSwatches.forEach(swatch => {
-                // Unified click/touch handler for all devices
-                const handleColorSelect = (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    
-                    // Visual feedback
-                    swatch.style.transform = 'scale(0.95)';
-                    
-                    // Remove selected class from all swatches
-                    colorSwatches.forEach(s => s.classList.remove('selected'));
-                    
-                    // Add selected class to selected swatch
-                    swatch.classList.add('selected');
-                    
-                    const color = swatch.dataset.color;
-                    
-                    // Apply color directly
-                    applyTextColor(color);
-                    
-                    // Reset transform after a short delay
-                    setTimeout(() => {
-                        swatch.style.transform = '';
-                    }, 150);
-                };
-                
-                // Click event for desktop
-                swatch.addEventListener('click', handleColorSelect);
-                
-                // Touch events for mobile (with passive: false for preventDefault)
-                swatch.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                }, { passive: false });
-                
-                swatch.addEventListener('touchend', handleColorSelect, { passive: false });
-                
-                // Prevent text selection on mobile
-                swatch.addEventListener('selectstart', (e) => {
-                    e.preventDefault();
-                });
-            });
-        }
-            
-            // Apply background color function
-            function applyBackgroundColor(color) {
-                const noteCards = document.querySelectorAll('.note-card');
-                noteCards.forEach(card => {
-                    card.style.backgroundColor = color;
-                });
-                localStorage.setItem('backgroundColor', color);
-                showNotification('Arka plan rengi değiştirildi!', 'success');
-            }
+
         }
         
         // Settings Toggle Setup

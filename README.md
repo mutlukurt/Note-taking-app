@@ -439,6 +439,13 @@ SOFTWARE.
 
 ## 🔄 Güncelleme Geçmişi
 
+### 📅 **v2.3.0 (2025)**
+- 🗑️ **Renk Palet Kaldırıldı**: Toolbar'daki renk seçme özelliği tamamen kaldırıldı
+- 🧹 **Kod Temizliği**: Renk palet ile ilgili tüm HTML, CSS ve JavaScript kodları temizlendi
+- ⚡ **Performans İyileştirmesi**: Gereksiz kod kaldırılarak uygulama daha hızlı hale getirildi
+- 🎯 **Odaklanma**: Diğer tüm özellikler korunarak sadece renk palet kaldırıldı
+- 📱 **Responsive Düzeltme**: Renk palet CSS'leri kaldırılarak responsive tasarım temizlendi
+
 ### 📅 **v2.2.0 (2025)**
 - 🔧 **Header Dropdown Düzeltmesi**: Başlık seçici dropdown menüsü tamamen çalışır hale getirildi
 - 🎯 **Event Listener'lar**: Header buton ve seçenekleri için JavaScript event listener'ları eklendi
