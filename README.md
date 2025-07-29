@@ -1,204 +1,202 @@
-# 📝 Not Alma Uygulaması
+# 📝 Note Taking App
 
-Modern, kullanıcı dostu ve özellik açısından zengin bir not alma uygulaması. Bu uygulama, günlük not alma ihtiyaçlarınızı karşılamak için tasarlanmıştır. Tüm verileriniz tarayıcınızda güvenli şekilde saklanır.
+A modern, user-friendly, and feature-rich note-taking application. This app is designed to meet your daily note-taking needs. All your data is stored securely in your browser.
 
-## 🌐 **Canlı Demo**
+## 🌐 **Live Demo**
 **https://mutlukurt.github.io/Note-taking-app**
 
-## ✨ Özellikler
+## ✨ Features
 
-- 🎨 **Modern Tasarım**: Professional UI/UX, modern butonlar ve smooth animasyonlar
-- 🌙 **Karanlık Mod**: Ayarlar bölümündeki gece/gündüz ikonu ile açık/koyu tema değiştirme
-- 🌍 **Çok Dilli Destek**: TR/EN dil değiştirme özelliği - tüm sayfa içeriği çevrilir
-- 📱 **Responsive**: Tüm cihazlarda mükemmel görünüm
-- 🔍 **Arama**: Notlarınızda hızlı arama yapabilme
-- ✏️ **Düzenleme**: Mevcut notları düzenleyebilme
-- 🗑️ **Silme**: Notları güvenli şekilde silme (buton ile veya swipe ile)
-- 📱 **Swipe-to-Delete**: Not kartını sola kaydırarak silme (4 saniye geri alma)
-- 📌 **Sabitleme**: Önemli notları sabitleyebilme
-- 🔄 **Sıralama**: Tarih, başlık ve sabitleme durumuna göre sıralama
-- 🔍 **Filtreleme**: Tüm, sabitlenen ve normal notları filtreleme
-- 💾 **Yerel Depolama**: Notlarınız tarayıcıda güvenli şekilde saklanır
-- 🔔 **Bildirimler**: İşlem sonuçları için güzel bildirimler
-- ⌨️ **Klavye Kısayolları**: Enter ile not ekleme, Ctrl+Enter ile içerik ekleme
-- ✨ **Zengin Metin Editörü**: Kalın, italik, altı çizili, üstü çizili formatlama
-- 📋 **Başlık Sistemi**: H1, H2, H3 başlık seçenekleri, çalışan dropdown menü
-- ⌨️ **Klavye Kısayolları**: Ctrl+B (kalın), Ctrl+I (italik), Ctrl+U (altı çizili)
-- 📝 **Liste Özellikleri**: Madde işaretli ve numaralı listeler
-- 📐 **Hizalama**: Sola, orta ve sağa hizalama
-- 🖼️ **Fotoğraf Ekleme**: Notlarınıza resim ekleyebilme (5MB'a kadar)
-- 🎯 **Görsel Geri Bildirim**: Toolbar butonlarında aktif durum göstergesi
-- 📄 **PDF Export**: Notlarınızı PDF formatında dışa export edebilme
-- 🖥️ **Masaüstü Modu**: Mobil tarayıcılarda masaüstü görünümü
-- 🔒 **Gizlilik Politikası**: Kapsamlı veri güvenliği açıklaması
-- ⚙️ **Modern Ayarlar**: Yuvarlak ayarlar butonu ve genişleyen panel
-- 🌍 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
+- 🎨 **Modern Design**: Professional UI/UX, modern buttons and smooth animations
+- 🌙 **Dark Mode**: Light/dark theme switching with sun/moon icon in settings
+- 🌍 **Multi-language Support**: TR/EN language switching - entire page content translates
+- 📱 **Responsive**: Perfect appearance on all devices
+- 🔍 **Search**: Quick search through your notes
+- ✏️ **Edit**: Edit existing notes
+- 🗑️ **Delete**: Safely delete notes (button or swipe)
+- 📱 **Swipe-to-Delete**: Delete note cards by swiping left (4-second undo)
+- 📌 **Pin**: Pin important notes
+- 🔄 **Sort**: Sort by date, title, and pin status
+- 🔍 **Filter**: Filter all, pinned, and normal notes
+- 💾 **Local Storage**: Your notes are stored securely in browser
+- 🔔 **Notifications**: Beautiful notifications for operation results
+- ⌨️ **Keyboard Shortcuts**: Add note with Enter, add content with Ctrl+Enter
+- ✨ **Rich Text Editor**: Bold, italic, underline, strikethrough formatting
+- 📋 **Header System**: H1, H2, H3 header options with working dropdown menu
+- ⌨️ **Keyboard Shortcuts**: Ctrl+B (bold), Ctrl+I (italic), Ctrl+U (underline)
+- 📝 **List Features**: Bulleted and numbered lists
+- 📐 **Alignment**: Left, center, and right alignment
+- 🖼️ **Photo Upload**: Add images to your notes (up to 5MB)
+- 🎯 **Visual Feedback**: Active state indicators on toolbar buttons
+- 📄 **PDF Export**: Export your notes in PDF format
+- 🖥️ **Desktop Mode**: Desktop view in mobile browsers
+- 🔒 **Privacy Policy**: Comprehensive data security explanation
+- ⚙️ **Modern Settings**: Round settings button and expanding panel
+- 🌍 **Multi-language Footer**: Privacy policy and MIT license TR/EN translation support
 
-## 🚀 Kullanım
+## 🚀 Usage
 
-### 📝 **Temel İşlemler:**
-1. **Not Ekleme**: Başlık ve içerik alanlarını doldurun, "Not Ekle" butonuna tıklayın
-2. **Arama**: Üst kısımdaki arama kutusunu kullanarak notlarınızda arama yapın
-3. **Düzenleme**: Not kartındaki düzenleme ikonuna tıklayın
-4. **Silme**: Not kartındaki çöp kutusu ikonuna tıklayın
-5. **Tema Değiştirme**: Ayarlar bölümündeki güneş/ay ikonuna tıklayın
-6. **Dil Değiştirme**: Ayarlar bölümündeki dünya ikonuna tıklayın (TR ↔ EN) - tüm sayfa içeriği çevrilir
-7. **Ayarlar Paneli**: Yuvarlak ayarlar butonuna tıklayarak tema ve dil seçeneklerini açın
-8. **Temizleme**: "Temizle" butonu ile formu temizleyin
+### 📝 **Basic Operations:**
+1. **Add Note**: Fill in title and content fields, click "Add Note" button
+2. **Search**: Use the search box at the top to search through your notes
+3. **Edit**: Click the edit icon on the note card
+4. **Delete**: Click the trash icon on the note card
+5. **Change Theme**: Click the sun/moon icon in settings section
+6. **Change Language**: Click the world icon in settings section (TR ↔ EN) - entire page content translates
+7. **Settings Panel**: Click the round settings button to open theme and language options
+8. **Clear**: Use "Clear" button to clear the form
 
-### ⚙️ **Ayarlar Sistemi:**
-1. **Yuvarlak Ayarlar Butonu**: ⚙️ dişli ikonu ile modern tasarım
-2. **Genişleyen Panel**: Tıklandığında sağa doğru smooth açılma
-3. **Tema Değiştirme**: 🌙/☀️ ikonu ile açık/koyu tema
-4. **Dil Değiştirme**: 🌍 ikonu ile TR/EN geçişi - tüm sayfa çevrilir
-5. **Dışarı Tıklama**: Panel dışına tıklayarak kapatma
-6. **Animasyonlar**: Rotasyon, scale ve transform efektleri
-7. **Cross-Platform**: Desktop ve mobile'da touch/click desteği
-8. **Touch-Friendly**: Mobile'da büyük touch alanları
+### ⚙️ **Settings System:**
+1. **Round Settings Button**: ⚙️ gear icon with modern design
+2. **Expanding Panel**: Smooth opening to the right when clicked
+3. **Theme Change**: 🌙/☀️ icon for light/dark theme
+4. **Language Change**: 🌍 icon for TR/EN switching - entire page translates
+5. **Outside Click**: Close by clicking outside the panel
+6. **Animations**: Rotation, scale and transform effects
+7. **Cross-Platform**: Touch/click support on desktop and mobile
+8. **Touch-Friendly**: Large touch areas on mobile
 
-### ✨ **Zengin Metin Editörü:**
-1. **Metin Formatlama**: Metni seçin ve toolbar'daki butonları kullanın
-   - **B** (Kalın), *I* (İtalik), U (Altı Çizili), ~~S~~ (Üstü Çizili)
-   - **Klavye Kısayolları**: Ctrl+B, Ctrl+I, Ctrl+U
-2. **Liste Oluşturma**: • (Madde işaretli) veya 1. (Numaralı) butonları
-3. **Hizalama**: ← (Sola), ↔ (Ortala), → (Sağa) butonları
-4. **Fotoğraf Ekleme**: 🖼️ butonuna tıklayıp resim seçin (5MB'a kadar)
-5. **Görsel Geri Bildirim**: Butonlara tıkladığınızda aktif durum göstergesi
-6. **PDF Export**: 📄 butonuna tıklayarak notu PDF olarak indirin
+### ✨ **Rich Text Editor:**
+1. **Text Formatting**: Select text and use toolbar buttons
+   - **B** (Bold), *I* (Italic), U (Underline), ~~S~~ (Strikethrough)
+   - **Keyboard Shortcuts**: Ctrl+B, Ctrl+I, Ctrl+U
+2. **Create Lists**: • (Bulleted) or 1. (Numbered) buttons
+3. **Alignment**: ← (Left), ↔ (Center), → (Right) buttons
+4. **Photo Upload**: Click 🖼️ button and select image (up to 5MB)
+5. **Visual Feedback**: Active state indicator when clicking buttons
+6. **PDF Export**: Click 📄 button to download note as PDF
 
+### 📋 **Header System:**
+1. **Header Dropdown**: Click 📋 icon to open menu ✅ **WORKING**
+   - **Normal**: Standard paragraph text
+   - **Header 1 (H1)**: Largest header (2em)
+   - **Header 2 (H2)**: Medium header (1.5em)
+   - **Header 3 (H3)**: Small header (1.2em)
+2. **Selected Text**: Select text then choose header type
+3. **New Header**: Creates new header if no text selected
+4. **Visual Preview**: Size preview for each option in dropdown
+5. **Smart Indicator**: Current format indicator on button
+6. **Outside Click**: Close dropdown by clicking outside
+7. **Smooth Animation**: Dropdown open/close animations
+8. **Mobile Compatible**: Works on all devices
 
+### 📱 **Swipe-to-Delete (Mobile Feature):**
+1. **On Mobile**: Swipe note card to the left
+2. **On Desktop**: Drag note card to the left with mouse
+3. **Red Delete Button**: Will appear after swiping
+4. **Delete Operation**: Click red button to delete note
+5. **Undo**: Click "Undo" button at bottom within 4 seconds
+6. **Auto Close**: Reset swipe state by clicking outside
 
-### 📋 **Başlık Sistemi:**
-1. **Başlık Dropdown**: 📋 ikonuna tıklayarak menüyü açın ✅ **ÇALIŞIYOR**
-   - **Normal**: Standart paragraf metni
-   - **Başlık 1 (H1)**: En büyük başlık (2em)
-   - **Başlık 2 (H2)**: Orta başlık (1.5em)
-   - **Başlık 3 (H3)**: Küçük başlık (1.2em)
-2. **Seçili Metin**: Metni seçtikten sonra başlık tipini seçin
-3. **Yeni Başlık**: Seçili metin yoksa yeni başlık oluşturur
-4. **Visual Preview**: Dropdown'da her seçeneğin boyut önizlemesi
-5. **Smart Indicator**: Buton üzerinde mevcut format göstergesi
-6. **Outside Click**: Dışarı tıklayarak dropdown'ı kapatın
-7. **Smooth Animation**: Dropdown açılma/kapanma animasyonları
-8. **Mobile Compatible**: Tüm cihazlarda çalışır
+### 🔧 **Advanced Features:**
+1. **Pin**: Click 📌 icon to pin note
+2. **Sort**: "Newest", "Oldest", "Title" options
+3. **Filter**: "All", "Pinned", "Normal" options
+4. **Swipe-to-Delete**: Swipe note card left to show red delete button
+5. **Undo**: 4-second undo time for deleted notes
+6. **Language Change**: TR/EN switching with full interface translation
+7. **Desktop Mode**: Use "Show desktop version" option in mobile browsers
+8. **Privacy Policy**: Comprehensive data security information at page bottom
 
-### 📱 **Swipe-to-Delete (Mobil Özellik):**
-1. **Mobil Cihazda**: Not kartını sola kaydırın
-2. **Masaüstünde**: Not kartını mouse ile sola sürükleyin
-3. **Kırmızı Silme Butonu**: Kaydırma sonrası görünecek
-4. **Silme İşlemi**: Kırmızı butona tıklayarak notu silin
-5. **Geri Alma**: 4 saniye içinde alt kısımda "Geri Al" butonuna tıklayın
-6. **Otomatik Kapanma**: Dışarı tıklayarak kaydırma durumunu sıfırlayın
+### 🔒 **Multi-language Privacy Policy & MIT License:**
+1. **Full Auto Translation**: Footer completely translates when changing language (including MIT license)
+2. **Comprehensive Policy**: Detailed privacy explanation in 6 main sections
+   - **Data Collection**: No personal data collected
+   - **Data Storage**: LocalStorage usage only
+   - **Cookies**: For theme and language preferences
+   - **Third Party**: CDN services explanation
+   - **Security**: Browser security information
+   - **Contact**: GitHub support
+3. **MIT License Translation**: Open source project explanation and GitHub repo link (TR/EN)
+4. **Professional Design**: Modern card layout, responsive design
+5. **Real-time Translation**: Instant language switching, persistent preference storage
+6. **Accessibility**: Proper link handling, semantic HTML
 
-### 🔧 **Gelişmiş Özellikler:**
-1. **Sabitleme**: 📌 ikonuna tıklayarak notu sabitleyin
-2. **Sıralama**: "En Yeni", "En Eski", "Başlık" seçenekleri
-3. **Filtreleme**: "Tümü", "Sabitlenenler", "Normal" seçenekleri
-4. **Swipe-to-Delete**: Not kartını sola kaydırarak kırmızı silme butonunu gösterin
-5. **Geri Alma**: Silinen notlar için 4 saniye geri alma süresi
-6. **Dil Değiştirme**: TR/EN geçişi ile tam arayüz çevirisi
-7. **Masaüstü Modu**: Mobil tarayıcılarda "Masaüstü versiyonu göster" seçeneğini kullanın
-8. **Gizlilik Politikası**: Sayfa altında kapsamlı veri güvenliği bilgileri
+## 🎯 Technologies
 
-### 🔒 **Çok Dilli Gizlilik Politikası & MIT Lisans:**
-1. **Tam Otomatik Çeviri**: Dil değiştirdiğinizde footer tamamen çevriliyor (MIT lisans dahil)
-2. **Kapsamlı Politika**: 6 ana bölümde detaylı gizlilik açıklaması
-   - **Veri Toplama**: Hiçbir kişisel veri toplanmaz
-   - **Veri Saklama**: Sadece LocalStorage kullanımı
-   - **Çerezler**: Tema ve dil tercihleri için
-   - **Üçüncü Taraf**: CDN servisleri açıklaması
-   - **Güvenlik**: Tarayıcı güvenliği bilgileri
-   - **İletişim**: GitHub üzerinden destek
-3. **MIT Lisans Çevirisi**: Açık kaynak proje açıklaması ve GitHub repo linki (TR/EN)
-4. **Professional Tasarım**: Modern card layout, responsive design
-5. **Real-time Çeviri**: Anında dil değişimi, kalıcı tercih saklama
-6. **Erişilebilirlik**: Proper link handling, semantic HTML
+- **HTML5**: Semantic structure, contenteditable and modern form elements
+- **CSS3**: Modern styles, CSS Grid, Flexbox, CSS Variables, Advanced Animations
+- **JavaScript (ES6+)**: Modern JavaScript classes, DOM manipulation and event handling
+- **Font Awesome**: Professional icon library
+- **LocalStorage**: Secure data storage and persistence
+- **jsPDF & html2canvas**: PDF export feature (MIT License)
+- **System Fonts**: Operating system default fonts
+- **Modern UI Patterns**: Dropdown menus, inline palettes, micro-interactions
+- **Real-time Translation**: Dynamic translation system, localStorage persistence
 
-## 🎯 Teknolojiler
-
-- **HTML5**: Semantik yapı, contenteditable ve modern form elementleri
-- **CSS3**: Modern stiller, CSS Grid, Flexbox, CSS Variables, Advanced Animations
-- **JavaScript (ES6+)**: Modern JavaScript sınıfları, DOM manipulation ve event handling
-- **Font Awesome**: Professional ikon kütüphanesi
-- **LocalStorage**: Güvenli veri saklama ve persistence
-- **jsPDF & html2canvas**: PDF export özelliği (MIT License)
-- **System Fonts**: İşletim sistemi varsayılan fontları
-- **Modern UI Patterns**: Dropdown menüler, inline palettes, micro-interactions
-- **Real-time Translation**: Dinamik çeviri sistemi, localStorage persistence
-
-## 📁 Dosya Yapısı
+## 📁 File Structure
 
 ```
-not-alma-uygulamasi/
-├── index.html              # Ana HTML dosyası (GitHub Pages)
-├── style.css               # Modern CSS stilleri ve animasyonlar
-├── script.js               # JavaScript fonksiyonları ve interaktivite
-├── public/                 # Alternatif versiyonlar
-│   ├── index-auth.html     # Authentication versiyonu
-│   ├── index-simple.html   # Basit versiyon
-│   └── ...                 # Diğer dosyalar
-└── README.md               # Bu dosya
+note-taking-app/
+├── index.html              # Main HTML file (GitHub Pages)
+├── style.css               # Modern CSS styles and animations
+├── script.js               # JavaScript functions and interactivity
+├── public/                 # Alternative versions
+│   ├── index-auth.html     # Authentication version
+│   ├── index-simple.html   # Simple version
+│   └── ...                 # Other files
+└── README.md               # This file
 ```
 
-## 🌈 Renk Paleti
+## 🌈 Color Palette
 
-### Açık Mod
-- Ana Arka Plan: #ffffff (Beyaz)
-- İkincil Arka Plan: #f8f9fa (Açık Gri)
-- Ana Metin: #2c3e50 (Koyu Mavi-Gri)
-- İkincil Metin: #6c757d (Gri)
-- Border: #e9ecef (Açık Gri Border)
+### Light Mode
+- Main Background: #ffffff (White)
+- Secondary Background: #f8f9fa (Light Gray)
+- Main Text: #2c3e50 (Dark Blue-Gray)
+- Secondary Text: #6c757d (Gray)
+- Border: #e9ecef (Light Gray Border)
 
-### Karanlık Mod
-- Ana Arka Plan: #1a1a1a (Koyu Gri)
-- İkincil Arka Plan: #2d2d2d (Orta Gri)
-- Ana Metin: #ffffff (Beyaz)
-- İkincil Metin: #b0b0b0 (Açık Gri)
-- Border: #404040 (Koyu Border)
+### Dark Mode
+- Main Background: #1a1a1a (Dark Gray)
+- Secondary Background: #2d2d2d (Medium Gray)
+- Main Text: #ffffff (White)
+- Secondary Text: #b0b0b0 (Light Gray)
+- Border: #404040 (Dark Border)
 
-### Modern UI Renkleri
-- **Primary**: #667eea → #764ba2 (Mavi-Mor Gradient)
-- **Success**: #28a745 (Yeşil)
-- **Danger**: #dc3545 (Kırmızı)
-- **Warning**: #ffc107 (Sarı)
-- **Info**: #17a2b8 (Mavi)
+### Modern UI Colors
+- **Primary**: #667eea → #764ba2 (Blue-Purple Gradient)
+- **Success**: #28a745 (Green)
+- **Danger**: #dc3545 (Red)
+- **Warning**: #ffc107 (Yellow)
+- **Info**: #17a2b8 (Blue)
 
-### Metin Renkleri
-- **Siyah**: #000000 (Normal metin)
-- **Kırmızı**: #ff0000 (Vurgu metni)
+### Text Colors
+- **Black**: #000000 (Normal text)
+- **Red**: #ff0000 (Emphasis text)
 
-## 🔧 Kurulum
+## 🔧 Installation
 
-### Basit Kullanım (GitHub Pages)
-1. **https://mutlukurt.github.io/Note-taking-app** adresine gidin
-2. Hemen kullanmaya başlayın!
+### Simple Usage (GitHub Pages)
+1. Go to **https://mutlukurt.github.io/Note-taking-app**
+2. Start using immediately!
 
-### Yerel Kurulum
-1. Dosyaları bilgisayarınıza indirin
-2. `index.html` dosyasını tarayıcınızda açın
-3. Hemen kullanmaya başlayın!
+### Local Installation
+1. Download files to your computer
+2. Open `index.html` file in your browser
+3. Start using immediately!
 
-### Geliştirici Kurulumu
+### Developer Setup
 ```bash
 git clone https://github.com/mutlukurt/Note-taking-app.git
 cd Note-taking-app
-# Basit HTTP server başlatın
+# Start simple HTTP server
 python3 -m http.server 8000
-# http://localhost:8000 adresine gidin
+# Go to http://localhost:8000
 ```
 
-## 📱 Responsive Tasarım
+## 📱 Responsive Design
 
-Uygulama tüm cihazlarda mükemmel çalışır:
-- **Desktop**: Tam özellikli deneyim, geniş toolbar
-- **Tablet**: Optimize edilmiş düzen, touch-friendly
-- **Mobil**: Kompakt arayüz, swipe gestures
+The app works perfectly on all devices:
+- **Desktop**: Full-featured experience, wide toolbar
+- **Tablet**: Optimized layout, touch-friendly
+- **Mobile**: Compact interface, swipe gestures
 
-## 🎨 Modern Tasarım Özellikleri
+## 🎨 Modern Design Features
 
 ### **Professional UI/UX**
 - **Modern Buttons**: Rounded corners, hover effects, active states
-- **Smooth Animations**: Micro-interactions ve transition effects
+- **Smooth Animations**: Micro-interactions and transition effects
 - **Visual Feedback**: Loading states, success indicators
 - **Consistent Typography**: System fonts, proper hierarchy
 
@@ -220,148 +218,148 @@ Uygulama tüm cihazlarda mükemmel çalışır:
 - **High Contrast**: Dark/light mode support
 - **Touch Friendly**: Proper touch targets, gesture support
 
-## 🔒 Veri Güvenliği
+## 🔒 Data Security
 
-### **🛡️ Kapsamlı Gizlilik Politikası**
-Bu uygulama kullanıcı gizliliğini en üst düzeyde korur:
+### **🛡️ Comprehensive Privacy Policy**
+This app protects user privacy at the highest level:
 
-#### **📊 Veri Toplama**
-- **❌ Kişisel Veri Yok**: Hiçbir kişisel bilgi toplanmaz
-- **❌ Tracking Yok**: Kullanıcı davranışları izlenmez
-- **❌ Analytics Yok**: Üçüncü taraf analitik servisleri kullanılmaz
+#### **📊 Data Collection**
+- **❌ No Personal Data**: No personal information collected
+- **❌ No Tracking**: User behavior not tracked
+- **❌ No Analytics**: No third-party analytics services used
 
-#### **💾 Veri Saklama**
-- **🏠 Yerel Depolama**: Tüm notlar sadece tarayıcınızda saklanır
-- **🔐 LocalStorage**: Güvenli browser storage kullanımı
-- **❌ Sunucu Yok**: Hiçbir veri sunucuya gönderilmez
-- **🔄 Tam Kontrol**: Verileriniz tamamen sizin kontrolünüzde
+#### **💾 Data Storage**
+- **🏠 Local Storage**: All notes stored only in your browser
+- **🔐 LocalStorage**: Secure browser storage usage
+- **❌ No Server**: No data sent to servers
+- **🔄 Full Control**: Complete control over your data
 
-#### **🍪 Çerez Kullanımı**
-- **⚙️ Sadece Gerekli**: Tema ve dil tercihleri için
-- **❌ Tracking Çerezleri Yok**: Takip amaçlı çerez kullanılmaz
-- **🎯 Fonksiyonel**: Sadece uygulama işlevselliği için
+#### **🍪 Cookie Usage**
+- **⚙️ Only Necessary**: For theme and language preferences
+- **❌ No Tracking Cookies**: No tracking cookies used
+- **🎯 Functional**: Only for app functionality
 
-#### **🌐 Üçüncü Taraf Servisleri**
-- **🎨 Font Awesome**: Sadece ikon gösterimi için CDN
-- **📄 PDF Kütüphaneleri**: Sadece PDF export için
-- **❌ Veri Paylaşımı Yok**: Hiçbir veri üçüncü taraflarla paylaşılmaz
+#### **🌐 Third Party Services**
+- **🎨 Font Awesome**: CDN only for icon display
+- **📄 PDF Libraries**: Only for PDF export
+- **❌ No Data Sharing**: No data shared with third parties
 
-#### **🔐 Güvenlik**
-- **🔒 Şifreleme**: Tüm veriler tarayıcıda şifrelenir
-- **🛡️ HTTPS**: Güvenli bağlantı protokolü
-- **🏠 Offline**: İnternet bağlantısı olmadan da çalışır
+#### **🔐 Security**
+- **🔒 Encryption**: All data encrypted in browser
+- **🛡️ HTTPS**: Secure connection protocol
+- **🏠 Offline**: Works without internet connection
 
-#### **📞 İletişim & Destek**
-- **📧 GitHub**: Sorularınız için GitHub Issues
-- **🔍 Şeffaflık**: Açık kaynak kod incelemesi
-- **📋 MIT Lisans**: Özgür kullanım hakları
+#### **📞 Contact & Support**
+- **📧 GitHub**: GitHub Issues for questions
+- **🔍 Transparency**: Open source code inspection
+- **📋 MIT License**: Free usage rights
 
-### **🌍 Çok Dilli Destek**
-Gizlilik politikası hem Türkçe hem İngilizce olarak mevcuttur ve dil değiştirme ile otomatik güncellenir. MIT lisans açıklaması da dahil olmak üzere footer'daki tüm içerik real-time olarak çevriliyor.
+### **🌍 Multi-language Support**
+Privacy policy is available in both Turkish and English and automatically updates with language switching. All footer content including MIT license explanation translates in real-time.
 
-## 🚀 Gelecek Özellikler
+## 🚀 Future Features
 
-- [ ] **Not Kategorileri**: Kategorilere göre not organizasyonu
-- [ ] **Not Paylaşımı**: Notları paylaşabilme özelliği
-- [ ] **Bulut Senkronizasyonu**: Çoklu cihaz senkronizasyonu
-- [ ] **Markdown Desteği**: Markdown formatında not yazma
-- [ ] **Not Etiketleri**: Etiketleme sistemi
-- [ ] **Gelişmiş Arama**: Gelişmiş filtreleme ve arama
-- [ ] **Kullanıcı Sistemi**: Backend ile kullanıcı hesapları
-- [ ] **Çoklu Dosya**: Birden fazla dosya yükleme
-- [ ] **Not Şablonları**: Hazır şablonlar
-- [ ] **Otomatik Yedekleme**: Düzenli yedekleme sistemi
-- [ ] **Not Arşivleme**: Arşivleme özelliği
-- [ ] **Gelişmiş PDF**: Özelleştirilebilir PDF şablonları
-- [ ] **Not İstatistikleri**: Kullanım istatistikleri
-- [ ] **Ses Notu**: Ses kayıt özelliği
-- [ ] **Çizim/Doodle**: Çizim yapabilme
-- [ ] **Not Şifreleme**: Şifreli notlar
-- [ ] **Otomatik Kaydetme**: Gerçek zamanlı kaydetme
-- [ ] **Not Geçmişi**: Değişiklik geçmişi
-- [ ] **İçe/Dışa Aktarma**: JSON, TXT formatları
-- [ ] **Gelişmiş Toolbar**: Daha fazla formatlama seçeneği
-- [ ] **Tablo Oluşturma**: Tablo ekleme özelliği
-- [ ] **Kod Bloğu**: Kod yazma desteği
-- [ ] **Emoji Picker**: Emoji seçici
-- [ ] **Otomatik Tamamlama**: Akıllı tamamlama
-- [ ] **Çoklu Dil**: Almanca, Fransızca, vb. dil desteği
+- [ ] **Note Categories**: Note organization by categories
+- [ ] **Note Sharing**: Note sharing feature
+- [ ] **Cloud Sync**: Multi-device synchronization
+- [ ] **Markdown Support**: Writing notes in Markdown format
+- [ ] **Note Tags**: Tagging system
+- [ ] **Advanced Search**: Advanced filtering and search
+- [ ] **User System**: User accounts with backend
+- [ ] **Multiple Files**: Multiple file upload
+- [ ] **Note Templates**: Ready templates
+- [ ] **Auto Backup**: Regular backup system
+- [ ] **Note Archive**: Archive feature
+- [ ] **Advanced PDF**: Customizable PDF templates
+- [ ] **Note Statistics**: Usage statistics
+- [ ] **Voice Notes**: Voice recording feature
+- [ ] **Drawing/Doodle**: Drawing capability
+- [ ] **Note Encryption**: Encrypted notes
+- [ ] **Auto Save**: Real-time saving
+- [ ] **Note History**: Change history
+- [ ] **Import/Export**: JSON, TXT formats
+- [ ] **Advanced Toolbar**: More formatting options
+- [ ] **Table Creation**: Table insertion feature
+- [ ] **Code Block**: Code writing support
+- [ ] **Emoji Picker**: Emoji selector
+- [ ] **Auto Complete**: Smart completion
+- [ ] **Multi Language**: German, French, etc. language support
 
-## 🤝 Katkıda Bulunma
+## 🤝 Contributing
 
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Commit yapın (`git commit -m 'Add amazing feature'`)
-4. Push yapın (`git push origin feature/amazing-feature`)
-5. Pull Request oluşturun
+1. Fork the project
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Create Pull Request
 
-## 🔒 Gizlilik Politikası
+## 🔒 Privacy Policy
 
-### 📋 **Veri Toplama ve Kullanım**
+### 📋 **Data Collection and Usage**
 
-Bu uygulama **hiçbir kişisel veri toplamaz** ve **hiçbir veriyi sunucuya göndermez**. Tüm verileriniz sadece tarayıcınızda yerel olarak saklanır.
+This app **collects no personal data** and **sends no data to servers**. All your data is stored locally only in your browser.
 
-#### 🔐 **Saklanan Veriler:**
-- **Notlarınız**: Başlık, içerik, tarih, sabitleme durumu
-- **Resimler**: Base64 formatında şifrelenmiş olarak
-- **Tema Tercihi**: Açık/koyu tema seçiminiz
-- **Dil Tercihi**: TR/EN dil seçiminiz
+#### 🔐 **Stored Data:**
+- **Your Notes**: Title, content, date, pin status
+- **Images**: Encrypted in Base64 format
+- **Theme Preference**: Light/dark theme selection
+- **Language Preference**: TR/EN language selection
 
-#### 🚫 **Toplanmayan Veriler:**
-- Kişisel bilgiler (ad, e-posta, telefon)
-- Konum bilgileri
-- Tarayıcı geçmişi
-- Çerezler (sadece tema ve dil tercihleri)
-- Üçüncü taraf veriler
+#### 🚫 **Not Collected Data:**
+- Personal information (name, email, phone)
+- Location information
+- Browser history
+- Cookies (only theme and language preferences)
+- Third-party data
 
-### 🛡️ **Veri Güvenliği**
+### 🛡️ **Data Security**
 
-#### ✅ **Güvenlik Önlemleri:**
-- **Yerel Depolama**: Tüm veriler tarayıcınızda saklanır
-- **Şifreleme**: Resimler Base64 formatında şifrelenir
-- **Gizlilik**: Hiçbir veri internet üzerinden gönderilmez
-- **Kontrol**: Verileriniz üzerinde tam kontrolünüz var
+#### ✅ **Security Measures:**
+- **Local Storage**: All data stored in your browser
+- **Encryption**: Images encrypted in Base64 format
+- **Privacy**: No data sent over internet
+- **Control**: Full control over your data
 
-#### 🔒 **Veri Koruma:**
-- **GDPR Uyumlu**: Avrupa veri koruma düzenlemelerine uygun
-- **KVKK Uyumlu**: Türkiye kişisel verilerin korunması kanununa uygun
-- **Şeffaflık**: Tüm veri işlemleri şeffaf ve açık
-- **Kullanıcı Hakları**: Verilerinizi istediğiniz zaman silebilirsiniz
+#### 🔒 **Data Protection:**
+- **GDPR Compliant**: Compliant with European data protection regulations
+- **KVKK Compliant**: Compliant with Turkey personal data protection law
+- **Transparency**: All data processes transparent and open
+- **User Rights**: You can delete your data anytime
 
-### 🗑️ **Veri Silme**
+### 🗑️ **Data Deletion**
 
-#### 📱 **Manuel Silme:**
-- Not kartındaki çöp kutusu ikonuna tıklayın
-- Swipe-to-Delete özelliğini kullanın
-- Tarayıcı ayarlarından localStorage'ı temizleyin
+#### 📱 **Manual Deletion:**
+- Click trash icon on note card
+- Use Swipe-to-Delete feature
+- Clear localStorage from browser settings
 
-#### 🔄 **Otomatik Silme:**
-- Tarayıcı verilerini temizlediğinizde
-- Tarayıcı geçmişini sildiğinizde
-- Tarayıcıyı kullandığınızda
+#### 🔄 **Automatic Deletion:**
+- When clearing browser data
+- When deleting browser history
+- When using browser
 
-### 🌐 **Üçüncü Taraf Servisler**
+### 🌐 **Third Party Services**
 
-#### 📚 **Kullanılan CDN Servisleri:**
-- **Font Awesome**: İkon kütüphanesi (sadece görsel)
-- **jsPDF**: PDF oluşturma (sadece işlem sırasında)
-- **html2canvas**: HTML'den canvas oluşturma (sadece işlem sırasında)
+#### 📚 **Used CDN Services:**
+- **Font Awesome**: Icon library (visual only)
+- **jsPDF**: PDF creation (during process only)
+- **html2canvas**: HTML to canvas creation (during process only)
 
-#### ✅ **Güvenlik Garantisi:**
-- Hiçbir veri bu servislere gönderilmez
-- Sadece görsel ve işlevsel kaynaklar kullanılır
-- Tüm işlemler tarayıcınızda yerel olarak gerçekleşir
+#### ✅ **Security Guarantee:**
+- No data sent to these services
+- Only visual and functional resources used
+- All processes happen locally in your browser
 
-## 📄 Lisans
+## 📄 License
 
-### 🆓 **MIT Lisansı**
+### 🆓 **MIT License**
 
-Bu proje MIT lisansı altında lisanslanmıştır. Aşağıdaki koşullar geçerlidir:
+This project is licensed under MIT license. The following conditions apply:
 
 ```
 MIT License
 
-Copyright (c) 2025 Not Alma Uygulaması
+Copyright (c) 2025 Note Taking App
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -382,62 +380,62 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-### ✅ **İzin Verilen Kullanımlar:**
-- ✅ Kişisel kullanım
-- ✅ Ticari kullanım
-- ✅ Açık kaynak projeler
-- ✅ Ücretsiz dağıtım
-- ✅ Play Store yayınlama
-- ✅ Kod değiştirme ve geliştirme
-- ✅ Türev çalışmalar oluşturma
+### ✅ **Permitted Uses:**
+- ✅ Personal use
+- ✅ Commercial use
+- ✅ Open source projects
+- ✅ Free distribution
+- ✅ Play Store publishing
+- ✅ Code modification and development
+- ✅ Creating derivative works
 
-### 🚫 **Kısıtlamalar:**
-- ❌ Telif hakkı bildirimini kaldırma
-- ❌ Lisans koşullarını değiştirme
-- ❌ Yazarı sorumlu tutma
+### 🚫 **Restrictions:**
+- ❌ Removing copyright notice
+- ❌ Changing license conditions
+- ❌ Holding author responsible
 
-## 📋 Kullanım Şartları
+## 📋 Terms of Use
 
-### ✅ **Kabul Edilen Kullanımlar:**
-- Kişisel not alma ve organizasyon
-- İş ve eğitim amaçlı kullanım
-- Açık kaynak projelerde entegrasyon
-- Ticari projelerde kullanım
-- Eğitim ve öğretim amaçlı kullanım
+### ✅ **Accepted Uses:**
+- Personal note-taking and organization
+- Business and educational use
+- Integration in open source projects
+- Commercial project usage
+- Educational and teaching purposes
 
-### 🚫 **Yasaklanan Kullanımlar:**
-- Yasadışı içerik oluşturma
-- Başkalarının haklarını ihlal etme
-- Zararlı yazılım geliştirme
-- Spam ve kötüye kullanım
-- Telif hakkı ihlali
+### 🚫 **Prohibited Uses:**
+- Creating illegal content
+- Violating others' rights
+- Developing malware
+- Spam and abuse
+- Copyright infringement
 
-### ⚖️ **Sorumluluk Reddi:**
-- Uygulama "olduğu gibi" sunulur
-- Veri kaybından sorumlu değiliz
-- Teknik sorunlardan sorumlu değiliz
-- Üçüncü taraf servislerden sorumlu değiliz
+### ⚖️ **Disclaimer:**
+- App provided "as is"
+- Not responsible for data loss
+- Not responsible for technical issues
+- Not responsible for third-party services
 
-## 🆘 Destek ve İletişim
+## 🆘 Support and Contact
 
-### 📧 **İletişim Bilgileri:**
+### 📧 **Contact Information:**
 - **GitHub**: [https://github.com/mutlukurt/Note-taking-app](https://github.com/mutlukurt/Note-taking-app)
-- **Issues**: GitHub Issues sayfasından bildirim
-- **Pull Requests**: Katkıda bulunmak için PR gönderin
+- **Issues**: Report via GitHub Issues page
+- **Pull Requests**: Send PR to contribute
 
-### 🐛 **Hata Bildirimi:**
-1. GitHub Issues sayfasına gidin
-2. "New Issue" butonuna tıklayın
-3. Hata açıklamasını detaylı şekilde yazın
-4. Tarayıcı ve işletim sistemi bilgilerini ekleyin
-5. Ekran görüntüsü varsa ekleyin
+### 🐛 **Bug Report:**
+1. Go to GitHub Issues page
+2. Click "New Issue" button
+3. Write detailed bug description
+4. Add browser and OS information
+5. Add screenshot if available
 
-### 💡 **Öneri ve İstekler:**
-- Yeni özellik önerileri için Issues kullanın
-- UI/UX iyileştirme önerileri için Issues kullanın
-- Performans iyileştirme önerileri için Issues kullanın
+### 💡 **Suggestions and Requests:**
+- Use Issues for new feature suggestions
+- Use Issues for UI/UX improvement suggestions
+- Use Issues for performance improvement suggestions
 
-## 🔄 Güncelleme Geçmişi
+## 🔄 Update History
 
 ### 📅 **v2.3.0 (2025)**
 - 🗑️ **Renk Palet Kaldırıldı**: Toolbar'daki renk seçme özelliği tamamen kaldırıldı
@@ -447,108 +445,108 @@ SOFTWARE.
 - 📱 **Responsive Düzeltme**: Renk palet CSS'leri kaldırılarak responsive tasarım temizlendi
 
 ### 📅 **v2.2.0 (2025)**
-- 🔧 **Header Dropdown Düzeltmesi**: Başlık seçici dropdown menüsü tamamen çalışır hale getirildi
-- 🎯 **Event Listener'lar**: Header buton ve seçenekleri için JavaScript event listener'ları eklendi
-- 📋 **Format Block**: H1, H2, H3, Normal metin formatları düzgün çalışıyor
-- 🎨 **Z-Index Düzeltmesi**: Dropdown menüsü artık diğer elementlerin üstünde görünüyor
-- ✨ **Visual Feedback**: Seçilen format buton metninde gösteriliyor
-- 🔄 **Auto Close**: Dışarı tıklayınca dropdown otomatik kapanıyor
-- 🎭 **Smooth Animation**: Dropdown açılma/kapanma animasyonları
-- 📱 **Mobile Compatible**: Tüm cihazlarda header dropdown çalışıyor
+- 🔧 **Header Dropdown Fix**: Header selector dropdown menu fully functional
+- 🎯 **Event Listeners**: Added JavaScript event listeners for header button and options
+- 📋 **Format Block**: H1, H2, H3, Normal text formats working properly
+- 🎨 **Z-Index Fix**: Dropdown menu now appears above other elements
+- ✨ **Visual Feedback**: Selected format shown in button text
+- 🔄 **Auto Close**: Dropdown closes automatically when clicking outside
+- 🎭 **Smooth Animation**: Dropdown open/close animations
+- 📱 **Mobile Compatible**: Header dropdown works on all devices
 
 ### 📅 **v2.1.0 (2025)**
-- 🎨 **Modern UI Güncellemesi**: Professional button tasarımı ve smooth animasyonlar
-- 🖌️ **Renk Sistemi**: Siyah/Kırmızı renk seçenekleri, visual feedback ile
-- 📋 **Başlık Sistemi**: H1, H2, H3 dropdown menüsü, büyükten küçüğe başlık seçenekleri
-- ✨ **Advanced Components**: Modern dropdown menüler, inline color palette
+- 🎨 **Modern UI Update**: Professional button design and smooth animations
+- 🖌️ **Color System**: Black/Red color options with visual feedback
+- 📋 **Header System**: H1, H2, H3 dropdown menu, large to small header options
+- ✨ **Advanced Components**: Modern dropdown menus, inline color palette
 - 🎯 **Micro-interactions**: Hover effects, active states, transform animations
 - 📱 **Touch-friendly**: Responsive design improvements, better mobile experience
-- 🔒 **Çok Dilli Footer**: Gizlilik politikası ve MIT lisans TR/EN çeviri desteği
-- 🔧 **Çeviri Düzeltmesi**: MIT lisans kısmı artık dil değiştirme ile tam çevriliyor
+- 🔒 **Multi-language Footer**: Privacy policy and MIT license TR/EN translation support
+- 🔧 **Translation Fix**: MIT license section now fully translates with language switching
 
 ### 📅 **v2.0.0 (2025)**
-- ✨ Zengin metin editörü eklendi
-- 📄 PDF export özelliği eklendi
-- 🖼️ Fotoğraf ekleme özelliği eklendi
-- 🌍 Çok dilli destek eklendi
-- 📱 Swipe-to-Delete özelliği eklendi
-- 🎨 Modern ayarlar paneli eklendi
-- 🔒 Gizlilik politikası eklendi
+- ✨ Rich text editor added
+- 📄 PDF export feature added
+- 🖼️ Photo upload feature added
+- 🌍 Multi-language support added
+- 📱 Swipe-to-Delete feature added
+- 🎨 Modern settings panel added
+- 🔒 Privacy policy added
 
 ### 📅 **v1.0.0 (2024)**
-- 📝 Temel not alma özellikleri
-- 🎨 Modern tasarım
-- 🌙 Karanlık mod
-- 📱 Responsive tasarım
-- 💾 LocalStorage desteği
+- 📝 Basic note-taking features
+- 🎨 Modern design
+- 🌙 Dark mode
+- 📱 Responsive design
+- 💾 LocalStorage support
 
-## 🏆 Özellikler ve Teknolojiler
+## 🏆 Features and Technologies
 
-## 🆓 **Kullanılan Ücretsiz Kaynaklar**
+## 🆓 **Used Free Resources**
 
-Bu projede kullanılan tüm kaynaklar ücretsiz ve açık kaynaklıdır:
+All resources used in this project are free and open source:
 
-#### 🎨 **İkonlar**
-- **Font Awesome Free**: Ücretsiz ikon kütüphanesi
-- **Lisans**: Font Awesome Free License
+#### 🎨 **Icons**
+- **Font Awesome Free**: Free icon library
+- **License**: Font Awesome Free License
 - **CDN**: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/`
 
-#### 🔤 **Fontlar**
-- **System Font Stack**: İşletim sistemi varsayılan fontları
-- **Fontlar**: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial
-- **Lisans**: Her işletim sisteminde varsayılan (ücretsiz)
+#### 🔤 **Fonts**
+- **System Font Stack**: Operating system default fonts
+- **Fonts**: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial
+- **License**: Default on every OS (free)
 
-#### 📚 **Kütüphaneler**
-- **jsPDF**: PDF oluşturma kütüphanesi
-- **html2canvas**: HTML'den canvas oluşturma
-- **Lisans**: MIT License (açık kaynak)
+#### 📚 **Libraries**
+- **jsPDF**: PDF creation library
+- **html2canvas**: HTML to canvas creation
+- **License**: MIT License (open source)
 
-#### ✅ **Kullanım Hakları**
-- ✅ Kişisel kullanım
-- ✅ Ticari kullanım
-- ✅ Açık kaynak projeler
-- ✅ Ücretsiz dağıtım
-- ✅ Play Store yayınlama
+#### ✅ **Usage Rights**
+- ✅ Personal use
+- ✅ Commercial use
+- ✅ Open source projects
+- ✅ Free distribution
+- ✅ Play Store publishing
 
-**Tüm kaynaklar tamamen ücretsiz ve ticari kullanıma uygundur.**
+**All resources are completely free and suitable for commercial use.**
 
-### ✅ **Tam Çalışan Özellikler:**
-- **Not Yönetimi**: Ekleme, düzenleme, silme, arama
-- **Swipe-to-Delete**: Mobil dostu silme (4 saniye geri alma)
-- **Rich Text Editor**: Kalın, italik, listeler, hizalama, fotoğraf
-- **PDF Export**: Profesyonel PDF çıktısı
-- **Karanlık Mod**: Tema değiştirme
-- **Çok Dilli Destek**: TR/EN dil değiştirme
-- **Responsive Tasarım**: Tüm cihazlarda mükemmel görünüm
-- **LocalStorage**: Güvenli veri saklama
-- **Klavye Kısayolları**: Hızlı erişim
-- **Modern Ayarlar**: Yuvarlak buton ve genişleyen panel
-- **Gizlilik Politikası**: Kapsamlı veri güvenliği
+### ✅ **Fully Working Features:**
+- **Note Management**: Add, edit, delete, search
+- **Swipe-to-Delete**: Mobile-friendly deletion (4-second undo)
+- **Rich Text Editor**: Bold, italic, lists, alignment, photos
+- **PDF Export**: Professional PDF output
+- **Dark Mode**: Theme switching
+- **Multi-language Support**: TR/EN language switching
+- **Responsive Design**: Perfect appearance on all devices
+- **LocalStorage**: Secure data storage
+- **Keyboard Shortcuts**: Quick access
+- **Modern Settings**: Round button and expanding panel
+- **Privacy Policy**: Comprehensive data security
 
-### 🚀 **Teknik Özellikler:**
-- **Modern JavaScript**: ES6+ sınıflar ve metodlar
+### 🚀 **Technical Features:**
+- **Modern JavaScript**: ES6+ classes and methods
 - **CSS3**: Grid, Flexbox, Variables, Animations
-- **HTML5**: Semantik yapı ve contenteditable
-- **PWA Ready**: Progressive Web App uyumlu
-- **Cross-browser**: Tüm modern tarayıcılarda çalışır
-- **Free Resources**: Tüm kaynaklar ücretsiz ve açık kaynak
+- **HTML5**: Semantic structure and contenteditable
+- **PWA Ready**: Progressive Web App compatible
+- **Cross-browser**: Works in all modern browsers
+- **Free Resources**: All resources free and open source
 
-## 📞 İletişim ve Destek
+## 📞 Contact and Support
 
-### 🌐 **Resmi Kanallar:**
+### 🌐 **Official Channels:**
 - **GitHub Repository**: [https://github.com/mutlukurt/Note-taking-app](https://github.com/mutlukurt/Note-taking-app)
 - **Live Demo**: [https://mutlukurt.github.io/Note-taking-app](https://mutlukurt.github.io/Note-taking-app)
 - **Issues**: [https://github.com/mutlukurt/Note-taking-app/issues](https://github.com/mutlukurt/Note-taking-app/issues)
 
-### 📧 **Destek Türleri:**
-- 🐛 **Hata Bildirimi**: Teknik sorunlar için
-- 💡 **Özellik İsteği**: Yeni özellikler için
-- 📚 **Dokümantasyon**: Kullanım kılavuzu için
-- 🔒 **Gizlilik**: Veri güvenliği soruları için
-- 📄 **Lisans**: Lisans soruları için
+### 📧 **Support Types:**
+- 🐛 **Bug Report**: For technical issues
+- 💡 **Feature Request**: For new features
+- 📚 **Documentation**: For usage guide
+- 🔒 **Privacy**: For data security questions
+- 📄 **License**: For license questions
 
 ---
 
-**Not**: Bu uygulama tarayıcı tabanlıdır ve internet bağlantısı gerektirir. Font Awesome ikonları, PDF export kütüphaneleri (jsPDF, html2canvas) ve diğer CDN kaynakları için internet bağlantısı gereklidir. Tüm not verileriniz tarayıcınızda güvenli şekilde saklanır.
+**Note**: This app is browser-based and requires internet connection. Internet connection is needed for Font Awesome icons, PDF export libraries (jsPDF, html2canvas) and other CDN resources. All your note data is stored securely in your browser.
 
-**© 2025 Not Alma Uygulaması | MIT License | Gizlilik Politikası | Kullanım Şartları**
+**© 2025 Note Taking App | MIT License | Privacy Policy | Terms of Use**

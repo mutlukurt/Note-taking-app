@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Not Alma Uygulaması</title>
+    <title>Note Taking App</title>
     
 
     
@@ -18,25 +18,21 @@
         <header class="header">
             <h1 class="app-title">
                 <i class="fas fa-sticky-note"></i>
-                Not Alma Uygulaması
+                Note Taking App
             </h1>
         </header>
         
-        <!-- Ayarlar bölümü -->
+        <!-- Settings section -->
         <div class="settings-section">
             <div class="settings-container">
-                <button class="settings-toggle" id="settingsToggle" title="Ayarlar" onclick="toggleSettings()">
+                <button class="settings-toggle" id="settingsToggle" title="Settings" onclick="toggleSettings()">
                     <i class="fas fa-cog"></i>
                 </button>
                 <div class="settings-panel" id="settingsPanel">
                     <div class="settings-content">
-                        <span class="settings-label">Ayarlar</span>
+                        <span class="settings-label">Settings</span>
                         <div class="settings-buttons">
-                            <button class="language-toggle" id="languageToggle" title="Dil Değiştir" onclick="toggleLanguage()">
-                                <i class="fas fa-globe"></i>
-                                <span class="lang-text">TR</span>
-                            </button>
-                            <button class="theme-toggle" id="themeToggle" title="Tema Değiştir">
+                            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
                                 <i class="fas fa-sun"></i>
                             </button>
                         </div>
@@ -47,55 +43,55 @@
 
         <div class="note-form">
             <div class="input-group">
-                <input type="text" id="noteTitle" placeholder="Not başlığı..." class="note-input">
+                <input type="text" id="noteTitle" placeholder="Note title..." class="note-input">
                 
                 <!-- Rich Text Editor Toolbar -->
                 <div class="editor-toolbar">
-                    <button type="button" class="toolbar-btn" data-command="bold" title="Kalın">
+                    <button type="button" class="toolbar-btn" data-command="bold" title="Bold">
                         <i class="fas fa-bold"></i>
                     </button>
-                    <button type="button" class="toolbar-btn" data-command="italic" title="İtalik">
+                    <button type="button" class="toolbar-btn" data-command="italic" title="Italic">
                         <i class="fas fa-italic"></i>
                     </button>
-                    <button type="button" class="toolbar-btn" data-command="underline" title="Altı Çizili">
+                    <button type="button" class="toolbar-btn" data-command="underline" title="Underline">
                         <i class="fas fa-underline"></i>
                     </button>
-                    <button type="button" class="toolbar-btn" data-command="strikeThrough" title="Üstü Çizili">
+                    <button type="button" class="toolbar-btn" data-command="strikeThrough" title="Strikethrough">
                         <i class="fas fa-strikethrough"></i>
                     </button>
                     <div class="toolbar-separator"></div>
                     <!-- Header Selector -->
                     <div class="header-container">
-                        <button type="button" class="toolbar-btn modern-btn" id="headerBtn" title="Başlık Formatı">
+                        <button type="button" class="toolbar-btn modern-btn" id="headerBtn" title="Header Format">
                             <i class="fas fa-heading"></i>
                             <span class="format-text">Normal</span>
                             <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </button>
                         <div class="header-dropdown">
-                            <button class="header-option" data-header="p" title="Normal Metin">
+                            <button class="header-option" data-header="p" title="Normal Text">
                                 <div class="option-content">
                                     <span class="header-preview normal-preview">Aa</span>
                                     <div class="option-info">
                                         <span class="option-title">Normal</span>
-                                        <span class="option-desc">Paragraf metni</span>
+                                        <span class="option-desc">Paragraph text</span>
                                     </div>
                                 </div>
                             </button>
-                            <button class="header-option" data-header="h1" title="Büyük Başlık">
+                            <button class="header-option" data-header="h1" title="Large Header">
                                 <div class="option-content">
                                     <span class="header-preview h1-preview">H1</span>
                                     <div class="option-info">
-                                        <span class="option-title">Başlık 1</span>
-                                        <span class="option-desc">Ana başlık</span>
+                                        <span class="option-title">Header 1</span>
+                                        <span class="option-desc">Main header</span>
                                     </div>
                                 </div>
                             </button>
-                            <button class="header-option" data-header="h2" title="Orta Başlık">
+                            <button class="header-option" data-header="h2" title="Medium Header">
                                 <div class="option-content">
                                     <span class="header-preview h2-preview">H2</span>
                                     <div class="option-info">
-                                        <span class="option-title">Başlık 2</span>
-                                        <span class="option-desc">Alt başlık</span>
+                                        <span class="option-title">Header 2</span>
+                                        <span class="option-desc">Sub header</span>
                                     </div>
                                 </div>
                             </button>
@@ -103,52 +99,52 @@
                                 <div class="option-content">
                                     <span class="header-preview h3-preview">H3</span>
                                     <div class="option-info">
-                                        <span class="option-title">Başlık 3</span>
-                                        <span class="option-desc">Küçük başlık</span>
+                                        <span class="option-title">Header 3</span>
+                                        <span class="option-desc">Small header</span>
                                     </div>
                                 </div>
                             </button>
                         </div>
                     </div>
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Liste">
+                    <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
                         <i class="fas fa-list-ul"></i>
                     </button>
-                    <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numaralı Liste">
+                    <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
                         <i class="fas fa-list-ol"></i>
                     </button>
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" data-command="justifyLeft" title="Sola Hizala">
+                    <button type="button" class="toolbar-btn" data-command="justifyLeft" title="Align Left">
                         <i class="fas fa-align-left"></i>
                     </button>
-                    <button type="button" class="toolbar-btn" data-command="justifyCenter" title="Ortala">
+                    <button type="button" class="toolbar-btn" data-command="justifyCenter" title="Center">
                         <i class="fas fa-align-center"></i>
                     </button>
-                    <button type="button" class="toolbar-btn" data-command="justifyRight" title="Sağa Hizala">
+                    <button type="button" class="toolbar-btn" data-command="justifyRight" title="Align Right">
                         <i class="fas fa-align-right"></i>
                     </button>
                     <div class="toolbar-separator"></div>
-                    <button type="button" class="toolbar-btn" id="imageBtn" title="Fotoğraf Ekle" onclick="document.getElementById('imageInput').click()">
+                    <button type="button" class="toolbar-btn" id="imageBtn" title="Add Image" onclick="document.getElementById('imageInput').click()">
                         <i class="fas fa-image"></i>
                     </button>
                     <input type="file" id="imageInput" accept="image/*" style="display: none;">
 
                 </div>
                 
-                <div id="noteContent" class="note-textarea rich-editor" contenteditable="true" data-placeholder="Notunuzu buraya yazın..."></div>
+                <div id="noteContent" class="note-textarea rich-editor" contenteditable="true" data-placeholder="Write your note here..."></div>
             </div>
             <div class="button-group">
                 <button id="addNote" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
-                    Not Ekle
+                    Add Note
                 </button>
                 <button id="clearForm" class="btn btn-secondary">
                     <i class="fas fa-eraser"></i>
-                    Temizle
+                    Clear
                 </button>
                 <button id="exportPDF" class="btn btn-export">
                     <i class="fas fa-file-pdf"></i>
-                    PDF Aktar
+                    Export PDF
                 </button>
             </div>
         </div>
@@ -156,32 +152,32 @@
         <div class="search-section">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Notlarınızda arayın..." class="search-input">
+                <input type="text" id="searchInput" placeholder="Search your notes..." class="search-input">
             </div>
         </div>
 
         <div class="notes-controls">
             <div class="sort-controls">
-                <span style="color: var(--text-secondary); font-size: 0.9rem; margin-right: 10px;">Sırala:</span>
-                <button class="sort-btn active" data-sort="date-desc">En Yeni</button>
-                <button class="sort-btn" data-sort="date-asc">En Eski</button>
-                <button class="sort-btn" data-sort="title">Başlık</button>
+                <span id="sortLabel" style="color: var(--text-secondary); font-size: 0.9rem; margin-right: 10px;">Sort:</span>
+                <button id="sortNewest" class="sort-btn active" data-sort="date-desc">Newest</button>
+                <button id="sortOldest" class="sort-btn" data-sort="date-asc">Oldest</button>
+                <button id="sortTitle" class="sort-btn" data-sort="title">Title</button>
             </div>
             <div class="pin-controls">
-                <button class="pin-filter active" data-filter="all">Tümü</button>
-                <button class="pin-filter" data-filter="pinned">Sabitlenenler</button>
-                <button class="pin-filter" data-filter="unpinned">Normal</button>
+                <button id="filterAll" class="pin-filter active" data-filter="all">All</button>
+                <button id="filterPinned" class="pin-filter" data-filter="pinned">Pinned</button>
+                <button id="filterNormal" class="pin-filter" data-filter="unpinned">Normal</button>
             </div>
         </div>
 
         <div class="notes-container" id="notesContainer">
-            <!-- Notlar buraya dinamik olarak eklenecek -->
+            <!-- Notes will be dynamically added here -->
         </div>
 
         <div class="empty-state" id="emptyState">
             <i class="fas fa-notes-medical"></i>
-            <h3>Henüz not eklenmemiş</h3>
-            <p>İlk notunuzu ekleyerek başlayın!</p>
+            <h3 id="emptyStateTitle">No notes yet</h3>
+            <p id="emptyStateDesc">Start by adding your first note!</p>
         </div>
     </div>
 
@@ -1107,666 +1103,174 @@
         
         // Color Palette Setup removed - colors now in toolbar
         
-        // Language Toggle Setup
-        function setupLanguageToggle() {
-            const languageBtn = document.getElementById('languageToggle');
-            let currentLanguage = localStorage.getItem('language') || 'tr';
-            
-            // Set initial language
-            updateLanguage(currentLanguage);
-            
-            if (languageBtn) {
-                languageBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    currentLanguage = currentLanguage === 'tr' ? 'en' : 'tr';
-                    
-                    localStorage.setItem('language', currentLanguage);
-                    updateLanguage(currentLanguage);
-                });
-            }
-        }
+        // Language toggle removed - English only system
         
-        // Update language function
-        function updateLanguage(lang) {
-            const t = translations[lang];
-            
-            // Update language button
-            const languageBtn = document.getElementById('languageToggle');
-            const langText = languageBtn.querySelector('.lang-text');
-            
-            if (lang === 'en') {
-                languageBtn.classList.add('english');
-                langText.textContent = 'EN';
-            } else {
-                languageBtn.classList.remove('english');
-                langText.textContent = 'TR';
-            }
-            
-            // Update main elements
-            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
-            document.querySelector('.settings-label').textContent = t.themeLabel;
-            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
-            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
-            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
-            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
-            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            
-            // Update toolbar buttons
-            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
-            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
-            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
-            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
-            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
-            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
-            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
-            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
-            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
-            document.getElementById('imageBtn').title = t.toolbarImage;
-            document.getElementById('colorPaletteBtn').title = t.toolbarBackgroundColor;
-            
-            // Update controls
-            const sortSpan = document.querySelector('.sort-controls span');
-            if (sortSpan) sortSpan.textContent = t.sortLabel;
-            
-            const newestBtn = document.querySelector('[data-sort="date-desc"]');
-            if (newestBtn) newestBtn.textContent = t.newest;
-            
-            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
-            if (oldestBtn) oldestBtn.textContent = t.oldest;
-            
-            const titleBtn = document.querySelector('[data-sort="title"]');
-            if (titleBtn) titleBtn.textContent = t.title;
-            
-            const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.allNotes;
-            
-            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
-            
-            const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normalNotes;
-            
-            // Update empty state
-            const emptyState = document.getElementById('emptyState');
-            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
-            emptyState.querySelector('p').textContent = t.emptyStateDesc;
-            
-            // Update privacy policy with error handling
-            try {
-                const privacyTitle = document.querySelector('#privacyTitle');
-                if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
-                
-                const dataCollectionLabel = document.querySelector('#dataCollectionLabel');
-                if (dataCollectionLabel) dataCollectionLabel.textContent = t.dataCollection + ':';
-                
-                const dataCollectionText = document.querySelector('#dataCollectionText');
-                if (dataCollectionText) dataCollectionText.textContent = t.dataCollectionText;
-                
-                const dataStorageLabel = document.querySelector('#dataStorageLabel');
-                if (dataStorageLabel) dataStorageLabel.textContent = t.dataStorage + ':';
-                
-                const dataStorageText = document.querySelector('#dataStorageText');
-                if (dataStorageText) dataStorageText.textContent = t.dataStorageText;
-                
-                const cookiesLabel = document.querySelector('#cookiesLabel');
-                if (cookiesLabel) cookiesLabel.textContent = t.cookies + ':';
-                
-                const cookiesText = document.querySelector('#cookiesText');
-                if (cookiesText) cookiesText.textContent = t.cookiesText;
-                
-                const thirdPartyLabel = document.querySelector('#thirdPartyLabel');
-                if (thirdPartyLabel) thirdPartyLabel.textContent = t.thirdParty + ':';
-                
-                const thirdPartyText = document.querySelector('#thirdPartyText');
-                if (thirdPartyText) thirdPartyText.textContent = t.thirdPartyText;
-                
-                const securityLabel = document.querySelector('#securityLabel');
-                if (securityLabel) securityLabel.textContent = t.security + ':';
-                
-                const securityText = document.querySelector('#securityText');
-                if (securityText) securityText.textContent = t.securityText;
-                
-                const contactLabel = document.querySelector('#contactLabel');
-                if (contactLabel) contactLabel.textContent = t.contact + ':';
-                
-                const contactText = document.querySelector('#contactText');
-                if (contactText) contactText.textContent = t.contactText;
-                
-                const copyrightText = document.querySelector('#copyrightText');
-                if (copyrightText) copyrightText.textContent = t.copyright;
-                
-                // Update MIT License with error handling
-                const mitLicenseElement = document.querySelector('#mitLicenseText');
-                if (mitLicenseElement) {
-                    mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
-                }
-            } catch (error) {
-                console.log('Privacy policy translation error:', error);
-            }
-        }
+        // Translation system removed - English only
         
-        // Translation objects
-        const translations = {
-            tr: {
-                appTitle: 'Not Alma Uygulaması',
-                searchPlaceholder: 'Notlarda ara...',
-                newNote: 'Yeni Not',
-                deleteNote: 'Notu Sil',
-                saveNote: 'Notu Kaydet',
-                noteTitle: 'Not Başlığı',
-                noteContent: 'Not içeriğini buraya yazın...',
-                noNotes: 'Henüz not yok. İlk notunuzu oluşturun!',
-                searchNoResults: 'Arama kriterlerine uygun not bulunamadı.',
-                confirmDelete: 'Bu notu silmek istediğinizden emin misiniz?',
-                exportNotes: 'Notları Dışa Aktar',
-                importNotes: 'Notları İçe Aktar',
-                darkMode: 'Karanlık Mod',
-                lightMode: 'Aydınlık Mod',
-                language: 'Dil',
-                toolbarBold: 'Kalın',
-                toolbarItalic: 'İtalik',
-                toolbarUnderline: 'Altı Çizili',
-                toolbarStrike: 'Üstü Çizili',
-                toolbarImage: 'Resim Ekle',
-                toolbarBackgroundColor: 'Metin Rengi',
-                title: "Not Alma Uygulaması",
-                noteTitlePlaceholder: "Not Başlığı",
-                noteContentPlaceholder: "Not İçeriği",
-                addNote: "Not Ekle",
-                clear: "Temizle",
-                exportPDF: "PDF Aktar",
-                sortLabel: "Sırala:",
-                newest: "En Yeni",
-                oldest: "En Eski",
-                title: "Not Alma Uygulaması",
-                noteTitle: "Not Başlığı",
-                noteContent: "Not İçeriği",
-                addNote: "Not Ekle",
-                clear: "Temizle",
-                search: "Notlarda ara...",
-                allNotes: "Tüm Notlar",
-                pinnedNotes: "Sabitlenenler",
-                normalNotes: "Normal Notlar",
-                newest: "En Yeni",
-                oldest: "En Eski",
-                byTitle: "Başlık",
-                edit: "Düzenle",
-                delete: "Sil",
-                pin: "Sabitle",
-                unpin: "Sabitlemeyi Kaldır",
-                save: "Kaydet",
-                cancel: "İptal",
-                undo: "Geri Al",
-                emptyStateTitle: "Henüz not eklenmemiş",
-                emptyStateDesc: "İlk notunuzu ekleyerek başlayın!",
-                
-                // Privacy Policy Translations
-                privacyTitle: "🔒 Gizlilik Politikası",
-                dataCollection: "Veri Toplama",
-                dataCollectionText: "Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.",
-                dataStorage: "Veri Saklama",
-                dataStorageText: "Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.",
-                cookies: "Çerezler",
-                cookiesText: "Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.",
-                thirdParty: "Üçüncü Taraf",
-                thirdPartyText: "Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.",
-                security: "Güvenlik",
-                securityText: "Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.",
-                contact: "İletişim",
-                contactText: "Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.",
-                copyright: "© 2025 Not Alma Uygulaması | MIT License",
-                mitLicense: "MIT Lisansı:",
-                mitLicenseText: "Bu proje açık kaynak kodludur. Kaynak kodu serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz. Detaylar için",
-                githubRepo: "GitHub deposunu",
-                visitText: "ziyaret edin."
-            },
-            en: {
-                appTitle: 'Note Taking App',
-                searchPlaceholder: 'Search notes...',
-                newNote: 'New Note',
-                deleteNote: 'Delete Note',
-                saveNote: 'Save Note',
-                noteTitle: 'Note Title',
-                noteContent: 'Write your note content here...',
-                noNotes: 'No notes yet. Create your first note!',
-                searchNoResults: 'No notes found matching your search criteria.',
-                confirmDelete: 'Are you sure you want to delete this note?',
-                exportNotes: 'Export Notes',
-                importNotes: 'Import Notes',
-                darkMode: 'Dark Mode',
-                lightMode: 'Light Mode',
-                language: 'Language',
-                toolbarBold: 'Bold',
-                toolbarItalic: 'Italic',
-                toolbarUnderline: 'Underline',
-                toolbarStrike: 'Strikethrough',
-                toolbarImage: 'Add Image',
-                toolbarBackgroundColor: 'Text Color',
-                title: "Note Taking App",
-                noteTitlePlaceholder: "Note Title",
-                noteContentPlaceholder: "Note Content",
-                addNote: "Add Note",
-                clear: "Clear",
-                exportPDF: "Export PDF",
-                sortLabel: "Sort:",
-                newest: "Newest",
-                oldest: "Oldest",
-                byTitle: "Title",
-                edit: "Edit",
-                delete: "Delete",
-                pin: "Pin",
-                unpin: "Unpin",
-                save: "Save",
-                cancel: "Cancel",
-                undo: "Undo",
-                emptyStateTitle: "No notes yet",
-                emptyStateDesc: "Start by adding your first note!",
-                
-                // Privacy Policy Translations
-                privacyTitle: "🔒 Privacy Policy",
-                dataCollection: "Data Collection",
-                dataCollectionText: "This application does not collect any personal data. All your notes are stored only in your browser.",
-                dataStorage: "Data Storage",
-                dataStorageText: "Your notes are stored locally using LocalStorage. No data is sent to any server.",
-                cookies: "Cookies",
-                cookiesText: "The application only uses necessary cookies to store your theme and language preferences.",
-                thirdParty: "Third Party",
-                thirdPartyText: "CDN is used for Font Awesome icons and PDF libraries. These services are only required for application functionality.",
-                security: "Security",
-                securityText: "All your data is stored securely and encrypted in your browser.",
-                contact: "Contact",
-                contactText: "For questions, you can contact us via GitHub.",
-                copyright: "© 2025 Note Taking App | MIT License",
-                mitLicense: "MIT License:",
-                mitLicenseText: "This project is open source. You are free to use, modify, and distribute it. For details, visit",
-                githubRepo: "GitHub repository",
-                visitText: "."
-            }
-        };
+        // Translation functions removed - English only system
         
-        // Translate to English
-        function translateToEnglish() {
-            const t = translations.en;
-            
-            // Update main elements
-            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
-            document.querySelector('.settings-label').textContent = t.themeLabel;
-            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
-            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
-            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
-            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
-            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            
-            // Update toolbar buttons
-            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
-            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
-            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
-            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
-            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
-            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
-            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
-            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
-            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
-            document.getElementById('imageBtn').title = t.toolbarImage;
-            document.getElementById('colorPaletteBtn').title = t.toolbarBackgroundColor;
-            
-            // Update controls
-            const sortSpan = document.querySelector('.sort-controls span');
-            if (sortSpan) sortSpan.textContent = t.sortLabel;
-            
-            const newestBtn = document.querySelector('[data-sort="date-desc"]');
-            if (newestBtn) newestBtn.textContent = t.newest;
-            
-            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
-            if (oldestBtn) oldestBtn.textContent = t.oldest;
-            
-            const titleBtn = document.querySelector('[data-sort="title"]');
-            if (titleBtn) titleBtn.textContent = t.title;
-            
-            const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.allNotes;
-            
-            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
-            
-            const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normalNotes;
-            
-            // Update empty state
-            const emptyState = document.getElementById('emptyState');
-            emptyState.querySelector('h3').textContent = t.emptyStateTitle;
-            emptyState.querySelector('p').textContent = t.emptyStateDesc;
-            
-            // Update privacy policy and MIT license
-            updatePrivacyPolicyTranslation('en');
-        }
-        
-        // Translate to Turkish
-        function translateToTurkish() {
-            const t = translations.tr;
-            
-            // Update main elements
-            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
-            document.querySelector('.settings-label').textContent = t.themeLabel;
-            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
-            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
-            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
-            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
-            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            
-            // Update toolbar buttons
-            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
-            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
-            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
-            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
-            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
-            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
-            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
-            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
-            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
-            document.getElementById('imageBtn').title = t.toolbarImage;
-            document.getElementById('colorPaletteBtn').title = t.toolbarBackgroundColor;
-            
-            // Update controls
-            const sortSpan = document.querySelector('.sort-controls span');
-            if (sortSpan) sortSpan.textContent = t.sortLabel;
-            
-            const newestBtn = document.querySelector('[data-sort="date-desc"]');
-            if (newestBtn) newestBtn.textContent = t.newest;
-            
-            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
-            if (oldestBtn) oldestBtn.textContent = t.oldest;
-            
-            const titleBtn = document.querySelector('[data-sort="title"]');
-            if (titleBtn) titleBtn.textContent = t.title;
-            
-            const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.allNotes;
-            
-            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
-            
-            const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normalNotes;
-            
-            // Update empty state
-            const emptyState = document.getElementById('emptyState');
-            if (emptyState) {
-                const h3 = emptyState.querySelector('h3');
-                const p = emptyState.querySelector('p');
-                if (h3) h3.textContent = t.emptyStateTitle;
-                if (p) p.textContent = t.emptyStateDesc;
-            }
-            
-            // Update privacy policy and MIT license
-            updatePrivacyPolicyTranslation('tr');
-        }
-
-        // Function to update privacy policy and MIT license translations
-        function updatePrivacyPolicyTranslation(lang) {
-            const t = translations[lang];
-            console.log('updatePrivacyPolicyTranslation called with lang:', lang);
-            
-            // Function to actually update the elements
-            function updateElements() {
-                try {
-                    // Update privacy policy elements
-                    const privacyTitle = document.querySelector('#privacyTitle');
-                    console.log('privacyTitle element:', privacyTitle);
-                    if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
-                    
-                    const dataCollectionLabel = document.querySelector('#dataCollectionLabel');
-                    console.log('dataCollectionLabel element:', dataCollectionLabel);
-                    if (dataCollectionLabel) dataCollectionLabel.textContent = t.dataCollection + ':';
-                    
-                    const dataCollectionText = document.querySelector('#dataCollectionText');
-                    console.log('dataCollectionText element:', dataCollectionText);
-                    if (dataCollectionText) dataCollectionText.textContent = t.dataCollectionText;
-                    
-                    const dataStorageLabel = document.querySelector('#dataStorageLabel');
-                    console.log('dataStorageLabel element:', dataStorageLabel);
-                    if (dataStorageLabel) dataStorageLabel.textContent = t.dataStorage + ':';
-                    
-                    const dataStorageText = document.querySelector('#dataStorageText');
-                    console.log('dataStorageText element:', dataStorageText);
-                    if (dataStorageText) dataStorageText.textContent = t.dataStorageText;
-                    
-                    const cookiesLabel = document.querySelector('#cookiesLabel');
-                    console.log('cookiesLabel element:', cookiesLabel);
-                    if (cookiesLabel) cookiesLabel.textContent = t.cookies + ':';
-                    
-                    const cookiesText = document.querySelector('#cookiesText');
-                    console.log('cookiesText element:', cookiesText);
-                    if (cookiesText) cookiesText.textContent = t.cookiesText;
-                    
-                    const thirdPartyLabel = document.querySelector('#thirdPartyLabel');
-                    console.log('thirdPartyLabel element:', thirdPartyLabel);
-                    if (thirdPartyLabel) thirdPartyLabel.textContent = t.thirdParty + ':';
-                    
-                    const thirdPartyText = document.querySelector('#thirdPartyText');
-                    console.log('thirdPartyText element:', thirdPartyText);
-                    if (thirdPartyText) thirdPartyText.textContent = t.thirdPartyText;
-                    
-                    const securityLabel = document.querySelector('#securityLabel');
-                    console.log('securityLabel element:', securityLabel);
-                    if (securityLabel) securityLabel.textContent = t.security + ':';
-                    
-                    const securityText = document.querySelector('#securityText');
-                    console.log('securityText element:', securityText);
-                    if (securityText) securityText.textContent = t.securityText;
-                    
-                    const contactLabel = document.querySelector('#contactLabel');
-                    console.log('contactLabel element:', contactLabel);
-                    if (contactLabel) contactLabel.textContent = t.contact + ':';
-                    
-                    const contactText = document.querySelector('#contactText');
-                    console.log('contactText element:', contactText);
-                    if (contactText) contactText.textContent = t.contactText;
-                    
-                    const copyrightText = document.querySelector('#copyrightText');
-                    console.log('copyrightText element:', copyrightText);
-                    if (copyrightText) copyrightText.textContent = t.copyright;
-                    
-                    // Update MIT License
-                    const mitLicenseElement = document.querySelector('#mitLicenseText');
-                    console.log('mitLicenseElement element:', mitLicenseElement);
-                    if (mitLicenseElement) {
-                        mitLicenseElement.innerHTML = `<strong>${t.mitLicense}</strong> ${t.mitLicenseText} <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">${t.githubRepo}</a>${t.visitText}`;
-                    }
-                    
-                    console.log('Privacy policy translation completed successfully');
-                    return true;
-                } catch (error) {
-                    console.log('Privacy policy translation error:', error);
-                    return false;
-                }
-            }
-            
-            // Try to update immediately
-            if (updateElements()) {
-                return;
-            }
-            
-            // If elements are not found, wait and retry
-            console.log('Elements not found, retrying in 100ms...');
-            setTimeout(() => {
-                if (updateElements()) {
-                    return;
-                }
-                
-                // Try again after 500ms
-                console.log('Elements still not found, retrying in 500ms...');
-                setTimeout(() => {
-                    if (updateElements()) {
-                        return;
-                    }
-                    
-                    // Final try after 1 second
-                    console.log('Final retry after 1 second...');
-                    setTimeout(() => {
-                        updateElements();
-                    }, 1000);
-                }, 500);
-            }, 100);
-        }
-
-        // Translation objects
-    </script>
-    
-    <script>
-        // Global functions for settings panel
+        // Settings System - Cross-platform (Desktop, Tablet, Mobile)
         function toggleSettings() {
             console.log('toggleSettings called');
             const settingsToggle = document.getElementById('settingsToggle');
             const settingsPanel = document.getElementById('settingsPanel');
             
             if (settingsToggle && settingsPanel) {
-                settingsToggle.classList.toggle('active');
-                settingsPanel.classList.toggle('active');
-                console.log('Settings panel toggled');
+                const isActive = settingsPanel.classList.contains('active');
+                
+                if (isActive) {
+                    settingsToggle.classList.remove('active');
+                    settingsPanel.classList.remove('active');
+                    console.log('Settings panel closed');
+                } else {
+                    settingsToggle.classList.add('active');
+                    settingsPanel.classList.add('active');
+                    console.log('Settings panel opened');
+                }
             } else {
                 console.error('Settings elements not found');
             }
         }
-
-        function toggleLanguage() {
-            console.log('toggleLanguage called');
-            const languageToggle = document.getElementById('languageToggle');
-            const langText = languageToggle.querySelector('.lang-text');
+        
+        // Theme Toggle System - Cross-platform
+        function toggleTheme() {
+            console.log('toggleTheme called');
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
             
-            if (languageToggle && langText) {
-                let newLang = 'tr';
-                if (langText.textContent === 'TR') {
-                    langText.textContent = 'EN';
-                    languageToggle.classList.add('english');
-                    newLang = 'en';
-                    alert('Dil İngilizce olarak değiştirildi');
+            if (body.classList.contains('light-mode')) {
+                // Switch to dark mode
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+                console.log('Switched to dark mode');
+            } else {
+                // Switch to light mode
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+                console.log('Switched to light mode');
+            }
+        }
+        
+        // Initialize Settings System
+        function initializeSettings() {
+            console.log('Initializing settings system...');
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (themeToggle) {
+                const themeIcon = themeToggle.querySelector('i');
+                
+                if (savedTheme === 'dark') {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
                 } else {
-                    langText.textContent = 'TR';
-                    languageToggle.classList.remove('english');
-                    newLang = 'tr';
-                    alert('Dil Türkçe olarak değiştirildi');
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
                 }
                 
-                // Apply translations to the page
-                applyTranslations(newLang);
-            }
-        }
-
-        function applyTranslations(lang) {
-            const t = translations[lang];
-            
-            // Update main elements
-            document.querySelector('.app-title').innerHTML = `<i class="fas fa-sticky-note"></i> ${t.appTitle}`;
-            document.querySelector('.settings-label').textContent = t.language;
-            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
-            document.getElementById('noteContent').setAttribute('data-placeholder', t.noteContentPlaceholder);
-            document.getElementById('addNote').innerHTML = `<i class="fas fa-plus"></i> ${t.addNote}`;
-            document.getElementById('clearForm').innerHTML = `<i class="fas fa-eraser"></i> ${t.clearForm}`;
-            document.getElementById('exportPDF').innerHTML = `<i class="fas fa-file-pdf"></i> ${t.exportPDF}`;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            
-            // Update toolbar buttons
-            document.querySelector('[data-command="bold"]').title = t.toolbarBold;
-            document.querySelector('[data-command="italic"]').title = t.toolbarItalic;
-            document.querySelector('[data-command="underline"]').title = t.toolbarUnderline;
-            document.querySelector('[data-command="strikeThrough"]').title = t.toolbarStrike;
-            document.querySelector('[data-command="insertUnorderedList"]').title = t.toolbarList;
-            document.querySelector('[data-command="insertOrderedList"]').title = t.toolbarOrderedList;
-            document.querySelector('[data-command="justifyLeft"]').title = t.toolbarLeft;
-            document.querySelector('[data-command="justifyCenter"]').title = t.toolbarCenter;
-            document.querySelector('[data-command="justifyRight"]').title = t.toolbarRight;
-            document.getElementById('imageBtn').title = t.toolbarImage;
-            document.getElementById('colorPaletteBtn').title = t.toolbarBackgroundColor;
-            
-            // Update controls
-            const sortSpan = document.querySelector('.sort-controls span');
-            if (sortSpan) sortSpan.textContent = t.sortLabel;
-            
-            const newestBtn = document.querySelector('[data-sort="date-desc"]');
-            if (newestBtn) newestBtn.textContent = t.newest;
-            
-            const oldestBtn = document.querySelector('[data-sort="date-asc"]');
-            if (oldestBtn) oldestBtn.textContent = t.oldest;
-            
-            const titleBtn = document.querySelector('[data-sort="title"]');
-            if (titleBtn) titleBtn.textContent = t.title;
-            
-            const allFilter = document.querySelector('[data-filter="all"]');
-            if (allFilter) allFilter.textContent = t.allNotes;
-            
-            const pinnedFilter = document.querySelector('[data-filter="pinned"]');
-            if (pinnedFilter) pinnedFilter.textContent = t.pinnedNotes;
-            
-            const normalFilter = document.querySelector('[data-filter="unpinned"]');
-            if (normalFilter) normalFilter.textContent = t.normalNotes;
-            
-            // Update empty state
-            const emptyState = document.getElementById('emptyState');
-            if (emptyState) {
-                emptyState.querySelector('h3').textContent = t.emptyStateTitle;
-                emptyState.querySelector('p').textContent = t.emptyStateDesc;
+                // Add click event listener for theme toggle
+                themeToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleTheme();
+                });
+                
+                // Add touch event for mobile
+                themeToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleTheme();
+                });
+                
+                console.log('Theme toggle initialized');
             }
             
-            // Update privacy policy and MIT license
-            updatePrivacyPolicyTranslation(lang);
-        }
-
-        // Mobile touch support
-        document.addEventListener('DOMContentLoaded', function() {
-            // Touch events for mobile
+            // Close settings when clicking outside
+            document.addEventListener('click', function(e) {
+                const settingsToggle = document.getElementById('settingsToggle');
+                const settingsPanel = document.getElementById('settingsPanel');
+                
+                if (settingsToggle && settingsPanel) {
+                    if (!settingsToggle.contains(e.target) && !settingsPanel.contains(e.target)) {
+                        if (settingsPanel.classList.contains('active')) {
+                            settingsToggle.classList.remove('active');
+                            settingsPanel.classList.remove('active');
+                            console.log('Settings panel closed by outside click');
+                        }
+                    }
+                }
+            });
+            
+            // Add touch events for mobile settings toggle
             const settingsToggle = document.getElementById('settingsToggle');
-            const languageToggle = document.getElementById('languageToggle');
-            
             if (settingsToggle) {
                 settingsToggle.addEventListener('touchstart', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     toggleSettings();
                 });
+                
+                console.log('Settings toggle initialized');
             }
             
-            if (languageToggle) {
-                languageToggle.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    toggleLanguage();
-                });
-            }
-        });
+            console.log('Settings system initialized successfully');
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeSettings);
+        
+        // Also initialize immediately in case DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeSettings);
+        } else {
+            initializeSettings();
+        }
     </script>
     
     <!-- Color palette modal removed - colors now in toolbar -->
     
     <script src="script.js"></script>
     
-    <!-- Gizlilik Politikası ve Lisans -->
+    <!-- Privacy Policy and License -->
     <footer class="privacy-policy">
         <div class="container">
             <div class="privacy-content">
-                <h3 id="privacyTitle">🔒 Gizlilik Politikası</h3>
+                <h3>🔒 Privacy Policy</h3>
                 <div class="privacy-text">
-                    <p id="dataCollectionSection"><strong id="dataCollectionLabel">Veri Toplama:</strong> <span id="dataCollectionText">Bu uygulama hiçbir kişisel veri toplamaz. Tüm notlarınız sadece tarayıcınızda saklanır.</span></p>
-                    <p id="dataStorageSection"><strong id="dataStorageLabel">Veri Saklama:</strong> <span id="dataStorageText">Notlarınız LocalStorage kullanılarak yerel olarak saklanır. Hiçbir veri sunucuya gönderilmez.</span></p>
-                    <p id="cookiesSection"><strong id="cookiesLabel">Çerezler:</strong> <span id="cookiesText">Uygulama sadece tema ve dil tercihlerinizi saklamak için gerekli çerezleri kullanır.</span></p>
-                    <p id="thirdPartySection"><strong id="thirdPartyLabel">Üçüncü Taraf:</strong> <span id="thirdPartyText">Font Awesome ikonları ve PDF kütüphaneleri için CDN kullanılır. Bu servisler sadece uygulama işlevselliği için gereklidir.</span></p>
-                    <p id="securitySection"><strong id="securityLabel">Güvenlik:</strong> <span id="securityText">Tüm verileriniz tarayıcınızda güvenli şekilde saklanır ve şifrelenir.</span></p>
-                    <p id="contactSection"><strong id="contactLabel">İletişim:</strong> <span id="contactText">Sorularınız için GitHub üzerinden iletişime geçebilirsiniz.</span></p>
+                    <p><strong>Data Collection:</strong> This application does not collect any personal data. All your notes are stored only in your browser.</p>
+                    <p><strong>Data Storage:</strong> Your notes are stored locally using LocalStorage. No data is sent to any server.</p>
+                    <p><strong>Cookies:</strong> The application only uses necessary cookies to store your theme preferences.</p>
+                    <p><strong>Third Party:</strong> CDN is used for Font Awesome icons and PDF libraries. These services are only required for application functionality.</p>
+                    <p><strong>Security:</strong> All your data is stored securely and encrypted in your browser.</p>
+                    <p><strong>Contact:</strong> For questions, you can contact us via GitHub.</p>
                 </div>
                 <div class="privacy-links">
-                    <span id="copyrightText">© 2025 Not Alma Uygulaması | MIT License</span>
+                    <span>© 2025 Note Taking App | MIT License</span>
                     <div class="license-info">
-                        <p id="mitLicenseText">
-                            <strong>MIT Lisansı:</strong> Bu proje açık kaynak kodludur. Kaynak kodu serbestçe kullanabilir, değiştirebilir ve dağıtabilirsiniz. 
-                            Detaylar için <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">GitHub deposunu</a> ziyaret edin.
+                        <p>
+                            <strong>MIT License:</strong> This project is open source. You are free to use, modify, and distribute it. 
+                            For details, visit <a href="https://github.com/mutlukurt/Note-taking-app" target="_blank" rel="noopener">GitHub repository</a>.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Translation system removed - English only -->
 </body>
 </html>
