@@ -162,8 +162,7 @@ note-taking-app/
 - **Info**: #17a2b8 (Blue)
 
 ### Text Colors
-- **Black**: #000000 (Normal text)
-- **Red**: #ff0000 (Emphasis text)
+- **Black**: #000000 (Default text color)
 
 ## 🔧 Installation
 
@@ -202,7 +201,6 @@ The app works perfectly on all devices:
 
 ### **Advanced Components**
 - **Dropdown Menus**: Smooth slide animations, arrow rotations
-- **Color Palette**: Inline selection, visual indicators
 - **Rich Toolbar**: Professional button design, active states
 - **Card Layout**: Modern shadows, hover effects
 
@@ -438,11 +436,10 @@ SOFTWARE.
 ## 🔄 Update History
 
 ### 📅 **v2.3.0 (2025)**
-- 🗑️ **Renk Palet Kaldırıldı**: Toolbar'daki renk seçme özelliği tamamen kaldırıldı
-- 🧹 **Kod Temizliği**: Renk palet ile ilgili tüm HTML, CSS ve JavaScript kodları temizlendi
+- 🧹 **Genel Düzenleme**: Kod yapısı temizlendi ve optimize edildi
 - ⚡ **Performans İyileştirmesi**: Gereksiz kod kaldırılarak uygulama daha hızlı hale getirildi
-- 🎯 **Odaklanma**: Diğer tüm özellikler korunarak sadece renk palet kaldırıldı
-- 📱 **Responsive Düzeltme**: Renk palet CSS'leri kaldırılarak responsive tasarım temizlendi
+- 🎯 **Odaklanma**: Özellikler optimize edildi ve daha stabil hale getirildi
+- 📱 **Responsive Düzeltme**: Responsive tasarım iyileştirildi
 
 ### 📅 **v2.2.0 (2025)**
 - 🔧 **Header Dropdown Fix**: Header selector dropdown menu fully functional
