@@ -456,9 +456,8 @@ SOFTWARE.
 
 ### 📅 **v2.1.0 (2025)**
 - 🎨 **Modern UI Update**: Professional button design and smooth animations
-- 🖌️ **Color System**: Black/Red color options with visual feedback
 - 📋 **Header System**: H1, H2, H3 dropdown menu, large to small header options
-- ✨ **Advanced Components**: Modern dropdown menus, inline color palette
+- ✨ **Advanced Components**: Modern dropdown menus
 - 🎯 **Micro-interactions**: Hover effects, active states, transform animations
 - 📱 **Touch-friendly**: Responsive design improvements, better mobile experience
 - 🔒 **Multi-language Footer**: Privacy policy and MIT license TR/EN translation support
