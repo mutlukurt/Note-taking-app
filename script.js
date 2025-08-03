@@ -36,21 +36,25 @@ class NotesApp {
         // Theme toggle - Cross-platform (Desktop, Tablet, Mobile)
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
-            console.log('Theme toggle found');
+            console.log('Theme toggle found, setting up events...');
+            
+            // Remove any existing event listeners to prevent conflicts
+            themeToggle.replaceWith(themeToggle.cloneNode(true));
+            const newThemeToggle = document.getElementById('themeToggle');
             
             // Add click event for desktop/tablet
-            themeToggle.addEventListener('click', (e) => {
+            newThemeToggle.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Theme toggle clicked');
+                console.log('Theme toggle clicked via click event');
                 this.toggleTheme();
             });
             
             // Add touch event for mobile
-            themeToggle.addEventListener('touchstart', (e) => {
+            newThemeToggle.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Theme toggle touched');
+                console.log('Theme toggle touched via touch event');
                 this.toggleTheme();
             });
             
@@ -189,17 +193,29 @@ class NotesApp {
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
         
+        console.log('Applying theme:', this.currentTheme);
+        
+        if (this.currentTheme === 'dark') {
+            // Karanlık tema
+            body.classList.remove('light-mode');
+            body.classList.add('dark-mode');
+            console.log('Dark mode applied');
+        } else {
+            // Açık tema
+            body.classList.remove('dark-mode');
+            body.classList.add('light-mode');
+            console.log('Light mode applied');
+        }
+        
+        // Icon değiştir
         if (themeToggle) {
             const icon = themeToggle.querySelector('i');
-            
-            if (this.currentTheme === 'dark') {
-                // Karanlık tema
-                body.classList.add('dark-mode');
-                if (icon) icon.className = 'fas fa-moon';
-            } else {
-                // Açık tema
-                body.classList.remove('dark-mode');
-                if (icon) icon.className = 'fas fa-sun';
+            if (icon) {
+                if (this.currentTheme === 'dark') {
+                    icon.className = 'fas fa-moon';
+                } else {
+                    icon.className = 'fas fa-sun';
+                }
             }
         }
     }
@@ -1026,7 +1042,7 @@ class NotesApp {
             toggleBtn.style.transform = 'scale(1)';
         });
 
-                    document.body.appendChild(toggleBtn);
+        document.body.appendChild(toggleBtn);
         }
     }
 

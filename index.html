@@ -1132,72 +1132,11 @@
             }
         }
         
-        // Theme Toggle System - Cross-platform
-        function toggleTheme() {
-            console.log('toggleTheme called');
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            
-            if (body.classList.contains('light-mode')) {
-                // Switch to dark mode
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'dark');
-                console.log('Switched to dark mode');
-            } else {
-                // Switch to light mode
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'light');
-                console.log('Switched to light mode');
-            }
-        }
+        // Theme system is handled by NotesApp class in script.js
         
-        // Initialize Settings System
+        // Initialize Settings System (Settings panel only - theme handled by NotesApp)
         function initializeSettings() {
             console.log('Initializing settings system...');
-            
-            // Load saved theme
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            
-            if (themeToggle) {
-                const themeIcon = themeToggle.querySelector('i');
-                
-                if (savedTheme === 'dark') {
-                    body.classList.remove('light-mode');
-                    body.classList.add('dark-mode');
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    body.classList.remove('dark-mode');
-                    body.classList.add('light-mode');
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
-                
-                // Add click event listener for theme toggle
-                themeToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleTheme();
-                });
-                
-                // Add touch event for mobile
-                themeToggle.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleTheme();
-                });
-                
-                console.log('Theme toggle initialized');
-            }
             
             // Close settings when clicking outside
             document.addEventListener('click', function(e) {
